@@ -1,5 +1,0 @@
-connect localhost:2809
-parse C:\sti\timing\turnSystemOn.py
-play
-disconnect
-exit
