@@ -1,0 +1,5 @@
+devices/FPGA/stf_output/project/~AutoRecover.stf_output.vcxproj
+*.opensdf
+*.sdf
+devices/FPGA/trigger/project/~AutoRecover.trigger.vcxproj
+labs/EP/fpgaDevices/UpgradeLog.htm
