@@ -14,61 +14,6 @@ using std::endl;
 
 using std::shared_ptr;
 
-//PixisCallbackHandler callbackHandler;
-
-
-
-
-PicamError PIL_CALL AcquisitionUpdatedTest(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status) {
-
-	if (available) {
-		int count = available->readout_count;
-	}
-
-	return PicamError_None;
-}
-
-PicamError PIL_CALL ReadoutStatusCB(PicamHandle /*device*/,
-	PicamAcquisitionState whatfor,
-	const PicamAcquisitionStateCounters* counters,
-	PicamAcquisitionStateErrorsMask errors)
-{
-	return PicamError_None;
-}
-
-void EnableReadoutStatusCallbacks(PicamHandle hDevice, pibln &bStarted, pibln &bEnded)
-{
-	pibln detectable;
-
-	PicamAdvanced_CanRegisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutStarted, &detectable);
-	if (!detectable)
-		std::cout << "Camera doesn't support AcquisitionState_ReadoutStarted" << std::endl;
-	else
-	{
-		if (PicamAdvanced_RegisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutStarted,
-			ReadoutStatusCB) == PicamError_None)
-			bStarted = true;
-	}
-	PicamAdvanced_CanRegisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutEnded, &detectable);
-	if (!detectable)
-		std::cout << "Camera doesn't support AcquisitionState_ReadoutEnded" << std::endl;
-	else
-	{
-		if (PicamAdvanced_RegisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutEnded,
-			ReadoutStatusCB) == PicamError_None)
-			bEnded = true;
-	}
-}
-
-void DisableReadoutStatusCallbacks(PicamHandle hDevice, pibln started, pibln ended)
-{
-	if (started)
-		PicamAdvanced_UnregisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutStarted,
-			(PicamAcquisitionStateUpdatedCallback)ReadoutStatusCB);
-	if (ended)
-		PicamAdvanced_UnregisterForAcquisitionStateUpdated(hDevice, PicamAcquisitionState_ReadoutEnded,
-			(PicamAcquisitionStateUpdatedCallback)ReadoutStatusCB);
-}
 
 PixisCamera::PixisCamera() : Camera()
 {
@@ -191,16 +136,6 @@ bool PixisCamera::InitializeCamera()
 	}
 
 
-//	checkError(
-//		callbackHandler.addPixisCallbackListener(camera, this),
-//		"addPixisCallbackListener");
-
-
-//	checkError(
-//		PicamAdvanced_RegisterForAcquisitionUpdated(camera, PixisCallbackHandler::AcquisitionUpdated), 
-//		"PicamAdvanced_RegisterForAcquisitionUpdated");
-
-
 	return success;
 }
 
@@ -259,29 +194,6 @@ bool PixisCamera::getImage(int imageIndex, const shared_ptr<Image>& image)
 	}
 
 	return success;
-}
-
-bool PixisCamera::checkParametersAreCommited()
-{
-	bool success = true;
-	pibln committed = 0;
-	Picam_AreParametersCommitted(camera, &committed);
-	
-	if (!committed)
-	{
-		const PicamParameter* failed_parameter_array = NULL;
-		piint failed_parameter_count = 0;
-		Picam_CommitParameters(camera, &failed_parameter_array, &failed_parameter_count);
-		if (failed_parameter_count)
-		{
-			success = false;
-			Picam_DestroyParameters(failed_parameter_array);
-		} 
-		else {
-			success = true;
-		}
-	}
-	return !committed;
 }
 
 void PixisCamera::StartAcquisition()
@@ -371,35 +283,30 @@ void PixisCamera::StopAcquisition()
 
 }
 
-PicamError PIL_CALL PixisCamera::AcquisitionUpdated(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status)
+
+bool PixisCamera::checkParametersAreCommited()
 {
+	bool success = true;
+	pibln committed = 0;
+	Picam_AreParametersCommitted(camera, &committed);
 
-	if (available && available->readout_count) {
-		// - copy the last available frame to the shared image buffer and notify
-
-		std::unique_lock<std::mutex> lock(aquire_mutex);
-
-//		availableData = available;
-
-		aquire_condition.notify_one();
+	if (!committed)
+	{
+		const PicamParameter* failed_parameter_array = NULL;
+		piint failed_parameter_count = 0;
+		Picam_CommitParameters(camera, &failed_parameter_array, &failed_parameter_count);
+		if (failed_parameter_count)
+		{
+			success = false;
+			Picam_DestroyParameters(failed_parameter_array);
+		}
+		else {
+			success = true;
+		}
 	}
-
-	return PicamError_None;
+	return !committed;
 }
 
-////static callback function
-//PicamError PIL_CALL AcquisitionUpdated(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status)
-//{
-//	PixisCamera* this_ = (PixisCamera*)device;
-//
-//	return PicamError_None;
-//}
-
-////static callback function
-//PicamError PIL_CALL PixisCamera::AcquisitionUpdated2(PicamHandle device, const PicamAvailableData * available, const PicamAcquisitionStatus * status)
-//{
-//	return PicamError_None;
-//}
 
 bool PixisCamera::checkError(PicamError errorValue, const std::string& message)
 {

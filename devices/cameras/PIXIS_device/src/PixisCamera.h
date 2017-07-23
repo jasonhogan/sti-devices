@@ -12,7 +12,7 @@
 #include "Camera.h"
 #include "Image.h"
 #include "picam.h"
-#include "PixisCallbackHandler.h"
+
 
 
 // Prototype for conversion functions
@@ -21,7 +21,7 @@ static std::string WStringToString(const std::wstring& s);
 static std::wstring GetEnumString(PicamEnumeratedType type, piint value);
 //static PicamError PIL_CALL AcquisitionUpdated(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status);
 
-class PixisCamera : public Camera, public PixisCameraListener
+class PixisCamera : public Camera
 {
 public:
 
@@ -42,11 +42,7 @@ public:
 	void StartAcquisition();
 	void StopAcquisition();
 	void WaitForAcquisition();
-
-//	static PicamError PIL_CALL AcquisitionUpdated2(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status);
 	
-	PicamError PIL_CALL AcquisitionUpdated(PicamHandle device, const PicamAvailableData* available, const PicamAcquisitionStatus* status);
-
 	bool PixisCamera::checkParametersAreCommited();
 
 private:

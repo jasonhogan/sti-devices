@@ -153,7 +153,6 @@
     <ClCompile Include="..\src\Image.cpp" />
     <ClCompile Include="..\src\ImageWriter.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\PixisCallbackHandler.cpp" />
     <ClCompile Include="..\src\PixisCamera.cpp" />
     <ClCompile Include="..\src\PixisDevice.cpp" />
   </ItemGroup>
@@ -161,7 +160,6 @@
     <ClInclude Include="..\src\Camera.h" />
     <ClInclude Include="..\src\Image.h" />
     <ClInclude Include="..\src\ImageWriter.h" />
-    <ClInclude Include="..\src\PixisCallbackHandler.h" />
     <ClInclude Include="..\src\PixisCamera.h" />
     <ClInclude Include="..\src\PixisDevice.h" />
   </ItemGroup>
