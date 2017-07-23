@@ -3,3 +3,8 @@ devices/FPGA/stf_output/project/~AutoRecover.stf_output.vcxproj
 *.sdf
 devices/FPGA/trigger/project/~AutoRecover.trigger.vcxproj
 labs/EP/fpgaDevices/UpgradeLog.htm
+devices/cameras/PIXIS_device/project/Debug/
+devices/cameras/PIXIS_device/project/Release/
+devices/cameras/PIXIS_device/project/PIXIS_camera_Module_0_attributes.ini
+devices/cameras/PIXIS_device/project/test.png
+devices/cameras/PIXIS_device/project/test.tif
