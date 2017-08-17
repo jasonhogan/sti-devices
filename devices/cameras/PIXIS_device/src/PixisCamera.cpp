@@ -6,7 +6,7 @@
 
 #include <memory>
 #include <string>
-#include <algorithm>
+//#include <algorithm>
 
 #include <iostream>
 using std::wcout;
@@ -30,6 +30,9 @@ void PixisCamera::init()
 {
 	availableData = new PicamAvailableData();
 	readoutstride = 0;
+	frameSize = 0;        
+	frameStride = 0;
+	exposureTime = 0;
 	acquiring = false;
 }
 
@@ -40,26 +43,22 @@ bool PixisCamera::InitializeCamera()
 	pibln initialized = false;
 
 	if (checkError(Picam_IsLibraryInitialized(&initialized), "Picam_IsLibraryInitialized")) {
-
 		if (!initialized) {
 			success = checkError(Picam_InitializeLibrary(), "Picam_InitializeLibrary");
 		}
 		else {
 			success = true;		//library is already initialized
-			return success;
 		}
 	}
 
-	if (!success) return success;		//library initialization error
+	if (!success) return false;		//library initialization error
 
 
 	// - open the first camera if any or create a demo camera
 	const pichar* string;
-//	PicamAvailableData data;
-//	PicamAcquisitionErrorsMask errors;
 
-	if (Picam_OpenFirstCamera(&camera) == PicamError_None) {
-		Picam_GetCameraID(camera, &id);
+	if ( checkError(Picam_OpenFirstCamera(&camera), "Picam_OpenFirstCamera") ) {
+		checkError(Picam_GetCameraID(camera, &id), "Picam_GetCameraID");
 	}
 	else
 	{
@@ -75,69 +74,109 @@ bool PixisCamera::InitializeCamera()
 	printf(" (SN:%s) [%s]\n", id.serial_number, id.sensor_name);
 	Picam_DestroyString(string);
 	
-	pibln readoutStartedEnabled = false;
-	pibln readoutDoneEnabled = false;
-
-//	EnableReadoutStatusCallbacks(camera, readoutStartedEnabled, readoutDoneEnabled);
-//	DisableReadoutStatusCallbacks(camera, readoutStartedEnabled, readoutDoneEnabled);
-	
-//	PicamError error = PicamAdvanced_RegisterForAcquisitionUpdated(
-//		camera, AcquisitionUpdatedTest);
-//	checkError(error,"PicamAdvanced_RegisterForAcquisitionUpdated");
-
-
-	// - handle an acquiring camera
-//	pibln running;
-//	PicamError error = Picam_IsAcquisitionRunning(device_, &running);
-//	if (error == PicamError_None && running)
-//	{
-	//error = Picam_StopAcquisition( device_ );
-	//	WaitForSingleObject(
-	//		acquisitionInactive_,
-	//		10000) != WAIT_OBJECT_0;
-	//	if (running)
-	//		DisplayError(L"Failed to stop camera.", error);
-	//}
 
 	//binning:  PicamRoi, page 107, also see 112 for constraints
 
+	success = true;
 
-	//	error = PicamAdvanced_RegisterForAcquisitionUpdated((void*)this, AcquisitionUpdated);
-	//	error = PicamAdvanced_RegisterForAcquisitionUpdated(camera, AcquisitionUpdated2);
-
-	checkError(
+	success &= checkError(
 		Picam_GetParameterIntegerValue(camera, PicamParameter_ReadoutStride, &readoutstride),
-		"Picam_GetParameterIntegerValue");
+		"PicamParameter_ReadoutStride");
 
-	checkError(
+	// - cache frame size
+	success &= checkError(
+		Picam_GetParameterIntegerValue(camera, PicamParameter_FrameSize, &frameSize),
+		"PicamParameter_FrameSize");
+
+	success &= checkError(
+		Picam_GetParameterIntegerValue(camera, PicamParameter_FrameStride, &frameStride),
+		"PicamParameter_FrameStride");
+
+	success &= checkError(
 		Picam_SetParameterIntegerValue(camera, PicamParameter_TriggerResponse, PicamTriggerResponse_ReadoutPerTrigger),
 		"Picam_SetParameterIntegerValue");
 	
-	checkError(
-	Picam_SetParameterIntegerValue(camera, PicamParameter_TriggerDetermination, PicamTriggerDetermination_PositivePolarity),
+	success &= checkError(
+		Picam_SetParameterIntegerValue(camera, PicamParameter_TriggerDetermination, PicamTriggerDetermination_PositivePolarity),
 		"Picam_SetParameterIntegerValue");
 	
-	//commit the changes
-	pibln committed;
+	const PicamRoisConstraint  *constraint;
+	success &= checkError(
+		Picam_GetParameterRoisConstraint(camera,
+			PicamParameter_Rois,
+			PicamConstraintCategory_Required,
+			&constraint), "Picam_GetParameterRoisConstraint");
 
-	checkError(
-		Picam_AreParametersCommitted(camera, &committed),
-		"Picam_AreParametersCommitted");
+	if (success) {
+		maxImageH = (piint)constraint->width_constraint.maximum;
+		maxImageV = (piint)constraint->height_constraint.maximum;
 
-	if (!committed)
-	{
-		const PicamParameter* failed_parameter_array = NULL;
-		piint failed_parameter_count = 0;
-		Picam_CommitParameters(camera, &failed_parameter_array, &failed_parameter_count);
-		if (failed_parameter_count) {
-			//There are failed parameters.  For now, just clear the memory.
-			Picam_DestroyParameters(failed_parameter_array);
-		}
+		success &= checkError(Picam_DestroyRoisConstraints(constraint), "Picam_DestroyRoisConstraints");
+
+		refreshROI();
 	}
 
+	success &= checkParametersAreCommited();
 
 	return success;
 }
+
+
+bool PixisCamera::refreshROI()
+{
+	bool success;
+	const PicamRois	*region;		 /* Region of interest  */
+
+	success = checkError(
+		Picam_GetParameterRoisValue(camera,
+		PicamParameter_Rois,
+		&region),
+		"Picam_GetParameterRoisValue");
+
+	if (success && region != 0 && region->roi_count > 0) {
+		roi.X = region->roi_array[0].x;
+		roi.Y = region->roi_array[0].y;
+		roi.widthH = region->roi_array[0].width;
+		roi.widthV = region->roi_array[0].height;
+		
+		success =  setHBin(region->roi_array[0].x_binning);
+		success &= setVBin(region->roi_array[0].y_binning);
+	}
+
+	return success;
+}
+
+double PixisCamera::getExposureTime()
+{
+	piflt exposure;
+	PicamError error =
+		Picam_GetParameterFloatingPointValue(
+			camera,
+			PicamParameter_ExposureTime,
+			&exposure);
+
+	if (checkError(error, "Picam_GetParameterFloatingPointValue")) {
+		exposureTime = exposure;
+	}
+
+	return exposureTime;
+}
+
+bool PixisCamera::setExposureTime(double time)
+{
+	PicamError error =
+		Picam_SetParameterFloatingPointValueOnline(
+			camera,
+			PicamParameter_ExposureTime,
+			time);
+
+	if (checkError(error, "Picam_SetParameterFloatingPointValueOnline")) {
+		exposureTime = time;
+		return true;
+	}
+	return false;
+}
+
 
 bool PixisCamera::getTemperature_i(double& temperature)
 {
@@ -148,7 +187,7 @@ bool PixisCamera::getTemperature_i(double& temperature)
 			PicamParameter_SensorTemperatureReading,
 			&temperature);
 	
-	if (!checkError(error, "getTemperature_i")) {
+	if (!checkError(error, "Picam_ReadParameterFloatingPointValue")) {
 		return false;	//error getting temperature
 	}
 
@@ -162,61 +201,46 @@ bool PixisCamera::setTemperature_i(double setpoint)
 
 bool PixisCamera::getImage(int imageIndex, const shared_ptr<Image>& image)
 {
-//	piint readoutStride_ = 0;               // - stride to next readout (bytes)
 	piint framesPerReadout_ = 1;            // - number of frames in a readout
-	piint frameStride_ = 0;                 // - stride to next frame (bytes)
-	piint frameSize_ = 0;                   // - size of frame (bytes)
-	pi64s imageDataVersion_ = 0;            // - current version of image data
-	std::vector<pi16u> imageData_;          // - data from last frame
 
 	bool success = false;
 
-	if (availableData) {
-		std::cout << "available data" << endl;
-	}
-
 	if (availableData && availableData->readout_count) {
 			
-		pi64s lastReadoutOffset = readoutstride * (availableData->readout_count - 1);
-		pi64s lastFrameOffset = frameStride_ * (framesPerReadout_ - 1);
+		pi64s lastReadoutOffset = readoutstride * (availableData->readout_count - 1);		//should use imageIndex
+		pi64s lastFrameOffset = frameStride * (framesPerReadout_ - 1);	//==0
 		const pibyte* frame =
 			static_cast<const pibyte*>(availableData->initial_readout) +
 			lastReadoutOffset + lastFrameOffset;
-//		std::memcpy(&imageData_[0], frame, frameSize_);
 
-//		(image->imageData)[0];
+		image->imageData.resize(frameSize / image->sizeofWORD);
 
-		std::memcpy(image->imageData.data(), frame, frameSize_);
+		std::memcpy(image->imageData.data(), frame, frameSize);
 
 		success = true;
-
-		++imageDataVersion_;
 	}
 
 	return success;
 }
 
-void PixisCamera::StartAcquisition()
+void PixisCamera::StartAcquisition(int imageIndex)
 {
 	std::unique_lock<std::mutex> lock(aquire_mutex);
 
-//	pi64s NUM_FRAMES = 1;
-//	checkError(
-//		Picam_SetParameterLargeIntegerValue( camera, PicamParameter_ReadoutCount, NUM_FRAMES ), "Picam_SetParameterLargeIntegerValue");
-//	PicamError error = Picam_StartAcquisition(camera);
-	
-	PicamError error = PicamError_None;
-
+	piint readout_timeout = -1;  //infinite
+	pi64s readout_count = 1;
 
 	PicamAcquisitionErrorsMask errMask;
 	printf("Waiting for external trigger\n");
-	if (!Picam_Acquire(camera, 1, -1, availableData, &errMask))
+	if (!Picam_Acquire(camera, readout_count, readout_timeout, availableData, &errMask))
 	{
+		acquisitionIndex = imageIndex;
 		printf("Received external trigger\n\n");
 //		printf("Center Three Points:\tFrame # \n");
 //		PrintData((pibyte*)data.initial_readout, 1, readoutstride);
 	}
 
+	PicamError error = PicamError_None;
 
 	if (checkError(error, "StartAcquisition")) {
 		acquiring = true;
@@ -224,65 +248,30 @@ void PixisCamera::StartAcquisition()
 	}
 }
 
-void PixisCamera::WaitForAcquisition()
+void PixisCamera::WaitForAcquisition(int imageIndex)
 {
 	std::unique_lock<std::mutex> lock(aquire_mutex);
-	if (!acquiring) {
+	if (acquiring) {
 		aquire_condition.wait(lock);
 	}
-
-	return;
-
-
-//	PicamAvailableData data;
-	PicamAcquisitionStatus status;
-	PicamError err;
-
-	piint TIMEOUT = -1;		//infinite
-
-	int i = 0;
-
-	pibln bRunning = true;
-	while (bRunning)
-	{
-		i++;
-		err = Picam_WaitForAcquisitionUpdate(camera, TIMEOUT, availableData, &status);
-//		err = Picam_WaitForAcquisitionUpdate(camera, TIMEOUT, &data, &status);
-//		err = Picam_WaitForAcquisitionUpdate(camera, TIMEOUT, data, &status);
-		if (err == PicamError_None)
-		{
-			bRunning = status.running;
-			if (!bRunning) {
-				std::cout << "not running" << endl;
-			}
-//			framecount += data.readout_count;
-//			PrintData((pibyte*)data.initial_readout, data.readout_count, readoutstride);
-		}
-		else if (err == PicamError_TimeOutOccurred)
-		{
-			printf("Terminating prematurely!  Try increasing time out\n");
-			Picam_StopAcquisition(camera);
-		}
-	}
-	std::cout << "Loops: " << i << endl;
 }
-
 
 
 void PixisCamera::StopAcquisition()
 {
-//	std::unique_lock<std::mutex> lock(aquire_mutex);
+	bool success = checkError(
+		Picam_StopAcquisition(camera), "Picam_StopAcquisition");
 
-	PicamError error = Picam_StopAcquisition(camera);
-
-	checkError(error, "StopAcquisition");
-
-	//if (!checkError(error, "StopAcquisition")) {
-	//	//error occurred
-	//}
-
+	if (success) {
+		std::unique_lock<std::mutex> lock(aquire_mutex);
+		acquiring = false;
+	}
 }
 
+void PixisCamera::resetAcquisitionIndex()
+{
+	acquisitionIndex = -1;
+}
 
 bool PixisCamera::checkParametersAreCommited()
 {

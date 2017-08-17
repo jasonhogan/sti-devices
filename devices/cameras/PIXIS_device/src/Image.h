@@ -36,6 +36,8 @@ public:
 	std::vector<WORD> imageData;
 	std::vector<Metadatum> metadata;
 
+	unsigned sizeofWORD;
+
 	std::string filename;
 	std::string extension;
 
@@ -47,6 +49,8 @@ public:
 	double rotationAngle;	//rotation angle (counter-clockwise)
 
 private:
+
+	void init();
 
 	void resizeImage();
 	int imageHeight;

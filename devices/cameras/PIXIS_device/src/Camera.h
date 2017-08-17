@@ -36,14 +36,24 @@ public:
 	
 	double coolerSetpoint;
 
+	struct ROI
+	{
+		int X;	//horizontal H
+		int Y;	//vertical V
+		int widthH;
+		int widthV;
+	} roi;
+
 protected:
 
-	int imageWidth;
-	int	imageHeight;
+	int maxImageH; //horizontal H
+	int	maxImageV; //vertical V
 
 	double	minTemp;
 	double	maxTemp;
 	double cameraTemperature;
+
+
 
 private:
 

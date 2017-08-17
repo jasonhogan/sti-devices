@@ -59,11 +59,19 @@ public:
 
 	PixisCamera camera;
 
+
 private:
 
+	int getNextImageIndex();
+	void resetImageIndex();
+	int globalImageIndex;
 
 	bool parseEventValue(const std::vector<MixedValue>& tuple, PixisDeviceEventValue& value, std::string& message);
 
+	std::string refreshROI();
+
+	std::string vectorToString(const std::vector<int>& vec);
+	bool stringToVector(const std::string& input, std::vector<int>& outVec);
 
 //	ImageWriter imageWriter;
 

@@ -12,11 +12,16 @@ Camera::Camera()
 	coolerSetpoint = 0;
 	cameraTemperature = 0;
 
-	imageWidth = 1;
-	imageHeight = 1;
+	maxImageH = 1;
+	maxImageV = 1;
 
 	minTemp = 0;
 	maxTemp = 0;
+
+	roi.X = 0;
+	roi.Y = 0;
+	roi.widthH = maxImageH;
+	roi.widthV = maxImageV;
 }
 
 double Camera::getTemperature()
@@ -64,9 +69,9 @@ bool Camera::setTemperature(double setpoint)
 
 bool Camera::setHBin(int size)
 {
-	if (size >= 1 && size <= imageWidth) {
+	if (size >= 1 && size <= roi.widthH) {
 
-		hbin = getNearestWholeDivisorBelow(imageWidth, size);
+		hbin = getNearestWholeDivisorBelow(roi.widthH, size);
 		return true;
 	}
 	return false;
@@ -74,8 +79,8 @@ bool Camera::setHBin(int size)
 
 bool Camera::setVBin(int size)
 {
-	if (size >= 1 && size <= imageHeight) {
-		vbin = getNearestWholeDivisorBelow(imageHeight, size);
+	if (size >= 1 && size <= roi.widthV) {
+		vbin = getNearestWholeDivisorBelow(roi.widthV, size);
 		return true;
 	}
 	return false;

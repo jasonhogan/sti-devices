@@ -7,9 +7,7 @@
 Image::Image(unsigned height, unsigned width)
 	: imageHeight(height), imageWidth(width)
 {
-	resizeImage();
-	filename = "default";
-	extension = "tif";
+	init();
 }
 
 Image::Image(const std::vector<int>& crop, int vbin, int hbin)
@@ -35,9 +33,17 @@ Image::Image(const std::vector<int>& crop, int vbin, int hbin)
 	cropVector.at(1) = hend;
 	cropVector.at(3) = vend;
 
-	resizeImage();
+	init();
 }
 
+void Image::init()
+{
+	resizeImage();
+	filename = "default";
+	extension = "tif";
+
+	sizeofWORD = sizeof(WORD);
+}
 
 void Image::addMetaData(const std::string& tag, const std::string& value)
 {

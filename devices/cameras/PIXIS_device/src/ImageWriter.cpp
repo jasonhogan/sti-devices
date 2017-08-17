@@ -76,7 +76,8 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 	//write the list of images for multipane tifs
 //	Magick::writeImages(magickImages.begin(), magickImages.end(), filename, true);
 	
-	std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\epcamera\\pixis_device\\Release\\test.tif";
+//	std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\epcamera\\pixis_device\\Release\\test.tif";
+	std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\PIXIS_device\\project\\Release\\test.tif";
 	Magick::writeImages(magickImages.begin(), magickImages.end(), filenametemp, true);
 
 	//Delete image data

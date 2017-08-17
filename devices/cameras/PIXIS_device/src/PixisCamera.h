@@ -39,11 +39,17 @@ public:
 
 	bool checkError(PicamError errorValue, const std::string& message);
 
-	void StartAcquisition();
+	void resetAcquisitionIndex();
+
+	void StartAcquisition(int imageIndex);
 	void StopAcquisition();
-	void WaitForAcquisition();
+	void WaitForAcquisition(int imageIndex);
 	
-	bool PixisCamera::checkParametersAreCommited();
+	bool checkParametersAreCommited();
+	bool refreshROI();
+
+	double getExposureTime();
+	bool setExposureTime(double time);
 
 private:
 
@@ -51,8 +57,13 @@ private:
 	PicamCameraID id;
 
 	bool acquiring;
+	int acquisitionIndex;
 
 	piint readoutstride;
+	piint frameSize;    //size of frame (bytes)
+	piint frameStride;  //stride to next frame (bytes)
+
+	piflt exposureTime;
 
 	mutable std::mutex aquire_mutex;
 	std::condition_variable aquire_condition;

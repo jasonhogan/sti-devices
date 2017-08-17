@@ -14,11 +14,16 @@ PixisDevice::PixisDevice(ORBManager* orb_manager, std::string configFilename)
 
 void PixisDevice::defineAttributes()
 {
+	addAttribute("Exposure time", camera.getExposureTime());
+
 	addAttribute("Camera temperature", camera.getTemperature());
 	addAttribute("Cooler setpoint", camera.coolerSetpoint);
 
 	addAttribute("Horizontal bin size", 1);
 	addAttribute("Vertical bin size", 1);
+
+	vector<int> v;
+	addAttribute("ROI", vectorToString(v));
 
 }
 
@@ -34,14 +39,16 @@ void PixisDevice::definePartnerDevices()
 
 std::string PixisDevice::getDeviceHelp()
 {
-	return "Information for PIXIS device.";
-
+	return string("Information for PIXIS device.\n\n")
+		+ "The crop vector is of the form(int X, int Y, int WidthX, int HeightY)\n"
+		+ "The ROI is defined by the corner positied at {X,Y} and sizes WidthX and HeightY.";
 }
 
 
 bool PixisDevice::updateAttribute(std::string key, std::string value)
 {
 	int tempInt;
+	double tempDouble;
 	bool success = true;
 
 	if (key.compare("Cooler setpoint") == 0) {
@@ -59,23 +66,95 @@ bool PixisDevice::updateAttribute(std::string key, std::string value)
 			success = camera.setVBin(tempInt);
 		}
 	}
-
+	else if (key.compare("Exposure time") == 0) {
+		if (success = STI::Utils::stringToValue(value, tempDouble)) {
+			success = camera.setExposureTime(tempDouble);
+		}
+	}
 	return success;
 }
 
 void PixisDevice::refreshAttributes()
 {
+	setAttribute("Exposure time", camera.getExposureTime());
+
 	setAttribute("Camera temperature", camera.getTemperature());
 	setAttribute("Cooler setpoint", camera.coolerSetpoint);
 	
 	setAttribute("Horizontal bin size", camera.hbin);
 	setAttribute("Vertical bin size", camera.vbin);
 
+	setAttribute("ROI", refreshROI());
+
 }
+
+std::string PixisDevice::refreshROI()
+{
+	camera.refreshROI();
+
+	std::vector<int> roi;
+	roi.push_back(camera.roi.X);
+	roi.push_back(camera.roi.Y);
+	roi.push_back(camera.roi.widthH);
+	roi.push_back(camera.roi.widthV);
+
+	return vectorToString(roi);
+}
+
 
 bool PixisDevice::parseEventValue(const std::vector<MixedValue>& tuple, PixisDeviceEventValue& value, std::string& message)
 {
-	message = "";
+	bool success = true;
+
+	//Check that each type in tuple is correct. The first case statements
+	//are deliberately not breaked.
+
+	if (tuple.size() >= 3) {
+		if (tuple.at(2).getType() != MixedValue::Vector) {
+			message = "Camera crop vector must be a vector";
+			success = false;
+		}
+	}
+	if (tuple.size() >= 2) {
+		if (tuple.at(1).getType() != MixedValue::String) {
+			message = "Camera image description must be a string";
+			success = false;
+		}
+	}
+	if (tuple.size() >= 1) {
+		if (tuple.at(0).getType() != MixedValue::String) {
+			message = "Camera filename must be a string";
+			success = false;
+		}
+	}
+	else {
+		message = "Camera commands must be a tuple in the form (string description, string filename, vector cropVector). The crop vector can be of the form (int X, int Y, int WidthX, int HeightY)";  // or (int centerPixelX, int centerPixelY, int halfWidth).
+		success = false;
+	}
+
+	if (!success) return success;
+
+	switch (tuple.size())
+	{
+	case 3:
+		value.description = tuple.at(0).getString();
+		value.baseFilename = tuple.at(1).getString();
+		//		value.cropVector = tuple.at(2).getVector();
+		break;
+	case 2:
+		value.description = tuple.at(0).getString();
+		value.baseFilename = tuple.at(1).getString();
+		break;
+	case 1:
+		value.description = tuple.at(0).getString();
+		value.baseFilename = "default";
+		break;
+	default:
+		message = "Never should get here, but Andor camera commands must be a tuple in the form (double exposureTime, string description, string filename)";
+		success = false;
+		break;
+	}
+
 	return true;
 }
 
@@ -89,7 +168,7 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 	PixisDeviceEventValue eventValue;
 	std::string err_message;
 
-	int imageIndex = 0;
+//	int imageIndex = 0;
 
 	shared_ptr<Image> image;
 	shared_ptr<ImageWriter> imageWriter;
@@ -103,9 +182,11 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 	eventValue.cropVector.push_back(0);
 
 	eventValue.cropVector.at(0) = 1;
-	eventValue.cropVector.at(1) = 10;
+	eventValue.cropVector.at(1) = 100;
 	eventValue.cropVector.at(2) = 1;
-	eventValue.cropVector.at(3) = 10;
+	eventValue.cropVector.at(3) = 100;
+
+	resetImageIndex();	//global image index increments each time an image is added, to ensure a unique image index for each image
 
 	for (events = eventsIn.begin(); events != eventsIn.end(); events++)
 	{
@@ -139,7 +220,7 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 		imageWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tiff)
 
 		//std::unique_ptr<PixisEvent>
-		auto ikonEvent = std::make_unique<PixisEvent>(eventTime, this, imageIndex, image, imageWriter);
+		auto ikonEvent = std::make_unique<PixisEvent>(eventTime, this, getNextImageIndex(), image, imageWriter);
 
 		ikonEvent->image->rotationAngle = 0;
 		
@@ -147,6 +228,16 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 
 		eventsOut.push_back(ikonEvent.release());
 	}
+}
+
+void PixisDevice::resetImageIndex()
+{
+	globalImageIndex = 0;
+}
+
+int PixisDevice::getNextImageIndex() {
+	globalImageIndex++;
+	return globalImageIndex;
 }
 
 void PixisDevice::PixisEvent::reset()
@@ -185,14 +276,14 @@ void PixisDevice::PixisEvent::playEvent()
 	//if (!cameraDevice->camera.checkError(errorValue, "SetImage"))
 	//	return;
 
-	cameraDevice->camera.StartAcquisition();
+	cameraDevice->camera.StartAcquisition(imageIndex);
 
 }
 
 void PixisDevice::PixisEvent::waitBeforeCollectData()
 {
 
-	cameraDevice->camera.WaitForAcquisition();
+	cameraDevice->camera.WaitForAcquisition(imageIndex);
 
 	//long first;
 	//long last;
@@ -232,3 +323,39 @@ void PixisDevice::PixisEvent::collectMeasurementData()
 
 }
 
+
+
+//**** These functions belong in STI::Utils *****//
+std::string PixisDevice::vectorToString(const vector<int>& vec)
+{
+	std::stringstream strm;
+	strm << "(";
+
+	for (unsigned i = 0; i < vec.size(); i++) {
+		strm << STI::Utils::valueToString(vec.at(i));
+		if (i < vec.size() - 1) {
+			strm << ", ";
+		}
+	}
+	strm << "(";
+
+	return strm.str();
+}
+
+bool PixisDevice::stringToVector(const std::string& input, vector<int>& outVec)
+{
+	std::vector<string> tmp;
+	STI::Utils::splitString(input, "(", tmp);
+	if (tmp.size() < 2) return false;
+	STI::Utils::splitString(tmp.at(1), ")", tmp);
+	if (tmp.size() < 2) return false;
+
+	STI::Utils::splitString(tmp.at(0), ",", tmp);
+
+	outVec.clear();
+	int val;
+	for (auto it : tmp) {
+		STI::Utils::stringToValue(it, val);
+		outVec.push_back(val);
+	}
+}
