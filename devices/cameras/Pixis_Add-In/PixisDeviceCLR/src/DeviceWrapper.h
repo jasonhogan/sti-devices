@@ -9,6 +9,11 @@ namespace STI {
 
 public delegate int TestDelegate(int);
 
+//public ref class A
+//{
+//	void func();
+//};
+
 public ref class DeviceWrapper
 {
 public:
@@ -24,6 +29,10 @@ public:
 
 	TestDelegate^ testDelegate;
 	GCHandle testgch;
+
+//	void installA(A^ a);
+//	A^ myA;
+//	GCHandle agch;
 };
 
 };

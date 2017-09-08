@@ -21,12 +21,18 @@
     <ClCompile Include="..\src\DeviceWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\PixisAddinDevice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\DeviceHolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\DeviceWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PixisAddinDevice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

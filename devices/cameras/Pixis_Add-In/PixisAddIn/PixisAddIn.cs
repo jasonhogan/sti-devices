@@ -51,6 +51,8 @@ namespace STI
         //private delegate int Callback(string text);
         //private Callback mInstance;   // Ensure it doesn't get garbage collected
 
+//        A localA;
+
         public PixisAddIn()
         {
             wrapper = new DeviceWrapper();
@@ -58,6 +60,9 @@ namespace STI
 
             testDelegate = new TestDelegate(PixisCallback);
             wrapper.installDelegate(testDelegate);
+
+ //           localA = new A();
+ //           wrapper.installA(localA);
         }
 
         //public PixisAddIn()
@@ -110,6 +115,8 @@ namespace STI
 
         private Button control_;
         private Button control2_;
+        private STI.PixisDeviceUserControl control3_;
+
         ///////////////////////////////////////////////////////////////////////
         public UISupport UISupport { get { return UISupport.ExperimentSetting; } }
         ///////////////////////////////////////////////////////////////////////
@@ -124,14 +131,17 @@ namespace STI
             control_ = new Button();
             control_.Content = "Acquire STI: ";  // + Convert.ToString( add(2,7) );
             control_.Click += new RoutedEventHandler(control__Click);
-            ExperimentSettingElement = control_;
+//            ExperimentSettingElement = control_;
 
-
-
+            
             control2_ = new Button();
             control2_.Content = "Test callback";
             control2_.Click += new RoutedEventHandler(control__Click2);
-            ExperimentSettingElement = control2_;
+//            ExperimentSettingElement = control2_;
+
+            control3_ = new PixisDeviceUserControl(LightFieldApplication, wrapper);
+            ExperimentSettingElement = control3_;
+
         }
         ///////////////////////////////////////////////////////////////////////
         bool ValidateAcquisition()
@@ -242,7 +252,7 @@ namespace STI
         ///////////////////////////////////////////////////////////////////////
         public void Deactivate() { }
         ///////////////////////////////////////////////////////////////////////
-        public override string UIExperimentSettingTitle { get { return "Custom Acquire Sample"; } }
+        public override string UIExperimentSettingTitle { get { return "PIXIS STI Device"; } }
     }
 
 }

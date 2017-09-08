@@ -40,3 +40,20 @@ void DeviceWrapper::installDelegate(TestDelegate^ del)
 
 	device->installCB(cb);
 }
+
+
+//void A::func()
+//{
+//}
+//
+//void DeviceWrapper::installA(A^ a)
+//{
+//	myA = a;
+//	agch = GCHandle::Alloc(myA, GCHandleType::Normal);
+//	IntPtr ip = GCHandle::ToIntPtr(agch);
+//
+//	TESTCB cb = static_cast<A*>(ip.ToPointer());
+//
+//
+////	IntPtr ip = Marshal::GetFunctionPointerForDelegate(myA);
+//}
