@@ -35,7 +35,7 @@ struct PixisDeviceEventValue
 {
 	std::string baseFilename;
 	std::string description;
-	std::vector<int> cropVector;
+//	std::vector<int> cropVector;
 };
 
 

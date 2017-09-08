@@ -44,6 +44,8 @@ public:
 		int widthV;
 	} roi;
 
+	void getROI(std::vector<int>& cropVector);
+
 protected:
 
 	int maxImageH; //horizontal H

@@ -24,6 +24,16 @@ Camera::Camera()
 	roi.widthV = maxImageV;
 }
 
+void Camera::getROI(std::vector<int>& cropVector)
+{
+	cropVector.clear();
+	cropVector.push_back(roi.X);
+	cropVector.push_back(roi.Y);
+	cropVector.push_back(roi.widthH);
+	cropVector.push_back(roi.widthV);
+}
+
+
 double Camera::getTemperature()
 {
 	double temp = -999;

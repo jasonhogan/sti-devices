@@ -8,3 +8,14 @@ devices/cameras/PIXIS_device/project/Release/
 devices/cameras/PIXIS_device/project/PIXIS_camera_Module_0_attributes.ini
 devices/cameras/PIXIS_device/project/test.png
 devices/cameras/PIXIS_device/project/test.tif
+devices/cameras/Pixis_Add-In/project/x64/Release/
+devices/test-meas/CleverScope/SimpleScope/Debug/
+devices/cameras/Pixis_Add-In/PixisDeviceCLR/project/Release/PixisDeviceCLR.tlog/CL.command.1.tlog
+devices/test-meas/CleverScope/vcproject/Debug/
+devices/cameras/Pixis_Add-In/PixisDeviceCLR/project/Release/
+devices/cameras/Pixis_Add-In/PixisDeviceCLR/project/Debug/
+devices/cameras/Pixis_Add-In/PixisAddIn/bin/Release/
+devices/cameras/Pixis_Add-In/PixisAddIn/obj/Debug/
+devices/cameras/Pixis_Add-In/PixisAddIn/obj/Release/
+devices/test-meas/CleverScope/vcproject/UpgradeLog.htm
+sh.exe.stackdump

@@ -22,7 +22,9 @@ void PixisDevice::defineAttributes()
 	addAttribute("Horizontal bin size", 1);
 	addAttribute("Vertical bin size", 1);
 
-	vector<int> v;
+//	int roiI[] = {0,0,1340,400};
+//	vector<int> v(roiI, roiI+3);
+	vector<int> v {0, 0, 1340, 400};
 	addAttribute("ROI", vectorToString(v));
 
 }
@@ -93,10 +95,12 @@ std::string PixisDevice::refreshROI()
 	camera.refreshROI();
 
 	std::vector<int> roi;
-	roi.push_back(camera.roi.X);
-	roi.push_back(camera.roi.Y);
-	roi.push_back(camera.roi.widthH);
-	roi.push_back(camera.roi.widthV);
+	//roi.push_back(camera.roi.X);
+	//roi.push_back(camera.roi.Y);
+	//roi.push_back(camera.roi.widthH);
+	//roi.push_back(camera.roi.widthV);
+
+	camera.getROI(roi);
 
 	return vectorToString(roi);
 }
@@ -173,18 +177,18 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 	shared_ptr<Image> image;
 	shared_ptr<ImageWriter> imageWriter;
 
-//	std::vector<int> cropVector(4, 0);
+	std::vector<int> cropVector;
 
-	//Should be default image size here?  Overwritten by the device event value.
-	eventValue.cropVector.push_back(0);
-	eventValue.cropVector.push_back(0);
-	eventValue.cropVector.push_back(0);
-	eventValue.cropVector.push_back(0);
+	////Should be default image size here?  Overwritten by the device event value.
+	//eventValue.cropVector.push_back(0);
+	//eventValue.cropVector.push_back(0);
+	//eventValue.cropVector.push_back(0);
+	//eventValue.cropVector.push_back(0);
 
-	eventValue.cropVector.at(0) = 1;
-	eventValue.cropVector.at(1) = 100;
-	eventValue.cropVector.at(2) = 1;
-	eventValue.cropVector.at(3) = 100;
+	//eventValue.cropVector.at(0) = 1;
+	//eventValue.cropVector.at(1) = 100;
+	//eventValue.cropVector.at(2) = 1;
+	//eventValue.cropVector.at(3) = 100;
 
 	resetImageIndex();	//global image index increments each time an image is added, to ensure a unique image index for each image
 
@@ -204,7 +208,8 @@ void PixisDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 
 		eventTime = events->first - holdoff;
 
-		image = std::make_shared<Image>(eventValue.cropVector, camera.vbin, camera.hbin);
+		camera.getROI(cropVector);
+		image = std::make_shared<Image>(cropVector, camera.vbin, camera.hbin);
 		image->filename = eventValue.baseFilename + "_time" ;		
 		//the filename used by ImageWriter must include the target path.  
 		//Not sure a good way to get this here.  

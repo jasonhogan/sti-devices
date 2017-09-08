@@ -1,0 +1,56 @@
+
+#include "DeviceHolder.h"
+
+#include <ORBManager.h>
+
+
+
+#include <STI_Device_Adapter.h>
+class TestDevice : public STI_Device_Adapter
+{
+public:
+
+	TestDevice(ORBManager* orb_manager);
+
+	void stopWaiting();
+};
+
+
+
+TestDevice::TestDevice(ORBManager* orb_manager)
+	: STI_Device_Adapter(orb_manager, "TestDevice", "localhost", 0)
+{
+}
+
+void TestDevice::stopWaiting()
+{
+
+}
+
+
+//////////////////////////////
+
+
+DeviceHolder::DeviceHolder()
+{
+	int argc = 1;
+	char* argv[] = { "" };
+
+	orb_manager = new ORBManager(argc, argv);
+	
+//	orb_manager = std::make_shared<ORBManager>(argc, argv);
+
+	testDevice = std::make_shared<TestDevice>(orb_manager);
+}
+
+__declspec(dllexport) void DeviceHolder::startDevice()
+{
+	orb_manager->run();
+}
+
+__declspec(dllexport) void DeviceHolder::stopWaiting()
+{
+	if (testDevice != 0) {
+		testDevice->stopWaiting();
+	}
+}
