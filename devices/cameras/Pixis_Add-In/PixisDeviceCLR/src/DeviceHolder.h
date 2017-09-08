@@ -6,6 +6,8 @@
 class TestDevice;
 class ORBManager;
 
+typedef int(__stdcall *TESTCB)(int);
+
 class DeviceHolder
 {
 public:
@@ -21,6 +23,10 @@ public:
 	__declspec(dllexport) void startDevice();
 
 	__declspec(dllexport) void stopWaiting();
+
+	__declspec(dllexport) void installCB(TESTCB cb);
+
+	TESTCB callBack;
 };
 
 #endif

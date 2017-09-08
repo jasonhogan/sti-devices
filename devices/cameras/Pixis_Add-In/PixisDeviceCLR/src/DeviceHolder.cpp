@@ -45,7 +45,9 @@ DeviceHolder::DeviceHolder()
 
 __declspec(dllexport) void DeviceHolder::startDevice()
 {
-	orb_manager->run();
+	callBack(24);
+
+//	orb_manager->run();
 }
 
 __declspec(dllexport) void DeviceHolder::stopWaiting()
@@ -53,4 +55,9 @@ __declspec(dllexport) void DeviceHolder::stopWaiting()
 	if (testDevice != 0) {
 		testDevice->stopWaiting();
 	}
+}
+
+__declspec(dllexport) void DeviceHolder::installCB(TESTCB cb)
+{
+	callBack = cb;
 }

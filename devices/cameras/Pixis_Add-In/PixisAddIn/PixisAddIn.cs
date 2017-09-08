@@ -18,6 +18,8 @@ using System.Runtime.CompilerServices;
 
 namespace STI
 {
+
+
     ///////////////////////////////////////////////////////////////////////////
     //  This sample sets an exposure time, disables date and time as part of the 
     // file name and sets a specific name. Note pressing the button multiple times
@@ -34,8 +36,17 @@ namespace STI
 
     public class PixisAddIn : AddInBase, ILightFieldAddIn
     {
+        public int PixisCallback(int index)
+        {
+            MessageBox.Show("Got Callback: " + Convert.ToString(index) );
+            return index;
+        }
+
         DeviceWrapper wrapper;// = new DeviceWrapper();
         Thread deviceThread;// = new Thread(startDeviceWrapper);
+
+
+        TestDelegate testDelegate;
 
         //private delegate int Callback(string text);
         //private Callback mInstance;   // Ensure it doesn't get garbage collected
@@ -44,6 +55,9 @@ namespace STI
         {
             wrapper = new DeviceWrapper();
             deviceThread = new Thread(startDeviceWrapper);
+
+            testDelegate = new TestDelegate(PixisCallback);
+            wrapper.installDelegate(testDelegate);
         }
 
         //public PixisAddIn()
@@ -158,7 +172,9 @@ namespace STI
         }
         private void control__Click2(object sender, RoutedEventArgs e)
         {
-            deviceThread.Start();
+            //            deviceThread.Start();
+            wrapper.start();
+
             //            TestCallback();
         }
         ///////////////////////////////////////////////////////////////////////
