@@ -8,7 +8,7 @@
              d:DesignHeight="305" d:DesignWidth="271"
              HorizontalContentAlignment="Stretch" HorizontalAlignment="Left">
     <Grid HorizontalAlignment="Left">
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="67,72,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Button2" HorizontalAlignment="Left" Margin="67,195,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
+        <Button x:Name="button" Content="Connect" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Button x:Name="button1" Content="Button2" HorizontalAlignment="Left" Margin="10,98,0,0" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
     </Grid>
 </UserControl>

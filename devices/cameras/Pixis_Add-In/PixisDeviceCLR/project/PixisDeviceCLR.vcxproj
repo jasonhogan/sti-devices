@@ -61,6 +61,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <DisableSpecificWarnings>4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -74,11 +75,14 @@
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExceptionHandling>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="..\src\LightFieldHandle.cpp" />
     <ClCompile Include="..\src\PixisAddinDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\callbacks.h" />
     <ClInclude Include="..\src\DeviceHolder.h" />
     <ClInclude Include="..\src\DeviceWrapper.h" />
+    <ClInclude Include="..\src\LightFieldHandle.h" />
     <ClInclude Include="..\src\PixisAddinDevice.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

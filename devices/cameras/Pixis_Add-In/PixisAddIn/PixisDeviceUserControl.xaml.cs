@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PrincetonInstruments.LightField.AddIns;
+using System.Threading;
 
 namespace STI
 {
@@ -24,23 +25,47 @@ namespace STI
 
         ILightFieldApplication app_;
         DeviceWrapper wrapper;
+        Thread deviceThread;// = new Thread(startDeviceWrapper);
 
         public PixisDeviceUserControl(ILightFieldApplication application, DeviceWrapper wrap)
         {
             app_ = application;
             wrapper = wrap;
+            deviceThread = new Thread(startDeviceWrapper);
+
             InitializeComponent();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test button!");
-            wrapper.start();
+//            MessageBox.Show("Test button!");
+
+            if(!deviceThread.IsAlive)
+            {
+                deviceThread.Start();
+            }
+            else
+            {
+                MessageBox.Show("Cannot connect; device thread IsAlive already.");
+            }
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Test button 2!");
+        }
+
+        public void startDeviceWrapper()
+        {
+            try
+            {
+                wrapper.start();
+            }
+            catch (Exception ex)
+            {
+                string mess = ex.Message;
+                MessageBox.Show("Error: " + mess);
+            }
         }
     }
 }

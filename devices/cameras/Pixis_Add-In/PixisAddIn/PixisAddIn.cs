@@ -9,7 +9,7 @@ using System.AddIn.Pipeline;
 
 using PrincetonInstruments.LightField.AddIns;
 
-using System.Threading;
+
 
 // Allow managed code to call unmanaged functions that are implemented in a DLL
 //using System.Runtime.InteropServices;
@@ -43,8 +43,7 @@ namespace STI
         }
 
         DeviceWrapper wrapper;// = new DeviceWrapper();
-        Thread deviceThread;// = new Thread(startDeviceWrapper);
-
+        LightFieldController controller;
 
         TestDelegate testDelegate;
 
@@ -56,7 +55,8 @@ namespace STI
         public PixisAddIn()
         {
             wrapper = new DeviceWrapper();
-            deviceThread = new Thread(startDeviceWrapper);
+
+            controller = new LightFieldController(LightFieldApplication, wrapper);
 
             testDelegate = new TestDelegate(PixisCallback);
             wrapper.installDelegate(testDelegate);
@@ -85,19 +85,7 @@ namespace STI
         ////       private static extern void TestCallback();
 
 
-        public void startDeviceWrapper()
-        {
-            try
-            {
-                wrapper.start();
-                MessageBox.Show("Starting device!");
-            }
-            catch (Exception ex)
-            {
-                string mess = ex.Message;
-                MessageBox.Show("Error: " + mess);
-            }
-        }
+
 
 
 

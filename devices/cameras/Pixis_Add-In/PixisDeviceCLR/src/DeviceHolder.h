@@ -3,18 +3,20 @@
 
 #include <memory>
 
-class TestDevice;
+#include "callbacks.h"
+
+class PixisAddinDevice;
+//class TestDevice;
 class ORBManager;
 
-typedef int(__stdcall *TESTCB)(int);
+
 
 class DeviceHolder
 {
 public:
 
-	std::shared_ptr<TestDevice> testDevice;
-
-//	std::shared_ptr<ORBManager> orb_manager;
+	std::shared_ptr<PixisAddinDevice> pixisDevice;
+//	std::shared_ptr<TestDevice> testDevice;
 
 	ORBManager* orb_manager;
 
@@ -24,9 +26,13 @@ public:
 
 	__declspec(dllexport) void stopWaiting();
 
+	//Install callbacks
 	__declspec(dllexport) void installCB(TESTCB cb);
+	__declspec(dllexport) void install_AQUIRECB(AQUIRECB cb);
 
+	//Callbacks
 	TESTCB callBack;
+//	AQUIRECB aquireCB;
 };
 
 #endif

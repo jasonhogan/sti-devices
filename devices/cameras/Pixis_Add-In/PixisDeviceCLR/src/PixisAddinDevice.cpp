@@ -60,6 +60,7 @@ void PixisAddinDevice::PixisEvent::loadEvent()
 void PixisAddinDevice::PixisEvent::playEvent()
 {
 //	cameraDevice->aquireHandler("aquire!");
+	cameraDevice->lightfield.aquire();
 }
 
 void PixisAddinDevice::PixisEvent::waitBeforeCollectData()

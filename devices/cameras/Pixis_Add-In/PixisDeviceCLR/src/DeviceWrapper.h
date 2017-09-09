@@ -8,6 +8,8 @@ using namespace System::Runtime::InteropServices;
 namespace STI {
 
 public delegate int TestDelegate(int);
+public delegate void AquireDelegate(void);
+
 
 //public ref class A
 //{
@@ -27,8 +29,14 @@ public:
 
 	void installDelegate(TestDelegate^ del);
 
+	void installAquireDelegate(AquireDelegate^ del);
+
 	TestDelegate^ testDelegate;
 	GCHandle testgch;
+
+	AquireDelegate^ aquireDelegate;
+	GCHandle aquire_gch;
+
 
 //	void installA(A^ a);
 //	A^ myA;

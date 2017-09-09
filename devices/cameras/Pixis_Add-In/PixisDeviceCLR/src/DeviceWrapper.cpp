@@ -41,6 +41,18 @@ void DeviceWrapper::installDelegate(TestDelegate^ del)
 	device->installCB(cb);
 }
 
+void DeviceWrapper::installAquireDelegate(AquireDelegate^ del)
+{
+	aquireDelegate = del;
+	aquire_gch = GCHandle::Alloc(aquireDelegate);
+	
+	IntPtr ip = Marshal::GetFunctionPointerForDelegate(aquireDelegate);
+
+	AQUIRECB cb = static_cast<AQUIRECB>(ip.ToPointer());
+
+	device->install_AQUIRECB(cb);
+}
+
 
 //void A::func()
 //{

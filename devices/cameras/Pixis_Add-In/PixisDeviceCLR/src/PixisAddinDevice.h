@@ -4,11 +4,12 @@
 #include <mutex>
 
 #include <STI_Device_Adapter.h>
-
+#include "LightFieldHandle.h"
 
 class PixisAddinDevice : public STI_Device_Adapter
 {
 public:
+
 
 	PixisAddinDevice(ORBManager* orb_manager)
 		: STI_Device_Adapter(orb_manager, "Pixis", "localhost", 0)
@@ -29,8 +30,9 @@ public:
 
 //	Callback aquireHandler;
 
-private:
+	LightFieldHandle lightfield;
 
+private:
 
 	bool waiting;
 
