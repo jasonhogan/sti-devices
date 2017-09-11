@@ -52,7 +52,8 @@ namespace STI
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test button 2!");
+//            MessageBox.Show("Test button 2!");
+            wrapper.start();
         }
 
         public void startDeviceWrapper()

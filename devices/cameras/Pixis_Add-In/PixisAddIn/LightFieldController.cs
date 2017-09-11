@@ -24,6 +24,12 @@ namespace STI
         {
             application.Experiment.Acquire();
         }
+        public void Stop()
+        {
+            application.Experiment.Stop();
+        }
+
+
 
         public int PixisCallback(int index)
         {
@@ -38,10 +44,14 @@ namespace STI
 
             aquireDelegate = new AquireDelegate(Aquire);
             device.installAquireDelegate(aquireDelegate);
+
+ //           stopDelegate = new StopDelegate(Stop);
+//            device.installStopDelegate(stopDelegate);
         }
 
         //Delegates
         TestDelegate testDelegate;
         AquireDelegate aquireDelegate;
+
     }
 }

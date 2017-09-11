@@ -48,7 +48,8 @@ __declspec(dllexport) void DeviceHolder::startDevice()
 {
 //	callBack(24);
 
-	orb_manager->run();
+//	orb_manager->run();
+	pixisDevice->lightfield.go();
 }
 
 __declspec(dllexport) void DeviceHolder::stopWaiting()
@@ -68,6 +69,37 @@ __declspec(dllexport) void DeviceHolder::install_AQUIRECB(AQUIRECB cb)
 //	aquireCB = cb;
 
 	if (pixisDevice != 0) {
-		pixisDevice->lightfield.install_AQUIRECB(cb);
+//		pixisDevice->lightfield.install_AQUIRECB(cb);
+		pixisDevice->lightfield.install_CB(cb);
+	}
+}
+
+__declspec(dllexport) void DeviceHolder::install_STOPCB(STOPCB cb)
+{
+	//	aquireCB = cb;
+
+	if (pixisDevice != 0) {
+		//		pixisDevice->lightfield.install_AQUIRECB(cb);
+		pixisDevice->lightfield.install_CB2(cb);
+//		pixisDevice->lightfield.install_CB(GOCB(cb));
+
+	}
+
+//	GO2CB tmp;
+//	GO2 go2(tmp);
+
+
+}
+
+//__declspec(dllexport) void DeviceHolder::install_CB(Callback::Go cb)
+//{
+//	pixisDevice->lightfield.install_CB(cb);
+//}
+
+
+template<typename CB> void DeviceHolder::install(CB cb)
+{
+	if (pixisDevice != 0) {
+		pixisDevice->lightfield.install_CB(cb);
 	}
 }

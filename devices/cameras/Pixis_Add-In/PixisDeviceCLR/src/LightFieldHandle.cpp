@@ -11,3 +11,18 @@ void LightFieldHandle::aquire()
 		aquireCB();
 	}
 }
+
+void LightFieldHandle::stop()
+{
+	if (stopCB != 0) {
+		stopCB();
+//		goCB();
+	}
+}
+
+void LightFieldHandle::go()
+{
+	if (goCB != 0) {
+		goCB();
+	}
+}

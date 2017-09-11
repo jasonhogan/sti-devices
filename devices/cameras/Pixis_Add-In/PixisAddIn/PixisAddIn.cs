@@ -36,6 +36,11 @@ namespace STI
 
     public class PixisAddIn : AddInBase, ILightFieldAddIn
     {
+        public void Go()
+        {
+            MessageBox.Show("Go/Stop Called!");
+        }
+
         public int PixisCallback(int index)
         {
             MessageBox.Show("Got Callback: " + Convert.ToString(index) );
@@ -46,11 +51,8 @@ namespace STI
         LightFieldController controller;
 
         TestDelegate testDelegate;
-
-        //private delegate int Callback(string text);
-        //private Callback mInstance;   // Ensure it doesn't get garbage collected
-
-//        A localA;
+        GoDelegate goDelegate;
+        StopDelegate stopDelegate;
 
         public PixisAddIn()
         {
@@ -61,8 +63,14 @@ namespace STI
             testDelegate = new TestDelegate(PixisCallback);
             wrapper.installDelegate(testDelegate);
 
- //           localA = new A();
- //           wrapper.installA(localA);
+            goDelegate = new GoDelegate(Go);
+            wrapper.installGoDelegate2(goDelegate);
+
+            stopDelegate = new StopDelegate(Go);
+            wrapper.installStopDelegate(stopDelegate);
+
+            //           localA = new A();
+            //           wrapper.installA(localA);
         }
 
         //public PixisAddIn()
