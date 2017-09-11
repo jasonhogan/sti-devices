@@ -1,11 +1,13 @@
 #pragma once
 
+//C++/CLI adapter class.
+
 #include "DeviceHolder.h"
 
 using namespace System;
 using namespace System::Runtime::InteropServices;
-
 using namespace System::Collections::Generic;
+
 
 namespace STI {
 
@@ -14,11 +16,6 @@ public delegate void AquireDelegate(void);
 public delegate void StopDelegate(void);
 public delegate void GoDelegate(void);
 
-
-//public ref class A
-//{
-//	void func();
-//};
 
 public ref class DeviceWrapper
 {
@@ -29,45 +26,37 @@ public:
 	DeviceWrapper();
 	~DeviceWrapper();
 
-	void start();
+	void startDevice();
 
-	void installDelegate(TestDelegate^ del);
+	//Install delegates
+	void installDelegate(TestDelegate^ del)		{ _installDelegate<Callback::Test>(del); }
+	void installDelegate(AquireDelegate^ del)	{ _installDelegate<Callback::Aquire>(del); }
+	void installDelegate(GoDelegate^ del)		{ _installDelegate<Callback::Go>(del); }
+	void installDelegate(StopDelegate^ del)		{ _installDelegate<Callback::Stop>(del); }
 
-	void installAquireDelegate(AquireDelegate^ del);
-	void installStopDelegate(StopDelegate^ del);
 
-	void installGoDelegate(GoDelegate^ del);
-
-	void installGoDelegate2(GoDelegate^ del) { installDelegate2<Callback::Go>(del); }
-
-	IntPtr installDelegate(Delegate^ del);
+private:
 
 	template<typename CB>
-	void installDelegate2(Delegate^ del)
+	void _installDelegate(Delegate^ del)
 	{
-		IntPtr ip = installDelegate(del);
+		delegates.Add(del);
+		GCHandle gch = GCHandle::Alloc(del);
+		handles.Add(gch);
 
+		IntPtr ip = Marshal::GetFunctionPointerForDelegate(del);
+
+		//Wrap pointer in callback wrapper class for type CB.  Then install_CB calls correct overload.
 		device->install_CB(
 			CB(
 				static_cast<CB::Func>(ip.ToPointer())));
 	}
 
 
-	TestDelegate^ testDelegate;
-	GCHandle testgch;
-
-	AquireDelegate^ aquireDelegate;
-	GCHandle aquire_gch;
-
-	StopDelegate^ stopDelegate;
-	GCHandle stop_gch;
-
+	//Save references to prevent unwanted garbage collection
 	List<Delegate^> delegates;
 	List<GCHandle> handles;
 
-//	void installA(A^ a);
-//	A^ myA;
-//	GCHandle agch;
 };
 
 };

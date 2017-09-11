@@ -11,24 +11,21 @@ public:
 	void aquire();
 	void stop();
 	void go();
+	int test(int x);
 
 	//Install callbacks
-//	void install_AQUIRECB(AQUIRECB cb) { aquireCB = cb; }
-//	void install_STOPCB(STOPCB cb) { stopCB = cb; }
-
-	void install_CB(AQUIRECB cb) { aquireCB = cb; }
-	void install_CB2(STOPCB cb) { stopCB = cb; }
-
-	
+	void install_CB(Callback::Test cb) { testCB = cb.cb; }
+	void install_CB(Callback::Aquire cb) { aquireCB = cb.cb; }
 	void install_CB(Callback::Go cb) { goCB = cb.cb; }
-
+	void install_CB(Callback::Stop cb) { stopCB = cb.cb; }
 
 private:
-	//Callbacks
-	AQUIRECB aquireCB;
-	STOPCB stopCB;
 
+	//Callbacks
+	Callback::Test::Func testCB;
+	Callback::Aquire::Func aquireCB;
 	Callback::Go::Func goCB;
+	Callback::Stop::Func stopCB;
 };
 
 #endif

@@ -16,8 +16,14 @@ void LightFieldHandle::stop()
 {
 	if (stopCB != 0) {
 		stopCB();
-//		goCB();
 	}
+}
+int LightFieldHandle::test(int x)
+{
+	if (testCB != 0) {
+		return testCB(x);
+	}
+	return 0;
 }
 
 void LightFieldHandle::go()

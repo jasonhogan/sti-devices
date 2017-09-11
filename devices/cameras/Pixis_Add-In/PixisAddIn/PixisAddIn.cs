@@ -38,9 +38,16 @@ namespace STI
     {
         public void Go()
         {
-            MessageBox.Show("Go/Stop Called!");
+            MessageBox.Show("Go Called!");
         }
-
+        public void Stop()
+        {
+            MessageBox.Show("Stop Called!");
+        }
+        public void Aquire()
+        {
+            MessageBox.Show("Aquire Called!");
+        }
         public int PixisCallback(int index)
         {
             MessageBox.Show("Got Callback: " + Convert.ToString(index) );
@@ -53,6 +60,7 @@ namespace STI
         TestDelegate testDelegate;
         GoDelegate goDelegate;
         StopDelegate stopDelegate;
+        AquireDelegate aquireDelegate;
 
         public PixisAddIn()
         {
@@ -63,11 +71,14 @@ namespace STI
             testDelegate = new TestDelegate(PixisCallback);
             wrapper.installDelegate(testDelegate);
 
-            goDelegate = new GoDelegate(Go);
-            wrapper.installGoDelegate2(goDelegate);
+            aquireDelegate = new AquireDelegate(Aquire);
+            wrapper.installDelegate(aquireDelegate);
 
-            stopDelegate = new StopDelegate(Go);
-            wrapper.installStopDelegate(stopDelegate);
+            goDelegate = new GoDelegate(Go);
+            wrapper.installDelegate(goDelegate);
+
+            stopDelegate = new StopDelegate(Stop);
+            wrapper.installDelegate(stopDelegate);
 
             //           localA = new A();
             //           wrapper.installA(localA);
@@ -179,7 +190,7 @@ namespace STI
         private void control__Click2(object sender, RoutedEventArgs e)
         {
             //            deviceThread.Start();
-            wrapper.start();
+            wrapper.startDevice();
 
             //            TestCallback();
         }

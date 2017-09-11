@@ -15,9 +15,7 @@ namespace STI
         public LightFieldController(ILightFieldApplication app, DeviceWrapper dev)
         {
             application = app;
-
             device = dev;
-            installDelegates();
         }
 
         public void Aquire()
@@ -29,29 +27,6 @@ namespace STI
             application.Experiment.Stop();
         }
 
-
-
-        public int PixisCallback(int index)
-        {
-//            MessageBox.Show("Got Callback: " + Convert.ToString(index));
-            return index;
-        }
-
-        private void installDelegates()
-        {
-            testDelegate = new TestDelegate(PixisCallback);
-            device.installDelegate(testDelegate);
-
-            aquireDelegate = new AquireDelegate(Aquire);
-            device.installAquireDelegate(aquireDelegate);
-
- //           stopDelegate = new StopDelegate(Stop);
-//            device.installStopDelegate(stopDelegate);
-        }
-
-        //Delegates
-        TestDelegate testDelegate;
-        AquireDelegate aquireDelegate;
 
     }
 }

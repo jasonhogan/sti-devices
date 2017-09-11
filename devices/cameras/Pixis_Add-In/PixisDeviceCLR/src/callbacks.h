@@ -1,17 +1,38 @@
 #ifndef CALLBACKS_H
 #define CALLBACKS_H
 
-typedef int(__stdcall *TESTCB)(int);
-typedef void(__stdcall *AQUIRECB)(void);
-typedef void(__stdcall *STOPCB)(void);
+//typedef int(__stdcall *TESTCB)(int);
+//typedef void(__stdcall *AQUIRECB)(void);
+//typedef void(__stdcall *STOPCB)(void);
 
 namespace Callback
 {
+
+struct Test
+{
+	typedef int(__stdcall *Func)(int);
+	Test(Func cb) : cb(cb) {}
+	Func cb;
+};
+
+struct Aquire
+{
+	typedef void(__stdcall *Func)(void);
+	Aquire(Func cb) : cb(cb) {}
+	Func cb;
+};
 
 struct Go
 {
 	typedef void(__stdcall *Func)(void);
 	Go(Func cb) : cb(cb) {}
+	Func cb;
+};
+
+struct Stop
+{
+	typedef void(__stdcall *Func)(void);
+	Stop(Func cb) : cb(cb) {}
 	Func cb;
 };
 
