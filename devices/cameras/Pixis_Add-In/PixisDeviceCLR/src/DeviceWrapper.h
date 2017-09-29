@@ -12,10 +12,13 @@ using namespace System::Collections::Generic;
 namespace STI {
 
 public delegate int TestDelegate(int);
-public delegate void AquireDelegate(void);
+public delegate void AquireDelegate(int);
 public delegate void StopDelegate(void);
 public delegate void GoDelegate(void);
 
+public delegate void IsReadyToAquire(void);
+public delegate void ClearImageCount(void);
+public delegate void IncrementImageCount(void);
 
 public ref class DeviceWrapper
 {
@@ -27,12 +30,21 @@ public:
 	~DeviceWrapper();
 
 	void startDevice();
+	void shutdown();
+
+	void stopWaiting(int index);
+	void setSavedImageFilename(int index, String^ filename);
+	void setSavedSPEFilename(int index, String^ filename);
+
 
 	//Install delegates
 	void installDelegate(TestDelegate^ del)		{ _installDelegate<Callback::Test>(del); }
 	void installDelegate(AquireDelegate^ del)	{ _installDelegate<Callback::Aquire>(del); }
 	void installDelegate(GoDelegate^ del)		{ _installDelegate<Callback::Go>(del); }
 	void installDelegate(StopDelegate^ del)		{ _installDelegate<Callback::Stop>(del); }
+	void installDelegate(IsReadyToAquire^ del)	{ _installDelegate<Callback::IsReadyToAquire>(del); }
+	void installDelegate(ClearImageCount^ del)	{ _installDelegate<Callback::ClearImageCount>(del); }
+	void installDelegate(IncrementImageCount^ del) { _installDelegate<Callback::IncrementImageCount>(del); }
 
 
 private:

@@ -8,6 +8,25 @@
 namespace Callback
 {
 
+struct IsReadyToAquire
+{
+	typedef bool(__stdcall *Func)(void);
+	IsReadyToAquire(Func cb) : cb(cb) {}
+	Func cb;
+};
+struct ClearImageCount
+{
+	typedef void(__stdcall *Func)(void);
+	ClearImageCount(Func cb) : cb(cb) {}
+	Func cb;
+};
+struct IncrementImageCount
+{
+	typedef void(__stdcall *Func)(void);
+	IncrementImageCount(Func cb) : cb(cb) {}
+	Func cb;
+};
+
 struct Test
 {
 	typedef int(__stdcall *Func)(int);
@@ -17,7 +36,7 @@ struct Test
 
 struct Aquire
 {
-	typedef void(__stdcall *Func)(void);
+	typedef void(__stdcall *Func)(int);
 	Aquire(Func cb) : cb(cb) {}
 	Func cb;
 };

@@ -4,7 +4,7 @@
 
 void PixisAddinDevice::defineChannels()
 {
-	addInputChannel(0, DataString, ValueVector);
+	addInputChannel(0, DataVector, ValueVector);
 }
 
 
@@ -22,9 +22,16 @@ std::string PixisAddinDevice::getDeviceHelp()
 void PixisAddinDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 	SynchronousEventVector& eventsOut) throw(std::exception)
 {
+//	return;
+
+
 	double eventTime;
-	double holdoff = 100000000;		//100 ms
+	double lastEventTime = 0;
+	double holdoff = 0;		//100 ms
 	RawEventMap::const_iterator events;
+
+	int imageIndex = 0;
+//	imagesDone.clear();
 
 	for (events = eventsIn.begin(); events != eventsIn.end(); events++)
 	{
@@ -33,11 +40,18 @@ void PixisAddinDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 				"Invalid data type.  The camera expects a vector.");
 		}
 
-		//		auto eventTuple = events->second.at(0).value().getVector();
+	//		auto eventTuple = events->second.at(0).value().getVector();
 
 		eventTime = events->first - holdoff;
 
-		auto pixisEvent = std::make_unique<PixisEvent>(eventTime, this, 0);
+		//The Aquire button on Lightfield is pressed immediately (at time 0 for the first event)
+		auto pixisEvent = std::make_unique<PixisEvent>(lastEventTime, this, imageIndex);
+
+		//add partner event (trigger) at eventTime 
+
+		imageIndex++;
+		lastEventTime = eventTime;	//make the next event happen immediately after this one was supposed to happen
+//		imagesDone.push_back(false);
 
 		pixisEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
 
@@ -45,54 +59,165 @@ void PixisAddinDevice::parseDeviceEvents(const RawEventMap &eventsIn,
 	}
 }
 
+std::string PixisAddinDevice::getFilename(int index, const std::map<int, std::string>& filenames)
+{
+	std::unique_lock<std::mutex> lock(filename_mutex);
+
+	std::string name = ""; //default
+	auto it = filenames.find(index);
+
+	if (it != filenames.end()) {
+		name = it->second;
+	}
+
+	return name;
+}
+
+void PixisAddinDevice::setSavedImageFilename(int index, const std::string& filename)
+{
+	std::unique_lock<std::mutex> lock(filename_mutex);
+	imageFilenames.insert({ index, filename });
+}
+
+void PixisAddinDevice::setSavedSPEFilename(int index, const std::string& filename)
+{
+	std::unique_lock<std::mutex> lock(filename_mutex);
+	speFilenames.insert({ index, filename });
+}
+
+void PixisAddinDevice::PixisEvent::reset()
+{
+	SynchronousEvent::reset();
+
+//	return;
+
+//	setSavedImageFilename("");
+//	setSavedSPEFilename("");
+
+	{
+		//Every event does this; unnecessary, but in practice there aren't very many events in one sequence.
+		std::unique_lock<std::mutex> lock(cameraDevice->filename_mutex);
+		cameraDevice->imageFilenames.clear();
+		cameraDevice->speFilenames.clear();
+	}
+	
+	{
+		std::unique_lock<std::mutex> lock(collect_mutex);
+		dataReady = false;
+	}
+
+	cameraDevice->resetImageIndex();
+}
+ 
 void PixisAddinDevice::PixisEvent::stop()
 {
 	SynchronousEvent::stop();
+
+	cameraDevice->lightfield.stop();
+
+	//stop waiting on all events
 
 	//	cameraDevice->camera.StopAcquisition();
 }
 
 void PixisAddinDevice::PixisEvent::loadEvent()
 {
+	cameraDevice->lightfield.incrementImageCount();
+//	cameraDevice->lightfield.aquire(123);
+//	cameraDevice->lightfield.incrementImageCount();
+//	cameraDevice->lightfield.incrementImageCount();
 }
 
 
 void PixisAddinDevice::PixisEvent::playEvent()
 {
-//	cameraDevice->aquireHandler("aquire!");
-	cameraDevice->lightfield.aquire();
+//	cameraDevice->lightfield.incrementImageCount();
+
+//	cameraDevice->lightfield.aquire(123);
+
+	cameraDevice->aquireImage(imageIndex);
+
+
+	//When leaving aquireImage, the filenames have already been transferred, so data is ready.
+	{
+		std::unique_lock<std::mutex> lock(collect_mutex);
+		dataReady = true;
+	}
+
+	collect_condition.notify_one();
+
 }
 
 void PixisAddinDevice::PixisEvent::waitBeforeCollectData()
 {
-	cameraDevice->wait();
-}
+//	return;
 
-void PixisAddinDevice::wait()
-{
-	std::unique_lock<std::mutex> lock(aquire_mutex);
+	std::unique_lock<std::mutex> lock(collect_mutex);
 
-	waiting = true;
-
-	while (waiting)
+	while (!dataReady && cameraDevice->deviceStatusIs(Playing))
 	{
-		aquire_condition.wait(lock);
+		collect_condition.wait(lock);
 	}
 }
 
-void PixisAddinDevice::stopWaiting()
+void PixisAddinDevice::resetImageIndex() 
 {
 	std::unique_lock<std::mutex> lock(aquire_mutex);
-	waiting = false;
-	aquire_condition.notify_one();
+
+	currentImageIndex = 0;
+
+	lightfield.clearImageCount();
+}
+
+//void PixisAddinDevice::waitForImage(int index)
+void PixisAddinDevice::aquireImage(int index)
+{
+//	lightfield.aquire(index);
+//	return;
+
+
+	//This waits until the previous event is done playing.
+//	while (currentImageIndex < index && deviceStatusIs(Playing))
+//	{
+//		aquire_condition.wait(lock);
+//	}
+
+//	waiting = true;
+
+	std::unique_lock<std::mutex> lock(aquire_mutex);
+	
+	lightfield.aquire(index);
+
+	//This waits until the current event is done (waits for callback from LightField)
+	while (currentImageIndex <= index && deviceStatusIs(Playing))
+	{
+		aquire_condition.wait(lock);
+	}
+
+//	waiting = false;
+
+}
+
+void PixisAddinDevice::stopWaiting(int index)
+{
+	{
+		std::unique_lock<std::mutex> lock(aquire_mutex);
+		currentImageIndex = index + 1;
+	}
+	aquire_condition.notify_all();
 }
 
 void PixisAddinDevice::PixisEvent::collectMeasurementData()
 {
+
 	if (eventMeasurements.size() == 1)
 	{
-		eventMeasurements.at(0)->setData("imageFileName");
-		//		eventMeasurements.at(0)->setData("Error getting image.");
+		MixedData data;
+
+		data.addValue(cameraDevice->getFilename(imageIndex, cameraDevice->imageFilenames));
+		data.addValue(cameraDevice->getFilename(imageIndex, cameraDevice->speFilenames));
+		
+		eventMeasurements.at(0)->setData(data);
 	}
 }
 

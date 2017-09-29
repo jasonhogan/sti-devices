@@ -5,10 +5,10 @@ LightFieldHandle::LightFieldHandle()
 {
 }
 
-void LightFieldHandle::aquire()
+void LightFieldHandle::aquire(int index)
 {
 	if (aquireCB != 0) {
-		aquireCB();
+		aquireCB(index);
 	}
 }
 
@@ -30,5 +30,25 @@ void LightFieldHandle::go()
 {
 	if (goCB != 0) {
 		goCB();
+	}
+}
+
+bool LightFieldHandle::isReadyToAquire()
+{
+	if (isReadyCB != 0) {
+		return isReadyCB();
+	}
+	return false;
+}
+void LightFieldHandle::clearImageCount()
+{
+	if (clearCountCB != 0) {
+		clearCountCB();
+	}
+}
+void LightFieldHandle::incrementImageCount()
+{
+	if (incrementCountCB != 0) {
+		incrementCountCB();
 	}
 }
