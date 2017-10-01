@@ -8,91 +8,65 @@ using System.AddIn;
 using System.AddIn.Pipeline;
 
 using System.IO;
-
 using System.Threading;
-
 using PrincetonInstruments.LightField.AddIns;
 
 
-
-
-// Allow managed code to call unmanaged functions that are implemented in a DLL
-//using System.Runtime.InteropServices;
-
-using System.Runtime.CompilerServices;
-
 namespace STI
 {
-
-
     ///////////////////////////////////////////////////////////////////////////
-    //  This sample sets an exposure time, disables date and time as part of the 
-    // file name and sets a specific name. Note pressing the button multiple times
-    // will continually overwrite the file. (This sample also overrides the file
-    // already exists dialog)
+    //  Responds to STI device events (parse, play, etc) by operating the Lightfield 
+    // program automatically.  Pushes the "Aquire" button when the device plays an event.
+    // Saves the SPE and TIF files to a directory specified by the device and reports\
+    // the filenames back to the device.
     ///////////////////////////////////////////////////////////////////////////
-    [AddIn("PIXIS STI Device Add-In",
+    [AddIn("STI Device for Pixis Camera",
     Version = "1.0.0",
     Publisher = "Stanford University",
     Description = "STI device interface for Pixis camera")]
 
-    //    [QualificationData("IsSample", "True")]
-
-
-    public class PixisAddIn : AddInBase, ILightFieldAddIn
+    public class PixisAddIn : AddInBase, ILightFieldAddIn, PixisDeviceCallbackListener
     {
-        static void MyHandler(object sender, UnhandledExceptionEventArgs args)
-        {
-            Exception e = (Exception)args.ExceptionObject;
-            MessageBox.Show("PIXIS STI Device handler caught : " + e.Message);
-            MessageBox.Show("Runtime terminating: "+ Convert.ToString(args.IsTerminating));
-        }
-
-        public PixisAddIn()
-        {
-
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
-
-            userInterface = new PixisDeviceUserControl(LightFieldApplication, this);
-            controller = new LightFieldController(LightFieldApplication, this);
-
-
-            callbackHandler = new DeviceCallbackHandler();
-            makeDelegates();
-
-            callbackHandler.addListener(userInterface);
-            callbackHandler.addListener(controller);
-
-        }
-
-        ~PixisAddIn()
-        {
-            wrapper.Dispose();
-        }
-
-
-        //public String GetImageFilename(int index)
-        //{
-        //    return "filename.tif";
-        //}
-
-
-
-        DeviceWrapper wrapper;// = new DeviceWrapper();
-        LightFieldController controller;
-
-        DeviceCallbackHandler callbackHandler;// = new DeviceCallbackHandler();
-
-        private STI.PixisDeviceUserControl userInterface;
         private Thread deviceThread;
+        private DeviceWrapper wrapper;
+        private PixisDeviceUserControl userInterface;
+        private DeviceCallbackHandler callbackHandler;
 
+        EventHandler<ExperimentCompletedEventArgs> acquireCompletedEventHandler_;
 
         StopDelegate stopDelegate;
         AquireDelegate aquireDelegate;
         ClearImageCount clearCountDelegate;
         IncrementImageCount incrementCountDelegate;
+        SetSaveDirDelegate setSaveDirDelegate;
+        ExternalTriggerOn externalTriggerOnDelegate;
 
+        private int currentImageIndex = 0;
+        private string saveDirectory = null;
+
+        ///////////////////////////////////////////////////////////////////////
+        public PixisAddIn()
+        {
+            //Install excpetion handler
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(PixisExceptionHandler);
+
+            userInterface = new PixisDeviceUserControl(LightFieldApplication, this);
+//            controller = new LightFieldController(LightFieldApplication, this);
+            callbackHandler = new DeviceCallbackHandler();
+
+            makeDelegates();
+
+            callbackHandler.addListener(userInterface);
+            callbackHandler.addListener(this);            
+        }
+        ///////////////////////////////////////////////////////////////////////
+
+        ~PixisAddIn()
+        {
+            wrapper.Dispose();
+        }
+        ///////////////////////////////////////////////////////////////////////
 
         void makeDelegates()
         {
@@ -100,7 +74,10 @@ namespace STI
             stopDelegate = new StopDelegate(callbackHandler.Stop);
             clearCountDelegate = new ClearImageCount(callbackHandler.ClearImageCount);
             incrementCountDelegate = new IncrementImageCount(callbackHandler.IncrementImageCount);
+            setSaveDirDelegate = new SetSaveDirDelegate(setSaveDir);
+            externalTriggerOnDelegate = new ExternalTriggerOn(userInterface.externalTriggerOn);
         }
+        ///////////////////////////////////////////////////////////////////////
 
         void installDelegates()
         {
@@ -108,11 +85,25 @@ namespace STI
             wrapper.installDelegate(stopDelegate);
             wrapper.installDelegate(clearCountDelegate);
             wrapper.installDelegate(incrementCountDelegate);
+            wrapper.installDelegate(setSaveDirDelegate);
+            wrapper.installDelegate(externalTriggerOnDelegate);
         }
+        ///////////////////////////////////////////////////////////////////////
 
+        //Called by device on each Play to determine where SPE and TIF files will be saved.
+        void setSaveDir(string dir)
+        {
+            //Need to strip off extra control character from string or Lightfield will crash on save.
+            //Possibly the conversion from std::string to String adds an extra endline char (?)
+            //Length of raw dir string is +1 char before cleanup.
+            saveDirectory = new string(dir.Where(c => !char.IsControl(c)).ToArray());
 
-        EventHandler<ExperimentCompletedEventArgs> acquireCompletedEventHandler_;
+            //string tmp = "C:\\Users\\Jason\\Code\\dev\\stidatatest\\2017\\9\\30\\data";
+            //userInterface.printMessage("Raw: "+ dir.Length.ToString() + "\r\n" + "Hard: "+ tmp.Length.ToString() + "\r\n"
+            //    + "saveDirectory: " + saveDirectory.Length.ToString() + "\r\n");
 
+        }
+        ///////////////////////////////////////////////////////////////////////
 
         public void connect()
         {
@@ -135,8 +126,8 @@ namespace STI
                 }
 
             }).Start();
-
         }
+        ///////////////////////////////////////////////////////////////////////
 
         public void disconnect()
         {
@@ -150,9 +141,9 @@ namespace STI
                     deviceThread.Join();
                 }
                 //                MessageBox.Show("Device disconnected successfully.");
-
             }).Start();
         }
+        ///////////////////////////////////////////////////////////////////////
 
         public void startDeviceWrapper()
         {
@@ -177,9 +168,7 @@ namespace STI
         {
             // Capture Interface
             LightFieldApplication = app;
-
             ExperimentSettingElement = userInterface;
-
         }
         ///////////////////////////////////////////////////////////////////////
         bool ValidateAcquisition()
@@ -188,15 +177,19 @@ namespace STI
             foreach (IDevice device in LightFieldApplication.Experiment.ExperimentDevices)
             {
                 if (device.Type == DeviceType.Camera)
+                {
                     camera = device;
+                }
             }
-            ///////////////////////////////////////////////////////////////////////
+
+            //LightFieldApplication.Experiment.
+
             if (camera == null)
             {
                 MessageBox.Show("This sample requires a camera!");
                 return false;
             }
-            ///////////////////////////////////////////////////////////////////////
+
             if (!LightFieldApplication.Experiment.IsReadyToRun)
             {
                 MessageBox.Show("The system is not ready for acquisition, is there an error?");
@@ -204,18 +197,21 @@ namespace STI
             }
             return true;
         }
+        ///////////////////////////////////////////////////////////////////////
 
+        public void ClearImageCount() {}
+        public void IncrementImageCount() {}
 
-        private int currentImageIndex = 0;
-
-        public void stopAcquisition()
+        public void Aquire(int index)
         {
-            IExperiment experiment = LightFieldApplication.Experiment;
-            if (experiment != null)
-            {
-                experiment.Stop();
-            }
+            startAcquisition(index);
         }
+
+        public void Stop()
+        {
+            stopAcquisition();
+        }
+        ///////////////////////////////////////////////////////////////////////
 
         public void startAcquisition(int index)
         {
@@ -229,22 +225,29 @@ namespace STI
             IExperiment experiment = LightFieldApplication.Experiment;
             if (experiment != null)
             {
-                // Not All Systems Have an Exposure Setting, if they do get the minimum and set it
-                if (experiment.Exists(CameraSettings.ShutterTimingExposureTime))
-                {
-//                    ISettingRange currentRange = experiment.GetCurrentRange(CameraSettings.ShutterTimingExposureTime);
-//                    experiment.SetValue(CameraSettings.ShutterTimingExposureTime, currentRange.Minimum);
-                }
-
                 // Attach Date/Time to filename
                 experiment.SetValue(ExperimentSettings.FileNameGenerationAttachDate, true);
                 experiment.SetValue(ExperimentSettings.FileNameGenerationAttachTime, true);
 
-                // Save file as Specific.Spe to the default directory
-//                experiment.SetValue(ExperimentSettings.FileNameGenerationBaseFileName, "Specific");
+
+                // Save Spe (and tif) to the specified directory
+                if (saveDirectory != null)
+                {
+                    //userInterface.printMessage(saveDirectory + "\r\n");
+                    //experiment.SetValue(ExperimentSettings.FileNameGenerationDirectory, "C:\\Users\\Jason\\Code\\dev\\stidatatest\\2017\\9\\30\\" + "data");
+
+                    experiment.SetValue(ExperimentSettings.FileNameGenerationDirectory, saveDirectory);
+
+                    //string dir = experiment.GetValue(ExperimentSettings.FileNameGenerationDirectory).ToString();
+                    //userInterface.printMessage(dir + "\r\n");
+                    //userInterface.printMessage("Compare: "+ String.Compare(dir, saveDirectory).ToString());
+                }
+
+                //Save file as Specific.Spe to the default directory
+                //experiment.SetValue(ExperimentSettings.FileNameGenerationBaseFileName, "Specific2");
 
                 // Connnect the event handler
-                acquireCompletedEventHandler_ = new EventHandler<ExperimentCompletedEventArgs>(exp_AcquisitionComplete);
+                acquireCompletedEventHandler_ = new EventHandler<ExperimentCompletedEventArgs>(AcquisitionCompleteHandler);
                 experiment.ExperimentCompleted += acquireCompletedEventHandler_;
 
                 // Begin the acquisition 
@@ -253,12 +256,12 @@ namespace STI
         }
         ///////////////////////////////////////////////////////////////////////
         // Acquire Completed Handler
-        // This just fires a message saying that the data is acquired.
+        // Returns the saved filenames (spe, tif) to the device and signal the device to stop.
         ///////////////////////////////////////////////////////////////////////
-        public void exp_AcquisitionComplete(object sender, ExperimentCompletedEventArgs e)
+        public void AcquisitionCompleteHandler(object sender, ExperimentCompletedEventArgs e)
         {
             ((IExperiment)sender).ExperimentCompleted -= acquireCompletedEventHandler_;
-            //            MessageBox.Show("Acquire Completed");
+
             string spe_filename = getRecentFilename();
 
             wrapper.setSavedSPEFilename(currentImageIndex, spe_filename);
@@ -271,6 +274,17 @@ namespace STI
             wrapper.stopWaiting(currentImageIndex);
 
         }
+        ///////////////////////////////////////////////////////////////////////
+
+        public void stopAcquisition()
+        {
+            IExperiment experiment = LightFieldApplication.Experiment;
+            if (experiment != null)
+            {
+                experiment.Stop();
+            }
+        }
+        ///////////////////////////////////////////////////////////////////////
 
         public string getRecentFilename()
         {
@@ -278,7 +292,21 @@ namespace STI
 
             return filenames.First<string>();
         }
+        ///////////////////////////////////////////////////////////////////////
 
+        //public string getFilePath()
+        //{
+        //    object tmp = LightFieldApplication.Experiment.GetValue(ExperimentSettings.FileNameGenerationFileFormatLocation);
+        //    if (tmp == null)
+        //    {
+        //        return "Null object";
+        //    }
+        //    else
+        //    {
+        //        return tmp.ToString();
+        //    }
+        //}
+        ///////////////////////////////////////////////////////////////////////
         private void Export_Tiff(string sourceFilename)
         {
             // Get the file manager
@@ -292,7 +320,6 @@ namespace STI
                 // Add Files
                 List<string> itemsForExport = new List<string>();
                 itemsForExport.Add(sourceFilename);
-//                itemsForExport.AddRange(FilesListBox.Items.Cast<string>());
 
                 IList<IExportSelectionError> selectedErrors = new List<IExportSelectionError>();
 
@@ -368,6 +395,13 @@ namespace STI
         }
         ///////////////////////////////////////////////////////////////////////
         public override string UIExperimentSettingTitle { get { return "PIXIS STI Device"; } }
-    }
+        ///////////////////////////////////////////////////////////////////////
+        static void PixisExceptionHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception e = (Exception)args.ExceptionObject;
+            MessageBox.Show("PIXIS STI Device handler caught : " + e.Message);
+            MessageBox.Show("Runtime terminating: " + Convert.ToString(args.IsTerminating));
+        }
 
+    }
 }

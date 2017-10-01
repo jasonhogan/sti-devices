@@ -2,6 +2,7 @@
 #define LIGHTFIELDHANDLE_H
 
 #include "callbacks.h"
+#include <string>
 
 class LightFieldHandle
 {
@@ -13,8 +14,10 @@ public:
 	void go();
 	int test(int x);
 	bool isReadyToAquire();
+	bool externalTriggerOn();
 	void clearImageCount();
 	void incrementImageCount();
+	void setSaveDir(std::string dir);
 
 	//Install callbacks
 	void install_CB(Callback::Aquire cb) { aquireCB = cb.cb; }
@@ -24,6 +27,9 @@ public:
 	void install_CB(Callback::IsReadyToAquire cb) { isReadyCB = cb.cb; }
 	void install_CB(Callback::ClearImageCount cb) { clearCountCB = cb.cb; }
 	void install_CB(Callback::IncrementImageCount cb) { incrementCountCB = cb.cb; }
+	void install_CB(Callback::ExternalTriggerOn cb) { extTriggerCB = cb.cb; }
+
+	void install_CB(Callback::SetSaveDir cb) { setSaveDirCB = cb.cb; }
 
 private:
 
@@ -33,6 +39,8 @@ private:
 	Callback::Stop::Func stopCB;
 	Callback::Test::Func testCB;
 
+	Callback::SetSaveDir::Func setSaveDirCB;
+	Callback::ExternalTriggerOn::Func extTriggerCB;
 	Callback::IsReadyToAquire::Func isReadyCB;
 	Callback::ClearImageCount::Func clearCountCB;
 	Callback::IncrementImageCount::Func incrementCountCB;

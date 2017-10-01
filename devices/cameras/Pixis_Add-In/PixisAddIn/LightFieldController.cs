@@ -44,6 +44,14 @@ namespace STI
             controller_.startAcquisition(index);
         //    testAquire(index);
         }
+
+
+        public void Stop()
+        {
+            controller_.stopAcquisition();
+//            application.Experiment.Stop();
+        }
+
         private void testAquire(int index)
         {
      //       application.Experiment.Acquire();
@@ -78,14 +86,6 @@ namespace STI
                 experiment.Acquire();
             }
         }
-
-        public void Stop()
-        {
-            controller_.stopAcquisition();
-//            application.Experiment.Stop();
-        }
-
-
         void exp_AcquisitionComplete(object sender, ExperimentCompletedEventArgs e)
         {
             ((IExperiment)sender).ExperimentCompleted -= acquireCompletedEventHandler_;

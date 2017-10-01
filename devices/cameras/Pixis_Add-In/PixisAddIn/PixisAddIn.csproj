@@ -57,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DeviceCallbackHandler.cs" />
-    <Compile Include="LightFieldController.cs" />
     <Compile Include="PixisAddIn.cs" />
     <Compile Include="PixisDeviceCallbackListener.cs" />
     <Compile Include="PixisDeviceUserControl.xaml.cs">

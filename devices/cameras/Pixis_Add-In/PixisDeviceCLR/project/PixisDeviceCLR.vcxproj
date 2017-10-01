@@ -70,12 +70,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\DeviceHolder.cpp" />
+    <ClCompile Include="..\src\DeviceHolder.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </CompileAsManaged>
+      <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Sync</ExceptionHandling>
+    </ClCompile>
     <ClCompile Include="..\src\DeviceWrapper.cpp">
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExceptionHandling>
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="..\src\LightFieldHandle.cpp" />
+    <ClCompile Include="..\src\LightFieldHandle.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </CompileAsManaged>
+    </ClCompile>
     <ClCompile Include="..\src\PixisAddinDevice.cpp" />
   </ItemGroup>
   <ItemGroup>

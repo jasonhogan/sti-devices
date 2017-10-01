@@ -5,9 +5,17 @@
 //typedef void(__stdcall *AQUIRECB)(void);
 //typedef void(__stdcall *STOPCB)(void);
 
+#include <string>
+
 namespace Callback
 {
 
+struct ExternalTriggerOn
+{
+	typedef bool(__stdcall *Func)(void);
+	ExternalTriggerOn(Func cb) : cb(cb) {}
+	Func cb;
+};
 struct IsReadyToAquire
 {
 	typedef bool(__stdcall *Func)(void);
@@ -38,6 +46,13 @@ struct Aquire
 {
 	typedef void(__stdcall *Func)(int);
 	Aquire(Func cb) : cb(cb) {}
+	Func cb;
+};
+
+struct SetSaveDir
+{
+	typedef void(__stdcall *Func)(std::string);
+	SetSaveDir(Func cb) : cb(cb) {}
 	Func cb;
 };
 

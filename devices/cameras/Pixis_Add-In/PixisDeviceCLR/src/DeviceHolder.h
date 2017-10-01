@@ -34,6 +34,8 @@ public:
 	__declspec(dllexport) void install_CB(Callback::Go cb) { install<Callback::Go>(cb); }
 	__declspec(dllexport) void install_CB(Callback::Stop cb) { install<Callback::Stop>(cb); }
 
+	__declspec(dllexport) void install_CB(Callback::SetSaveDir cb) { install<Callback::SetSaveDir>(cb); }
+	__declspec(dllexport) void install_CB(Callback::ExternalTriggerOn cb) { install<Callback::ExternalTriggerOn>(cb); }
 	__declspec(dllexport) void install_CB(Callback::IsReadyToAquire cb) { install<Callback::IsReadyToAquire>(cb); }
 	__declspec(dllexport) void install_CB(Callback::ClearImageCount cb) { install<Callback::ClearImageCount>(cb); }
 	__declspec(dllexport) void install_CB(Callback::IncrementImageCount cb) { install<Callback::IncrementImageCount>(cb); }

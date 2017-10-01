@@ -16,7 +16,9 @@ __declspec(dllexport) void DeviceHolder::setupORB()
 
 	orb_manager = new ORBManager(argc, argv);
 
-	pixisDevice = std::make_shared<PixisAddinDevice>(orb_manager);
+	ConfigFile configFile("sti_pixis_addin.ini");		//Default dir apparently is C:\Windows\System32 when loading from dll
+
+	pixisDevice = std::make_shared<PixisAddinDevice>(orb_manager, configFile);
 }
 
 __declspec(dllexport) DeviceHolder::~DeviceHolder()

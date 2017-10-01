@@ -11,17 +11,7 @@ class PixisAddinDevice : public STI_Device_Adapter
 {
 public:
 
-
-	PixisAddinDevice(ORBManager* orb_manager)
-		: STI_Device_Adapter(orb_manager, "Pixis", "localhost", 0)
-	{
-//		waiting = false;
-
-		currentImageIndex = 0;
-		
-//		resetImageIndex();
-	}
-
+	PixisAddinDevice(ORBManager* orb_manager, const ConfigFile& configFile);
 
 	void defineChannels();
 
@@ -34,12 +24,7 @@ public:
 //	void stopEventPlayback();
 
 	void aquireImage(int index);
-
-
-//	void waitForImage(int index);
 	void stopWaiting(int index);
-
-//	Callback aquireHandler;
 
 	LightFieldHandle lightfield;
 
@@ -48,29 +33,36 @@ public:
 	void setSavedImageFilename(int index, const std::string& filename);
 	void setSavedSPEFilename(int index, const std::string& filename);
 
-
 private:
+
+	//Partner information for external trigger
+	struct TriggerDevice
+	{
+		TriggerDevice() 
+			: name(""), ip(""), module(0), channel(0), low(0), high(1), duration_ns(1), resetHoldoff_ns(0) {}
+		string name;
+		string ip;
+		short module;
+		short channel;
+		double low;			//event value
+		double high;		//event value
+		double duration_ns;
+		double resetHoldoff_ns;	//how early the trigger goes low initially
+	} trigger;
 
 	bool waiting;
 	int currentImageIndex;
-//	std::vector<bool> imagesDone;
+	std::string baseDirectory;
 
-	mutable std::mutex aquire_mutex;
-	std::condition_variable aquire_condition;
-
-//	class LightFieldCallback
-//	{
-//		virtual void setSavedImageFilename(const std::string& filename) = 0;
-//		virtual void setSavedSPEFilename(const std::string& filename) = 0;
-////		virtual void stopWaiting() = 0;
-//	};
-
-
+	std::string generateDataDestinationDirectory();
 	std::string getFilename(int index, const std::map<int, std::string>& filenames);
+
 	std::map<int, std::string> imageFilenames;
 	std::map<int, std::string> speFilenames;
 	mutable std::mutex filename_mutex;
 
+	mutable std::mutex aquire_mutex;
+	std::condition_variable aquire_condition;
 
 	friend class PixisEvent;
 
@@ -87,7 +79,7 @@ private:
 		void reset();	//override
 		void stop();	//override
 
-		void setupEvent() { }
+		void setupEvent();
 		void loadEvent();
 		void playEvent();
 		void collectMeasurementData();
@@ -105,14 +97,11 @@ private:
 		PixisAddinDevice* cameraDevice;
 		int imageIndex;
 		bool dataReady;
-//		std::string imageFilename;
-//		std::string speFilename;
 
 		mutable std::mutex collect_mutex;
 		std::condition_variable collect_condition;
 
 	};
-
 };
 
 

@@ -22,23 +22,21 @@ namespace STI
     /// </summary>
     public partial class PixisDeviceUserControl : UserControl, PixisDeviceCallbackListener
     {
-
         PixisAddIn controller_;
         ILightFieldApplication app_;
-//        DeviceWrapper wrapper;
-//        public Thread deviceThread;// = new Thread(startDeviceWrapper);
 
         public StatusTextManager statusText;
+        private bool externalTriggerEnabled = true;
 
         public PixisDeviceUserControl(ILightFieldApplication application, PixisAddIn controller)
         {
             controller_ = controller;
             app_ = application;
-//            wrapper = wrap;
 
             InitializeComponent();
 
             disconnectButton.IsEnabled = false;
+            triggerCheckBox.IsChecked = true;
 
             statusText = new StatusTextManager(aquireStatusLabel);
             statusText.setStatus(StatusTextManager.Status.Disconnected);
@@ -46,12 +44,17 @@ namespace STI
 
         ~PixisDeviceUserControl()
         {
-        //    deviceThread.Abort();
+        }
+
+        public bool externalTriggerOn()
+        {
+            //printMessage("externalTriggerOn? " + externalTriggerEnabled.ToString() + " \r\n");
+
+            return externalTriggerEnabled;
         }
 
         private void connect_button_Click(object sender, RoutedEventArgs e)
         {
-            //            MessageBox.Show("Test button!");
             controller_.connect();
 
             Dispatcher.Invoke(
@@ -61,8 +64,8 @@ namespace STI
                     connectButton.IsEnabled = false;
                     disconnectButton.IsEnabled = true;
                     statusText.setStatus(StatusTextManager.Status.Idle);
-                })
-                );
+                }));
+            
         }
 
         private void disconnectButton_Click(object sender, RoutedEventArgs e)
@@ -76,8 +79,7 @@ namespace STI
                     connectButton.IsEnabled = true;
                     disconnectButton.IsEnabled = false;
                     statusText.setStatus(StatusTextManager.Status.Disconnected);
-                })
-                );
+                }));
         }
 
         public void ClearImageCount()
@@ -88,9 +90,8 @@ namespace STI
                 {
                     statusText.setCurrentImage(0);
                     statusText.setExpectedImages(0);
-                    textBox.AppendText("ClearImageCount \r\n");
-                })
-                );
+                    //textBox.AppendText("ClearImageCount \r\n");
+                }));
         }
         public void IncrementImageCount()
         {
@@ -98,34 +99,22 @@ namespace STI
                 System.Windows.Threading.DispatcherPriority.Background,
                 new Action(delegate ()
                 {
-                           //textBox.Text = "IncrementImageCount";
-                           statusText.setExpectedImages(statusText.expectedImages + 1);
-                    textBox.AppendText("IncrementImageCount \r\n");
-
-                })
-                       );
+                    //textBox.Text = "IncrementImageCount";
+                    statusText.setExpectedImages(statusText.expectedImages + 1);
+                    //textBox.AppendText("IncrementImageCount \r\n");
+                }));
         }
 
         public void Aquire(int index)
         {
-//            MessageBox.Show("Aquire! " + Convert.ToString(index));
-
             Dispatcher.Invoke(
-           System.Windows.Threading.DispatcherPriority.Background,
-           new Action(delegate ()
-           {
-
-               statusText.setStatus(StatusTextManager.Status.Aquiring);
-               statusText.setCurrentImage(index);
-
-               textBox.AppendText("Aquire " + Convert.ToString(index) + "\r\n");
-
-                              
-               //               statusText.setCurrentImage(22);
-               //              textBox.Text = "Aquire: " + Convert.ToString(index);
-
-           })
-           );
+                System.Windows.Threading.DispatcherPriority.Background,
+                new Action(delegate ()
+                {
+                    statusText.setStatus(StatusTextManager.Status.Aquiring);
+                    statusText.setCurrentImage(index);
+                    //textBox.AppendText("Aquire " + Convert.ToString(index) + "\r\n");
+                }));
         }
         public void Stop()
         {
@@ -134,15 +123,7 @@ namespace STI
            new Action(delegate ()
            {
                statusText.setStatus(StatusTextManager.Status.Idle);
-           })
-           );
-        }
-
-
-        private void testButton_Click(object sender, RoutedEventArgs e)
-        {
-            //controller_.acquireTest(0);
-            printMessage(controller_.getRecentFilename() + "\r\n");
+           }));
         }
 
         public void printMessage(string text)
@@ -153,11 +134,19 @@ namespace STI
                 new Action(delegate ()
                 {
                     textBox.AppendText(text);
-                })
-                );
+                }));
         }
 
-    }
+        private void triggerCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (triggerCheckBox.IsChecked.HasValue && triggerCheckBox.IsChecked.Value)
+                externalTriggerEnabled = true;
+            else
+                externalTriggerEnabled = false;
+
+ //           printMessage("triggerCheckBox_Checked? " + externalTriggerEnabled.ToString() + " \r\n");
+        }
+   }
 
     public class StatusTextManager
     {
@@ -168,7 +157,6 @@ namespace STI
             expectedImages = 0;
 
             setStatus(Status.Idle);
-
         }
 
         public void refresh()
@@ -178,11 +166,11 @@ namespace STI
                 case Status.Idle:
                     statusLabel.Content = "Idle.  Number of images ready to aquire: "
                          + Convert.ToString(expectedImages);
-//                        + " images ready to be aquired.";
+                    //                        + " images ready to be aquired.";
                     break;
                 case Status.Aquiring:
-                    statusLabel.Content = "Aquiring image: " 
-                        + Convert.ToString(currentImage + 1)  + "/" + Convert.ToString(expectedImages);
+                    statusLabel.Content = "Aquiring image: "
+                        + Convert.ToString(currentImage + 1); // + "/" + Convert.ToString(expectedImages);
                     break;
                 case Status.Disconnected:
                     statusLabel.Content = "Disconnected";

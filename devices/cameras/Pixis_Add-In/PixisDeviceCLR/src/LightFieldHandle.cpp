@@ -1,5 +1,8 @@
 
 #include "LightFieldHandle.h"
+#include <string>
+
+
 
 LightFieldHandle::LightFieldHandle()
 {
@@ -9,6 +12,14 @@ void LightFieldHandle::aquire(int index)
 {
 	if (aquireCB != 0) {
 		aquireCB(index);
+	}
+}
+
+void LightFieldHandle::setSaveDir(std::string dir)
+{
+
+	if (setSaveDirCB != 0) {
+		setSaveDirCB(dir);
 	}
 }
 
@@ -32,7 +43,13 @@ void LightFieldHandle::go()
 		goCB();
 	}
 }
-
+bool LightFieldHandle::externalTriggerOn()
+{
+	if (extTriggerCB != 0) {
+		return extTriggerCB();
+	}
+	return false;
+}
 bool LightFieldHandle::isReadyToAquire()
 {
 	if (isReadyCB != 0) {
