@@ -1,0 +1,23 @@
+Installation instructions for Pixis STI Device AddIn for Lightfield
+
+The device INI file is:
+*  sti_pixis_addin.ini 
+It must go in c:\windows\System32\
+An example INI is in the \doc folder.  Change the attributes as needed. 
+
+
+The following DLLs must ALL go in the Princeton Instruments AddIn folder.
+All DLLs should be 64 bit release builds.
+The install directory should be something like:
+C:\Program Files\Princeton Instruments\LightField\AddIns\STI\
+
+AddIn and STI device support DLLs:
+*  PixisAddIn.dll
+*  PixisDeviceCLR.dll
+
+External library DLLs:
+*  omnithread40_vc14_rt.dll
+*  omniORB421_vc14_rt.dll
+*  omniDynamic421_vc14_rt.dll
+*  xerces-c_3_1.dll
+
