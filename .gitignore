@@ -20,3 +20,5 @@ devices/cameras/Pixis_Add-In/PixisAddIn/obj/Release/
 devices/test-meas/CleverScope/vcproject/UpgradeLog.htm
 sh.exe.stackdump
 devices/cameras/Pixis_Add-In/project/Release/
+devices/cameras/Smartek/project/Debug/
+devices/cameras/Smartek/project/x64/
