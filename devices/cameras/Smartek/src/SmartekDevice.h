@@ -10,8 +10,15 @@
 #include <memory>
 
 class SmartekNodeValue;
+class Image;
+class ImageWriter;
 
-
+struct SmartekDeviceEventValue
+{
+	unsigned short channel;
+	std::string baseFilename;
+	std::string description;
+};
 
 class SmartekDevice : public STI_Device_Adapter
 {
@@ -34,14 +41,68 @@ public:
 
 private:
 
+	bool parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message);
+
 	void init();
 	void initializedNodeValues();
 
 	smcs::IDevice camera;
 
 	std::vector<std::shared_ptr<SmartekNodeValue>> nodeValues;
-};
 
+	//*****************************
+
+	class ImageWriterEvent : public SynchronousEventAdapter
+	{
+	public:
+
+		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<ImageWriter>& imageWriter, const std::string& filename)
+			: SynchronousEventAdapter(time, cameraDevice_), imageWriter(imageWriter), filename(filename) {}
+
+		void collectMeasurementData();
+		void waitBeforeCollectData();
+
+		void addImage(const std::shared_ptr<Image>& image);
+
+	private:
+
+		shared_ptr<ImageWriter> imageWriter;
+		std::string filename;
+
+	};
+
+	class SmartekEvent : public SynchronousEventAdapter
+	{
+	public:
+
+		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image);
+
+//			: SynchronousEvent(time, cameraDevice_), cameraDevice(cameraDevice_),
+//			image(image), imageWriter(imageWriter)
+//		{
+//			image->imageData.reserve(image->getImageSize());	//reserve memory for image data
+//		}
+
+//		void reset();	//override
+		void stop();	//override
+
+		void setupEvent() { }
+//		void loadEvent();
+		void playEvent();
+		void collectMeasurementData();
+
+		void waitBeforeCollectData();
+
+		SmartekDevice* cameraDevice;
+
+		shared_ptr<Image> image;
+
+	private:
+
+	};
+
+
+};
 
 class SmartekNodeValue	//abstract
 {
