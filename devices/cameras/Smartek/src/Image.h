@@ -7,7 +7,8 @@
 
 //typedef char WORD;
 //typedef unsigned short      WORD;
-typedef unsigned char IMAGEWORD;
+//typedef unsigned char IMAGEWORD;
+typedef unsigned short IMAGEWORD;
 
 class Metadatum {
 public:

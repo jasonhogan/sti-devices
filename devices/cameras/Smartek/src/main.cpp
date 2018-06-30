@@ -91,7 +91,8 @@ int main(int argc, char* argv[])
 	}
 
 	SmartekDevice smartekCamera(orbManager, configFilename, devices.at(0));
-	
+	smartekCamera.setSaveAttributesToFile(true);
+
 	orbManager->run();	//Blocks while device is alive
 
 

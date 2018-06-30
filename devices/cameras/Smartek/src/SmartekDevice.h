@@ -6,6 +6,8 @@
 
 #include "smcs_cpp/CameraSDK.h"
 
+#include "Image.h"
+
 #include <vector>
 #include <memory>
 
@@ -18,12 +20,20 @@ struct SmartekDeviceEventValue
 	unsigned short channel;
 	std::string baseFilename;
 	std::string description;
+	bool newGroup;	//ch2
+};
+
+struct GroupImageProperties
+{
 };
 
 class SmartekDevice : public STI_Device_Adapter
 {
 public:
 
+	enum AbsorptionImageType { Signal, Reference, Background, None };
+	enum Operation { Add, Subtract, Mean, Absorption };
+	
 	SmartekDevice(ORBManager* orb_manager, std::string configFilename, const smcs::IDevice& camera);
 
 
@@ -45,6 +55,9 @@ private:
 
 	void init();
 	void initializedNodeValues();
+
+	void unpackLine(UINT8* rawLine, std::vector<IMAGEWORD>& unpackedLine);
+
 
 	smcs::IDevice camera;
 
@@ -96,6 +109,8 @@ private:
 		SmartekDevice* cameraDevice;
 
 		shared_ptr<Image> image;
+
+		AbsorptionImageType absType;
 
 	private:
 

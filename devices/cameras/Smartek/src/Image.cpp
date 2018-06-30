@@ -81,6 +81,7 @@ void Image::setImageWidth(unsigned width)
 
 void Image::resizeImage()
 {
-	imageData.resize(imageHeight*imageWidth);
+//	imageData.resize(imageHeight*imageWidth);
+	imageData.reserve(imageHeight*imageWidth);
 }
 
