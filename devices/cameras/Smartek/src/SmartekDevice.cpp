@@ -268,11 +268,11 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 			totalImages++;
 			image = std::make_shared<Image>(1, 1);
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to plau immediately after last event
+			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime + 10, this, image);	//schedule event to plau immediately after last event
 
 			eventsOut.push_back(smartekEvent.release());
 
-			if (singleWriter == 0) {
+			if (singleWriter == 0 || true) {
 				singleWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tif)
 			}
 
@@ -412,6 +412,8 @@ SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevi
 
 void SmartekDevice::SmartekEvent::playEvent()
 {
+	cout << "Playing" << endl;
+
 	//TEMP
 	bool status;
 	// set trigger selector to frame start
@@ -448,7 +450,17 @@ void SmartekDevice::SmartekEvent::stop()
 void SmartekDevice::SmartekEvent::waitBeforeCollectData()
 {
 	//query acquisition status, or use callback. possibly use image count when starting acq
-	std::this_thread::sleep_for(std::chrono::seconds(5));	//TEMP
+	//std::this_thread::sleep_for(std::chrono::seconds(5));	//TEMP
+
+
+	bool success = false;
+
+	while (!success && cameraDevice->running()) {
+		success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
+		cout << "WaitForImage: " << success << endl;
+	}
+
+	//cout << "WaitForImage: " << success << endl;
 
 	//UINT32 pendingImages;
 
@@ -466,7 +478,7 @@ void SmartekDevice::SmartekEvent::waitBeforeCollectData()
 	//	cout << "frameCount = " << frameCount << endl;
 	//	std::this_thread::sleep_for(std::chrono::milliseconds(100));	//TEMP
 	//	i++;
-	//} while (frameCount > 0 && i < 100);
+	//} while (frameCount > 0 && i < 1000);
 
 
 }
