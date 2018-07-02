@@ -22,11 +22,14 @@ namespace STI
     /// </summary>
     public partial class PixisDeviceUserControl : UserControl, PixisDeviceCallbackListener
     {
+        public enum CameraSelection { North, East, None };
+        public CameraSelection cameraSelection = CameraSelection.None;
+
         PixisAddIn controller_;
         ILightFieldApplication app_;
 
         public StatusTextManager statusText;
-        private bool externalTriggerEnabled = true;
+        private bool externalTriggerEnabled = false;
 
         public PixisDeviceUserControl(ILightFieldApplication application, PixisAddIn controller)
         {
@@ -35,8 +38,11 @@ namespace STI
 
             InitializeComponent();
 
+            connectButton.IsEnabled = false;
             disconnectButton.IsEnabled = false;
-            triggerCheckBox.IsChecked = true;
+            triggerCheckBox.IsChecked = false;
+            radioButtonNorth.IsEnabled = true;
+            radioButtonEast.IsEnabled = true;
 
             statusText = new StatusTextManager(aquireStatusLabel);
             statusText.setStatus(StatusTextManager.Status.Disconnected);
@@ -63,6 +69,21 @@ namespace STI
                 {
                     connectButton.IsEnabled = false;
                     disconnectButton.IsEnabled = true;
+
+                    //The radio button selections are hard to read; make the unselected button invisible
+                    switch(cameraSelection)
+                    {
+                        case CameraSelection.North:
+                            radioButtonEast.Visibility = Visibility.Hidden;
+                            break;
+                        case CameraSelection.East:
+                            radioButtonNorth.Visibility = Visibility.Hidden;
+                            break;
+                    }
+
+                    //radioButtonNorth.Visibility = Visibility.Hidden;
+                    radioButtonNorth.IsEnabled = false;
+                    radioButtonEast.IsEnabled = false;
                     statusText.setStatus(StatusTextManager.Status.Idle);
                 }));
             
@@ -78,6 +99,12 @@ namespace STI
                 {
                     connectButton.IsEnabled = true;
                     disconnectButton.IsEnabled = false;
+
+                    radioButtonNorth.Visibility = Visibility.Visible;
+                    radioButtonEast.Visibility = Visibility.Visible;
+
+                    radioButtonNorth.IsEnabled = true;
+                    radioButtonEast.IsEnabled = true;
                     statusText.setStatus(StatusTextManager.Status.Disconnected);
                 }));
         }
@@ -146,7 +173,27 @@ namespace STI
 
  //           printMessage("triggerCheckBox_Checked? " + externalTriggerEnabled.ToString() + " \r\n");
         }
-   }
+
+        private void radioButtonNorth_Checked(object sender, RoutedEventArgs e)
+        {
+            if(cameraSelection == CameraSelection.None)
+            {
+                //initial selction; connection can now be made
+                connectButton.IsEnabled = true;
+            }
+            cameraSelection = CameraSelection.North;
+        }
+
+        private void radioButtonEast_Checked(object sender, RoutedEventArgs e)
+        {
+            if (cameraSelection == CameraSelection.None)
+            {
+                //initial selction; connection can now be made
+                connectButton.IsEnabled = true;
+            }
+            cameraSelection = CameraSelection.East;
+        }
+    }
 
     public class StatusTextManager
     {

@@ -56,6 +56,13 @@ struct SetSaveDir
 	Func cb;
 };
 
+struct Print
+{
+	typedef void(__stdcall *Func)(std::string);
+	Print(Func cb) : cb(cb) {}
+	Func cb;
+};
+
 struct Go
 {
 	typedef void(__stdcall *Func)(void);

@@ -6,6 +6,8 @@
 
 #include "callbacks.h"
 
+#include "ConfigFile.h"
+
 class PixisAddinDevice;
 class ORBManager;
 
@@ -14,7 +16,7 @@ class DeviceHolder
 {
 public:
 	
-	__declspec(dllexport) DeviceHolder();
+	__declspec(dllexport) DeviceHolder(int module);
 	__declspec(dllexport) ~DeviceHolder();
 
 	__declspec(dllexport) void setupORB();
@@ -35,6 +37,8 @@ public:
 	__declspec(dllexport) void install_CB(Callback::Stop cb) { install<Callback::Stop>(cb); }
 
 	__declspec(dllexport) void install_CB(Callback::SetSaveDir cb) { install<Callback::SetSaveDir>(cb); }
+	__declspec(dllexport) void install_CB(Callback::Print cb) { install<Callback::Print>(cb); }
+
 	__declspec(dllexport) void install_CB(Callback::ExternalTriggerOn cb) { install<Callback::ExternalTriggerOn>(cb); }
 	__declspec(dllexport) void install_CB(Callback::IsReadyToAquire cb) { install<Callback::IsReadyToAquire>(cb); }
 	__declspec(dllexport) void install_CB(Callback::ClearImageCount cb) { install<Callback::ClearImageCount>(cb); }
@@ -45,8 +49,15 @@ private:
 	//Generic install
 	template<typename CB> void install(CB cb);
 
+	int module;		//For distinguishing North vs East camera
+
+	std::shared_ptr<ConfigFile> configFile;
+
 	std::shared_ptr<PixisAddinDevice> pixisDevice;
 	ORBManager* orb_manager;
+
+	int argc;
+	char** argv;
 
 };
 

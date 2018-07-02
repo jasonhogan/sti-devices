@@ -1,15 +1,22 @@
 Installation instructions for Pixis STI Device AddIn for Lightfield
 
-The device INI file is:
-*  sti_pixis_addin.ini 
-It must go in c:\windows\System32\
-An example INI is in the \doc folder.  Change the attributes as needed. 
+The device INI files are:
+*  sti_pixis_north.ini 
+*  sti_pixis_east.ini
+They must go in C:\Program Files\Princeton Instruments\LightField\AddIns\STI_Pixis
+This directory is HARD CODED into the AddIn binary!  The north and east INI filenames
+are also hard coded so their names cannot be changed.
 
+An example INI is in the \doc folder.  Change the attributes as needed.
+The module convention used by the AddIn GUI radio buttons is
+* North = 0
+* East = 1
+The module parameters in the INI files should be consistent with this.
 
 The following DLLs must ALL go in the Princeton Instruments AddIn folder.
 All DLLs should be 64 bit release builds.
 The install directory should be something like:
-C:\Program Files\Princeton Instruments\LightField\AddIns\STI\
+C:\Program Files\Princeton Instruments\LightField\AddIns\STI_Pixis\
 
 AddIn and STI device support DLLs:
 *  PixisAddIn.dll
@@ -21,3 +28,5 @@ External library DLLs:
 *  omniDynamic421_vc14_rt.dll
 *  xerces-c_3_1.dll
 
+East camera S/N:  10249515
+North camera S/N: 11174514

@@ -12,6 +12,7 @@ class PixisAddinDevice : public STI_Device_Adapter
 public:
 
 	PixisAddinDevice(ORBManager* orb_manager, const ConfigFile& configFile);
+	PixisAddinDevice(ORBManager* orb_manager);
 
 	void defineChannels();
 
@@ -25,6 +26,8 @@ public:
 
 	void aquireImage(int index);
 	void stopWaiting(int index);
+
+	void print(const std::string& message);	//for sending messages up to the AddIn UI (mostly debugging)
 
 	LightFieldHandle lightfield;
 

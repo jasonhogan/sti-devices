@@ -19,6 +19,9 @@ public delegate void GoDelegate(void);
 public delegate void SetSaveDirDelegate(String^ dir);
 public delegate void SetSaveDirDelegate_Cpp(std::string dir);
 
+public delegate void PrintDelegate(String^ message);
+public delegate void PrintDelegate_Cpp(std::string message);
+
 public delegate bool ExternalTriggerOn(void);
 public delegate bool IsReadyToAquire(void);
 public delegate void ClearImageCount(void);
@@ -67,7 +70,7 @@ public:
 
 	DeviceHolder* device;
 
-	DeviceWrapper();
+	DeviceWrapper(int module);
 	~DeviceWrapper();
 
 	void startDevice();
@@ -89,6 +92,9 @@ public:
 	void installDelegate(IncrementImageCount^ del) { _installDelegate<Callback::IncrementImageCount>(del); }
 	void installDelegate(SetSaveDirDelegate^ del)  { _installMarshaledDelegate
 		<Callback::SetSaveDir, SetSaveDirDelegate, SetSaveDirDelegate_Cpp, void, std::string>(del); }
+	void installDelegate(PrintDelegate^ del)       { _installMarshaledDelegate
+			<Callback::Print, PrintDelegate, PrintDelegate_Cpp, void, std::string>(del); }
+
 
 //	void installDelegate(SetSaveDirDelegate^ del) { _installDelegate<Callback::SetSaveDir>(del); }
 //	void installDelegate(SetSaveDirDelegate^ del) { installDelegate2(del); }
@@ -103,7 +109,7 @@ public:
 	
 private:
 
-	//Needed if the argument types used by the mananged function differ from the unmanaged argument types.
+	//Needed if the argument types used by the mananged function different from the unmanaged argument types.
 	//This requires a custom specialization of MarshaledDelegate<...> for the types in question.
 	template<typename CB, class D, class D_Cpp, class Ret, class ... Args>
 	void _installMarshaledDelegate(D^ del)
@@ -144,6 +150,12 @@ void MarshaledDelegate<SetSaveDirDelegate, SetSaveDirDelegate_Cpp, void, std::st
 	return del(str);
 }
 
+template<>
+void MarshaledDelegate<PrintDelegate, PrintDelegate_Cpp, void, std::string>::Func(std::string message)
+{
+	String^ str = gcnew String(message.c_str());
+	return del(str);
+}
 
 };
 

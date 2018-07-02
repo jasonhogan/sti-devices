@@ -9,6 +9,22 @@
 //#include <stdio.h>
 //#include <stdlib.h>
 
+PixisAddinDevice::PixisAddinDevice(ORBManager* orb_manager)
+	: STI_Device_Adapter(orb_manager, "Pixis Test", "eppixis", 0)
+{
+	trigger.name = "";
+	trigger.ip = "";
+	trigger.module = 0;
+	trigger.channel = 0;
+
+	trigger.low = 0;
+	trigger.high = 5;
+	trigger.duration_ns = 10000;
+	trigger.resetHoldoff_ns = 10000;
+
+	baseDirectory = "";
+}
+
 PixisAddinDevice::PixisAddinDevice(ORBManager* orb_manager, const ConfigFile& configFile)
 	: STI_Device_Adapter(orb_manager, configFile)
 {
@@ -133,6 +149,11 @@ void PixisAddinDevice::setSavedSPEFilename(int index, const std::string& filenam
 {
 	std::unique_lock<std::mutex> lock(filename_mutex);
 	speFilenames.insert({ index, filename });
+}
+
+void PixisAddinDevice::print(const std::string& message)
+{
+	lightfield.print(message);
 }
 
 void PixisAddinDevice::PixisEvent::reset()

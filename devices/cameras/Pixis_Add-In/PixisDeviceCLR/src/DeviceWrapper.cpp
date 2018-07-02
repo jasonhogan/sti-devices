@@ -12,9 +12,9 @@
 using namespace STI;
 
 
-DeviceWrapper::DeviceWrapper()
+DeviceWrapper::DeviceWrapper(int module)
 {
-	device = new DeviceHolder();
+	device = new DeviceHolder(module);
 }
 
 DeviceWrapper::~DeviceWrapper()
@@ -32,7 +32,7 @@ void DeviceWrapper::shutdown()
 {
 	if (nullptr != device)
 	{
-		device->shutdown();
+		device->shutdown();		//DEBUG
 	}
 }
 

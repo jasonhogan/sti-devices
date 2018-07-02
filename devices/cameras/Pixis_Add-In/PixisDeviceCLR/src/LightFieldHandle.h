@@ -18,6 +18,7 @@ public:
 	void clearImageCount();
 	void incrementImageCount();
 	void setSaveDir(std::string dir);
+	void print(std::string message);
 
 	//Install callbacks
 	void install_CB(Callback::Aquire cb) { aquireCB = cb.cb; }
@@ -30,6 +31,7 @@ public:
 	void install_CB(Callback::ExternalTriggerOn cb) { extTriggerCB = cb.cb; }
 
 	void install_CB(Callback::SetSaveDir cb) { setSaveDirCB = cb.cb; }
+	void install_CB(Callback::Print cb) { printCB = cb.cb; }
 
 private:
 
@@ -44,6 +46,8 @@ private:
 	Callback::IsReadyToAquire::Func isReadyCB;
 	Callback::ClearImageCount::Func clearCountCB;
 	Callback::IncrementImageCount::Func incrementCountCB;
+
+	Callback::Print::Func printCB;
 
 };
 

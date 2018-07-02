@@ -1,0 +1,1 @@
+NameService=corbaname::192.168.1.250:2809

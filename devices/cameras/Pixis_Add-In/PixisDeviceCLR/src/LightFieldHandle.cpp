@@ -23,6 +23,14 @@ void LightFieldHandle::setSaveDir(std::string dir)
 	}
 }
 
+void LightFieldHandle::print(std::string message)
+{
+
+	if (printCB != 0) {
+		printCB(message);
+	}
+}
+
 void LightFieldHandle::stop()
 {
 	if (stopCB != 0) {

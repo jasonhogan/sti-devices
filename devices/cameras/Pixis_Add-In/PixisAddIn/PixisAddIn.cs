@@ -39,6 +39,7 @@ namespace STI
         ClearImageCount clearCountDelegate;
         IncrementImageCount incrementCountDelegate;
         SetSaveDirDelegate setSaveDirDelegate;
+        PrintDelegate printDelegate;
         ExternalTriggerOn externalTriggerOnDelegate;
 
         private int currentImageIndex = 0;
@@ -64,7 +65,10 @@ namespace STI
 
         ~PixisAddIn()
         {
-            wrapper.Dispose();
+            if(wrapper != null)
+            {
+                wrapper.Dispose();
+            }
         }
         ///////////////////////////////////////////////////////////////////////
 
@@ -75,6 +79,7 @@ namespace STI
             clearCountDelegate = new ClearImageCount(callbackHandler.ClearImageCount);
             incrementCountDelegate = new IncrementImageCount(callbackHandler.IncrementImageCount);
             setSaveDirDelegate = new SetSaveDirDelegate(setSaveDir);
+            printDelegate = new PrintDelegate(printFromDevice);
             externalTriggerOnDelegate = new ExternalTriggerOn(userInterface.externalTriggerOn);
         }
         ///////////////////////////////////////////////////////////////////////
@@ -86,9 +91,18 @@ namespace STI
             wrapper.installDelegate(clearCountDelegate);
             wrapper.installDelegate(incrementCountDelegate);
             wrapper.installDelegate(setSaveDirDelegate);
+            wrapper.installDelegate(printDelegate);
             wrapper.installDelegate(externalTriggerOnDelegate);
+
+        //    userInterface.printMessage("installDelegates" + "\n");
         }
         ///////////////////////////////////////////////////////////////////////
+
+        //Called by device when printing messages (such as when debugging)
+        void printFromDevice(string message)
+        {
+            userInterface.printMessage(message);
+        }
 
         //Called by device on each Play to determine where SPE and TIF files will be saved.
         void setSaveDir(string dir)
@@ -97,6 +111,7 @@ namespace STI
             //Possibly the conversion from std::string to String adds an extra endline char (?)
             //Length of raw dir string is +1 char before cleanup.
             saveDirectory = new string(dir.Where(c => !char.IsControl(c)).ToArray());
+
 
             //string tmp = "C:\\Users\\Jason\\Code\\dev\\stidatatest\\2017\\9\\30\\data";
             //userInterface.printMessage("Raw: "+ dir.Length.ToString() + "\r\n" + "Hard: "+ tmp.Length.ToString() + "\r\n"
@@ -109,8 +124,30 @@ namespace STI
         {
             new Thread(delegate () {
 
-                wrapper = new DeviceWrapper();
-                
+                try {
+                    switch(userInterface.cameraSelection)
+                    {
+                        case PixisDeviceUserControl.CameraSelection.North:
+                            wrapper = new DeviceWrapper(0);
+                            break;
+                        case PixisDeviceUserControl.CameraSelection.East:
+                            wrapper = new DeviceWrapper(1);
+                            break;
+                        default:
+                            //error; this should never happen
+                            userInterface.printMessage("Error: Invalid camera selection.\n");
+                            return;
+                    }
+                //    userInterface.printMessage("new DeviceWrapper: " + wrapper.ToString() + "\n");
+                }
+                catch (Exception e)
+                {
+                    //catch all
+                    userInterface.printMessage("Failed to make DeviceWrapper\n");
+                    MessageBox.Show("Failed to make DeviceWrapper: " + e.Message);
+                    return;
+                }
+            
                 installDelegates();
 
                 deviceThread = new Thread(startDeviceWrapper);
@@ -134,7 +171,7 @@ namespace STI
             new Thread(delegate () {
                 if (wrapper != null)
                 {
-                    wrapper.shutdown();
+                    wrapper.shutdown(); //DEBUG  This is crashing!
                 }
                 if (deviceThread != null && deviceThread.IsAlive)
                 {
@@ -147,6 +184,7 @@ namespace STI
 
         public void startDeviceWrapper()
         {
+            //userInterface.printMessage("startDeviceWrapper()\n");
             try
             {
                 if(wrapper != null)
@@ -157,7 +195,7 @@ namespace STI
             catch (Exception ex)
             {
                 string mess = ex.Message;
-                MessageBox.Show("Error: " + mess);
+                MessageBox.Show("startDeviceWrapper Error: " + mess);
             }
         }
 
@@ -391,15 +429,17 @@ namespace STI
         ///////////////////////////////////////////////////////////////////////
         public void Deactivate()
         {
-            disconnect();
+            disconnect();     //DEBUG This is crashing!
         }
         ///////////////////////////////////////////////////////////////////////
         public override string UIExperimentSettingTitle { get { return "PIXIS STI Device"; } }
         ///////////////////////////////////////////////////////////////////////
         static void PixisExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
+            
             Exception e = (Exception)args.ExceptionObject;
-            MessageBox.Show("PIXIS STI Device handler caught : " + e.Message);
+            MessageBox.Show("PIXIS STI Device handler caught : " + e.Message +"\n" 
+                + "PixisExceptionHandler sender : " + sender.ToString());
             MessageBox.Show("Runtime terminating: " + Convert.ToString(args.IsTerminating));
         }
 

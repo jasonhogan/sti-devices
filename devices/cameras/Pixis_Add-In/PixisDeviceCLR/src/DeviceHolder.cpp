@@ -3,42 +3,78 @@
 #include <ORBManager.h>
 #include "PixisAddinDevice.h"
 
-DeviceHolder::DeviceHolder()
+DeviceHolder::DeviceHolder(int module) : module(module)
 {
 	orb_manager = 0;
-	setupORB();
+	setupORB();	//DEBUG
 }
 
 __declspec(dllexport) void DeviceHolder::setupORB()
 {
-	int argc = 1;
-	char* argv[] = { "" };
+
+//	int argc = 1;
+//	char* argv[] = { "" };
+
+	argc = 1;
+	argv = new char*[argc];
+	argv[0] = new char[10];
+	strcpy(argv[0], "");
 
 	orb_manager = new ORBManager(argc, argv);
 
-	ConfigFile configFile("sti_pixis_addin.ini");		//Default dir apparently is C:\Windows\System32 when loading from dll
+	//Not working anymore for some reason (JMH 7/1/2018)
+	//ConfigFile configFile("sti_pixis_addin.ini");		//Default dir apparently is C:\Windows\System32 when loading from dll
+//	configFile = std::make_shared<ConfigFile>("sti_pixis_addin.ini");
+	
+	std::string config_dir = "C:\\Program Files\\Princeton Instruments\\LightField\\AddIns\\STI_Pixis\\";
+//	configFile = std::make_shared<ConfigFile>(config_dir + "sti_pixis_addin.ini");
 
-	pixisDevice = std::make_shared<PixisAddinDevice>(orb_manager, configFile);
+	switch (module)
+	{
+	case 0:
+		configFile = std::make_shared<ConfigFile>(config_dir + "sti_pixis_north.ini");
+		break;
+	case 1:
+		configFile = std::make_shared<ConfigFile>(config_dir + "sti_pixis_east.ini");
+		break;
+	}
+
+	pixisDevice = std::make_shared<PixisAddinDevice>(orb_manager, (*configFile) );
+//	pixisDevice = std::make_shared<PixisAddinDevice>(orb_manager);	//for debugging w/o config file
 }
 
 __declspec(dllexport) DeviceHolder::~DeviceHolder()
 {
-	if (pixisDevice != 0) {
-		pixisDevice->deviceShutdown();
-	}
+//	if (pixisDevice != 0) {
+//		pixisDevice->deviceShutdown();
+//	}
 
 	if (orb_manager != 0) {
 		orb_manager->ORBshutdown();
 		delete orb_manager;
 		orb_manager = 0;
 	}
+
+	// cleanup
+	for (int i = 0; i < argc; i++)
+		delete[] argv[i];
+	delete[] argv;
 }
 
 __declspec(dllexport) void DeviceHolder::startDevice()
 {
 //	pixisDevice->lightfield.aquire(73);
 
-	orb_manager->run();
+//	pixisDevice->print("Test print!\n");  //DEBUG
+//	pixisDevice->print((configFile->isParsed() ? "isParsed()=1" : "isParsed()=0")); //DEBUG
+//	pixisDevice->print("config: " + configFile->printParameters());  //DEBUG
+
+
+	if (orb_manager != 0) {
+		orb_manager->run();
+	}
+
+
 //	pixisDevice->lightfield.go();
 //	pixisDevice->lightfield.stop();
 //	pixisDevice->lightfield.test(57);
@@ -54,10 +90,13 @@ __declspec(dllexport) void DeviceHolder::stopWaiting(int index)
 
 __declspec(dllexport) void DeviceHolder::shutdown()
 {
-	if (pixisDevice != 0) {
-		pixisDevice->deviceShutdown();
-	}
+//	if (pixisDevice != 0) {
+//		pixisDevice->deviceShutdown();
+//	}
 	
+	//pixisDevice->lightfield.
+	
+
 	if (orb_manager != 0) {
 		orb_manager->ORBshutdown();
 		delete orb_manager;
