@@ -5,16 +5,31 @@
 
 #include <thread>
 
-SmartekDevice::SmartekDevice(ORBManager* orb_manager, std::string configFilename, const smcs::IDevice& camera)
-	: STI_Device_Adapter(orb_manager, configFilename), camera(camera)
+SmartekDevice::SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera)
+	: STI_Device_Adapter(orb_manager, configFile), camera(camera)
 {
 	init();
+
+	configFile.getParameter("Trigger partner name", trigger.name);
+	configFile.getParameter("Trigger partner IP", trigger.ip);
+	configFile.getParameter("Trigger partner module", trigger.module);
+	configFile.getParameter("Trigger partner channel", trigger.channel);
+
+	configFile.getParameter("Trigger Low Value", trigger.low);
+	configFile.getParameter("Trigger High Value", trigger.high);
+	configFile.getParameter("Trigger duration (ns)", trigger.duration_ns);
+	configFile.getParameter("Trigger Reset Holdoff (ns)", trigger.resetHoldoff_ns);		//holdoff time before event when LOW is asserted
+
+	configFile.getParameter("STI Data Base Directory", baseDirectory);
+
 }
 
 void SmartekDevice::init()
 {
 	camera->SetIntegerNodeValue("TLParamsLocked", 0);
 	camera->SetStringNodeValue("PixelFormat", "Mono10Packed"); //Allowed values: "Mono8" or "Mono10Packed"
+
+	externalTriggerEventsOn = false;
 }
 
 void SmartekDevice::initializedNodeValues()
@@ -58,6 +73,8 @@ void SmartekDevice::defineAttributes()
 	for (auto node : nodeValues) {
 		addAttribute(node->key, node->defaultValue, node->allowedValues);
 	}
+
+	addAttribute("Generate Trigger Events", (externalTriggerEventsOn ? "True" : "False"), "True, False");
 }
 
 bool SmartekDevice::updateAttribute(std::string key, std::string value)
@@ -79,6 +96,11 @@ bool SmartekDevice::updateAttribute(std::string key, std::string value)
 	//re-lock params
 	camera->SetIntegerNodeValue("TLParamsLocked", 1);
 
+	if (key.compare("Generate Trigger Events") == 0) {
+		externalTriggerEventsOn = value.compare("True") == 0;
+		success = true;
+	}
+
 	return success;
 }
 
@@ -91,6 +113,9 @@ void SmartekDevice::refreshAttributes()
 			setAttribute(node->key, value);
 		}
 	}
+
+	bool softTrigger = getAttribute("TriggerSource").compare("Software") == 0;
+	setAttribute("Generate Trigger Events", ((externalTriggerEventsOn && !softTrigger) ? "True" : "False"));
 }
 
 void SmartekDevice::defineChannels()
@@ -98,6 +123,18 @@ void SmartekDevice::defineChannels()
 	addInputChannel(0, DataString, ValueVector);
 	addInputChannel(1, DataString, ValueVector);
 	addInputChannel(4, DataDouble, ValueVector);
+}
+
+
+void SmartekDevice::definePartnerDevices()
+{
+	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
+	partnerDevice("External Trigger").enablePartnerEvents();
+}
+
+std::string SmartekDevice::getDeviceHelp()
+{
+	return "";
 }
 
 bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message)
@@ -218,6 +255,18 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 	return success;
 }
 
+void SmartekDevice::generateExternalTriggerEvents(double eventTime, const RawEvent& sourceEvt)
+{
+	if (externalTriggerEventsOn) {
+		//add partner events (trigger) at eventTime 
+		partnerDevice("External Trigger").event(
+			eventTime - trigger.resetHoldoff_ns, trigger.channel, trigger.low, sourceEvt);	// Low	
+		partnerDevice("External Trigger").event(eventTime, trigger.channel, trigger.high, sourceEvt);	// High
+		partnerDevice("External Trigger").event(
+			eventTime + trigger.duration_ns, trigger.channel, trigger.low, sourceEvt);	// Low
+	}
+}
+
 void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEventVector& eventsOut)
 {
 //	status = device->CommandNodeExecute("AcquisitionStart");
@@ -227,9 +276,11 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 	//ch 3: Absorption (1-2)/(2-3), 1=Signal, 2=Reference, 3=Background
 	//ch 4: photodiode mode; integrate all pixels
 
-	double eventTime = 0;
+	double eventTime = 0;	//from timing file
 	double lastEventTime = 0;
-	double holdoff = 10000000;		//10 ms
+	double thisEventTime = 0;
+	double thisWriterEventTime = 0;
+	double holdoff = 0*10000000;		//10 ms
 //	RawEventMap::const_iterator events;
 
 	SmartekDeviceEventValue value;
@@ -245,11 +296,12 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 	unsigned totalImages = 0;
 	unsigned imageGroupCount = 0;
 
-	//std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\Smartek\\project\\Release\\test.tif";
-	std::string filenamedir = "C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\Smartek\\project\\Release\\";
 	std::string filenamebase = "test";
 	std::string filenameext = ".tif";
 	std::string filename;
+
+	UINT32 sizeX = 1936;
+	UINT32 sizeY = 1216;
 
 	for (auto events = eventsIn.begin(); events != eventsIn.end(); events++)
 	{
@@ -257,28 +309,36 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			throw EventParsingException(events->second.at(0), err_message);
 		}
 
-		eventTime = events->first - holdoff;
+		eventTime = events->first - holdoff;	//time of the event requested in timing file
 
 		if (value.channel == 0) {	//Individual image
 			
-			//smcs::IImageInfo imageInfo = nullptr;
-			//UINT32 sizeX, sizeY;
-			//camera->GetImageInfo(&imageInfo);
-			//imageInfo->GetSize(sizeX, sizeY);
+			generateExternalTriggerEvents(eventTime, events->second.at(0));		//conditional on attribute status
 
 			totalImages++;
-			image = std::make_shared<Image>(1, 1);
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime + 10, this, image);	//schedule event to plau immediately after last event
+			image = std::make_shared<Image>(sizeY, sizeX);
+
+			if (isHardwareTriggered()) {
+				//For hardware trigger, make the event play immediately after the last event.
+				//This way the aquisition starts as soon as possible to avoid missing a trigger.
+				thisEventTime = lastEventTime + 10;
+				thisWriterEventTime = eventTime;	//the event should be ready to save to disk soon after the trigger
+			}
+			else {
+				//Software triggers occur at the nominal time of the event.
+				thisEventTime = eventTime;
+				thisWriterEventTime = eventTime + 10;	//try to save to disk as soon as possible
+			}
+
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image);	//schedule event to plau immediately after last event
 
 			eventsOut.push_back(smartekEvent.release());
 
-			if (singleWriter == 0 || true) {
-				singleWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tif)
-			}
+			singleWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tif)
 
-			filename = filenamedir + value.baseFilename + filenameext;	//TODO: fix
+			filename = value.baseFilename + filenameext;
 
-			auto writer = std::make_unique<ImageWriterEvent>(eventTime, this, singleWriter, filename);
+			auto writer = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, singleWriter, filename);
 			writer->addImage(image);
 			writer->addMeasurement( events->second.at(0) );		//register the measurement with the source RawEvent
 
@@ -294,14 +354,17 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			}
 			if (imageGroupCount == 0) {	//new group created
 				groupWriter = std::make_shared<ImageWriter>();
-				filename = filenamedir + value.baseFilename + filenameext;	//TODO: fix
+				filename = value.baseFilename + filenameext;	//TODO: fix
 				groupWriterEvent = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter, filename);	//overwrites each time
 			}
 			
+			generateExternalTriggerEvents(eventTime, events->second.at(0));		//conditional on attribute status
+			
 			imageGroupCount++;
 			totalImages++;
-			image = std::make_shared<Image>(1, 1);
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to plau immediately after last event
+			image = std::make_shared<Image>(sizeY, sizeX);
+
+			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to play immediately after last event
 
 			eventsOut.push_back(smartekEvent.release());
 
@@ -318,19 +381,28 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			}
 			if (imageGroupCount == 0) {	//new group created
 				groupWriter = std::make_shared<ImageWriter>();
-				filename = filenamedir + value.baseFilename + filenameext;	//TODO: fix
+				filename = value.baseFilename + filenameext;	//TODO: fix
 				groupWriterEvent = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter, filename);	//overwrites each time
 			}
 
 			imageGroupCount++;
 			totalImages++;
-			image = std::make_shared<Image>(1, 1);
+			image = std::make_shared<Image>(sizeY, sizeX);
 			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to plau immediately after last event
 
 			eventsOut.push_back(smartekEvent.release());
 
 			groupWriterEvent->addImage(image);
 			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
+		}
+
+		if (value.channel == 4) {	// Photodetector mode: integrate all pixels
+			image = std::make_shared<Image>(sizeY, sizeX);
+			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime + 10, this, image, Photodetector);	//schedule event to plau immediately after last event
+
+			smartekEvent->addMeasurement(events->second.at(0));
+
+			eventsOut.push_back(smartekEvent.release());
 		}
 
 		lastEventTime = eventTime;
@@ -392,27 +464,23 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 //}
 
 
-void SmartekDevice::definePartnerDevices()
-{
-//	addPartnerDevice("ext_trigger", "sr-timing1.stanford.edu", 2, "Digital Out");
-}
 
-std::string SmartekDevice::getDeviceHelp()
-{
-	return "";
-}
+SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, SmartekEventMode mode)
 
-
-SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, 
-	const shared_ptr<Image>& image)
-	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image)
+	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), mode(mode)
 {
 	image->imageData.reserve(image->getImageSize());	//reserve memory for image data
 }
 
+SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image)
+	: SmartekDevice::SmartekEvent::SmartekEvent(time, cameraDevice_, image, Normal)
+{
+}
+
+
 void SmartekDevice::SmartekEvent::playEvent()
 {
-	cout << "Playing" << endl;
+	cout << "Playing " << this->getEventNumber()  << "Time: " << this->getTime() << endl;
 
 	//TEMP
 	bool status;
@@ -423,19 +491,30 @@ void SmartekDevice::SmartekEvent::playEvent()
 	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
 	status = cameraDevice->camera->CommandNodeExecute("AcquisitionStart");
 
-	//Trigger setup
-	std::string trigSource;
-	status = cameraDevice->camera->GetStringNodeValue("TriggerSource", trigSource);
+//	//Trigger setup
+//	std::string trigSource;
+//	status = cameraDevice->camera->GetStringNodeValue("TriggerSource", trigSource);
 
-	if (trigSource.compare("Software") == 0) {
-		status = cameraDevice->camera->CommandNodeExecute("TriggerSoftware");	//software trigger
+//	if (trigSource.compare("Software") == 0) {
+	if (cameraDevice->isHardwareTriggered()) {
+		status = cameraDevice->camera->CommandNodeExecute("Line1");		//hardware trigger
 	}
 	else {
-		status = cameraDevice->camera->CommandNodeExecute("Line1");		//hardware trigger
+		status = cameraDevice->camera->CommandNodeExecute("TriggerSoftware");	//software trigger
 	}
 //	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
 
 }
+
+bool SmartekDevice::isHardwareTriggered()
+{
+	//Trigger setup
+	std::string trigSource;
+	camera->GetStringNodeValue("TriggerSource", trigSource);
+
+	return (trigSource.compare("Software") != 0);
+}
+
 
 void SmartekDevice::SmartekEvent::stop()
 {
@@ -455,9 +534,11 @@ void SmartekDevice::SmartekEvent::waitBeforeCollectData()
 
 	bool success = false;
 
+
 	while (!success && cameraDevice->running()) {
 		success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
-		cout << "WaitForImage: " << success << endl;
+		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount()
+			<< endl;
 	}
 
 	//cout << "WaitForImage: " << success << endl;
@@ -486,13 +567,20 @@ void SmartekDevice::SmartekEvent::waitBeforeCollectData()
 
 void SmartekDevice::SmartekEvent::collectMeasurementData()
 {
-
 	//Pulls the image from the camera and stores it in an Image
 
 	smcs::IImageInfo imageInfo = nullptr;
 	cameraDevice->camera->GetImageInfo(&imageInfo);
 
-//	return;
+	if (cameraDevice->camera->GetPendingImagesCount() < 1 || imageInfo == 0) {
+		//error; image not in buffer
+		image->imageData.clear();	//ImageWriter will not include this image
+		return;
+	}
+
+	//imageInfo is not null
+
+	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
 
 	UINT32 sizeX, sizeY;
 	imageInfo->GetSize(sizeX, sizeY);
@@ -504,14 +592,14 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 	int rawdatasize = imageInfo->GetRawDataSize();
 
 
-	UINT32 pixelType;
-	imageInfo->GetPixelType(pixelType);
+//	UINT32 pixelType;
+//	imageInfo->GetPixelType(pixelType);
 
 	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
 
 	bool status;
-	std::string pixelFormat;
-	status = cameraDevice->camera->GetStringNodeValue("PixelFormat", pixelFormat);
+//	std::string pixelFormat;
+//	status = cameraDevice->camera->GetStringNodeValue("PixelFormat", pixelFormat);
 
 //	UINT8* data = imageInfo->GetRawData();
 //	image->imageData;
@@ -539,7 +627,26 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 
 //	for (unsigned int j = 0; j < sizeY; j++)
 //		::memcpy(m_svBitmap.GetRawData(j), imageInfo->GetRawData(j), imageInfo->GetLineSize());
+
+
+	//Max sum is (2^10)*1936*1216 = 2,410,676,224.  This requires 32 bits.
+	if (mode == Photodetector && eventMeasurements.size() == 1)
+	{
+		Int64 total = getTotal(image->imageData);
+		double result = static_cast<double>(total);		//MixedValue doesn't support Int64 or unsigned long
+		eventMeasurements.at(0)->setData(result);
+	}
 }
+
+Int64 SmartekDevice::SmartekEvent::getTotal(const vector<IMAGEWORD>& data)
+{
+	Int64 total = 0;
+	for (auto& d : data) {
+		total += d;
+	}
+	return total;
+}
+
 
 void SmartekDevice::unpackLine(UINT8* rawLine, std::vector<IMAGEWORD>& unpackedLine)
 {
@@ -580,9 +687,37 @@ void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& ima
 
 void SmartekDevice::ImageWriterEvent::collectMeasurementData()
 {
-	if (eventMeasurements.size() == 1)
-	{
+	std::string baseDir = cameraDevice->generateDataDestinationDirectory();
+
+	//filename is specific to this shot, at the time of data collection
+	std::string filename = 
+		cameraDevice->generateDataDestinationDirectory() + "\\" +
+		cameraDevice->generateFileTimestamp() + basefilename;
+
+	if (eventMeasurements.size() == 1) {
 		eventMeasurements.at(0)->setData(filename);
+	}
+
+	if (eventMeasurements.size() > 0)
+	{
+		MixedData data;
+
+		MixedData vec;
+		vec.addValue("Group ID");
+		vec.addValue(static_cast<int>(getEventNumber()));
+		vec.addValue("ImageCount");
+		vec.addValue(static_cast<int>(eventMeasurements.size()));
+		vec.addValue("Pane");
+		vec.addValue(static_cast<int>(0));	//temp; gets overridden
+
+		for (unsigned i = 0; i < eventMeasurements.size(); ++i) {
+			data.clear();
+			data.addValue(filename);
+			vec.getValueAt(5).setValue(static_cast<int>(i + 1));	//pane number
+			data.addValue(vec);
+
+			eventMeasurements.at(i)->setData(data);
+		}
 	}
 
 	imageWriter->write(filename);
@@ -596,3 +731,42 @@ void SmartekDevice::ImageWriterEvent::waitBeforeCollectData()
 }
 
 
+//TODO: Have the server transmit this information...
+std::string SmartekDevice::generateDataDestinationDirectory()
+{
+	//	std::string baseDirectory = "C:\\Users\\Jason\\Code\\dev\\stidatatest\\";
+	char dirSepChar = baseDirectory.back();
+
+	std::stringstream path;
+
+	std::time_t t = std::time(0);   // get time now
+	struct tm * now = std::localtime(&t);
+
+	path << baseDirectory << (now->tm_year + 1900) << dirSepChar
+		<< (now->tm_mon + 1) << dirSepChar
+		<< now->tm_mday << dirSepChar
+		<< "data";
+
+	return path.str();
+}
+
+std::string SmartekDevice::generateFileTimestamp()
+{
+	std::stringstream file;
+
+	std::time_t t = std::time(0);   // get time now
+	struct tm * now = std::localtime(&t);
+
+	char sepChar = '_';
+
+	//Example:  2018_7_3-19_03_55-test.tif
+	file
+		<< (now->tm_year + 1900) << sepChar
+		<< (now->tm_mon + 1) << sepChar
+		<< now->tm_mday << sepChar << "-"
+		<< now->tm_hour << sepChar
+		<< now->tm_min << sepChar
+		<< now->tm_sec << sepChar;
+
+	return file.str();
+}

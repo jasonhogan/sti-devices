@@ -50,6 +50,10 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 
 	for (auto image : images) {
 		
+		if (image->imageData.size() == 0) {
+			break;
+		}
+
 //		&(image->imageData)[0];
 
 		//Magick::Blob blob(image->imageData.data(), 100);

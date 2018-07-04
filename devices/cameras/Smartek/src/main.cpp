@@ -65,6 +65,9 @@ int main(int argc, char* argv[])
 	orbManager = new ORBManager(argc, argv);
 	std::string configFilename = "SmartekCamera.ini"; //default
 
+	ConfigFile configFile(configFilename);
+
+
 	// initialize Camera API
 	smcs::InitCameraAPI();
 	smcs::ICameraAPI smcsApi = smcs::GetCameraAPI();
@@ -90,7 +93,7 @@ int main(int argc, char* argv[])
 		device->Connect();
 	}
 
-	SmartekDevice smartekCamera(orbManager, configFilename, devices.at(0));
+	SmartekDevice smartekCamera(orbManager, configFile, devices.at(0));
 	smartekCamera.setSaveAttributesToFile(true);
 
 	orbManager->run();	//Blocks while device is alive
