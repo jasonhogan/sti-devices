@@ -31,9 +31,9 @@ class SmartekDevice : public STI_Device_Adapter
 {
 public:
 
-	enum SmartekEventMode { Normal, Operation, Photodetector };
-	enum AbsorptionImageType { Signal, Reference, Background, None };
-	enum Operation { Add, Subtract, Mean, Absorption };
+	enum SmartekEventMode { Normal, Mean, Photodetector };
+//	enum AbsorptionImageType { Signal, Reference, Background, None };
+//	enum Operation { Add, Subtract, Mean, Absorption };
 	
 	SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera);
 
@@ -109,12 +109,27 @@ private:
 
 	};
 
+	class SmartekInitializeEvent : public SynchronousEventAdapter
+	{
+	public:
+		SmartekInitializeEvent(double time, SmartekDevice* cameraDevice, int totalImages)
+			: SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) {}
+		
+		void playEvent();
+
+		int totalImages;
+
+	private:
+		SmartekDevice* cameraDevice;
+	};
+
 	class SmartekEvent : public SynchronousEventAdapter
 	{
 	public:
 
 		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image);
 		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, SmartekEventMode mode);
+		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, SmartekEventMode mode);
 
 //			: SynchronousEvent(time, cameraDevice_), cameraDevice(cameraDevice_),
 //			image(image), imageWriter(imageWriter)
@@ -135,8 +150,10 @@ private:
 		SmartekDevice* cameraDevice;
 
 		shared_ptr<Image> image;
+		shared_ptr<Image> imageBuffer;
+		int imageCount;		//for keeping track of the mean
 
-		AbsorptionImageType absType;
+//		AbsorptionImageType absType;
 
 		SmartekEventMode mode;
 

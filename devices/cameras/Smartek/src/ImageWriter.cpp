@@ -33,8 +33,7 @@ void ImageWriter::write(const std::string& filename)
 
 void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 {
-
-	std::cout << "saveToMultiPageGrey" << std::endl;
+//	std::cout << "saveToMultiPageGrey" << std::endl;
 
 	Magick::Image magickImage;
 	std::list<Magick::Image> magickImages;
@@ -45,56 +44,23 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 		return;
 	}
 
-
-//	imageList.resize(images.size());
-
 	for (auto image : images) {
 		
 		if (image->imageData.size() == 0) {
 			break;
 		}
 
-//		&(image->imageData)[0];
-
-		//Magick::Blob blob(image->imageData.data(), 100);
-		//Magick::Geometry geometry(10, 10);
-		//magickImage.size(geometry);
-		//magickImage.depth(sizeof(unsigned short));
-		//std::cout << "attempt to set magick" << std::endl;
-		//magickImage.magick("I");
-		//std::cout << "read attempt" << std::endl;
-		//magickImage.read(blob);
-		//std::cout << "read blob successful" << std::endl;
-
-//		magickImage.read(10,10,"K", MagickCore::ShortPixel, image->imageData.data());	//is this a deep copy of the image data?  Could be slow.  JMH
-		
-//		unsigned short tmp[10] = { 0,0,0,0,0,0,0,0,0,0 };
-
-//		Magick::Image image3(10, 1, "I", MagickCore::ShortPixel, tmp);
-
-///		Magick::Image image2(image->getImageWidth(), image->getImageHeight(), "I", MagickCore::ShortPixel, image->imageData.data());
-
 		//works, but only in release build
 		magickImage.read(image->getImageWidth(), image->getImageHeight(),
 			"I", MagickCore::ShortPixel, image->imageData.data());	//is this a deep copy of the image data?  Could be slow.  JMH
-
-																	
-		//MagickCore::ShortPixel
-		//MagickCore::LongPixel
-		//MagickCore::CharPixel
-		
-		magickImage.rotate(image->rotationAngle);
+							
+		//magickImage.rotate(image->rotationAngle);
 		setMetadata(magickImage, image);
 
 		magickImages.push_back(magickImage);
 	}
 
 	//write the list of images for multipane tifs
-//	Magick::writeImages(magickImages.begin(), magickImages.end(), filename, true);
-	
-//	std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\epcamera\\pixis_device\\Release\\test.tif";
-//	std::string filenametemp = "C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\PIXIS_device\\project\\Release\\test.tif";
-	
 	Magick::writeImages(magickImages.begin(), magickImages.end(), filename, true);
 
 	//Delete image data

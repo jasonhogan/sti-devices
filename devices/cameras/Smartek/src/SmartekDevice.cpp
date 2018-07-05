@@ -120,9 +120,10 @@ void SmartekDevice::refreshAttributes()
 
 void SmartekDevice::defineChannels()
 {
-	addInputChannel(0, DataString, ValueVector);
-	addInputChannel(1, DataString, ValueVector);
-	addInputChannel(4, DataDouble, ValueVector);
+	addInputChannel(0, DataString, ValueString, "Single Image");	// filename
+	addInputChannel(1, DataString, ValueVector, "Group Image");		//(filename, new_group)
+	addInputChannel(2, DataString, ValueVector, "Mean Image");		//(filename, new_group)
+	addInputChannel(4, DataDouble, ValueNone, "Photodetector");
 }
 
 
@@ -144,114 +145,72 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 		return false;
 	}
 
-	if (rawEvents.at(0).getValueType() != MixedValue::Vector) {
-		message = "Invalid data type.  The camera expects a vector.";
-		return false;
-	}
-
 	value.channel = rawEvents.at(0).channel();
 
-	auto tuple = rawEvents.at(0).value().getVector();
 	bool success = true;
 
-	//Check that each type in tuple is correct.
-	if (value.channel == 0) {	//single image
-		if (tuple.size() >= 2) {
-			if (tuple.at(1).getType() != MixedValue::String) {
-				message = "Camera image description must be a string";
-				success = false;
-			}
-		}
-		if (tuple.size() >= 1) {
-			if (tuple.at(0).getType() != MixedValue::String) {
-				message = "Camera filename must be a string";
-				success = false;
-			}
-		}
-		else {
-			message = "Camera commands must be a tuple in the form (string description, string filename).";  // or (int centerPixelX, int centerPixelY, int halfWidth).
+	//type checking
+	switch (value.channel) {
+	case 0:	//single image
+		if (rawEvents.at(0).getValueType() != MixedValue::String) {
+			message = "Camera filename must be a string.";
 			success = false;
 		}
-	}
-
-	if (value.channel == 1) {	//group image:  (desc); (desc, filename); (desc, new_group); (desc, filename, new_group);
-		if (tuple.size() == 3) {
-			if (tuple.at(0).getType() != MixedValue::String
-				|| tuple.at(1).getType() != MixedValue::String
-				|| tuple.at(2).getType() != MixedValue::Boolean) {
-				message = "Invalid tuple format. Expecting (<string>description, <string>filename, <bool>new_group)";
-				success = false;
-			}
-		}
+		break;
+	case 1:	//group image
+	case 2:	//Mean image
+	{
+		auto tuple = rawEvents.at(0).value().getVector();
 		if (tuple.size() == 2) {
 			if (tuple.at(0).getType() != MixedValue::String
-				|| (tuple.at(1).getType() != MixedValue::String && tuple.at(1).getType() != MixedValue::Boolean)) {
-				message = "Invalid tuple format. Expecting (<string>description, <string>filename) or (<string>description, <bool>new_group)";
-				success = false;
-			}
-		}
-		if (tuple.size() >= 1) {
-			if (tuple.at(0).getType() != MixedValue::String) {
-				message = "Invalid tuple format. Expecting (<string>description)";
+				|| (tuple.at(1).getType() != MixedValue::Double && tuple.at(1).getType() != MixedValue::Boolean)) {
+				message = "Invalid vector format. Expecting (<string>filename) or (<string>filename, <bool>new_group)";
 				success = false;
 			}
 		}
 		else {
-			message = "Tuple should be of the the form (<string>description, <string>filename, <bool>new_group).";  // or (int centerPixelX, int centerPixelY, int halfWidth).
+			message = "Tuple should be of the the form (<string>filename, <bool>new_group).";
 			success = false;
 		}
+		break;
+	}
+	case 4:	//photodetector
+		break;
+	default:
+		message = "Channel number " + STI::Utils::valueToString(value.channel) + " is not supported.";
+		return false;
 	}
 
 	if (!success) return false;
 
 	value.newGroup = false;
 
-	if (value.channel == 0) {	//single image
-		switch (tuple.size())
-		{
-		case 2:
-			value.description = tuple.at(0).getString();
-			value.baseFilename = tuple.at(1).getString();
-			break;
-		case 1:
-			value.description = tuple.at(0).getString();
-			value.baseFilename = "default";
-			break;
-		default:
-			message = "Never should get here, but Andor camera commands must be a tuple in the form (<string>description, <string>filename)";
-			success = false;
-			break;
+	//decode value
+	switch (value.channel) {
+	case 0:	//single image
+		value.baseFilename = rawEvents.at(0).value().getString();
+		break;
+	case 1:	//group image
+	case 2:	//Mean image
+	{
+		auto tuple = rawEvents.at(0).value().getVector();
+		value.baseFilename = tuple.at(0).getString();
+		if (tuple.at(1).getType() == MixedValue::Boolean) {
+			value.newGroup = tuple.at(1).getBoolean();
 		}
+		else {
+			value.newGroup = (tuple.at(1).getNumber() > 0);
+		}
+		break;
+	}
+	case 4:	//photodetector
+		break;
+	default:
+		message = "Never should get here. Invalid channel or value.";
+		success = false;
+		break;
 	}
 
-	if (value.channel == 1) {	//group image
-		switch (tuple.size())
-		{
-		case 3:
-			value.description = tuple.at(0).getString();
-			value.baseFilename = tuple.at(1).getString();
-			value.newGroup = tuple.at(2).getBoolean();
-			break;
-		case 2:
-			value.description = tuple.at(0).getString();
-
-			if (tuple.at(1).getType() == MixedValue::String) {
-				value.baseFilename = tuple.at(1).getString();
-			}
-			else {
-				value.newGroup = tuple.at(1).getBoolean();
-			}
-			break;
-		case 1:
-			value.description = tuple.at(0).getString();
-			value.baseFilename = "default";
-			break;
-		default:
-			message = "Never should get here, but Andor camera commands must be a tuple in the form (<string>description, <string>filename, <bool>new_group)";
-			success = false;
-			break;
-		}
-	}
 	return success;
 }
 
@@ -275,11 +234,11 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 	//ch 2: Image group with operation. Examples: Average, Absorption (1-2)/3.  Does not save intermediate images.
 	//ch 3: Absorption (1-2)/(2-3), 1=Signal, 2=Reference, 3=Background
 	//ch 4: photodiode mode; integrate all pixels
-
-	double eventTime = 0;	//from timing file
-	double lastEventTime = 0;
-	double thisEventTime = 0;
-	double thisWriterEventTime = 0;
+	double minimumEventTime = 1000;	//1 us
+	double eventTime = minimumEventTime;	//from timing file
+	double lastEventTime = minimumEventTime;
+	double thisEventTime = minimumEventTime;
+	double thisWriterEventTime = minimumEventTime;
 	double holdoff = 0*10000000;		//10 ms
 //	RawEventMap::const_iterator events;
 
@@ -288,13 +247,19 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 	shared_ptr<Image> image;
 
+	shared_ptr<Image> image_mean;		//shared by multiple events
+	shared_ptr<Image> image_mean_result;	//buffer shared by multiple events
+
 	shared_ptr<ImageWriter> singleWriter;
 	shared_ptr<ImageWriter> groupWriter;
+	shared_ptr<ImageWriter> groupWriter2;
 
 	std::unique_ptr<ImageWriterEvent> groupWriterEvent;
+	std::unique_ptr<ImageWriterEvent> groupWriterEvent2;
 
 	unsigned totalImages = 0;
 	unsigned imageGroupCount = 0;
+	unsigned imageGroupCount2 = 0;
 
 	std::string filenamebase = "test";
 	std::string filenameext = ".tif";
@@ -305,6 +270,10 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 	for (auto events = eventsIn.begin(); events != eventsIn.end(); events++)
 	{
+		if (events->first < minimumEventTime) {
+			throw EventParsingException(events->second.at(0), "Minimum event time is " + STI::Utils::valueToString(minimumEventTime));
+		}
+
 		if (!parseEventValue(events->second, value, err_message)) {
 			throw EventParsingException(events->second.at(0), err_message);
 		}
@@ -372,28 +341,32 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
 		}
 
-		if (value.channel == 2) {	//image group with operation.  (Sum, Mean, Subtract)
+		if (value.channel == 2) {	//image group with operation.  (Mean)
 
-			if (value.newGroup && imageGroupCount > 0 && groupWriterEvent != 0) {	//New group created; flush the group image buffer
-				groupWriterEvent->setTime(lastEventTime + 10);
-				eventsOut.push_back(groupWriterEvent.release());
-				imageGroupCount = 0;
+			if (value.newGroup && imageGroupCount2 > 0 && groupWriterEvent2 != 0) {	//New group created; flush the group image buffer
+				groupWriterEvent2->setTime(lastEventTime + 10);
+				eventsOut.push_back(groupWriterEvent2.release());
+				imageGroupCount2 = 0;
 			}
-			if (imageGroupCount == 0) {	//new group created
-				groupWriter = std::make_shared<ImageWriter>();
+			if (imageGroupCount2 == 0) {	//new group created
+				groupWriter2 = std::make_shared<ImageWriter>();
 				filename = value.baseFilename + filenameext;	//TODO: fix
-				groupWriterEvent = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter, filename);	//overwrites each time
+				groupWriterEvent2 = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter2, filename);	//overwrites each time
+
+				image_mean = std::make_shared<Image>(sizeY, sizeX);	
+				image_mean_result = std::make_shared<Image>(sizeY, sizeX);
+				groupWriterEvent2->addImage(image_mean_result);	//only one image; construct the mean by adding each new image to this as they are captured.
 			}
 
-			imageGroupCount++;
+			imageGroupCount2++;
 			totalImages++;
-			image = std::make_shared<Image>(sizeY, sizeX);
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to plau immediately after last event
+			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image_mean, image_mean_result, Mean);
+
+			smartekEvent->imageCount = imageGroupCount2;
 
 			eventsOut.push_back(smartekEvent.release());
 
-			groupWriterEvent->addImage(image);
-			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
+			groupWriterEvent2->addMeasurement(events->second.at(0));	//register the measurement with the source RawEvent
 		}
 
 		if (value.channel == 4) {	// Photodetector mode: integrate all pixels
@@ -414,26 +387,9 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 		imageGroupCount = 0;
 	}
 
-	camera->SetIntegerNodeValue("TLParamsLocked", 0);	//unlock
-	camera->SetIntegerNodeValue("AcquisitionFrameCount", totalImages);
-
-	UINT32 pendingImages;
-
-	cout << "Parsed::totalImages = " << totalImages << endl;
-
-	camera->SetImageBufferFrameCount(totalImages);
-
-	INT64 frameCount;
-	camera->GetIntegerNodeValue("AcquisitionFrameCount", frameCount);
-
-	pendingImages = camera->GetPendingImagesCount();
-	cout << "Parsed::Pending: " << pendingImages << endl;
-	cout << "Parsed::frameCount: " << frameCount << endl;
-
-
-	//camera->WaitForImage()
-
-	//smcs_ICameraAPI_RegisterCallback(smcsApi, smcs_ICallbackEvent_Handler);
+	//Initialization event.  Happens before any image events
+	auto smartekIniEvent = std::make_unique<SmartekInitializeEvent>(0, this, totalImages);
+	eventsOut.push_back(smartekIniEvent.release());
 
 }
 
@@ -463,13 +419,38 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 //	}
 //}
 
+void SmartekDevice::SmartekInitializeEvent::playEvent()
+{
+	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);	//unlock
+	cameraDevice->camera->SetIntegerNodeValue("AcquisitionFrameCount", totalImages);
 
+//	cout << "Parsed::totalImages = " << totalImages << endl;
+
+	cameraDevice->camera->SetImageBufferFrameCount(totalImages);
+
+	//UINT32 pendingImages;
+	//INT64 frameCount;
+
+	//cameraDevice->camera->GetIntegerNodeValue("AcquisitionFrameCount", frameCount);
+
+	//pendingImages = cameraDevice->camera->GetPendingImagesCount();
+	//cout << "Parsed::Pending: " << pendingImages << endl;
+	//cout << "Parsed::frameCount: " << frameCount << endl;
+}
+
+
+SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, SmartekEventMode mode)
+	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), imageBuffer(imageBuffer), mode(mode)
+{
+	imageCount = 0;
+}
 
 SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, SmartekEventMode mode)
 
 	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), mode(mode)
 {
 	image->imageData.reserve(image->getImageSize());	//reserve memory for image data
+	imageCount = 0;
 }
 
 SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image)
@@ -477,12 +458,8 @@ SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevi
 {
 }
 
-
 void SmartekDevice::SmartekEvent::playEvent()
 {
-	cout << "Playing " << this->getEventNumber()  << "Time: " << this->getTime() << endl;
-
-	//TEMP
 	bool status;
 	// set trigger selector to frame start
 	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
@@ -491,19 +468,15 @@ void SmartekDevice::SmartekEvent::playEvent()
 	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
 	status = cameraDevice->camera->CommandNodeExecute("AcquisitionStart");
 
-//	//Trigger setup
-//	std::string trigSource;
-//	status = cameraDevice->camera->GetStringNodeValue("TriggerSource", trigSource);
-
-//	if (trigSource.compare("Software") == 0) {
+	//Trigger setup
 	if (cameraDevice->isHardwareTriggered()) {
+		//wait for hardware trigger
 		status = cameraDevice->camera->CommandNodeExecute("Line1");		//hardware trigger
 	}
 	else {
+		//send software trigger NOW
 		status = cameraDevice->camera->CommandNodeExecute("TriggerSoftware");	//software trigger
 	}
-//	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
-
 }
 
 bool SmartekDevice::isHardwareTriggered()
@@ -520,48 +493,17 @@ void SmartekDevice::SmartekEvent::stop()
 {
 	//Abort
 	bool status;
-//	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
 	status = cameraDevice->camera->CommandNodeExecute("AcquisitionStop");
-//	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
-
 }
 
 void SmartekDevice::SmartekEvent::waitBeforeCollectData()
 {
-	//query acquisition status, or use callback. possibly use image count when starting acq
-	//std::this_thread::sleep_for(std::chrono::seconds(5));	//TEMP
-
-
 	bool success = false;
-
 
 	while (!success && cameraDevice->running()) {
 		success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
-		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount()
-			<< endl;
+//		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount() << endl;
 	}
-
-	//cout << "WaitForImage: " << success << endl;
-
-	//UINT32 pendingImages;
-
-	//do {
-	//	pendingImages = cameraDevice->camera->GetPendingImagesCount();
-	//	cout << "Pending: " << pendingImages << endl;
-	//} while (pendingImages > 0);
-
-
-	//INT64 frameCount;
-
-	//int i = 0;
-	//do {
-	//	cameraDevice->camera->GetIntegerNodeValue("AcquisitionFrameCount", frameCount);
-	//	cout << "frameCount = " << frameCount << endl;
-	//	std::this_thread::sleep_for(std::chrono::milliseconds(100));	//TEMP
-	//	i++;
-	//} while (frameCount > 0 && i < 1000);
-
-
 }
 
 
@@ -591,24 +533,7 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 	int linesize = imageInfo->GetLineSize();
 	int rawdatasize = imageInfo->GetRawDataSize();
 
-
-//	UINT32 pixelType;
-//	imageInfo->GetPixelType(pixelType);
-
 	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
-
-	bool status;
-//	std::string pixelFormat;
-//	status = cameraDevice->camera->GetStringNodeValue("PixelFormat", pixelFormat);
-
-//	UINT8* data = imageInfo->GetRawData();
-//	image->imageData;
-	
-//	test.data();
-//	test.insert(test.end(), &data[0], &data[dataArraySize]);
-	
-//	std::vector<char> test;
-//	test.clear();
 
 	image->imageData.clear();
 
@@ -618,16 +543,26 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 	for (unsigned int j = 0; j < sizeY; j++) {	// j is image line number
 		//Get next line and insert it into vector
 		lineData = imageInfo->GetRawData(j);
-		cameraDevice->unpackLine(lineData, unpackedLine);
-//		image->imageData.insert(image->imageData.end(), &lineData[0], &lineData[imageInfo->GetLineSize()]);
+		cameraDevice->unpackLine(lineData, unpackedLine);	//convert Mono10Packed format into shorts (16 bits per pixel)
 		image->imageData.insert(image->imageData.end(), unpackedLine.begin(), unpackedLine.end());
 	}
 
 	cameraDevice->camera->PopImage(imageInfo);	//removes image from camera buffer
 
-//	for (unsigned int j = 0; j < sizeY; j++)
-//		::memcpy(m_svBitmap.GetRawData(j), imageInfo->GetRawData(j), imageInfo->GetLineSize());
+	if (mode == Mean) {
+		double res;
 
+		if (imageBuffer->imageData.size() < image->imageData.size()) {
+			imageBuffer->imageData.assign(image->imageData.size(), 0);
+		}
+
+		for (unsigned p = 0; p < image->imageData.size(); ++p) {
+			res = static_cast<double>(imageBuffer->imageData.at(p))*(imageCount - 1)
+				+ static_cast<double>(image->imageData.at(p));
+
+			imageBuffer->imageData.at(p) = static_cast<IMAGEWORD>(res / imageCount);
+		}
+	}
 
 	//Max sum is (2^10)*1936*1216 = 2,410,676,224.  This requires 32 bits.
 	if (mode == Photodetector && eventMeasurements.size() == 1)
@@ -695,11 +630,12 @@ void SmartekDevice::ImageWriterEvent::collectMeasurementData()
 		cameraDevice->generateFileTimestamp() + basefilename;
 
 	if (eventMeasurements.size() == 1) {
+		//single image
 		eventMeasurements.at(0)->setData(filename);
 	}
 
-	if (eventMeasurements.size() > 0)
-	{
+	if (eventMeasurements.size() > 1) {
+		//group image (multipane tif)
 		MixedData data;
 
 		MixedData vec;
@@ -721,7 +657,6 @@ void SmartekDevice::ImageWriterEvent::collectMeasurementData()
 	}
 
 	imageWriter->write(filename);
-
 }
 
 void SmartekDevice::ImageWriterEvent::waitBeforeCollectData()
