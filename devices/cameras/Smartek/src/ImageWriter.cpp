@@ -53,7 +53,15 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 		//works, but only in release build
 		magickImage.read(image->getImageWidth(), image->getImageHeight(),
 			"I", MagickCore::ShortPixel, image->imageData.data());	//is this a deep copy of the image data?  Could be slow.  JMH
-							
+		
+//		double size_x = image->getImageWidth();
+//		double size_y = image->getImageHeight();
+
+		if (image->downsample > 1) {
+			double zoom_out_factor = 1.0 / static_cast<double>(image->downsample);
+			magickImage.zoom(Magick::Geometry(image->getImageWidth()*zoom_out_factor, image->getImageHeight()*zoom_out_factor));
+		}
+
 		//magickImage.rotate(image->rotationAngle);
 		setMetadata(magickImage, image);
 

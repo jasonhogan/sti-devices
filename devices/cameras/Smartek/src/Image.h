@@ -46,6 +46,7 @@ public:
 
 	int vbin;
 	int hbin;
+	int downsample;
 
 	std::vector<int> cropVector;
 

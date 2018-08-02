@@ -69,6 +69,9 @@ private:
 
 	std::vector<std::shared_ptr<SmartekNodeValue>> nodeValues;
 
+	bool setDownsample(int ds);
+	int downsample;
+
 	//Partner information for external trigger
 	struct TriggerDevice
 	{

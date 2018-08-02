@@ -44,6 +44,8 @@ void Image::init()
 
 	rotationAngle = 0;
 
+	downsample = 1;
+
 	sizeofWORD = sizeof(IMAGEWORD);
 }
 

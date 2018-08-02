@@ -30,6 +30,7 @@ void SmartekDevice::init()
 	camera->SetStringNodeValue("PixelFormat", "Mono10Packed"); //Allowed values: "Mono8" or "Mono10Packed"
 
 	externalTriggerEventsOn = false;
+	downsample = 1;
 }
 
 void SmartekDevice::initializedNodeValues()
@@ -75,6 +76,7 @@ void SmartekDevice::defineAttributes()
 	}
 
 	addAttribute("Generate Trigger Events", (externalTriggerEventsOn ? "True" : "False"), "True, False");
+	addAttribute("Downsample", 1);
 }
 
 bool SmartekDevice::updateAttribute(std::string key, std::string value)
@@ -101,7 +103,24 @@ bool SmartekDevice::updateAttribute(std::string key, std::string value)
 		success = true;
 	}
 
+	if (key.compare("Downsample") == 0) {
+		int ds;
+		if (STI::Utils::stringToValue(value, ds) && setDownsample(ds)) {
+			success = true;
+		}
+	}
 	return success;
+}
+
+bool SmartekDevice::setDownsample(int ds)
+{
+	if (ds < 1)
+		return false;
+
+	//check for other downsample constraints ...
+
+	downsample = ds;
+	return true;
 }
 
 void SmartekDevice::refreshAttributes()
@@ -616,6 +635,8 @@ void SmartekDevice::unpackLine(UINT8* rawLine, std::vector<IMAGEWORD>& unpackedL
 
 void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& image)
 {
+	image->downsample = cameraDevice->downsample;
+	image->addMetaData("Downsample", STI::Utils::valueToString(cameraDevice->downsample));
 	imageWriter->addImage(image);
 }
 
