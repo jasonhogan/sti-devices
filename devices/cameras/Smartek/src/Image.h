@@ -26,6 +26,7 @@ public:
 	Image(const std::vector<int>& crop, int vbin, int hbin);
 
 	void addMetaData(const std::string& tag, const std::string& value);
+	void clearMetaData();
 
 	int getImageSize();
 	std::string getFilename();
@@ -47,6 +48,7 @@ public:
 	int vbin;
 	int hbin;
 	int downsample;
+	std::string paneTag;
 
 	std::vector<int> cropVector;
 

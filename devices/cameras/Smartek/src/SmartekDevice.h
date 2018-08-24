@@ -18,7 +18,8 @@ class ImageWriter;
 struct SmartekDeviceEventValue
 {
 	unsigned short channel;
-	std::string baseFilename;
+	std::string fileTag;
+	std::string paneTag;
 	std::string description;
 	bool newGroup;	//ch2
 };
@@ -102,13 +103,14 @@ private:
 		void collectMeasurementData();
 		void waitBeforeCollectData();
 
-		void addImage(const std::shared_ptr<Image>& image);
+		void addImage(const std::shared_ptr<Image>& image, const std::string& tag);
 
 	private:
 
 		SmartekDevice* cameraDevice;
 		shared_ptr<ImageWriter> imageWriter;
 		std::string basefilename;
+		std::vector<std::string> imageTags;
 
 	};
 
@@ -118,6 +120,7 @@ private:
 		SmartekInitializeEvent(double time, SmartekDevice* cameraDevice, int totalImages)
 			: SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) {}
 		
+		void loadEvent();
 		void playEvent();
 
 		int totalImages;

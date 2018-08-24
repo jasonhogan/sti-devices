@@ -44,6 +44,8 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 		return;
 	}
 
+//	return;
+
 	for (auto image : images) {
 		
 		if (image->imageData.size() == 0) {
@@ -71,8 +73,6 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 	//write the list of images for multipane tifs
 	Magick::writeImages(magickImages.begin(), magickImages.end(), filename, true);
 
-	//Delete image data
-	reset();
 }
 
 void ImageWriter::setMetadata(Magick::Image& magickImage, const std::shared_ptr<Image>& image)

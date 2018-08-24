@@ -4,6 +4,8 @@
 #include "ImageWriter.h"
 
 #include <thread>
+#include <sstream>
+#include <iomanip>
 
 SmartekDevice::SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera)
 	: STI_Device_Adapter(orb_manager, configFile), camera(camera)
@@ -154,7 +156,29 @@ void SmartekDevice::definePartnerDevices()
 
 std::string SmartekDevice::getDeviceHelp()
 {
-	return "";
+	std::stringstream help;
+
+	help << "Syntax for the Value field of meas() command:" << std::endl;
+	help << "ch 0: <file tag string>" << std::endl;
+	help << "ch 1: (<file tag string>, <pane tag string>, <new group bool>)" << std::endl;
+	help << "ch 2: (<file tag string>, <pane tag string>, <new group bool>)" << std::endl;
+	help << "ch 3: Empty (do not enter a value)" << std::endl;
+	help << std::endl;
+
+	help << "The file tag is appended to the automatically generated image filename prefix:" << std::endl;
+	help << "   YYYY_MM_DD-hh_mm_ss-<file tag>.tif" << std::endl;
+	help << "The pane tag is the label for each pane in a multipane tif file.  This string is" << std::endl;
+	help << "saved as part of the measurement xml data of each shot, and as meta data in the tif." << std::endl;
+	help << std::endl;
+
+	help << "Timing file examples:" << std::endl;
+	help << "meas(ch(<dev>, 0), <time>, \"file_tag\")" << std::endl;
+	help << "meas(ch(<dev>, 1), <time>, (\"file_tag\", \"pane1_tag\", True))   #starts new group" << std::endl;
+	help << "meas(ch(<dev>, 1), <time>, (\"file_tag\", \"pane2_tag\", False))  #appended to previous group" << std::endl;
+	help << "meas(ch(<dev>, 3), <time>)" << std::endl;
+	help << std::endl;
+
+	return help.str();
 }
 
 bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message)
@@ -180,15 +204,17 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 	case 2:	//Mean image
 	{
 		auto tuple = rawEvents.at(0).value().getVector();
-		if (tuple.size() == 2) {
+		if (tuple.size() == 3) {
+//			if (tuple.at(0).getType() != MixedValue::String
+//				|| (tuple.at(1).getType() != MixedValue::Double && tuple.at(1).getType() != MixedValue::Boolean))
 			if (tuple.at(0).getType() != MixedValue::String
-				|| (tuple.at(1).getType() != MixedValue::Double && tuple.at(1).getType() != MixedValue::Boolean)) {
-				message = "Invalid vector format. Expecting (<string>filename) or (<string>filename, <bool>new_group)";
+				|| tuple.at(1).getType() != MixedValue::String || !(tuple.at(2).getType() == MixedValue::Boolean || tuple.at(2).getType() == MixedValue::Double)) {
+				message = "Invalid vector format. Expecting (<file tag string>, <pane tag string>, <new group bool>)";
 				success = false;
 			}
 		}
 		else {
-			message = "Tuple should be of the the form (<string>filename, <bool>new_group).";
+			message = "Tuple should be of the the form (<file tag string>, <pane tag string>, <new group bool>).";
 			success = false;
 		}
 		break;
@@ -207,18 +233,19 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 	//decode value
 	switch (value.channel) {
 	case 0:	//single image
-		value.baseFilename = rawEvents.at(0).value().getString();
+		value.fileTag = rawEvents.at(0).value().getString();
 		break;
 	case 1:	//group image
 	case 2:	//Mean image
 	{
 		auto tuple = rawEvents.at(0).value().getVector();
-		value.baseFilename = tuple.at(0).getString();
-		if (tuple.at(1).getType() == MixedValue::Boolean) {
-			value.newGroup = tuple.at(1).getBoolean();
+		value.fileTag = tuple.at(0).getString();
+		value.paneTag = tuple.at(1).getString();
+		if (tuple.at(2).getType() == MixedValue::Boolean) {
+			value.newGroup = tuple.at(2).getBoolean();
 		}
 		else {
-			value.newGroup = (tuple.at(1).getNumber() > 0);
+			value.newGroup = (tuple.at(2).getNumber() > 0);
 		}
 		break;
 	}
@@ -324,10 +351,10 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 			singleWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tif)
 
-			filename = value.baseFilename + filenameext;
+			filename = value.fileTag + filenameext;
 
 			auto writer = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, singleWriter, filename);
-			writer->addImage(image);
+			writer->addImage(image, "");
 			writer->addMeasurement( events->second.at(0) );		//register the measurement with the source RawEvent
 
 			eventsOut.push_back(writer.release());
@@ -342,7 +369,7 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			}
 			if (imageGroupCount == 0) {	//new group created
 				groupWriter = std::make_shared<ImageWriter>();
-				filename = value.baseFilename + filenameext;	//TODO: fix
+				filename = value.fileTag + filenameext;	//TODO: fix
 				groupWriterEvent = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter, filename);	//overwrites each time
 			}
 			
@@ -356,7 +383,7 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 			eventsOut.push_back(smartekEvent.release());
 
-			groupWriterEvent->addImage(image);
+			groupWriterEvent->addImage(image, value.paneTag);
 			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
 		}
 
@@ -369,12 +396,12 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 			}
 			if (imageGroupCount2 == 0) {	//new group created
 				groupWriter2 = std::make_shared<ImageWriter>();
-				filename = value.baseFilename + filenameext;	//TODO: fix
+				filename = value.fileTag + filenameext;	//TODO: fix
 				groupWriterEvent2 = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter2, filename);	//overwrites each time
 
 				image_mean = std::make_shared<Image>(sizeY, sizeX);	
 				image_mean_result = std::make_shared<Image>(sizeY, sizeX);
-				groupWriterEvent2->addImage(image_mean_result);	//only one image; construct the mean by adding each new image to this as they are captured.
+				groupWriterEvent2->addImage(image_mean_result, "");	//only one image; construct the mean by adding each new image to this as they are captured.
 			}
 
 			imageGroupCount2++;
@@ -438,10 +465,18 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 //	}
 //}
 
+void SmartekDevice::SmartekInitializeEvent::loadEvent()
+{
+	cameraDevice->camera->ClearImageBuffer();
+}
+
+
 void SmartekDevice::SmartekInitializeEvent::playEvent()
 {
+
 	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);	//unlock
 	cameraDevice->camera->SetIntegerNodeValue("AcquisitionFrameCount", totalImages);
+
 
 //	cout << "Parsed::totalImages = " << totalImages << endl;
 
@@ -541,6 +576,9 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 
 	//imageInfo is not null
 
+	image->clearMetaData();	//reset;  needed in this Image was used on previous shot
+	image->addMetaData("PaneTag", image->paneTag);
+	image->addMetaData("Downsample", STI::Utils::valueToString(image->downsample));
 	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
 
 	UINT32 sizeX, sizeY;
@@ -554,7 +592,7 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 
 	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
 
-	image->imageData.clear();
+	image->imageData.clear();	//important if this Image is reused on multiple shots
 
 	//copy image from camera buffer, line by line
 	UINT8* lineData;
@@ -633,11 +671,12 @@ void SmartekDevice::unpackLine(UINT8* rawLine, std::vector<IMAGEWORD>& unpackedL
 	}
 }
 
-void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& image)
+void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& image, const std::string& tag)
 {
 	image->downsample = cameraDevice->downsample;
-	image->addMetaData("Downsample", STI::Utils::valueToString(cameraDevice->downsample));
+	image->paneTag = tag;
 	imageWriter->addImage(image);
+	imageTags.push_back(tag);
 }
 
 
@@ -664,13 +703,21 @@ void SmartekDevice::ImageWriterEvent::collectMeasurementData()
 		vec.addValue(static_cast<int>(getEventNumber()));
 		vec.addValue("ImageCount");
 		vec.addValue(static_cast<int>(eventMeasurements.size()));
-		vec.addValue("Pane");
+		vec.addValue("Pane Number");
 		vec.addValue(static_cast<int>(0));	//temp; gets overridden
+		vec.addValue("Pane Tag");
+		vec.addValue("");	//temp; gets overridden
 
 		for (unsigned i = 0; i < eventMeasurements.size(); ++i) {
+
 			data.clear();
 			data.addValue(filename);
 			vec.getValueAt(5).setValue(static_cast<int>(i + 1));	//pane number
+			
+			if (i < imageTags.size()) {
+				vec.getValueAt(7).setValue(imageTags.at(i));	//pane tag
+			}	
+			
 			data.addValue(vec);
 
 			eventMeasurements.at(i)->setData(data);
@@ -718,11 +765,13 @@ std::string SmartekDevice::generateFileTimestamp()
 	//Example:  2018_7_3-19_03_55-test.tif
 	file
 		<< (now->tm_year + 1900) << sepChar
-		<< (now->tm_mon + 1) << sepChar
-		<< now->tm_mday << sepChar << "-"
-		<< now->tm_hour << sepChar
-		<< now->tm_min << sepChar
-		<< now->tm_sec << sepChar;
+		<< std::setfill('0') << std::setw(2) << (now->tm_mon + 1) << sepChar
+		<< std::setfill('0') << std::setw(2) << now->tm_mday
+		<< std::setw(1) << "-"
+		<< std::setfill('0') << std::setw(2) << now->tm_hour << sepChar
+		<< std::setfill('0') << std::setw(2) << now->tm_min << sepChar
+		<< std::setfill('0') << std::setw(2) << now->tm_sec
+		<< std::setw(1) << "-";
 
 	return file.str();
 }

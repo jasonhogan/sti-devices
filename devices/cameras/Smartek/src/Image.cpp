@@ -55,6 +55,11 @@ void Image::addMetaData(const std::string& tag, const std::string& value)
 	metadata.push_back(meta);
 }
 
+void Image::clearMetaData()
+{
+	metadata.clear();
+}
+
 int Image::getImageSize()
 {
 	return imageHeight*imageWidth;
