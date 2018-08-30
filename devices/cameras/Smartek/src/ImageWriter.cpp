@@ -9,6 +9,8 @@
 
 using std::string;
 
+#include <filesystem>
+namespace fs = std::experimental::filesystem;
 
 ImageWriter::ImageWriter()
 {
@@ -70,9 +72,14 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 		magickImages.push_back(magickImage);
 	}
 
+	//Check that the target directory for the image exists; if not create it.
+	fs::path imagePath(filename);
+	if (!fs::exists(imagePath.parent_path())) {
+		fs::create_directories(imagePath.parent_path());
+	}
+
 	//write the list of images for multipane tifs
 	Magick::writeImages(magickImages.begin(), magickImages.end(), filename, true);
-
 }
 
 void ImageWriter::setMetadata(Magick::Image& magickImage, const std::shared_ptr<Image>& image)

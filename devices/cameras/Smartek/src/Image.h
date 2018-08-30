@@ -49,6 +49,8 @@ public:
 	int hbin;
 	int downsample;
 	std::string paneTag;
+	double exposureTime;
+	std::string gain;
 
 	std::vector<int> cropVector;
 

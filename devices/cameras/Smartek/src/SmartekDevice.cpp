@@ -7,11 +7,12 @@
 #include <sstream>
 #include <iomanip>
 
+#include <filesystem>
+namespace fs = std::experimental::filesystem;
+
 SmartekDevice::SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera)
 	: STI_Device_Adapter(orb_manager, configFile), camera(camera)
 {
-	init();
-
 	configFile.getParameter("Trigger partner name", trigger.name);
 	configFile.getParameter("Trigger partner IP", trigger.ip);
 	configFile.getParameter("Trigger partner module", trigger.module);
@@ -24,6 +25,7 @@ SmartekDevice::SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFi
 
 	configFile.getParameter("STI Data Base Directory", baseDirectory);
 
+	init();
 }
 
 void SmartekDevice::init()
@@ -33,22 +35,30 @@ void SmartekDevice::init()
 
 	externalTriggerEventsOn = false;
 	downsample = 1;
+
+	// Abort program if save directory is not accessibly.
+	if(!fs::exists(baseDirectory)) {
+		std::cout << std::endl << std::endl 
+			<< "Error: Image save directory not accessible.  Check fileserver login."
+			<< std::endl;
+		exit(1);
+	}
 }
 
 void SmartekDevice::initializedNodeValues()
 {
 	std::shared_ptr<SmartekNodeValue> value;
 
-
 	value = std::make_shared<SmartekStringNodeValue>(camera, 
 		"AcquisitionMode", "SingleFrame", "Continuous, SingleFrame, MultiFrame");
 	nodeValues.push_back(value);
 
-	value = std::make_shared<SmartekFloatNodeValue>(camera, "ExposureTime", 20000);
-	nodeValues.push_back(value);
+	//Not an attribute anymore, now a command argument
+//	value = std::make_shared<SmartekFloatNodeValue>(camera, "ExposureTime", 20000);
+//	nodeValues.push_back(value);
 
-	value = std::make_shared<SmartekFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
-	nodeValues.push_back(value);	
+	gainNodeValue = std::make_shared<SmartekFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
+	nodeValues.push_back(gainNodeValue);
 
 	value = std::make_shared<SmartekStringNodeValue>(camera, "TriggerMode", "On", "On, Off");
 	nodeValues.push_back(value);
@@ -66,7 +76,7 @@ void SmartekDevice::initializedNodeValues()
 	//	"AcquisitionStart", "AcquisitionStart, AcquisitionEnd, AcquisitionActive,	FrameStart,	FrameEnd, FrameActive, LineStart, ExposureStart, ExposureEnd, ExposureActive");
 	//nodeValues.push_back(value);
 
-
+	exposureTimeNodeValue = std::make_shared<SmartekFloatNodeValue>(camera, "ExposureTime", 20000);
 }
 
 void SmartekDevice::defineAttributes()
@@ -141,17 +151,18 @@ void SmartekDevice::refreshAttributes()
 
 void SmartekDevice::defineChannels()
 {
-	addInputChannel(0, DataString, ValueString, "Single Image");	// filename
-	addInputChannel(1, DataString, ValueVector, "Group Image");		//(filename, new_group)
-	addInputChannel(2, DataString, ValueVector, "Mean Image");		//(filename, new_group)
-	addInputChannel(4, DataDouble, ValueNone, "Photodetector");
+	addInputChannel(0, DataVector, ValueVector, "Single Image");		// (exposure time, filename tag)
+	addInputChannel(1, DataVector, ValueVector, "Absorption Image");	// (exposure time, filename tag, new_group)
+	addInputChannel(2, DataVector, ValueVector, "Group Image");			// (exposure time, filename tag, pane tag, new_group)
+	addInputChannel(3, DataVector, ValueVector, "Mean Image");			// (exposure time, filename, new_group)
+	addInputChannel(4, DataDouble, ValueNumber, "Photodetector");			// exposure time
 }
 
 
 void SmartekDevice::definePartnerDevices()
 {
-	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
-	partnerDevice("External Trigger").enablePartnerEvents();
+//	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
+//	partnerDevice("External Trigger").enablePartnerEvents();
 }
 
 std::string SmartekDevice::getDeviceHelp()
@@ -159,10 +170,11 @@ std::string SmartekDevice::getDeviceHelp()
 	std::stringstream help;
 
 	help << "Syntax for the Value field of meas() command:" << std::endl;
-	help << "ch 0: <file tag string>" << std::endl;
-	help << "ch 1: (<file tag string>, <pane tag string>, <new group bool>)" << std::endl;
-	help << "ch 2: (<file tag string>, <pane tag string>, <new group bool>)" << std::endl;
-	help << "ch 3: Empty (do not enter a value)" << std::endl;
+	help << "ch 0: (<exposure time>, <file tag string>)" << std::endl;
+	help << "ch 1: (<exposure time>, <file tag string>, <new group bool>)" << std::endl;
+	help << "ch 2: (<exposure time>, <file tag string>, <pane tag string>, <new group bool>)" << std::endl;
+	help << "ch 3: (<exposure time>, <file tag string>, <new group bool>)" << std::endl;
+	help << "ch 4: <exposure time>" << std::endl;
 	help << std::endl;
 
 	help << "The file tag is appended to the automatically generated image filename prefix:" << std::endl;
@@ -172,11 +184,23 @@ std::string SmartekDevice::getDeviceHelp()
 	help << std::endl;
 
 	help << "Timing file examples:" << std::endl;
-	help << "meas(ch(<dev>, 0), <time>, \"file_tag\")" << std::endl;
-	help << "meas(ch(<dev>, 1), <time>, (\"file_tag\", \"pane1_tag\", True))   #starts new group" << std::endl;
-	help << "meas(ch(<dev>, 1), <time>, (\"file_tag\", \"pane2_tag\", False))  #appended to previous group" << std::endl;
-	help << "meas(ch(<dev>, 3), <time>)" << std::endl;
-	help << std::endl;
+	help << "meas(ch(<dev>, 0), <time>, (<exposureTime>, \"file_tag\"))" << std::endl;
+	
+	help << std::endl << "Absorption Image:" << std::endl;
+	help << "meas(ch(<dev>, 1), <time>, (<exposureTime>, \"file_tag\", True))   #starts new group" << std::endl;
+	help << "meas(ch(<dev>, 1), <time>, (<exposureTime>, \"file_tag\", False))  #appended to previous group" << std::endl;
+
+	help << std::endl << "Group Image:" << std::endl;
+	help << "meas(ch(<dev>, 2), <time>, (<exposureTime>, \"file_tag\", \"pane1_tag\", True))   #starts new group" << std::endl;
+	help << "meas(ch(<dev>, 2), <time>, (<exposureTime>, \"file_tag\", \"pane2_tag\", False))  #appended to previous group" << std::endl;
+
+	help << std::endl << "Photodetector mode:" << std::endl;
+	help << "meas(ch(<dev>, 4), <time>, <exposureTime>)" << std::endl;
+	help << std::endl << std::endl;
+
+	help << "Exposure time is entered in nanoseconds.  The camera expects a time in microseconds. " << std::endl
+		<< "The time recorded in the xml file is in microseconds." << std::endl;
+
 
 	return help.str();
 }
@@ -188,38 +212,61 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 		return false;
 	}
 
-	value.channel = rawEvents.at(0).channel();
+	auto& rawEvent = rawEvents.at(0);
+	value.channel = rawEvent.channel();
+	MixedValueVector tuple;
+
+	//All channels require their arguements to be a vector except channel 4.
+	//Treat channel 4 separately first and make a tuple of length 1.
+	if (value.channel == 4) {
+		if (rawEvent.getValueType() != MixedValue::Double) {
+			message = "Invalid argument format. Expecting:  <exposure time>";
+			return false;
+		}
+		tuple.push_back(rawEvent.value().getNumber());
+	}
+	else {	//all other channels
+		tuple = rawEvent.value().getVector();
+	}
 
 	bool success = true;
 
 	//type checking
 	switch (value.channel) {
 	case 0:	//single image
-		if (rawEvents.at(0).getValueType() != MixedValue::String) {
-			message = "Camera filename must be a string.";
+		if (tuple.size() != 2 
+			|| tuple.at(0).getType() != MixedValue::Double
+			|| tuple.at(1).getType() != MixedValue::String) {
+			message = "Invalid argument format. Expecting:  (<exposure time>, <file tag string>)";
 			success = false;
 		}
 		break;
-	case 1:	//group image
-	case 2:	//Mean image
-	{
-		auto tuple = rawEvents.at(0).value().getVector();
-		if (tuple.size() == 3) {
-//			if (tuple.at(0).getType() != MixedValue::String
-//				|| (tuple.at(1).getType() != MixedValue::Double && tuple.at(1).getType() != MixedValue::Boolean))
-			if (tuple.at(0).getType() != MixedValue::String
-				|| tuple.at(1).getType() != MixedValue::String || !(tuple.at(2).getType() == MixedValue::Boolean || tuple.at(2).getType() == MixedValue::Double)) {
-				message = "Invalid vector format. Expecting (<file tag string>, <pane tag string>, <new group bool>)";
-				success = false;
-			}
-		}
-		else {
-			message = "Tuple should be of the the form (<file tag string>, <pane tag string>, <new group bool>).";
+	case 1:	//Absorption image
+	case 3:	//Mean image
+		if (tuple.size() != 3
+			|| tuple.at(0).getType() != MixedValue::Double
+			|| tuple.at(1).getType() != MixedValue::String
+			|| !(tuple.at(2).getType() == MixedValue::Boolean || tuple.at(2).getType() == MixedValue::Double)) {
+			message = "Invalid argument format. Expecting:  (<exposure time>, <file tag string>, <new group bool>)";
 			success = false;
 		}
 		break;
-	}
+	case 2:	//group image
+		if (tuple.size() != 4
+			|| tuple.at(0).getType() != MixedValue::Double
+			|| tuple.at(1).getType() != MixedValue::String
+			|| tuple.at(2).getType() != MixedValue::String
+			|| !(tuple.at(3).getType() == MixedValue::Boolean || tuple.at(3).getType() == MixedValue::Double)) {
+			message = "Invalid argument format. Expecting:  (<exposure time>, <file tag string>, <pane tag string>, <new group bool>)";
+			success = false;
+		}
+		break;
 	case 4:	//photodetector
+		if (tuple.size() != 1
+			|| tuple.at(0).getType() != MixedValue::Double) {
+			message = "Invalid argument format. Expecting:  <exposure time>";
+			success = false;
+		}
 		break;
 	default:
 		message = "Channel number " + STI::Utils::valueToString(value.channel) + " is not supported.";
@@ -231,21 +278,32 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 	value.newGroup = false;
 
 	//decode value
+	value.exposureTime = tuple.at(0).getDouble() / 1000;	//Time is specifed in nanosec but the camera expect microsec
+	value.paneTag = "";	//default
+
 	switch (value.channel) {
 	case 0:	//single image
-		value.fileTag = rawEvents.at(0).value().getString();
+		value.fileTag = tuple.at(1).getString();
 		break;
-	case 1:	//group image
-	case 2:	//Mean image
-	{
-		auto tuple = rawEvents.at(0).value().getVector();
-		value.fileTag = tuple.at(0).getString();
-		value.paneTag = tuple.at(1).getString();
+	case 3:	//Mean image
+	case 1:	//Absorption image
+		value.fileTag = tuple.at(1).getString();
 		if (tuple.at(2).getType() == MixedValue::Boolean) {
 			value.newGroup = tuple.at(2).getBoolean();
 		}
 		else {
 			value.newGroup = (tuple.at(2).getNumber() > 0);
+		}
+		break;
+	case 2:	//group image
+	{
+		value.fileTag = tuple.at(1).getString();
+		value.paneTag = tuple.at(2).getString();
+		if (tuple.at(3).getType() == MixedValue::Boolean) {
+			value.newGroup = tuple.at(3).getBoolean();
+		}
+		else {
+			value.newGroup = (tuple.at(3).getNumber() > 0);
 		}
 		break;
 	}
@@ -276,15 +334,18 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 {
 //	status = device->CommandNodeExecute("AcquisitionStart");
 	//ch 0: Individual image
-	//ch 1: Image group.  By default, groups all images taken in a given shot into one multi-page tif. Has argument "new_group" that starts a new group (false by default)
-	//ch 2: Image group with operation. Examples: Average, Absorption (1-2)/3.  Does not save intermediate images.
-	//ch 3: Absorption (1-2)/(2-3), 1=Signal, 2=Reference, 3=Background
+	//ch 1: Absorption image (image group with signal, reference, and enventually a background possibly)
+	//ch 2: Image group.  By default, groups all images taken in a given shot into one multi-page tif. Has argument "new_group" that starts a new group (false by default)
+	//ch 3: Image group that returns the mean image of the group.  Does not save intermediate images.
 	//ch 4: photodiode mode; integrate all pixels
 	double minimumEventTime = 1000;	//1 us
 	double eventTime = minimumEventTime;	//from timing file
-	double lastEventTime = minimumEventTime;
+	
 	double thisEventTime = minimumEventTime;
+	double lastEventTime = minimumEventTime;
 	double thisWriterEventTime = minimumEventTime;
+	double lastWriterEventTime = minimumEventTime;
+
 	double holdoff = 0*10000000;		//10 ms
 //	RawEventMap::const_iterator events;
 
@@ -293,19 +354,17 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 	shared_ptr<Image> image;
 
+	unsigned mean_image_count;		//number of images being averaged
 	shared_ptr<Image> image_mean;		//shared by multiple events
 	shared_ptr<Image> image_mean_result;	//buffer shared by multiple events
 
-	shared_ptr<ImageWriter> singleWriter;
-	shared_ptr<ImageWriter> groupWriter;
-	shared_ptr<ImageWriter> groupWriter2;
-
 	std::unique_ptr<ImageWriterEvent> groupWriterEvent;
+	std::unique_ptr<ImageWriterEvent> absorptionWriterEvent;	//ch 1, absorption images
 	std::unique_ptr<ImageWriterEvent> groupWriterEvent2;
 
 	unsigned totalImages = 0;
-	unsigned imageGroupCount = 0;
-	unsigned imageGroupCount2 = 0;
+	unsigned absorptionImagePaneCount = 0;		//kind of a hack. Needed to label absorption image panes and check for errors.
+	const RawEvent* lastAbsorptionEvent;
 
 	std::string filenamebase = "test";
 	std::string filenameext = ".tif";
@@ -313,6 +372,7 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 	UINT32 sizeX = 1936;
 	UINT32 sizeY = 1216;
+
 
 	for (auto events = eventsIn.begin(); events != eventsIn.end(); events++)
 	{
@@ -326,89 +386,122 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 		eventTime = events->first - holdoff;	//time of the event requested in timing file
 
+		generateExternalTriggerEvents(eventTime, events->second.at(0));		//conditional on attribute status
+		
+		totalImages++;		//counted so the camera knows how many frames to acquire
+		
+		if (isHardwareTriggered()) {
+			//For hardware trigger, make the event play immediately after the last event.
+			//This way the aquisition starts as soon as possible to avoid missing a trigger.
+			thisEventTime = lastEventTime + 10;
+			thisWriterEventTime = eventTime;	//the event should be ready to save to disk soon after the trigger
+		}
+		else {
+			//Software triggers occur at the nominal time of the event.
+			thisEventTime = eventTime;
+			thisWriterEventTime = eventTime + 10;	//try to save to disk as soon as possible
+		}
+	
+		image = std::make_shared<Image>(sizeY, sizeX);
+		image->paneTag = value.paneTag;
+		image->exposureTime = value.exposureTime;
+		image->filename = value.fileTag;
+		image->downsample = downsample;
+		
+		std::string gain = "";
+		gainNodeValue->getValue(gain);
+		image->gain = gain;
+
 		if (value.channel == 0) {	//Individual image
-			
-			generateExternalTriggerEvents(eventTime, events->second.at(0));		//conditional on attribute status
 
-			totalImages++;
-			image = std::make_shared<Image>(sizeY, sizeX);
-
-			if (isHardwareTriggered()) {
-				//For hardware trigger, make the event play immediately after the last event.
-				//This way the aquisition starts as soon as possible to avoid missing a trigger.
-				thisEventTime = lastEventTime + 10;
-				thisWriterEventTime = eventTime;	//the event should be ready to save to disk soon after the trigger
-			}
-			else {
-				//Software triggers occur at the nominal time of the event.
-				thisEventTime = eventTime;
-				thisWriterEventTime = eventTime + 10;	//try to save to disk as soon as possible
-			}
-
-			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image);	//schedule event to plau immediately after last event
-
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
 			eventsOut.push_back(smartekEvent.release());
-
-			singleWriter = std::make_shared<ImageWriter>();		//can be shared by multiple events, if images are to be combined into one file (multipane tif)
 
 			filename = value.fileTag + filenameext;
 
-			auto writer = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, singleWriter, filename);
-			writer->addImage(image, "");
+			auto writer = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, filename);
+			writer->addImage(image);
 			writer->addMeasurement( events->second.at(0) );		//register the measurement with the source RawEvent
 
 			eventsOut.push_back(writer.release());
 		}
-
-		if (value.channel == 1) {	//image group
-			
-			if (value.newGroup && imageGroupCount > 0 && groupWriterEvent != 0) {	//New group created; flush the group image buffer
-				groupWriterEvent->setTime(lastEventTime + 10);
-				eventsOut.push_back(groupWriterEvent.release());
-				imageGroupCount = 0;
+		if (value.channel == 1) {	//absorption image group
+			if (value.newGroup && absorptionWriterEvent != nullptr) {	//New group created; flush the group image buffer
+				if (absorptionImagePaneCount != 2 && absorptionImagePaneCount != 3) {
+					throw EventParsingException(events->second.at(0),
+						"Invalid pane count in absorption image group.  absorptionImagePaneCount=" + STI::Utils::valueToString(absorptionImagePaneCount));
+				}
+				absorptionWriterEvent->setTime(lastWriterEventTime + 1);	//was lastEventTime + 10
+				eventsOut.push_back(absorptionWriterEvent.release());
 			}
-			if (imageGroupCount == 0) {	//new group created
-				groupWriter = std::make_shared<ImageWriter>();
+			if (absorptionWriterEvent == nullptr) {	//new group created
+				absorptionImagePaneCount = 0;
 				filename = value.fileTag + filenameext;	//TODO: fix
-				groupWriterEvent = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter, filename);	//overwrites each time
+				absorptionWriterEvent = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, filename);	//overwrites each time	//was lastEventTime + 10
 			}
-			
-			generateExternalTriggerEvents(eventTime, events->second.at(0));		//conditional on attribute status
-			
-			imageGroupCount++;
-			totalImages++;
-			image = std::make_shared<Image>(sizeY, sizeX);
 
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image);	//schedule event to play immediately after last event
+			lastAbsorptionEvent = &(events->second.at(0));	//store for error checking at end of for loop
+
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
 
 			eventsOut.push_back(smartekEvent.release());
 
-			groupWriterEvent->addImage(image, value.paneTag);
+			absorptionImagePaneCount++;		//expecting signal, reference, and possibly a background pane.
+			absorptionWriterEvent->addImage(image);
+			absorptionWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
+
+			switch (absorptionImagePaneCount) {
+			case 1:
+				image->paneTag = "signal";
+				break;
+			case 2:
+				image->paneTag = "reference";
+				break;
+			case 3:
+				image->paneTag = "background";
+				break;
+			default:
+				throw EventParsingException(events->second.at(0), "Invalid pane count in absorption image group.  absorptionImagePaneCount=" + STI::Utils::valueToString(absorptionImagePaneCount));
+				break;
+			}
+		}
+		if (value.channel == 2) {	//image group
+			if (value.newGroup && groupWriterEvent != nullptr) {	//New group created; flush the group image buffer
+				groupWriterEvent->setTime(lastWriterEventTime + 1);	//was lastEventTime + 10
+				eventsOut.push_back(groupWriterEvent.release());
+			}
+			if(groupWriterEvent == nullptr) {	//new group created
+				filename = value.fileTag + filenameext;	//TODO: fix
+				groupWriterEvent = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, filename);	//overwrites each time	//was lastEventTime + 10
+			}
+
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
+
+			eventsOut.push_back(smartekEvent.release());
+
+			groupWriterEvent->addImage(image);
 			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
 		}
+		if (value.channel == 3) {	//image group with operation.  (Mean)
 
-		if (value.channel == 2) {	//image group with operation.  (Mean)
-
-			if (value.newGroup && imageGroupCount2 > 0 && groupWriterEvent2 != 0) {	//New group created; flush the group image buffer
-				groupWriterEvent2->setTime(lastEventTime + 10);
+			if (value.newGroup && groupWriterEvent2 != nullptr) {	//New group created; flush the group image buffer
+				groupWriterEvent2->setTime(lastWriterEventTime + 1);
 				eventsOut.push_back(groupWriterEvent2.release());
-				imageGroupCount2 = 0;
 			}
-			if (imageGroupCount2 == 0) {	//new group created
-				groupWriter2 = std::make_shared<ImageWriter>();
+			if (groupWriterEvent2 == nullptr) {	//new group created
 				filename = value.fileTag + filenameext;	//TODO: fix
-				groupWriterEvent2 = std::make_unique<ImageWriterEvent>(lastEventTime + 10, this, groupWriter2, filename);	//overwrites each time
+				groupWriterEvent2 = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, filename);	//overwrites each time
 
+				mean_image_count = 0;
 				image_mean = std::make_shared<Image>(sizeY, sizeX);	
 				image_mean_result = std::make_shared<Image>(sizeY, sizeX);
-				groupWriterEvent2->addImage(image_mean_result, "");	//only one image; construct the mean by adding each new image to this as they are captured.
+				groupWriterEvent2->addImage(image_mean_result);	//only one image; construct the mean by adding each new image to this as they are captured.
 			}
 
-			imageGroupCount2++;
-			totalImages++;
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime, this, image_mean, image_mean_result, Mean);
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image_mean, image_mean_result, Mean);
 
-			smartekEvent->imageCount = imageGroupCount2;
+			mean_image_count++;
+			smartekEvent->imageCount = mean_image_count;
 
 			eventsOut.push_back(smartekEvent.release());
 
@@ -417,7 +510,7 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 
 		if (value.channel == 4) {	// Photodetector mode: integrate all pixels
 			image = std::make_shared<Image>(sizeY, sizeX);
-			auto smartekEvent = std::make_unique<SmartekEvent>(lastEventTime + 10, this, image, Photodetector);	//schedule event to plau immediately after last event
+			auto smartekEvent = std::make_unique<SmartekEvent>(thisEventTime, this, image, Photodetector);	//schedule event to plau immediately after last event
 
 			smartekEvent->addMeasurement(events->second.at(0));
 
@@ -425,13 +518,25 @@ void SmartekDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousEv
 		}
 
 		lastEventTime = eventTime;
+		lastWriterEventTime = thisWriterEventTime;
 	}
 
-	if (imageGroupCount > 0 && groupWriterEvent != 0) {	//flush the group image buffer
+	if (groupWriterEvent != nullptr) {	//flush the group image buffer
 		groupWriterEvent->setTime(lastEventTime + 10);
 		eventsOut.push_back(groupWriterEvent.release());
-		imageGroupCount = 0;
 	}
+	if (absorptionWriterEvent != nullptr) {
+		if (lastAbsorptionEvent == nullptr) {
+			//can't happen
+		}
+		if (absorptionImagePaneCount != 2 && absorptionImagePaneCount != 3) {
+			throw EventParsingException(*lastAbsorptionEvent,
+				"Invalid pane count in absorption image group.  absorptionImagePaneCount=" + STI::Utils::valueToString(absorptionImagePaneCount));
+		}
+		absorptionWriterEvent->setTime(lastEventTime + 10);
+		eventsOut.push_back(absorptionWriterEvent.release());
+	}
+	
 
 	//Initialization event.  Happens before any image events
 	auto smartekIniEvent = std::make_unique<SmartekInitializeEvent>(0, this, totalImages);
@@ -579,6 +684,8 @@ void SmartekDevice::SmartekEvent::collectMeasurementData()
 	image->clearMetaData();	//reset;  needed in this Image was used on previous shot
 	image->addMetaData("PaneTag", image->paneTag);
 	image->addMetaData("Downsample", STI::Utils::valueToString(image->downsample));
+	image->addMetaData("ExposureTime", STI::Utils::valueToString(image->exposureTime));
+	image->addMetaData("Gain", STI::Utils::valueToString(image->gain));
 	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
 
 	UINT32 sizeX, sizeY;
@@ -671,12 +778,17 @@ void SmartekDevice::unpackLine(UINT8* rawLine, std::vector<IMAGEWORD>& unpackedL
 	}
 }
 
-void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& image, const std::string& tag)
+
+SmartekDevice::ImageWriterEvent::ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const std::string& filename)
+	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), basefilename(filename)
 {
-	image->downsample = cameraDevice->downsample;
-	image->paneTag = tag;
+	imageWriter = std::make_shared<ImageWriter>();
+}
+
+void SmartekDevice::ImageWriterEvent::addImage(const std::shared_ptr<Image>& image)
+{
 	imageWriter->addImage(image);
-	imageTags.push_back(tag);
+	images.push_back(image);
 }
 
 
@@ -689,41 +801,26 @@ void SmartekDevice::ImageWriterEvent::collectMeasurementData()
 		cameraDevice->generateDataDestinationDirectory() + "\\" +
 		cameraDevice->generateFileTimestamp() + basefilename;
 
-	if (eventMeasurements.size() == 1) {
-		//single image
-		eventMeasurements.at(0)->setData(filename);
-	}
+	MixedData data;
 
-	if (eventMeasurements.size() > 1) {
-		//group image (multipane tif)
-		MixedData data;
 
-		MixedData vec;
-		vec.addValue("Group ID");
-		vec.addValue(static_cast<int>(getEventNumber()));
-		vec.addValue("ImageCount");
-		vec.addValue(static_cast<int>(eventMeasurements.size()));
-		vec.addValue("Pane Number");
-		vec.addValue(static_cast<int>(0));	//temp; gets overridden
-		vec.addValue("Pane Tag");
-		vec.addValue("");	//temp; gets overridden
+	for (unsigned i = 0; i < eventMeasurements.size() && i < images.size(); ++i) {	//there should be as many images as there are measurements
+		data.clear();
+		data.addValue(cameraDevice->makeLabeledDataPair("Filename", filename));
+		data.addValue(cameraDevice->makeLabeledDataPair("Exposure Time", images.at(i)->exposureTime));
+		data.addValue(cameraDevice->makeLabeledDataPair("Downsample", images.at(i)->downsample));
+		data.addValue(cameraDevice->makeLabeledDataPair("Gain", images.at(i)->gain));
 
-		for (unsigned i = 0; i < eventMeasurements.size(); ++i) {
-
-			data.clear();
-			data.addValue(filename);
-			vec.getValueAt(5).setValue(static_cast<int>(i + 1));	//pane number
-			
-			if (i < imageTags.size()) {
-				vec.getValueAt(7).setValue(imageTags.at(i));	//pane tag
-			}	
-			
-			data.addValue(vec);
-
-			eventMeasurements.at(i)->setData(data);
+		if (eventMeasurements.size() > 1) {	//multipane images
+			data.addValue(cameraDevice->makeLabeledDataPair("Pane Tag", images.at(i)->paneTag));
+			data.addValue(cameraDevice->makeLabeledDataPair("Pane Number", static_cast<int>(i + 1)));
+			data.addValue(cameraDevice->makeLabeledDataPair("Image Count", static_cast<int>(eventMeasurements.size())));
+			data.addValue(cameraDevice->makeLabeledDataPair("Group ID", static_cast<int>(getEventNumber())));
 		}
+		
+		eventMeasurements.at(i)->setData(data);
 	}
-
+	
 	imageWriter->write(filename);
 }
 

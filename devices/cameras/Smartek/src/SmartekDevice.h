@@ -18,6 +18,7 @@ class ImageWriter;
 struct SmartekDeviceEventValue
 {
 	unsigned short channel;
+	double exposureTime;
 	std::string fileTag;
 	std::string paneTag;
 	std::string description;
@@ -53,6 +54,14 @@ public:
 
 private:
 
+	template<typename T>
+	MixedData makeLabeledDataPair(const std::string& label, const T& value) {
+		MixedData vec;
+		vec.addValue(label);
+		vec.addValue(value);
+		return vec;
+	}
+
 	bool parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message);
 
 	void generateExternalTriggerEvents(double eventTime, const RawEvent& sourceEvt);
@@ -70,8 +79,13 @@ private:
 
 	std::vector<std::shared_ptr<SmartekNodeValue>> nodeValues;
 
+	std::shared_ptr<SmartekNodeValue> exposureTimeNodeValue;
+	std::shared_ptr<SmartekNodeValue> gainNodeValue;
+
+
 	bool setDownsample(int ds);
 	int downsample;
+
 
 	//Partner information for external trigger
 	struct TriggerDevice
@@ -97,20 +111,22 @@ private:
 	{
 	public:
 
-		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<ImageWriter>& imageWriter, const std::string& filename)
-			: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), imageWriter(imageWriter), basefilename(filename) {}
+		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const std::string& filename);
 
 		void collectMeasurementData();
 		void waitBeforeCollectData();
 
-		void addImage(const std::shared_ptr<Image>& image, const std::string& tag);
+		void addImage(const std::shared_ptr<Image>& image);
 
 	private:
 
 		SmartekDevice* cameraDevice;
 		shared_ptr<ImageWriter> imageWriter;
+		//ImageWriter imageWriter;
+		std::vector<std::shared_ptr<Image>> images;
+
 		std::string basefilename;
-		std::vector<std::string> imageTags;
+//		std::vector<std::string> imageTags;
 
 	};
 
