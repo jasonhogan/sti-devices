@@ -278,7 +278,27 @@ bool SmartekDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Smar
 	value.newGroup = false;
 
 	//decode value
-	value.exposureTime = tuple.at(0).getDouble() / 1000;	//Time is specifed in nanosec but the camera expect microsec
+
+	//check for valid exposure time
+	double exposure = tuple.at(0).getDouble() / 1000;
+	std::string oldExposure;
+	std::string newExposure;
+	double exposureCheck;
+	
+	exposureTimeNodeValue->getValue(oldExposure);
+	if (!exposureTimeNodeValue->setValue(STI::Utils::valueToString(exposure)) 
+		|| !exposureTimeNodeValue->getValue(newExposure)
+		|| !STI::Utils::stringToValue(newExposure, exposureCheck)
+		|| (exposureCheck != exposure)) {
+		message = "Invalid exposure time.";
+		return false;
+	}
+	else {
+		//exposure time is valid; reset to old exposure time for now (exposure time is set during playEvent)
+		exposureTimeNodeValue->setValue(oldExposure);
+	}
+
+	value.exposureTime = exposure;	//Time is specifed in nanosec but the camera expect microsec
 	value.paneTag = "";	//default
 
 	switch (value.channel) {
@@ -619,6 +639,9 @@ SmartekDevice::SmartekEvent::SmartekEvent(double time, SmartekDevice* cameraDevi
 
 void SmartekDevice::SmartekEvent::playEvent()
 {
+	//set exposure time for this image
+	cameraDevice->exposureTimeNodeValue->setValue(STI::Utils::valueToString(image->exposureTime));
+
 	bool status;
 	// set trigger selector to frame start
 	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
