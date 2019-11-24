@@ -1,21 +1,21 @@
 
-#ifndef SMARTEKDEVICE_H
-#define SMARTEKDEVICE_H
+#ifndef BLACKFLYDEVICE_H
+#define BLACKFLYDEVICE_H
 
 #include <STI_Device_Adapter.h>
 
-#include "smcs_cpp/CameraSDK.h"
+//#include "smcs_cpp/CameraSDK.h"
 
 #include "Image.h"
 
 #include <vector>
 #include <memory>
 
-class SmartekNodeValue;
+class BlackflyNodeValue;
 class Image;
 class ImageWriter;
 
-struct SmartekDeviceEventValue
+struct BlackflyDeviceEventValue
 {
 	unsigned short channel;
 	double exposureTime;
@@ -29,15 +29,15 @@ struct GroupImageProperties
 {
 };
 
-class SmartekDevice : public STI_Device_Adapter
+class BlackflyDevice : public STI_Device_Adapter
 {
 public:
 
-	enum SmartekEventMode { Normal, Mean, Photodetector };
+	enum BlackflyEventMode { Normal, Mean, Photodetector };
 //	enum AbsorptionImageType { Signal, Reference, Background, None };
 //	enum Operation { Add, Subtract, Mean, Absorption };
 	
-	SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera);
+	BlackflyDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera);
 
 
 	void defineAttributes();
@@ -62,7 +62,7 @@ private:
 		return vec;
 	}
 
-	bool parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message);
+	bool parseEventValue(const std::vector<RawEvent>& rawEvents, BlackflyDeviceEventValue& value, std::string& message);
 
 	void generateExternalTriggerEvents(double eventTime, const RawEvent& sourceEvt);
 
@@ -77,10 +77,10 @@ private:
 
 	smcs::IDevice camera;
 
-	std::vector<std::shared_ptr<SmartekNodeValue>> nodeValues;
+	std::vector<std::shared_ptr<BlackflyNodeValue>> nodeValues;
 
-	std::shared_ptr<SmartekNodeValue> exposureTimeNodeValue;
-	std::shared_ptr<SmartekNodeValue> gainNodeValue;
+	std::shared_ptr<BlackflyNodeValue> exposureTimeNodeValue;
+	std::shared_ptr<BlackflyNodeValue> gainNodeValue;
 
 
 	bool setDownsample(int ds);
@@ -111,7 +111,7 @@ private:
 	{
 	public:
 
-		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const std::string& filename);
+		ImageWriterEvent(double time, BlackflyDevice* cameraDevice_, const std::string& filename);
 
 		void collectMeasurementData();
 		void waitBeforeCollectData();
@@ -120,7 +120,7 @@ private:
 
 	private:
 
-		SmartekDevice* cameraDevice;
+		BlackflyDevice* cameraDevice;
 		shared_ptr<ImageWriter> imageWriter;
 		//ImageWriter imageWriter;
 		std::vector<std::shared_ptr<Image>> images;
@@ -130,10 +130,10 @@ private:
 
 	};
 
-	class SmartekInitializeEvent : public SynchronousEventAdapter
+	class BlackflyInitializeEvent : public SynchronousEventAdapter
 	{
 	public:
-		SmartekInitializeEvent(double time, SmartekDevice* cameraDevice, int totalImages)
+		BlackflyInitializeEvent(double time, BlackflyDevice* cameraDevice, int totalImages)
 			: SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) {}
 		
 		void loadEvent();
@@ -142,16 +142,16 @@ private:
 		int totalImages;
 
 	private:
-		SmartekDevice* cameraDevice;
+		BlackflyDevice* cameraDevice;
 	};
 
-	class SmartekEvent : public SynchronousEventAdapter
+	class BlackflyEvent : public SynchronousEventAdapter
 	{
 	public:
 
-		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image);
-		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, SmartekEventMode mode);
-		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, SmartekEventMode mode);
+		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image);
+		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, BlackflyEventMode mode);
+		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, BlackflyEventMode mode);
 
 //			: SynchronousEvent(time, cameraDevice_), cameraDevice(cameraDevice_),
 //			image(image), imageWriter(imageWriter)
@@ -169,7 +169,7 @@ private:
 
 		void waitBeforeCollectData();
 
-		SmartekDevice* cameraDevice;
+		BlackflyDevice* cameraDevice;
 
 		shared_ptr<Image> image;
 		shared_ptr<Image> imageBuffer;
@@ -177,7 +177,7 @@ private:
 
 //		AbsorptionImageType absType;
 
-		SmartekEventMode mode;
+		BlackflyEventMode mode;
 
 	private:
 		Int64 getTotal(const vector<IMAGEWORD>& data);
@@ -185,14 +185,14 @@ private:
 
 };
 
-class SmartekNodeValue	//abstract
+class BlackflyNodeValue	//abstract
 {
 public:
-	SmartekNodeValue(const smcs::IDevice& device, const std::string& key, 
+	BlackflyNodeValue(const smcs::IDevice& device, const std::string& key, 
 		const std::string& defaultValue, const std::string& allowedValues)
 		: device(device), key(key), allowedValues(allowedValues), defaultValue(defaultValue) {}
-	SmartekNodeValue(const smcs::IDevice& device, const std::string& key, const std::string& defaultValue)
-		: SmartekNodeValue(device, key, defaultValue, "") {}
+	BlackflyNodeValue(const smcs::IDevice& device, const std::string& key, const std::string& defaultValue)
+		: BlackflyNodeValue(device, key, defaultValue, "") {}
 
 	//	virtual bool setValue(const std::string& key) = 0;
 	//	virtual bool getValue(const std::string& key, std::string& value) = 0;
@@ -210,24 +210,24 @@ protected:
 	smcs::IDevice device;
 };
 
-class SmartekStringNodeValue : public SmartekNodeValue
+class BlackflyStringNodeValue : public BlackflyNodeValue
 {
 public:
-	SmartekStringNodeValue(const smcs::IDevice& device, const std::string& key,
+	BlackflyStringNodeValue(const smcs::IDevice& device, const std::string& key,
 		const std::string& defaultValue, const std::string& allowedValues) 
-		: SmartekNodeValue(device, key, defaultValue, allowedValues) {}
+		: BlackflyNodeValue(device, key, defaultValue, allowedValues) {}
 
 	bool setValue(const std::string& value) { return device->SetStringNodeValue(key, value); }
 	bool getValue(std::string& value) { return device->GetStringNodeValue(key, value); }
 };
 
-class SmartekFloatNodeValue : public SmartekNodeValue
+class BlackflyFloatNodeValue : public BlackflyNodeValue
 {
 public:
 
-	SmartekFloatNodeValue(const smcs::IDevice& device, const std::string& key,
+	BlackflyFloatNodeValue(const smcs::IDevice& device, const std::string& key,
 		double defaultValue)
-		: SmartekNodeValue(device, key, STI::Utils::valueToString(defaultValue)) {}
+		: BlackflyNodeValue(device, key, STI::Utils::valueToString(defaultValue)) {}
 
 	bool setValue(const std::string& value)
 	{
