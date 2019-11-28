@@ -120,14 +120,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\BlackflyDevice.h" />
+    <ClInclude Include="..\src\BlackflyEvent.h" />
+    <ClInclude Include="..\src\BlackflyNodeValue.h" />
     <ClInclude Include="..\src\Image.h" />
     <ClInclude Include="..\src\ImageWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\BlackflyDevice.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\src\BlackflyEvent.cpp" />
+    <ClCompile Include="..\src\BlackflyNodeValue.cpp" />
     <ClCompile Include="..\src\Image.cpp" />
     <ClCompile Include="..\src\ImageWriter.cpp" />
     <ClCompile Include="..\src\main.cpp" />

@@ -1,5 +1,6 @@
 
 #include "BlackflyDevice.h"
+#include "BlackflyEvent.h"
 #include "Image.h"
 #include "ImageWriter.h"
 
@@ -8,9 +9,10 @@
 #include <iomanip>
 
 #include <filesystem>
+
 namespace fs = std::experimental::filesystem;
 
-BlackflyDevice::BlackflyDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera)
+BlackflyDevice::BlackflyDevice(ORBManager* orb_manager, const ConfigFile& configFile, const Spinnaker::CameraPtr& camera)
 	: STI_Device_Adapter(orb_manager, configFile), camera(camera)
 {
 	configFile.getParameter("Trigger partner name", trigger.name);
@@ -30,8 +32,12 @@ BlackflyDevice::BlackflyDevice(ORBManager* orb_manager, const ConfigFile& config
 
 void BlackflyDevice::init()
 {
-	camera->SetIntegerNodeValue("TLParamsLocked", 0);
-	camera->SetStringNodeValue("PixelFormat", "Mono10Packed"); //Allowed values: "Mono8" or "Mono10Packed"
+//	camera->SetIntegerNodeValue("TLParamsLocked", 0);
+//	camera->SetStringNodeValue("PixelFormat", "Mono10Packed"); //Allowed values: "Mono8" or "Mono10Packed"
+
+	setNodeValue("PixelFormat", "Mono12p");
+	
+	setStreamNodeValue("StreamBufferCountMode", "Manual");
 
 	externalTriggerEventsOn = false;
 	downsample = 1;
@@ -49,34 +55,51 @@ void BlackflyDevice::initializedNodeValues()
 {
 	std::shared_ptr<BlackflyNodeValue> value;
 
-	value = std::make_shared<BlackflyStringNodeValue>(camera, 
-		"AcquisitionMode", "SingleFrame", "Continuous, SingleFrame, MultiFrame");
+	value = makeNodeValue("AcquisitionMode", "SingleFrame", "Continuous, SingleFrame, MultiFrame");
+
+//	value = std::make_shared<BlackflyStringNodeValue>(camera, 
+//		"AcquisitionMode", "SingleFrame", "Continuous, SingleFrame, MultiFrame");
 	nodeValues.push_back(value);
 
 	//Not an attribute anymore, now a command argument
 //	value = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
 //	nodeValues.push_back(value);
 
-	gainNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
+	gainNodeValue = makeNodeValue("Gain", 0);
+//	gainNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
 	nodeValues.push_back(gainNodeValue);
 
-	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerMode", "On", "On, Off");
+	value = makeNodeValue("Width", 1000);
+	nodeValues.push_back(value);
+	value = makeNodeValue("Height", 1000);
+	nodeValues.push_back(value);
+
+
+	//value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerMode", "On", "On, Off");
+	value = makeNodeValue("TriggerMode", "On", "On, Off");
 	nodeValues.push_back(value);
 	
-	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSource", 
-		"Line1", "Line1, Software");
-	nodeValues.push_back(value);
+	triggerSourceNode = makeNodeValue("TriggerSource", "Software", "Line0, Software");
+//	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSource", 
+//		"Line1", "Line1, Software");
+	nodeValues.push_back(triggerSourceNode);
 	
-	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerActivation",
-		"RisingEdge", "RisingEdge, FallingEdge");
+	value = makeNodeValue("TriggerActivation", "RisingEdge", "RisingEdge, FallingEdge, AnyEdge, LevelLow, LevelHigh");
+//	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerActivation",
+//		"RisingEdge", "RisingEdge, FallingEdge");
 	nodeValues.push_back(value);
 
 	//Not supported; only accepts TriggerSelector = AcquisitionStart
 	//value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSelector",
 	//	"AcquisitionStart", "AcquisitionStart, AcquisitionEnd, AcquisitionActive,	FrameStart,	FrameEnd, FrameActive, LineStart, ExposureStart, ExposureEnd, ExposureActive");
 	//nodeValues.push_back(value);
+	
 
-	exposureTimeNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
+//	exposureTimeNodeValue = makeNodeValue(camera->GetNodeMap().GetNode("ExposureTime"), "ExposureTime", 20000);
+	exposureTimeNodeValue = makeNodeValue("ExposureTime", 20000);
+
+
+//	exposureTimeNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
 }
 
 void BlackflyDevice::defineAttributes()
@@ -95,10 +118,10 @@ bool BlackflyDevice::updateAttribute(std::string key, std::string value)
 {
 	bool success = false;
 	
-	//unlock params
-	if (!camera->SetIntegerNodeValue("TLParamsLocked", 0)) {
-		return false;
-	}
+	////unlock params
+	//if (!camera->SetIntegerNodeValue("TLParamsLocked", 0)) {
+	//	return false;
+	//}
 
 	for (auto node : nodeValues) {
 		if (key.compare(node->key) == 0) {
@@ -107,8 +130,8 @@ bool BlackflyDevice::updateAttribute(std::string key, std::string value)
 		}
 	}
 
-	//re-lock params
-	camera->SetIntegerNodeValue("TLParamsLocked", 1);
+	////re-lock params
+	//camera->SetIntegerNodeValue("TLParamsLocked", 1);
 
 	if (key.compare("Generate Trigger Events") == 0) {
 		externalTriggerEventsOn = value.compare("True") == 0;
@@ -161,8 +184,8 @@ void BlackflyDevice::defineChannels()
 
 void BlackflyDevice::definePartnerDevices()
 {
-	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
-	partnerDevice("External Trigger").enablePartnerEvents();
+//	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
+//	partnerDevice("External Trigger").enablePartnerEvents();
 }
 
 std::string BlackflyDevice::getDeviceHelp()
@@ -518,7 +541,7 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 				groupWriterEvent2->addImage(image_mean_result);	//only one image; construct the mean by adding each new image to this as they are captured.
 			}
 
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image_mean, image_mean_result, Mean);
+			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image_mean, image_mean_result, BlackflyEvent::Mean);
 
 			mean_image_count++;
 			smartekEvent->imageCount = mean_image_count;
@@ -530,7 +553,7 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 
 		if (value.channel == 4) {	// Photodetector mode: integrate all pixels
 			image = std::make_shared<Image>(sizeY, sizeX);
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image, Photodetector);	//schedule event to plau immediately after last event
+			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image, BlackflyEvent::Photodetector);	//schedule event to plau immediately after last event
 
 			smartekEvent->addMeasurement(events->second.at(0));
 
@@ -590,183 +613,14 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 //	}
 //}
 
-void BlackflyDevice::BlackflyInitializeEvent::loadEvent()
-{
-	cameraDevice->camera->ClearImageBuffer();
-}
-
-
-void BlackflyDevice::BlackflyInitializeEvent::playEvent()
-{
-
-	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);	//unlock
-	cameraDevice->camera->SetIntegerNodeValue("AcquisitionFrameCount", totalImages);
-
-
-//	cout << "Parsed::totalImages = " << totalImages << endl;
-
-	cameraDevice->camera->SetImageBufferFrameCount(totalImages);
-
-	//UINT32 pendingImages;
-	//INT64 frameCount;
-
-	//cameraDevice->camera->GetIntegerNodeValue("AcquisitionFrameCount", frameCount);
-
-	//pendingImages = cameraDevice->camera->GetPendingImagesCount();
-	//cout << "Parsed::Pending: " << pendingImages << endl;
-	//cout << "Parsed::frameCount: " << frameCount << endl;
-}
-
-
-BlackflyDevice::BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, BlackflyEventMode mode)
-	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), imageBuffer(imageBuffer), mode(mode)
-{
-	imageCount = 0;
-}
-
-BlackflyDevice::BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, BlackflyEventMode mode)
-
-	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), mode(mode)
-{
-	image->imageData.reserve(image->getImageSize());	//reserve memory for image data
-	imageCount = 0;
-}
-
-BlackflyDevice::BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image)
-	: BlackflyDevice::BlackflyEvent::BlackflyEvent(time, cameraDevice_, image, Normal)
-{
-}
-
-void BlackflyDevice::BlackflyEvent::playEvent()
-{
-	//set exposure time for this image
-	cameraDevice->exposureTimeNodeValue->setValue(STI::Utils::valueToString(image->exposureTime));
-
-	bool status;
-	// set trigger selector to frame start
-	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
-	status = cameraDevice->camera->SetStringNodeValue("TriggerSelector", "FrameStart");
-
-	status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
-	status = cameraDevice->camera->CommandNodeExecute("AcquisitionStart");
-
-	//Trigger setup
-	if (cameraDevice->isHardwareTriggered()) {
-		//wait for hardware trigger
-		status = cameraDevice->camera->CommandNodeExecute("Line1");		//hardware trigger
-	}
-	else {
-		//send software trigger NOW
-		status = cameraDevice->camera->CommandNodeExecute("TriggerSoftware");	//software trigger
-	}
-}
-
 bool BlackflyDevice::isHardwareTriggered()
 {
 	//Trigger setup
 	std::string trigSource;
-	camera->GetStringNodeValue("TriggerSource", trigSource);
+//	camera->GetStringNodeValue("TriggerSource", trigSource);
+	triggerSourceNode->getValue(trigSource);
 
 	return (trigSource.compare("Software") != 0);
-}
-
-
-void BlackflyDevice::BlackflyEvent::stop()
-{
-	//Abort
-	bool status;
-	status = cameraDevice->camera->CommandNodeExecute("AcquisitionStop");
-}
-
-void BlackflyDevice::BlackflyEvent::waitBeforeCollectData()
-{
-	bool success = false;
-
-	while (!success && cameraDevice->running()) {
-		success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
-//		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount() << endl;
-	}
-}
-
-
-void BlackflyDevice::BlackflyEvent::collectMeasurementData()
-{
-	//Pulls the image from the camera and stores it in an Image
-
-	smcs::IImageInfo imageInfo = nullptr;
-	cameraDevice->camera->GetImageInfo(&imageInfo);
-
-	if (cameraDevice->camera->GetPendingImagesCount() < 1 || imageInfo == 0) {
-		//error; image not in buffer
-		image->imageData.clear();	//ImageWriter will not include this image
-		return;
-	}
-
-	//imageInfo is not null
-
-	image->clearMetaData();	//reset;  needed in this Image was used on previous shot
-	image->addMetaData("PaneTag", image->paneTag);
-	image->addMetaData("Downsample", STI::Utils::valueToString(image->downsample));
-	image->addMetaData("ExposureTime", STI::Utils::valueToString(image->exposureTime));
-	image->addMetaData("Gain", STI::Utils::valueToString(image->gain));
-	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
-
-	UINT32 sizeX, sizeY;
-	imageInfo->GetSize(sizeX, sizeY);
-
-	image->setImageHeight(sizeY);
-	image->setImageWidth(sizeX);
-
-	int linesize = imageInfo->GetLineSize();
-	int rawdatasize = imageInfo->GetRawDataSize();
-
-	cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
-
-	image->imageData.clear();	//important if this Image is reused on multiple shots
-
-	//copy image from camera buffer, line by line
-	UINT8* lineData;
-	std::vector<IMAGEWORD> unpackedLine(sizeX, 0);
-	for (unsigned int j = 0; j < sizeY; j++) {	// j is image line number
-		//Get next line and insert it into vector
-		lineData = imageInfo->GetRawData(j);
-		cameraDevice->unpackLine(lineData, unpackedLine);	//convert Mono10Packed format into shorts (16 bits per pixel)
-		image->imageData.insert(image->imageData.end(), unpackedLine.begin(), unpackedLine.end());
-	}
-
-	cameraDevice->camera->PopImage(imageInfo);	//removes image from camera buffer
-
-	if (mode == Mean) {
-		double res;
-
-		if (imageBuffer->imageData.size() < image->imageData.size()) {
-			imageBuffer->imageData.assign(image->imageData.size(), 0);
-		}
-
-		for (unsigned p = 0; p < image->imageData.size(); ++p) {
-			res = static_cast<double>(imageBuffer->imageData.at(p))*(imageCount - 1)
-				+ static_cast<double>(image->imageData.at(p));
-
-			imageBuffer->imageData.at(p) = static_cast<IMAGEWORD>(res / imageCount);
-		}
-	}
-
-	//Max sum is (2^10)*1936*1216 = 2,410,676,224.  This requires 32 bits.
-	if (mode == Photodetector && eventMeasurements.size() == 1)
-	{
-		Int64 total = getTotal(image->imageData);
-		double result = static_cast<double>(total);		//MixedValue doesn't support Int64 or unsigned long
-		eventMeasurements.at(0)->setData(result);
-	}
-}
-
-Int64 BlackflyDevice::BlackflyEvent::getTotal(const vector<IMAGEWORD>& data)
-{
-	Int64 total = 0;
-	for (auto& d : data) {
-		total += d;
-	}
-	return total;
 }
 
 

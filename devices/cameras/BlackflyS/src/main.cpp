@@ -7,7 +7,7 @@
 
 #include <string>
 #include <ORBManager.h>
-//#include "BlackflyDevice.h"
+#include "BlackflyDevice.h"
 
 using namespace Spinnaker;
 using namespace Spinnaker::GenApi;
@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 	orbManager = new ORBManager(argc, argv);
 	std::string configFilename = "BlackflyCamera.ini"; //default
 
-	//ConfigFile configFile(configFilename);
+	ConfigFile configFile(configFilename);
 
 	// initialize Camera API
 	SystemPtr system = System::GetInstance();	// Retrieve singleton reference to system object
@@ -41,14 +41,24 @@ int main(int argc, char* argv[])
 
 	pCam = camList.GetByIndex(0);
 
+	
+	pCam->Init();
 
-//	BlackflyDevice blackflyCamera(orbManager, configFile, devices.at(0));
-//	blackflyCamera.setSaveAttributesToFile(true);
+//	CIntegerPtr ptrWidth = pCam->GetNodeMap().GetNode("Width");
+	//Set width of 640 pixels
+//	ptrWidth->SetValue(640);
 
-//	orbManager->run();	//Blocks while device is alive
+	//Spinnaker::GenApi::NodeList_t nodelist;
+	INodeMap& appLayerNodeMap = pCam->GetNodeMap(); // .GetNodes(nodelist);
+
+	BlackflyDevice blackflyCamera(orbManager, configFile, pCam);
+	blackflyCamera.setSaveAttributesToFile(true);
+
+	orbManager->run();	//Blocks while device is alive
 
 
 	// Clean up
+	pCam->DeInit();
 	pCam = nullptr;		// Needed to avoid exception from system->ReleaseInstance();
 	camList.Clear();	// Clear camera list before releasing system
 	system->ReleaseInstance();	// Release system

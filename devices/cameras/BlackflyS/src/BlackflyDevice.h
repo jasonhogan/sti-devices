@@ -5,13 +5,16 @@
 #include <STI_Device_Adapter.h>
 
 //#include "smcs_cpp/CameraSDK.h"
+#include "Spinnaker.h"
+#include "SpinGenApi/SpinnakerGenApi.h"
 
 #include "Image.h"
+#include "BlackflyNodeValue.h"
 
 #include <vector>
 #include <memory>
 
-class BlackflyNodeValue;
+//class BlackflyNodeValue;
 class Image;
 class ImageWriter;
 
@@ -33,11 +36,11 @@ class BlackflyDevice : public STI_Device_Adapter
 {
 public:
 
-	enum BlackflyEventMode { Normal, Mean, Photodetector };
+
 //	enum AbsorptionImageType { Signal, Reference, Background, None };
 //	enum Operation { Add, Subtract, Mean, Absorption };
 	
-	BlackflyDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera);
+	BlackflyDevice(ORBManager* orb_manager, const ConfigFile& configFile, const Spinnaker::CameraPtr& camera);
 
 
 	void defineAttributes();
@@ -75,12 +78,46 @@ private:
 	std::string generateDataDestinationDirectory();
 	std::string generateFileTimestamp();
 
-	smcs::IDevice camera;
+	Spinnaker::CameraPtr camera;
+	//smcs::IDevice camera;
 
 	std::vector<std::shared_ptr<BlackflyNodeValue>> nodeValues;
 
 	std::shared_ptr<BlackflyNodeValue> exposureTimeNodeValue;
 	std::shared_ptr<BlackflyNodeValue> gainNodeValue;
+	std::shared_ptr<BlackflyNodeValue> triggerSourceNode;
+
+	//Node value factory
+	template<typename T>
+	std::shared_ptr<BlackflyNodeValue> makeNodeValue(const std::string& key,
+		const T& defaultValue, const std::string& allowedValues = "");
+	
+	template<typename T>
+	bool setNodeValue(const std::string& key, const T& value);
+
+	//Node value factory
+	template<typename T>
+	std::shared_ptr<BlackflyNodeValue> makeStreamNodeValue(const std::string& key,
+		const T& defaultValue, const std::string& allowedValues = "");
+
+	template<typename T>
+	bool setStreamNodeValue(const std::string& key, const T& value);
+
+	template<typename T>
+	std::shared_ptr<BlackflyNodeValue> makeNodeValue(const Spinnaker::GenApi::INodeMap& nodeMap, const std::string& key,
+		const T& defaultValue, const std::string& allowedValues = "");
+
+	template<typename T>
+	bool setNodeValue(const Spinnaker::GenApi::INodeMap& nodeMap, const std::string& key, const T& value);
+
+	//template<typename T>
+	//static std::shared_ptr<BlackflyNodeValue> makeNodeValue(const Node_ptr& node, const std::string& key,
+	//	const T& defaultValue) 
+	//{
+	//	return makeNodeValue(node, key, defaultValue, "");
+	//}
+
+
 
 
 	bool setDownsample(int ds);
@@ -107,6 +144,9 @@ private:
 
 	//*****************************
 
+	friend class BlackflyEvent;
+	friend class BlackflyInitializeEvent;
+
 	class ImageWriterEvent : public SynchronousEventAdapter
 	{
 	public:
@@ -130,119 +170,64 @@ private:
 
 	};
 
-	class BlackflyInitializeEvent : public SynchronousEventAdapter
-	{
-	public:
-		BlackflyInitializeEvent(double time, BlackflyDevice* cameraDevice, int totalImages)
-			: SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) {}
-		
-		void loadEvent();
-		void playEvent();
-
-		int totalImages;
-
-	private:
-		BlackflyDevice* cameraDevice;
-	};
-
-	class BlackflyEvent : public SynchronousEventAdapter
-	{
-	public:
-
-		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image);
-		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, BlackflyEventMode mode);
-		BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, BlackflyEventMode mode);
-
-//			: SynchronousEvent(time, cameraDevice_), cameraDevice(cameraDevice_),
-//			image(image), imageWriter(imageWriter)
-//		{
-//			image->imageData.reserve(image->getImageSize());	//reserve memory for image data
-//		}
-
-//		void reset();	//override
-		void stop();	//override
-
-		void setupEvent() { }
-//		void loadEvent();
-		void playEvent();
-		void collectMeasurementData();
-
-		void waitBeforeCollectData();
-
-		BlackflyDevice* cameraDevice;
-
-		shared_ptr<Image> image;
-		shared_ptr<Image> imageBuffer;
-		int imageCount;		//for keeping track of the mean
-
-//		AbsorptionImageType absType;
-
-		BlackflyEventMode mode;
-
-	private:
-		Int64 getTotal(const vector<IMAGEWORD>& data);
-	};
-
 };
 
-class BlackflyNodeValue	//abstract
+
+
+template<typename T>
+std::shared_ptr<BlackflyNodeValue> BlackflyDevice::makeNodeValue(const std::string& key,
+	const T& defaultValue, const std::string& allowedValues)
 {
-public:
-	BlackflyNodeValue(const smcs::IDevice& device, const std::string& key, 
-		const std::string& defaultValue, const std::string& allowedValues)
-		: device(device), key(key), allowedValues(allowedValues), defaultValue(defaultValue) {}
-	BlackflyNodeValue(const smcs::IDevice& device, const std::string& key, const std::string& defaultValue)
-		: BlackflyNodeValue(device, key, defaultValue, "") {}
+	return makeNodeValue(camera->GetNodeMap(), key, defaultValue, allowedValues);
+}
 
-	//	virtual bool setValue(const std::string& key) = 0;
-	//	virtual bool getValue(const std::string& key, std::string& value) = 0;
 
-	bool operator=(const std::string& nodeKey) { return key.compare(nodeKey) == 0; }
-
-	virtual bool setValue(const std::string& value) = 0;
-	virtual bool getValue(std::string& value) = 0;
-
-	std::string key;
-	std::string defaultValue;	//Used as the inital value for the Attribute.
-	std::string allowedValues;	//For initializing Attributes with a drop down list of options. Comma delimited.
-
-protected:
-	smcs::IDevice device;
-};
-
-class BlackflyStringNodeValue : public BlackflyNodeValue
+template<typename T>
+bool BlackflyDevice::setNodeValue(const std::string& key, const T& value)
 {
-public:
-	BlackflyStringNodeValue(const smcs::IDevice& device, const std::string& key,
-		const std::string& defaultValue, const std::string& allowedValues) 
-		: BlackflyNodeValue(device, key, defaultValue, allowedValues) {}
+	return setNodeValue(camera->GetNodeMap(), key, value);
+}
 
-	bool setValue(const std::string& value) { return device->SetStringNodeValue(key, value); }
-	bool getValue(std::string& value) { return device->GetStringNodeValue(key, value); }
-};
-
-class BlackflyFloatNodeValue : public BlackflyNodeValue
+template<typename T>
+std::shared_ptr<BlackflyNodeValue> BlackflyDevice::makeStreamNodeValue(const std::string& key,
+	const T& defaultValue, const std::string& allowedValues)
 {
-public:
+	return makeNodeValue(camera->GetTLStreamNodeMap(), key, defaultValue, allowedValues);
+}
 
-	BlackflyFloatNodeValue(const smcs::IDevice& device, const std::string& key,
-		double defaultValue)
-		: BlackflyNodeValue(device, key, STI::Utils::valueToString(defaultValue)) {}
 
-	bool setValue(const std::string& value)
-	{
-		double val;
-		return STI::Utils::stringToValue(value, val) && device->SetFloatNodeValue(key, val);
+template<typename T>
+bool BlackflyDevice::setStreamNodeValue(const std::string& key, const T& value)
+{
+	return setNodeValue(camera->GetTLStreamNodeMap(), key, value);
+}
+
+
+template<typename T>
+std::shared_ptr<BlackflyNodeValue> BlackflyDevice::makeNodeValue(const Spinnaker::GenApi::INodeMap& nodeMap, const std::string& key,
+	const T& defaultValue, const std::string& allowedValues)
+{
+	Spinnaker::GenApi::CNodePtr node;
+
+	try {
+		Spinnaker::GenICam::gcstring gcKey = key.c_str();
+		node = nodeMap.GetNode(gcKey);
 	}
-	bool getValue(std::string& value)
+	catch (Spinnaker::Exception&)
 	{
-		double val;
-		if (device->GetFloatNodeValue(key, val)) {
-			value = STI::Utils::valueToString(val);
-			return true;
-		}
-		return false;
 	}
-};
+
+	return BlackflyNodeValue::makeNodeValue(node, key, defaultValue, allowedValues);
+}
+
+template<typename T>
+bool BlackflyDevice::setNodeValue(const Spinnaker::GenApi::INodeMap& nodeMap, const std::string& key, const T& value)
+{
+	std::shared_ptr<BlackflyNodeValue> nodePtr = makeNodeValue(nodeMap, key, value);	//factory calls setValue(value) in node constructor
+
+	return nodePtr != 0 && nodePtr->valueIs(STI::Utils::valueToString(value));
+}
+
+
 
 #endif
