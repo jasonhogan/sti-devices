@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include "Spinnaker.h"
+
 //typedef char WORD;
 //typedef unsigned short      WORD;
 //typedef unsigned char IMAGEWORD;
@@ -37,7 +39,11 @@ public:
 	int getImageHeight() { return imageHeight; }
 	int getImageWidth() { return imageWidth; }
 
-	std::vector<IMAGEWORD> imageData;
+	//std::vector<IMAGEWORD> imageData;
+	Spinnaker::ImagePtr spinImage;
+	void* getImageData();
+	int getImageDataSize();
+
 	std::vector<Metadatum> metadata;
 
 	unsigned sizeofWORD;

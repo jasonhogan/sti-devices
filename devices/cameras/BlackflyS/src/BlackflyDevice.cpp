@@ -36,7 +36,9 @@ void BlackflyDevice::init()
 //	camera->SetStringNodeValue("PixelFormat", "Mono10Packed"); //Allowed values: "Mono8" or "Mono10Packed"
 
 	setNodeValue("PixelFormat", "Mono12p");
+	setNodeValue("ExposureAuto", "Off");
 	
+
 	setStreamNodeValue("StreamBufferCountMode", "Manual");
 
 	externalTriggerEventsOn = false;
@@ -89,6 +91,9 @@ void BlackflyDevice::initializedNodeValues()
 //		"RisingEdge", "RisingEdge, FallingEdge");
 	nodeValues.push_back(value);
 
+	value = makeNodeValue("ExposureMode", "Timed", "Timed, TriggerWidth");
+	nodeValues.push_back(value);
+
 	//Not supported; only accepts TriggerSelector = AcquisitionStart
 	//value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSelector",
 	//	"AcquisitionStart", "AcquisitionStart, AcquisitionEnd, AcquisitionActive,	FrameStart,	FrameEnd, FrameActive, LineStart, ExposureStart, ExposureEnd, ExposureActive");
@@ -97,7 +102,8 @@ void BlackflyDevice::initializedNodeValues()
 
 //	exposureTimeNodeValue = makeNodeValue(camera->GetNodeMap().GetNode("ExposureTime"), "ExposureTime", 20000);
 	exposureTimeNodeValue = makeNodeValue("ExposureTime", 20000);
-
+	
+	
 
 //	exposureTimeNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
 }
@@ -308,12 +314,17 @@ bool BlackflyDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Bla
 	std::string newExposure;
 	double exposureCheck;
 	
+	bool exposureInitialRangeCheck = (exposure >= 9) && (exposure <= 30e6);		// 9 us to 30 s
+	exposure = (exposure >= 9) ? exposure : 9;
+	exposure = (exposure <= 30e6) ? exposure : 30e6;
+
 	exposureTimeNodeValue->getValue(oldExposure);
-	if (!exposureTimeNodeValue->setValue(STI::Utils::valueToString(exposure)) 
+	if (exposureInitialRangeCheck &&
+		!exposureTimeNodeValue->setValue(STI::Utils::valueToString(exposure))
 		|| !exposureTimeNodeValue->getValue(newExposure)
 		|| !STI::Utils::stringToValue(newExposure, exposureCheck)
 		|| (exposureCheck != exposure)) {
-		message = "Invalid exposure time.";
+		message = "Invalid exposure time.  Nearest allowed time is " + STI::Utils::valueToString(exposureCheck) + " us.";
 		return false;
 	}
 	else {

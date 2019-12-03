@@ -89,6 +89,20 @@ void Image::setImageWidth(unsigned width)
 void Image::resizeImage()
 {
 //	imageData.resize(imageHeight*imageWidth);
-	imageData.reserve(imageHeight*imageWidth);
+//	imageData.reserve(imageHeight*imageWidth);
+}
+
+
+void* Image::getImageData()
+{
+
+//	auto id = ((Spinnaker::IImage*)spinImage)->GetImageData();
+	return spinImage->GetData();
+
+}
+
+int Image::getImageDataSize()
+{
+	return spinImage->GetImageSize();
 }
 

@@ -50,13 +50,16 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 
 	for (auto image : images) {
 		
-		if (image->imageData.size() == 0) {
+		if (image->getImageDataSize() == 0) {
 			break;
 		}
 
+		image->spinImage->Save("C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\BlackflyS\\test2.tif");
+
+
 		//works, but only in release build
 		magickImage.read(image->getImageWidth(), image->getImageHeight(),
-			"I", MagickCore::ShortPixel, image->imageData.data());	//is this a deep copy of the image data?  Could be slow.  JMH
+			"I", MagickCore::ShortPixel, image->getImageData());	//is this a deep copy of the image data?  Could be slow.  JMH
 		
 //		double size_x = image->getImageWidth();
 //		double size_y = image->getImageHeight();

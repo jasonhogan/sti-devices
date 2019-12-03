@@ -39,6 +39,11 @@ void BlackflyInitializeEvent::playEvent()
 	//pendingImages = cameraDevice->camera->GetPendingImagesCount();
 	//cout << "Parsed::Pending: " << pendingImages << endl;
 	//cout << "Parsed::frameCount: " << frameCount << endl;
+
+	///////////////////////////////////////TEST/////////////////////////////////
+
+
+
 }
 
 
@@ -46,19 +51,33 @@ BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const s
 	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), imageBuffer(imageBuffer), mode(mode)
 {
 	imageCount = 0;
+	setAcquisitionRunning(false);
 }
 
 BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, BlackflyEventMode mode)
 
 	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), mode(mode)
 {
-	image->imageData.reserve(image->getImageSize());	//reserve memory for image data
+//	image->imageData.reserve(image->getImageSize());	//reserve memory for image data
 	imageCount = 0;
+	setAcquisitionRunning(false);
 }
 
 BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image)
 	: BlackflyEvent::BlackflyEvent(time, cameraDevice_, image, Normal)
 {
+}
+
+void BlackflyEvent::setAcquisitionRunning(bool running)
+{
+	std::unique_lock<std::mutex> lock(acquisitionMutex);
+	acquisitionRunning = running;
+}
+
+
+void BlackflyEvent::loadEvent()
+{
+	setAcquisitionRunning(false);
 }
 
 void BlackflyEvent::playEvent()
@@ -67,15 +86,23 @@ void BlackflyEvent::playEvent()
 	cameraDevice->exposureTimeNodeValue->setValue(STI::Utils::valueToString(image->exposureTime));
 
 	bool status;
+
+
 	// set trigger selector to frame start
 	//status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 0);
 	//status = cameraDevice->camera->SetStringNodeValue("TriggerSelector", "FrameStart");
-	status = cameraDevice->setNodeValue("TriggerSelector", "FrameStart");
+	cameraDevice->setNodeValue("TriggerSelector", "FrameStart");
 
 	//status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
 	//status = cameraDevice->camera->CommandNodeExecute("AcquisitionStart");
 	//cameraDevice->camera->AcquisitionStart();
 	cameraDevice->camera->BeginAcquisition();
+	setAcquisitionRunning(true);
+
+	{
+		std::unique_lock<std::mutex> lock(acquisitionMutex);
+		acquisitionCondition.notify_one();
+	}
 
 	//Trigger setup
 	if (cameraDevice->isHardwareTriggered()) {
@@ -101,25 +128,48 @@ void BlackflyEvent::stop()
 
 void BlackflyEvent::waitBeforeCollectData()
 {
-	//bool success = false;
+	bool success = false;
 
-	//while (!success && cameraDevice->running()) {
-	//	success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
-	//														//		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount() << endl;
-	//	
-	//}
-	pResultImage = cameraDevice->camera->GetNextImage();	//blocks
+	std::unique_lock<std::mutex> lock(acquisitionMutex);
+	
+	while (!success && cameraDevice->running()) {
+	//	pResultImage = cameraDevice->camera->GetNextImage();	//blocks
+
+
+//		success = cameraDevice->camera->WaitForImage(1);	//1 second timeout
+															//		cout << "WaitForImage: " << getEventNumber()  << " pending: " << cameraDevice->camera->GetPendingImagesCount() << endl;
+		
+		//acquisitionCondition.wait(lock, [] { return acquisitionRunning; });   // (4)
+		acquisitionCondition.wait_for(lock, std::chrono::seconds(1));
+		success = acquisitionRunning;
+	}
+	if (success) {
+		pResultImage = cameraDevice->camera->GetNextImage();	//blocks
+	}
 }
 
 
 void BlackflyEvent::collectMeasurementData()
 {
+	if (!pResultImage.IsValid())
+		return;
+
 	//Pulls the image from the camera and stores it in an Image
 //	PixelFormat_Mono8,HQ_LINEAR
-	convertedImage = pResultImage->Convert(Spinnaker::PixelFormat_Mono12p, Spinnaker::NO_COLOR_PROCESSING);
+//	convertedImage = pResultImage->Convert(Spinnaker::PixelFormat_Mono12p, Spinnaker::NO_COLOR_PROCESSING);//
+	convertedImage = pResultImage->Convert(Spinnaker::PixelFormat_Mono16, Spinnaker::NO_COLOR_PROCESSING);
 	pResultImage->Release();	//removes image from camera buffer
 
-	
+	size_t bits = convertedImage->GetBitsPerPixel();
+
+//	convertedImage->Save("C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\BlackflyS\\test.tif");
+
+
+	image->spinImage = convertedImage;	//shared_ptr reference
+
+	short* data = (short*) (image->getImageData());
+
+	short t = data[2];
 
 //	smcs::IImageInfo imageInfo = nullptr;
 	//cameraDevice->camera->GetImageInfo(&imageInfo);
@@ -142,8 +192,8 @@ void BlackflyEvent::collectMeasurementData()
 //	UINT32 sizeX, sizeY;
 //	imageInfo->GetSize(sizeX, sizeY);
 //
-//	image->setImageHeight(sizeY);
-//	image->setImageWidth(sizeX);
+	image->setImageHeight(convertedImage->GetHeight());
+	image->setImageWidth(convertedImage->GetWidth());
 //
 //	int linesize = imageInfo->GetLineSize();
 //	int rawdatasize = imageInfo->GetRawDataSize();
@@ -164,28 +214,28 @@ void BlackflyEvent::collectMeasurementData()
 //
 //	cameraDevice->camera->PopImage(imageInfo);	//removes image from camera buffer
 
-	if (mode == Mean) {
-		double res;
+	//if (mode == Mean) {
+	//	double res;
 
-		if (imageBuffer->imageData.size() < image->imageData.size()) {
-			imageBuffer->imageData.assign(image->imageData.size(), 0);
-		}
+	//	if (imageBuffer->imageData.size() < image->imageData.size()) {
+	//		imageBuffer->imageData.assign(image->imageData.size(), 0);
+	//	}
 
-		for (unsigned p = 0; p < image->imageData.size(); ++p) {
-			res = static_cast<double>(imageBuffer->imageData.at(p))*(imageCount - 1)
-				+ static_cast<double>(image->imageData.at(p));
+	//	for (unsigned p = 0; p < image->imageData.size(); ++p) {
+	//		res = static_cast<double>(imageBuffer->imageData.at(p))*(imageCount - 1)
+	//			+ static_cast<double>(image->imageData.at(p));
 
-			imageBuffer->imageData.at(p) = static_cast<IMAGEWORD>(res / imageCount);
-		}
-	}
+	//		imageBuffer->imageData.at(p) = static_cast<IMAGEWORD>(res / imageCount);
+	//	}
+	//}
 
-	//Max sum is (2^10)*1936*1216 = 2,410,676,224.  This requires 32 bits.
-	if (mode == Photodetector && eventMeasurements.size() == 1)
-	{
-		Int64 total = getTotal(image->imageData);
-		double result = static_cast<double>(total);		//MixedValue doesn't support Int64 or unsigned long
-		eventMeasurements.at(0)->setData(result);
-	}
+	////Max sum is (2^10)*1936*1216 = 2,410,676,224.  This requires 32 bits.
+	//if (mode == Photodetector && eventMeasurements.size() == 1)
+	//{
+	//	Int64 total = getTotal(image->imageData);
+	//	double result = static_cast<double>(total);		//MixedValue doesn't support Int64 or unsigned long
+	//	eventMeasurements.at(0)->setData(result);
+	//}
 }
 
 Int64 BlackflyEvent::getTotal(const vector<IMAGEWORD>& data)

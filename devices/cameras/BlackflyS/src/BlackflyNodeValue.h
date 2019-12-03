@@ -47,13 +47,13 @@ public:
 	static std::shared_ptr<BlackflyNodeValue> makeNodeValue(const Node_ptr& node, const std::string& key,
 		const T& defaultValue, const std::string& allowedValues = "");
 	
-	template<>
-	static std::shared_ptr<BlackflyNodeValue> makeNodeValue<int>(const Node_ptr& node, const std::string& key,
-		const int& defaultValue, const std::string& allowedValues);
+	//template<>
+	//static std::shared_ptr<BlackflyNodeValue> makeNodeValue<int>(const Node_ptr& node, const std::string& key,
+	//	const int& defaultValue, const std::string& allowedValues);
 
-	template<>
-	static std::shared_ptr<BlackflyNodeValue> makeNodeValue<double>(const Node_ptr& node, const std::string& key,
-		const double& defaultValue, const std::string& allowedValues);
+	//template<>
+	//static std::shared_ptr<BlackflyNodeValue> makeNodeValue<double>(const Node_ptr& node, const std::string& key,
+	//	const double& defaultValue, const std::string& allowedValues);
 
 protected:
 
@@ -79,9 +79,15 @@ public:
 
 	BlackflyFloatNodeValue(const Node_ptr& node, const std::string& key,
 		double defaultValue)
-		: BlackflyNodeValue(node, key, STI::Utils::valueToString(defaultValue)) 
+		: BlackflyFloatNodeValue(node, key, STI::Utils::valueToString(defaultValue))
 	{
-		setValue(STI::Utils::valueToString(defaultValue));
+	}
+
+	BlackflyFloatNodeValue(const Node_ptr& node, const std::string& key,
+		const std::string& defaultValue)
+		: BlackflyNodeValue(node, key, defaultValue)
+	{
+		setValue(defaultValue);
 	}
 
 	bool setValue(const std::string& value);
@@ -95,9 +101,15 @@ public:
 
 	BlackflyIntNodeValue(const Node_ptr& node, const std::string& key,
 		int defaultValue)
-		: BlackflyNodeValue(node, key, STI::Utils::valueToString(defaultValue)) 
+		: BlackflyIntNodeValue(node, key, STI::Utils::valueToString(defaultValue))
+	{
+	}
+
+	BlackflyIntNodeValue(const Node_ptr& node, const std::string& key,
+		const std::string& defaultValue)
+		: BlackflyNodeValue(node, key, defaultValue)
 	{ 
-		setValue(STI::Utils::valueToString(defaultValue));
+		setValue(defaultValue);
 	}
 
 	bool setValue(const std::string& value);
@@ -130,17 +142,22 @@ std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue(const Node_p
 	//	if (!checkNode(node))
 	//		return nodePtr;	//null
 
+	std::string defaultValueStr = STI::Utils::valueToString(defaultValue);
+
 	switch (node->GetPrincipalInterfaceType())
 	{
 	case intfIString:
-	{
-		nodePtr = std::make_shared<BlackflyStringNodeValue>(node, key, defaultValue, allowedValues);
-	}
+		nodePtr = std::make_shared<BlackflyStringNodeValue>(node, key, defaultValueStr, allowedValues);
+		break;
 	case intfIEnumeration:
-	{
-		nodePtr = std::make_shared<BlackflyEnumNodeValue>(node, key, defaultValue, allowedValues);
-	}
-
+		nodePtr = std::make_shared<BlackflyEnumNodeValue>(node, key, defaultValueStr, allowedValues);
+		break;
+	case intfIInteger:
+		nodePtr = std::make_shared<BlackflyIntNodeValue>(node, key, defaultValueStr);
+		break;
+	case intfIFloat:
+		nodePtr = std::make_shared<BlackflyFloatNodeValue>(node, key, defaultValueStr);
+		break;
 	/*	case intfIBoolean:
 	{
 	return PrintBooleanNode(node, level);
@@ -151,39 +168,42 @@ std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue(const Node_p
 
 	}
 	*/
-
 	default:
-	{
-		nodePtr = std::make_shared<BlackflyStringNodeValue>(node, key, defaultValue, allowedValues);
+		nodePtr = std::make_shared<BlackflyStringNodeValue>(node, key, defaultValueStr, allowedValues);
+		break;
 	}
+
 	return nodePtr;
-	}
 }
 
 
-
-template<>
-std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue<int>(const Node_ptr& node, const std::string& key,
-	const int& defaultValue, const std::string& allowedValues)
-{
-	if (node->GetPrincipalInterfaceType() == Spinnaker::GenApi::intfIInteger) {
-		return std::make_shared<BlackflyIntNodeValue>(node, key, defaultValue);
-	}
-
-	return makeNodeValue(node, key, STI::Utils::valueToString(defaultValue));
-}
-
-template<>
-std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue<double>(const Node_ptr& node, const std::string& key,
-	const double& defaultValue, const std::string& allowedValues)
-{
-	if (node->GetPrincipalInterfaceType() == Spinnaker::GenApi::intfIFloat) {
-		return std::make_shared<BlackflyFloatNodeValue>(node, key, defaultValue);
-	}
-
-	return makeNodeValue(node, key, STI::Utils::valueToString(defaultValue));
-}
-
+//
+//template<>
+//std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue<int>(const Node_ptr& node, const std::string& key,
+//	const int& defaultValue, const std::string& allowedValues)
+//{
+//	auto tmp = node->GetPrincipalInterfaceType();
+//	auto tmp2 = Spinnaker::GenApi::intfIInteger;
+//	bool test = tmp == tmp2;
+//
+//	if (node->GetPrincipalInterfaceType() == Spinnaker::GenApi::intfIInteger) {
+//		return std::make_shared<BlackflyIntNodeValue>(node, key, defaultValue);
+//	}
+//
+//	return makeNodeValue(node, key, STI::Utils::valueToString(defaultValue));
+//}
+//
+//template<>
+//std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue<double>(const Node_ptr& node, const std::string& key,
+//	const double& defaultValue, const std::string& allowedValues)
+//{
+//	if (node->GetPrincipalInterfaceType() == Spinnaker::GenApi::intfIFloat) {
+//		return std::make_shared<BlackflyFloatNodeValue>(node, key, defaultValue);
+//	}
+//
+//	return makeNodeValue(node, key, STI::Utils::valueToString(defaultValue));
+//}
+//
 
 
 #endif

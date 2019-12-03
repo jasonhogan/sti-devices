@@ -5,6 +5,9 @@
 #include "Image.h"
 #include "Spinnaker.h"
 
+#include <thread>
+#include <condition_variable>
+
 class BlackflyDevice;
 
 class BlackflyInitializeEvent : public STI_Device::SynchronousEventAdapter
@@ -41,7 +44,7 @@ public:
 	void stop();	//override
 
 	void setupEvent() { }
-	//		void loadEvent();
+	void loadEvent();
 	void playEvent();
 	void collectMeasurementData();
 
@@ -62,7 +65,15 @@ public:
 
 private:
 	Int64 getTotal(const vector<IMAGEWORD>& data);
+
+	void setAcquisitionRunning(bool acquiring);
+
+	std::mutex acquisitionMutex;
+	std::condition_variable acquisitionCondition;
+	bool acquisitionRunning;
+
 };
+
 
 
 #endif
