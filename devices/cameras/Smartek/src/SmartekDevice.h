@@ -18,7 +18,9 @@ class ImageWriter;
 struct SmartekDeviceEventValue
 {
 	unsigned short channel;
-	std::string baseFilename;
+	double exposureTime;
+	std::string fileTag;
+	std::string paneTag;
 	std::string description;
 	bool newGroup;	//ch2
 };
@@ -31,9 +33,9 @@ class SmartekDevice : public STI_Device_Adapter
 {
 public:
 
-	enum SmartekEventMode { Normal, Operation, Photodetector };
-	enum AbsorptionImageType { Signal, Reference, Background, None };
-	enum Operation { Add, Subtract, Mean, Absorption };
+	enum SmartekEventMode { Normal, Mean, Photodetector };
+//	enum AbsorptionImageType { Signal, Reference, Background, None };
+//	enum Operation { Add, Subtract, Mean, Absorption };
 	
 	SmartekDevice(ORBManager* orb_manager, const ConfigFile& configFile, const smcs::IDevice& camera);
 
@@ -52,6 +54,14 @@ public:
 
 private:
 
+	template<typename T>
+	MixedData makeLabeledDataPair(const std::string& label, const T& value) {
+		MixedData vec;
+		vec.addValue(label);
+		vec.addValue(value);
+		return vec;
+	}
+
 	bool parseEventValue(const std::vector<RawEvent>& rawEvents, SmartekDeviceEventValue& value, std::string& message);
 
 	void generateExternalTriggerEvents(double eventTime, const RawEvent& sourceEvt);
@@ -68,6 +78,14 @@ private:
 	smcs::IDevice camera;
 
 	std::vector<std::shared_ptr<SmartekNodeValue>> nodeValues;
+
+	std::shared_ptr<SmartekNodeValue> exposureTimeNodeValue;
+	std::shared_ptr<SmartekNodeValue> gainNodeValue;
+
+
+	bool setDownsample(int ds);
+	int downsample;
+
 
 	//Partner information for external trigger
 	struct TriggerDevice
@@ -93,8 +111,7 @@ private:
 	{
 	public:
 
-		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<ImageWriter>& imageWriter, const std::string& filename)
-			: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), imageWriter(imageWriter), basefilename(filename) {}
+		ImageWriterEvent(double time, SmartekDevice* cameraDevice_, const std::string& filename);
 
 		void collectMeasurementData();
 		void waitBeforeCollectData();
@@ -105,8 +122,27 @@ private:
 
 		SmartekDevice* cameraDevice;
 		shared_ptr<ImageWriter> imageWriter;
-		std::string basefilename;
+		//ImageWriter imageWriter;
+		std::vector<std::shared_ptr<Image>> images;
 
+		std::string basefilename;
+//		std::vector<std::string> imageTags;
+
+	};
+
+	class SmartekInitializeEvent : public SynchronousEventAdapter
+	{
+	public:
+		SmartekInitializeEvent(double time, SmartekDevice* cameraDevice, int totalImages)
+			: SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) {}
+		
+		void loadEvent();
+		void playEvent();
+
+		int totalImages;
+
+	private:
+		SmartekDevice* cameraDevice;
 	};
 
 	class SmartekEvent : public SynchronousEventAdapter
@@ -115,6 +151,7 @@ private:
 
 		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image);
 		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, SmartekEventMode mode);
+		SmartekEvent(double time, SmartekDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, SmartekEventMode mode);
 
 //			: SynchronousEvent(time, cameraDevice_), cameraDevice(cameraDevice_),
 //			image(image), imageWriter(imageWriter)
@@ -135,8 +172,10 @@ private:
 		SmartekDevice* cameraDevice;
 
 		shared_ptr<Image> image;
+		shared_ptr<Image> imageBuffer;
+		int imageCount;		//for keeping track of the mean
 
-		AbsorptionImageType absType;
+//		AbsorptionImageType absType;
 
 		SmartekEventMode mode;
 
