@@ -23,8 +23,6 @@ use UNISIM.vcomponents.all;
 entity stf_bus is
 	port (
 	
-	asd;flkjads;lj
-	
 		okUH      : in     STD_LOGIC_VECTOR(4 downto 0);
 		okHU      : out    STD_LOGIC_VECTOR(2 downto 0);
 		okUHU     : inout  STD_LOGIC_VECTOR(31 downto 0);
@@ -276,7 +274,7 @@ xemJ2 <= (  10 => stfJP0(26),
             others => '1');
 
 --piping out the count signals to a few outputs on the STF digital out board
-stfJP0 <= (1 => temp, 2 => temp2, 4 => temp2, 24 => '1', others => '0'); --24 is enable
+stfJP0 <= (1 => temp, 2 => temp2, 4 => temp2, 25 => '1', others => '0'); --pin 25 is enable (X24)
 
 
 --xbusp(12) <= '0' when (count2(3) = '1') else '1';   --J2 pin 1
