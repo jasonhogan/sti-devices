@@ -33,3 +33,7 @@ devices/cameras/BlackflyS/project/x64/
 devices/XEM7310/writebus/project/.vs/
 devices/XEM7310/writebus/project/x64/
 devices/XEM7310/writebus/project/Debug/
+devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/.jobs/
+devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/impl_1/
+!devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/impl_1/stf_bus.bit
+devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/synth_1/
