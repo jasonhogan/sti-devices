@@ -1,0 +1,261 @@
+--------------------------------------------------------------------------
+-- Counters.vhd
+--
+-- HDL for the counters sample.  This HDL describes two counters operating
+-- on different board clocks and with slightly different functionality.
+-- The counter controls and counter values are connected to endpoints so
+-- that FrontPanel may control and observe them.
+--
+-- Copyright (c) 2005-2009  Opal Kelly Incorporated
+-- $Rev$ $Date$
+--------------------------------------------------------------------------
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_arith.all;
+use IEEE.std_logic_misc.all;
+use IEEE.std_logic_unsigned.all;
+use work.FRONTPANEL.all;
+
+Library UNISIM;
+use UNISIM.vcomponents.all;
+
+entity stf_bus is
+	port (
+		okUH      : in     STD_LOGIC_VECTOR(4 downto 0);
+		okHU      : out    STD_LOGIC_VECTOR(2 downto 0);
+		okUHU     : inout  STD_LOGIC_VECTOR(31 downto 0);
+		okAA      : inout  STD_LOGIC;
+
+		sys_clkp  : in     STD_LOGIC;
+		sys_clkn  : in     STD_LOGIC;
+		
+		led       : out    STD_LOGIC_VECTOR(7 downto 0);
+		--testMC1   : out    STD_LOGIC_VECTOR(2 downto 0)
+		xbusp     :	out  STD_LOGIC_VECTOR(29 downto 0);
+		xbusn     :	out  STD_LOGIC_VECTOR(29 downto 0);
+		ybusp     :	out  STD_LOGIC_VECTOR(29 downto 0);
+		ybusn     :	out  STD_LOGIC_VECTOR(29 downto 0)
+	);
+end stf_bus;
+
+--entity xem_to_stf is
+--	port (
+--		xem     :	in   STD_LOGIC_VECTOR(29 downto 0);
+--		stf     :	out  STD_LOGIC_VECTOR(29 downto 0)
+--	);
+--end xem_to_stf;
+
+--architecture behave of xem_to_stf is
+
+--end behave;
+
+
+architecture arch of stf_bus is
+	signal sys_clk    : STD_LOGIC;
+  
+	signal okClk      : STD_LOGIC;
+	signal okHE       : STD_LOGIC_VECTOR(112 downto 0);
+	signal okEH       : STD_LOGIC_VECTOR(64 downto 0);
+	signal okEHx      : STD_LOGIC_VECTOR(65*5-1 downto 0);
+	
+	signal ep00wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep20wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep21wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep22wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep40wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep60trig   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep61trig   : STD_LOGIC_VECTOR(31 downto 0);
+
+	signal div1       : STD_LOGIC_VECTOR(23 downto 0);
+	signal div2       : STD_LOGIC_VECTOR(23 downto 0);
+	signal count1     : STD_LOGIC_VECTOR(7 downto 0);
+	signal count2     : STD_LOGIC_VECTOR(7 downto 0);
+	signal clk1div    : STD_LOGIC;
+	signal clk2div    : STD_LOGIC;
+	signal reset1     : STD_LOGIC;
+	signal reset2     : STD_LOGIC;
+	signal disable1   : STD_LOGIC;
+	signal count1eq00 : STD_LOGIC;
+	signal count1eq80 : STD_LOGIC;
+	signal up2        : STD_LOGIC;
+	signal down2      : STD_LOGIC;
+	signal autocount2 : STD_LOGIC;
+	signal count2eqFF : STD_LOGIC;
+	signal temp : STD_LOGIC;
+    signal temp2 : STD_LOGIC;
+    
+    signal  xemJ2 : STD_LOGIC_VECTOR(39 downto 0);   -- Connector J2 on XEM breakout
+    signal  stfJP0 : STD_LOGIC_VECTOR(25 downto 0);   -- Connector JP0 on any STF daughter board
+    
+begin
+
+reset1     <= ep00wire(0);
+disable1   <= ep00wire(1);
+autocount2 <= ep00wire(2);
+ep20wire   <= (x"000000" & count1);
+ep21wire   <= (x"000000" & count2);
+ep22wire   <= x"00000000";
+reset2     <= ep40wire(0);
+up2        <= ep40wire(1);
+down2      <= ep40wire(2);
+ep60trig   <= (x"0000000" & "00" & count1eq80 & count1eq00);
+ep61trig   <= (x"0000000" & "000" & count2eqFF);
+
+led(7) <= '0' when (count1(7) = '1') else 'Z';
+led(6) <= '0' when (count1(6) = '1') else 'Z';
+led(5) <= '0' when (count1(5) = '1') else 'Z';
+led(4) <= '0' when (count1(4) = '1') else 'Z';
+led(3) <= '0' when (count1(3) = '1') else 'Z';
+led(2) <= '0' when (count1(2) = '1') else 'Z';
+led(1) <= '0' when (count1(1) = '1') else 'Z';
+led(0) <= '0' when (count1(0) = '1') else 'Z';
+
+temp <= '1' when (count1(3) = '1') else '0';        --works!!!  (with xbusp as out, not inout)
+--temp <= '0' when (count1(3) = '1') else '0';
+temp2 <= '1' when (count1(2) = '1') else '0';
+
+--xbusp <= (12 => temp, 13 => temp2, 16 => temp2, others => '1');               --works!!!  (with xbusp as out, not inout)
+--xbusn <= (others => '0');
+ybusp <= (others => '0');
+ybusn <= (others => '0');
+
+xbusp <= (  12 => xemJ2(1 -1),  --R3
+            13 => xemJ2(2 -1),  --Y6
+            14 => xemJ2(5 -1),  --Y3
+            15 => xemJ2(6 -1),  --AA8
+            16 => xemJ2(9 -1),  --U2
+            17 => xemJ2(10 -1), --U3
+            18 => xemJ2(13 -1), --W2
+            19 => xemJ2(14 -1), --W1
+            20 => xemJ2(19 -1), --T1
+            21 => xemJ2(20 -1), --AB3
+            22 => xemJ2(23 -1), --AA1
+            23 => xemJ2(24 -1), --Y13
+            24 => xemJ2(27 -1), --AB16
+            25 => xemJ2(28 -1), --AA13
+            26 => xemJ2(31 -1), --AA15
+            27 => xemJ2(32 -1), --W15
+            28 => xemJ2(35 -1), --Y16
+            29 => xemJ2(37 -1), --V4
+            others => '1');
+
+xbusn <= (  12 => xemJ2(3 -1),  --R2
+            13 => xemJ2(4 -1),  --AA6
+            14 => xemJ2(7 -1),  --AA3
+            15 => xemJ2(8 -1),  --AB8
+            16 => xemJ2(11 -1), --V2
+            17 => xemJ2(12 -1), --V3
+            18 => xemJ2(17 -1), --Y2
+            19 => xemJ2(18 -1), --Y1
+            20 => xemJ2(21 -1), --U1
+            21 => xemJ2(22 -1), --AB2
+            22 => xemJ2(25 -1), --AB1
+            23 => xemJ2(26 -1), --AA14
+            24 => xemJ2(29 -1), --AB17
+            25 => xemJ2(30 -1), --AB13
+            26 => xemJ2(33 -1), --AB15
+            27 => xemJ2(34 -1), --W16
+            28 => xemJ2(36 -1), --AA16
+            29 => xemJ2(39 -1), --W4
+            others => '1');
+
+
+--xbusp(12) <= '0' when (count2(3) = '1') else '1';   --J2 pin 1
+
+-- Counter 1
+-- + Counting using a divided sys_clk
+-- + Reset sets the counter to 0.
+-- + Disable turns off the counter.
+process (sys_clk) begin
+	if rising_edge(sys_clk) then
+		div1 <= div1 - "1";
+		if (div1 = x"000000") then
+			div1 <= x"400000";
+			clk1div <= '1';
+		else
+			clk1div <= '0';
+		end if;
+   
+		if (clk1div = '1') then
+			if (reset1 = '1') then
+				count1 <= x"00";
+			elsif (disable1 = '0') then
+				count1 <= count1 + "1";
+			end if;
+		end if;
+   
+		if (count1 = x"00") then
+			count1eq00 <= '1';
+		else
+			count1eq00 <= '0';
+		end if;
+
+		if (count1 = x"80") then
+			count1eq80 <= '1';
+		else
+			count1eq80 <= '0';
+		end if;
+	end if;
+end process;
+
+
+-- Counter #2
+-- + Reset, up, and down control counter.
+-- + If autocount is enabled, a divided sys_clk can also
+--   upcount.
+process (sys_clk) begin
+	if rising_edge(sys_clk) then
+		div2 <= div2 - "1";
+		if (div2 = x"000000") then
+			div2 <= x"100000";
+			clk2div <= '1';
+		else
+			clk2div <= '0';
+		end if;
+
+		if (reset2 = '1') then
+			count2 <= x"00";
+		elsif (up2 = '1') then
+			count2 <= count2 + "1";
+		elsif (down2 = '1') then
+			count2 <= count2 - "1";
+		elsif ((autocount2 = '1') and (clk2div = '1')) then
+			count2 <= count2 + "1";
+		end if;
+
+		if (count2 = x"FF") then
+			count2eqFF <= '1';
+		else
+			count2eqFF <= '0';
+		end if;
+	end if;
+end process;
+
+osc_clk : IBUFGDS port map (O=>sys_clk, I=>sys_clkp, IB=>sys_clkn);
+
+-- Instantiate the okHost and connect endpoints
+okHI : okHost port map (
+	okUH=>okUH, 
+	okHU=>okHU, 
+	okUHU=>okUHU, 
+	okAA=>okAA,
+	okClk=>okClk, 
+	okHE=>okHE, 
+	okEH=>okEH
+);
+
+okWO : okWireOR     generic map (N=>5) port map (okEH=>okEH, okEHx=>okEHx);
+
+ep00 : okWireIn     port map (okHE=>okHE,                                    ep_addr=>x"00", ep_dataout=>ep00wire);
+ep20 : okWireOut    port map (okHE=>okHE, okEH=>okEHx( 1*65-1 downto 0*65 ), ep_addr=>x"20", ep_datain=>ep20wire);
+ep21 : okWireOut    port map (okHE=>okHE, okEH=>okEHx( 2*65-1 downto 1*65 ), ep_addr=>x"21", ep_datain=>ep21wire);
+ep22 : okWireOut    port map (okHE=>okHE, okEH=>okEHx( 3*65-1 downto 2*65 ), ep_addr=>x"22", ep_datain=>ep22wire);
+ep40 : okTriggerIn  port map (okHE=>okHE,                                    ep_addr=>x"40", ep_clk=>sys_clk, ep_trigger=>ep40wire);
+ep60 : okTriggerOut port map (okHE=>okHE, okEH=>okEHx( 4*65-1 downto 3*65 ), ep_addr=>x"60", ep_clk=>sys_clk, ep_trigger=>ep60trig);
+ep61 : okTriggerOut port map (okHE=>okHE, okEH=>okEHx( 5*65-1 downto 4*65 ), ep_addr=>x"61", ep_clk=>sys_clk, ep_trigger=>ep61trig);
+
+end arch;
+
+
+
