@@ -62,6 +62,8 @@ architecture arch of stf_bus is
 	signal okEHx      : STD_LOGIC_VECTOR(65*5-1 downto 0);
 	
 	signal ep00wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep01wire   : STD_LOGIC_VECTOR(31 downto 0);     -- For sending to pins directly
+	
 	signal ep20wire   : STD_LOGIC_VECTOR(31 downto 0);
 	signal ep21wire   : STD_LOGIC_VECTOR(31 downto 0);
 	signal ep22wire   : STD_LOGIC_VECTOR(31 downto 0);
@@ -274,8 +276,9 @@ xemJ2 <= (  10 => stfJP0(26),
             others => '1');
 
 --piping out the count signals to a few outputs on the STF digital out board
-stfJP0 <= (1 => temp, 2 => temp2, 4 => temp2, 25 => '1', others => '0'); --pin 25 is enable (X24)
+--stfJP0 <= (1 => temp, 2 => temp2, 4 => temp2, 25 => '1', others => '0'); --pin 25 is enable (X24)
 
+stfJP0 <= ep01wire(25 downto 0);
 
 --xbusp(12) <= '0' when (count2(3) = '1') else '1';   --J2 pin 1
 
@@ -362,6 +365,8 @@ okHI : okHost port map (
 );
 
 okWO : okWireOR     generic map (N=>5) port map (okEH=>okEH, okEHx=>okEHx);
+
+ep01 : okWireIn     port map (okHE=>okHE,                                    ep_addr=>x"01", ep_dataout=>ep01wire);
 
 ep00 : okWireIn     port map (okHE=>okHE,                                    ep_addr=>x"00", ep_dataout=>ep00wire);
 ep20 : okWireOut    port map (okHE=>okHE, okEH=>okEHx( 1*65-1 downto 0*65 ), ep_addr=>x"20", ep_datain=>ep20wire);

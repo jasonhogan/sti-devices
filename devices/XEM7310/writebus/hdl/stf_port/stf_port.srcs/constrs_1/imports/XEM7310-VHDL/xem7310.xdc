@@ -610,6 +610,8 @@ set_property IOSTANDARD LVCMOS15 [get_ports {led[*]}]
 
 #set_property SLEW FAST [get_ports {testMC1[*]}]
 
+#For set_input_delay, increasing the value of -max makes the Slack worse by the same amount.
+
 create_generated_clock -name okHI/core0/core0/a0/d0/l380f95c05ffaf9f64e84defb5d30e949 -source [get_pins okHI/mmcm0/CLKOUT0] -divide_by 1 [get_pins {okHI/core0/core0/a0/d0/lc4da648cb12eeeb24e4d199c1195ed93_reg[4]/Q}]
 create_clock -period 9.920 -name VIRTUAL_mmcm0_clk0 -waveform {0.000 4.960}
 set_multicycle_path -setup -from [get_clocks VIRTUAL_mmcm0_clk0] -to [get_clocks mmcm0_clk0] 2
