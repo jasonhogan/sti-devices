@@ -52,7 +52,9 @@ architecture Behavioral of timing_module is
     signal readB      : STD_LOGIC;
 	signal evt_data_in : STD_LOGIC_VECTOR(31 downto 0) := x"00000000";
 	signal evt_data_out : STD_LOGIC_VECTOR(31 downto 0) := x"00000000";
-	    
+	
+	signal not_clk     : STD_LOGIC;
+	
 COMPONENT blk_mem_gen_0
   PORT (
     clka : IN STD_LOGIC;
@@ -80,10 +82,11 @@ process (write) begin
 	end if;
 end process;
 
+not_clk <= not clk;
 
-your_instance_name : blk_mem_gen_0
+evt_register : blk_mem_gen_0
   PORT MAP (
-    clka => clk,
+    clka => not_clk,
 --    ena => read,
     wea => writeA,
     addra => addr_in(9 downto 0),

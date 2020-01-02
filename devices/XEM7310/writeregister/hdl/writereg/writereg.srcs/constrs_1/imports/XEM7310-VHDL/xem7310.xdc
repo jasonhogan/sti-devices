@@ -108,6 +108,9 @@ set_property PACKAGE_PIN B17 [get_ports {led[7]}]
 set_property IOSTANDARD LVCMOS15 [get_ports {led[*]}]
 
 
+#set_output_delay -clock [get_clocks okClk] -min -add_delay -0.500 [get_ports {regAddress[*]}]
+#set_output_delay -clock [get_clocks okClk] -max -add_delay 1.000 [get_ports {regAddress[*]}]
+
 
 #### Expansion ports
 

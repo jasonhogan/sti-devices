@@ -311,6 +311,7 @@ regBridge : okRegisterBridge port map(
 
 module0 : entity work.timing_module port map(
     clk => okClk,
+--    clk => sys_clk,
     write => regWrite,
     read => regRead,
     addr_in => regAddress,
