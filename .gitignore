@@ -37,3 +37,6 @@ devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/.jobs/
 devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/impl_1/
 !devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/impl_1/stf_bus.bit
 devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/synth_1/
+devices/XEM7310/writeregister/project/x64/
+devices/XEM7310/writeregister/project/.vs/
+devices/XEM7310/writeregister/hdl/writereg/writereg.runs/
