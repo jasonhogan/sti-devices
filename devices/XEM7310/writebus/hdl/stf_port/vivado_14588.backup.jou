@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Wed Jan  1 17:49:07 2020
+# Process ID: 14588
+# Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writebus/hdl/stf_port
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent21696 C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\writebus\hdl\stf_port\stf_port.xpr
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writebus/hdl/stf_port/vivado.log
+# Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writebus/hdl/stf_port\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writebus/hdl/stf_port/stf_port.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+launch_runs impl_1 -jobs 4
+wait_on_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1

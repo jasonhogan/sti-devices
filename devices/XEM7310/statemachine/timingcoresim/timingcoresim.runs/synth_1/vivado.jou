@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Fri Jan  3 18:49:51 2020
+# Process ID: 22276
+# Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/statemachine/timingcoresim/timingcoresim.runs/synth_1
+# Command line: vivado.exe -log timing_core.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_core.tcl
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/statemachine/timingcoresim/timingcoresim.runs/synth_1/timing_core.vds
+# Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/statemachine/timingcoresim/timingcoresim.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source timing_core.tcl -notrace

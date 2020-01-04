@@ -40,3 +40,10 @@ devices/XEM7310/writebus/hdl/stf_port/stf_port.runs/synth_1/
 devices/XEM7310/writeregister/project/x64/
 devices/XEM7310/writeregister/project/.vs/
 devices/XEM7310/writeregister/hdl/writereg/writereg.runs/
+devices/XEM7310/writeregister/hdl/blk_mem_gen_0_ex/
+devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.runs/impl_1/
+devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.runs/.jobs/vrs_config_1.xml
+devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.runs/
+devices/XEM7310/bufwritter/project/.vs/
+devices/XEM7310/bufwritter/project/x64/
+devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.sim/sim_1/
