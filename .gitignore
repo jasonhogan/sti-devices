@@ -47,3 +47,5 @@ devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.runs/
 devices/XEM7310/bufwritter/project/.vs/
 devices/XEM7310/bufwritter/project/x64/
 devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.sim/sim_1/
+devices/XEM7310/BRAMtest/blk_mem_gen_0_ex/
+devices/XEM7310/BRAMtest/

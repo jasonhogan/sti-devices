@@ -51,8 +51,65 @@ entity timing_core is
 end timing_core;
 
 architecture timing_core_arch of timing_core is
+    
+    signal addr : unsigned(31 downto 0);
+
+    type load_state_labels is ( Idle,
+                                Active,
+                                Finish,
+                                Abort
+                              );
+
+    signal load_state : load_state_labels;
 
 begin
 
+    Load_State_Proc: process (clk, reset)
+    begin
+      if (reset = '1') then
+         load_state <= Idle;
+      elsif rising_edge(clk) then
+      
+        case (load_state) is
+          when Idle =>
+            if (start = '1') then       load_state <= Active;
+            end if;
+          when Active =>
+            if (stop = '1') then        load_state <= Abort;
+            elsif (addr = X"00000024") then   load_state <= Finish;
+            end if;
+          when Finish =>                load_state <= Idle;
+          when Abort =>
+            if (stop /= '1') then       load_state <= Idle;
+            end if;
+          when others =>                load_state <= Idle;
+        end case;
+      
+      end if;
+    end process;
+
+    Load_Reg_Proc: process (clk, reset)
+    begin
+      if (reset = '1') then
+        addr <= X"00000000";
+        play <= '0';
+      elsif rising_edge(clk) then
+        if ( load_state = Finish
+            OR load_state = Abort
+            ) then
+            addr <= X"00000000";
+        elsif (load_state = Active) then
+            addr <= addr + 1;
+        elsif (load_state = Idle) then
+            addr <= unsigned(ini_addr);
+        end if;
+        
+      end if;
+    end process;
+
+evt_addr <= STD_LOGIC_VECTOR(addr);
+write <= '0';
+
+stf_bus <= evt_data(25 downto 0);
 
 end timing_core_arch;
