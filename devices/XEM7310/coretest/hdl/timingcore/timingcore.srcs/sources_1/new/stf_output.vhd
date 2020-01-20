@@ -36,7 +36,7 @@ entity stf_output is
        clk      : in STD_LOGIC;
        reset    : in STD_LOGIC;
 
-       stf_bus  : in STD_LOGIC_VECTOR (25 downto 0);
+       stf_bus  : in STD_LOGIC_VECTOR (27 downto 0);
        play     : in STD_LOGIC;
        write    : out STD_LOGIC;
        done     : out STD_LOGIC;
@@ -56,8 +56,8 @@ begin
         done <= '0';
       elsif rising_edge(clk) then
 
-        if (play = '1') then
-            stf_pins <= stf_bus;
+        if (play = '1') then    -- here is where we can check for "ready" and raise an error if needed
+            stf_pins <= stf_bus(25 downto 0);
             done <= '1';
         else
             done <= '0';

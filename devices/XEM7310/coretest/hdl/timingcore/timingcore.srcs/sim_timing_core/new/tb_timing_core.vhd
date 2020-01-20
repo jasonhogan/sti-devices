@@ -52,8 +52,8 @@ architecture Behavioral of tb_timing_core is
           write    : out STD_LOGIC;                        -- High when the core is writing
     
           -- STF module
-          stf_bus   : out STD_LOGIC_VECTOR (25 downto 0);
-          play      : out STD_LOGIC;
+          stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
+          stf_play  : out STD_LOGIC;
           stf_write : in STD_LOGIC;                        -- The stf module asserts this when data is ready
           done      : in STD_LOGIC
          );
@@ -78,8 +78,8 @@ architecture Behavioral of tb_timing_core is
     -- module under test outputs
     signal evt_addr : STD_LOGIC_VECTOR (31 downto 0);
     signal write    : STD_LOGIC;
-    signal play     : STD_LOGIC;
-    signal stf_bus  : STD_LOGIC_VECTOR (25 downto 0);
+    signal stf_play : STD_LOGIC;
+    signal stf_bus  : STD_LOGIC_VECTOR (27 downto 0);
     
     
 begin
@@ -100,7 +100,7 @@ begin
   
         -- STF module
         stf_bus   => stf_bus,
-        play      => play,
+        stf_play  => stf_play,
         stf_write => stf_write,
         done      => done
         );
@@ -132,7 +132,8 @@ begin
         start     <= '0';
         stop      <= '0';
         ini_addr  <= X"00000000";
-        evt_time  <= X"00000000";
+       -- ini_addr  <= X"FFFFFFFF";
+       -- evt_time  <= X"00000003";
        -- evt_val   <= X"00000000";
         stf_write <= '0';
         done      <= '0';
@@ -166,13 +167,42 @@ begin
 
     end process stim_proc;    
 
-    data_proc : process
+--    data_proc : process
+--    begin
+----        if rising_edge(clk) then
+----            evt_val <= evt_addr;
+----        end if;
+--        wait until rising_edge(CLK);
+--        evt_val <= evt_addr;
+--        --evt_time <= evt_addr;
+--    end process data_proc;   
+
+
+    data_proc : process (clk)
     begin
---        if rising_edge(clk) then
---            evt_val <= evt_addr;
---        end if;
-        wait until rising_edge(CLK);
-        evt_val <= evt_addr;
+        if rising_edge(clk) then
+            --fake ram
+            if (   evt_addr = X"00000000") then
+                evt_time  <= X"00000000";
+                evt_val   <= X"0000000A";
+            elsif (evt_addr = X"00000001") then
+                evt_time  <= X"00000002";
+                evt_val   <= X"0000000B";
+            elsif (evt_addr = X"00000002") then
+                evt_time  <= X"00000000";
+                evt_val   <= X"0000000C";
+            elsif (evt_addr = X"00000003") then
+                evt_time  <= X"00000003";
+                evt_val   <= X"0000000D";
+            elsif (evt_addr = X"00000004") then
+                evt_time  <= X"00000000";
+                evt_val   <= X"0000000E";
+            else
+                evt_time  <= X"00000BAD";
+                evt_val   <= X"00000BAD";           
+            end if;
+        end if;
+
     end process data_proc;   
 
 end Behavioral;

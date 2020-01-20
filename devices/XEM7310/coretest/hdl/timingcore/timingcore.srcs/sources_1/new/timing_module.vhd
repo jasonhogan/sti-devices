@@ -47,7 +47,7 @@ entity timing_module is
            ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
            
            -- STF module
-           stf_bus   : out STD_LOGIC_VECTOR (25 downto 0);
+           stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
            stf_play  : out STD_LOGIC;
            stf_write : in STD_LOGIC;
            stf_done  : in STD_LOGIC
@@ -87,8 +87,8 @@ architecture timing_module_arch of timing_module is
        write    : out STD_LOGIC;                        -- High when the core is writing
            
        -- STF module
-       stf_bus   : out STD_LOGIC_VECTOR (25 downto 0);
-       play      : out STD_LOGIC;
+       stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
+       stf_play  : out STD_LOGIC;
        stf_write : in STD_LOGIC;
        done      : in STD_LOGIC
       );
@@ -142,7 +142,7 @@ port map
 
     -- STF module
     stf_bus   => stf_bus,
-    play      => stf_play,
+    stf_play  => stf_play,
     stf_write => stf_write,
     done      => stf_done
     );
