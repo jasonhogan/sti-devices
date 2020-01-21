@@ -78,9 +78,12 @@ architecture Behavioral of tb_timing_core is
     signal clk  : std_ulogic := '1';
     signal rst  : STD_LOGIC := '1';
     
-    signal evt_time  : STD_LOGIC_VECTOR (31 downto 0);
-    signal evt_val   : STD_LOGIC_VECTOR (31 downto 0) := X"00000000";
-          
+    signal evt_time   : STD_LOGIC_VECTOR (31 downto 0);
+    signal evt_opcode : STD_LOGIC_VECTOR (3 downto 0) := X"0";
+    signal evt_val    : STD_LOGIC_VECTOR (27 downto 0) := X"0000000";
+    
+    signal time_nb   : STD_LOGIC_VECTOR (3 downto 0);
+    
     -- module under test inputs
     signal start     : STD_LOGIC;
     signal stop      : STD_LOGIC;
@@ -133,7 +136,7 @@ begin
     clk <= '0' after HALF_PERIOD when clk = '1' else
            '1' after HALF_PERIOD;
            
-    evt_data <= evt_time & evt_val;
+    evt_data <= evt_time & evt_opcode & evt_val;
 
     Reset_Gen : process
     begin
@@ -203,28 +206,44 @@ begin
 --    end process data_proc;   
 
 
+    time_nb <= X"1";
+    
     data_proc : process (clk)
     begin
         if rising_edge(clk) then
             --fake ram
             if (   evt_addr = X"00000000") then
-                evt_time  <= X"00000000";
-                evt_val   <= X"0000000A";
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"000000A";
             elsif (evt_addr = X"00000001") then
-                evt_time  <= X"00000000";
-                evt_val   <= X"0000000B";
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"000000B";
             elsif (evt_addr = X"00000002") then
-                evt_time  <= X"00000000";
-                evt_val   <= X"0000000C";
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"3";     -- 3=Jump
+                evt_val   <= X"000000C";
             elsif (evt_addr = X"00000003") then
-                evt_time  <= X"00000000";
-                evt_val   <= X"0000000D";
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"000000D";
             elsif (evt_addr = X"00000004") then
-                evt_time  <= X"00000000";
-                evt_val   <= X"0000000E";
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"000000E";
+            elsif (evt_addr = X"0000000C") then
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"00000FF";
+            elsif (evt_addr = X"0000000D") then
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"00000AA";
             else
                 evt_time  <= X"00000BAD";
-                evt_val   <= X"00000BAD";           
+                evt_opcode <= X"0";
+                evt_val   <= X"0000BAD";           
             end if;
         end if;
 

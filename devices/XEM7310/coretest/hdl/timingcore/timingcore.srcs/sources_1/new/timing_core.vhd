@@ -53,11 +53,11 @@ end timing_core;
 architecture timing_core_arch of timing_core is
    
     -- Load state machine
-    type load_state_labels is ( Idle, Load, Hold, Finish, Abort );
+    type load_state_labels is ( Idle, Load, Hold, Finish, Abort, Jump );
     signal load_state : load_state_labels;
     
     -- Play state machine
-    type play_state_labels is ( Idle, Play, Count, Finish, Abort );
+    type play_state_labels is ( Idle, Play, Count, Finish, Abort, Jump );
     signal play_state : play_state_labels;
     
     -- BRAM addresses
@@ -84,11 +84,36 @@ architecture timing_core_arch of timing_core is
     signal next_waiting    : STD_LOGIC;
     signal waiting         : STD_LOGIC;
     signal next_data_valid : STD_LOGIC;  --is data just loaded from BRAM valid (i.e., associated with addr)
-    signal data_valid      : STD_LOGIC;
+    signal value_valid      : STD_LOGIC;
 
     signal kill      : STD_LOGIC;
     
+    type opcode_type is ( Action, WaitOp, EndOp, Jump, JumpSetReturn, SetAffine, Option, Noop);
+    
+    function opcode_lookup ( opcode_in : unsigned ) return opcode_type is
+        variable op_out : opcode_type;
+    begin
+        case (to_integer(opcode_in)) is
+          when 0 => op_out := Action;
+          when 1 => op_out := WaitOp;
+          when 2 => op_out := EndOp;
+          when 3 => op_out := Jump;
+          when 4 => op_out := JumpSetReturn;
+          when 5 => op_out := SetAffine;
+          when 6 => op_out := Option;
+          when 7 => op_out := Noop;
+          when others => op_out := Noop;
+        end case;
+        return op_out;
+    end opcode_lookup;
+    
+    signal test_next_op : opcode_type;
+    signal test_op : opcode_type;
+    
 begin
+
+    test_next_op <= opcode_lookup(next_opcode);
+    test_op <= opcode_lookup(evt_opcode);
 
     ------- Load state machine
     Load_State_Proc: process (clk, reset)
@@ -108,8 +133,15 @@ begin
             end if;
           when Hold =>
             if (stop = '1') then            load_state <= Abort;
-            elsif (load_next = '1') then    load_state <= Load;
+--            elsif (load_next = '1') then    load_state <= Load;
+            elsif (load_next = '1') then
+                if ( opcode_lookup(next_opcode) = Jump ) then   load_state <= Jump;
+                else                                            load_state <= Load;
+                end if;
+            
+            
             end if;
+          when Jump =>                      load_state <= Load;
           when Finish =>                    load_state <= Idle;
           when Abort =>
             if (stop /= '1') then           load_state <= Idle;
@@ -129,23 +161,34 @@ begin
       
         case (play_state) is
           when Idle =>
-            if (data_valid = '1') then
-                if (delay > 0) then         play_state <= Count;
-                else                        play_state <= Play;
-                end if;
---                case (evt_opcode) is
---                  when x"0" =>
---                end case;
+            if (delay > 0) then             play_state <= Count;
+            elsif (value_valid = '1') then   play_state <= Play;
             end if;
+            
+--            if (data_valid = '1') then
+--                if (delay > 0) then         play_state <= Count;
+--                else                        play_state <= Play;
+--                end if;
+----                case (evt_opcode) is
+----                  when x"0" =>
+----                end case;
+--            end if;
           when Play =>
             if (stop = '1') then            play_state <= Abort;
-            elsif (data_valid = '0') then   play_state <= Idle;
             elsif (delay > 0) then          play_state <= Count;
+            elsif (value_valid = '0') then   play_state <= Idle;
             end if;
           when Count =>
             if (stop = '1') then            play_state <= Abort;
-            elsif (delay = 0) then          play_state <= Play;
+            --elsif (delay = 0) then          play_state <= Play;
+            elsif (delay = 0) then
+                if ( opcode_lookup(evt_opcode) = Jump ) then 
+                                        play_state <= Jump;
+                elsif (value_valid = '1') then  play_state <= Play;
+
+                end if;
             end if;
+          when Jump =>                      play_state <= Idle;
           when Finish =>                    play_state <= Idle;
           when Abort =>
             if (stop /= '1') then           play_state <= Idle;
@@ -167,7 +210,7 @@ begin
           stf_bus_reg <= x"0000000";
           
           next_data_valid <= '0';
-          data_valid <= '0';
+          value_valid <= '0';
           stf_play <= '0';
 
       elsif rising_edge(clk) then
@@ -194,9 +237,18 @@ begin
                 play_evt_value <= evt_value;
             end if;
             
-            next_data_valid <= '1';
-            data_valid <= next_data_valid;  --pipeline delay
             
+            --value_valid <= next_data_valid;  --pipeline delay
+            
+            if ( opcode_lookup(evt_opcode) = Action ) then
+                next_data_valid <= '1';
+                value_valid <= next_data_valid;
+            else
+                next_data_valid <= '1';
+                value_valid <= '0';
+            end if;
+
+
             -- Advance address
             if (load_next = '1') then
                 addr <= addr + 1;
@@ -205,6 +257,12 @@ begin
         elsif (load_state = Idle) then
             addr <= unsigned(ini_addr);
             next_data_valid <= '0';
+        elsif (load_state = Jump) then
+            addr <= addr(31 downto 28) & unsigned(next_evt_value);
+            delay      <= unsigned(next_evt_time);
+            evt_opcode <= next_opcode;
+            -- pipeline delay
+            play_evt_value <= evt_value;
         end if;
         
         -------- Play regs

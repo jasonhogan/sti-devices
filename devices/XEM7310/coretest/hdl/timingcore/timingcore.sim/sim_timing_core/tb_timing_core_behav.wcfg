@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="55652959fs"></ZoomEndTime>
-      <Cursor1Time time="1000000000fs"></Cursor1Time>
+      <ZoomStartTime time="68340000fs"></ZoomStartTime>
+      <ZoomEndTime time="143740001fs"></ZoomEndTime>
+      <Cursor1Time time="250000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="147"></NameColumnWidth>
-      <ValueColumnWidth column_width="59"></ValueColumnWidth>
+      <NameColumnWidth column_width="155"></NameColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="19" />
+   <WVObjectSize size="21" />
    <wvobject fp_name="/tb_timing_core/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -40,10 +40,6 @@
       <obj_property name="ElementShortName">addr[31:0]</obj_property>
       <obj_property name="ObjectShortName">addr[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_timing_core/evt_addr" type="array">
-      <obj_property name="ElementShortName">evt_addr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">evt_addr[31:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_timing_core/MUT/next_evt_value" type="array">
       <obj_property name="ElementShortName">next_evt_value[27:0]</obj_property>
       <obj_property name="ObjectShortName">next_evt_value[27:0]</obj_property>
@@ -59,6 +55,7 @@
    <wvobject fp_name="/tb_timing_core/MUT/delay" type="array">
       <obj_property name="ElementShortName">delay[31:0]</obj_property>
       <obj_property name="ObjectShortName">delay[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_timing_core/MUT/play_state" type="other">
       <obj_property name="ElementShortName">play_state</obj_property>
@@ -88,12 +85,24 @@
       <obj_property name="ElementShortName">waiting</obj_property>
       <obj_property name="ObjectShortName">waiting</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_timing_core/MUT/data_valid" type="logic">
-      <obj_property name="ElementShortName">data_valid</obj_property>
-      <obj_property name="ObjectShortName">data_valid</obj_property>
+   <wvobject fp_name="/tb_timing_core/MUT/next_data_valid" type="logic">
+      <obj_property name="ElementShortName">next_data_valid</obj_property>
+      <obj_property name="ObjectShortName">next_data_valid</obj_property>
    </wvobject>
    <wvobject fp_name="/tb_timing_core/evt_data" type="array">
       <obj_property name="ElementShortName">evt_data[63:0]</obj_property>
       <obj_property name="ObjectShortName">evt_data[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/test_next_op" type="other">
+      <obj_property name="ElementShortName">test_next_op</obj_property>
+      <obj_property name="ObjectShortName">test_next_op</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/test_op" type="other">
+      <obj_property name="ElementShortName">test_op</obj_property>
+      <obj_property name="ObjectShortName">test_op</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/value_valid" type="logic">
+      <obj_property name="ElementShortName">value_valid</obj_property>
+      <obj_property name="ObjectShortName">value_valid</obj_property>
    </wvobject>
 </wave_config>
