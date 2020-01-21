@@ -33,13 +33,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity stf_output is
     Port ( 
-       clk      : in STD_LOGIC;
-       reset    : in STD_LOGIC;
+       clk       : in STD_LOGIC;
+       reset     : in STD_LOGIC;
 
-       stf_bus  : in STD_LOGIC_VECTOR (27 downto 0);
-       play     : in STD_LOGIC;
-       write    : out STD_LOGIC;
-       done     : out STD_LOGIC;
+       stf_bus   : in STD_LOGIC_VECTOR (27 downto 0);
+       stf_play  : in STD_LOGIC;
+       stf_write : out STD_LOGIC;
+       stf_error : out STD_LOGIC;
        
        stf_pins : out STD_LOGIC_VECTOR (25 downto 0)
      );
@@ -53,18 +53,16 @@ begin
     begin
       if (reset = '1') then
         stf_pins <= X"000000" & '0' & '0';
-        done <= '0';
+        
       elsif rising_edge(clk) then
 
-        if (play = '1') then    -- here is where we can check for "ready" and raise an error if needed
+        if (stf_play = '1') then    -- here is where we can check for "ready" and raise an error if needed
             stf_pins <= stf_bus(25 downto 0);
-            done <= '1';
-        else
-            done <= '0';
         end if;
       end if;
     end process;
 
-write <= '0';
+stf_write <= '0';
+stf_error <= '0';
 
 end stf_output_arch;
