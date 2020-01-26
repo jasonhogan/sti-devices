@@ -50,9 +50,11 @@ architecture Behavioral of tb_timing_core is
           evt_addr : out STD_LOGIC_VECTOR (31 downto 0);
           evt_data : in STD_LOGIC_VECTOR (63 downto 0);    -- 32 bit for delay, 32 bits for data
           write    : out STD_LOGIC;                        -- High when the core is writing
+          evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
     
           -- STF module
           stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
+          stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
           stf_play  : out STD_LOGIC;
           stf_write : in STD_LOGIC;                        -- The stf module asserts this when data is ready
           stf_error : in STD_LOGIC
@@ -74,6 +76,8 @@ architecture Behavioral of tb_timing_core is
     end component;
 
     constant HALF_PERIOD    : time := 5 ns; --100 MHz
+    
+    --constant wr_delay    : time := 120 ns; --100 MHz
 
     signal clk  : std_ulogic := '1';
     signal rst  : STD_LOGIC := '1';
@@ -89,8 +93,11 @@ architecture Behavioral of tb_timing_core is
     signal stop      : STD_LOGIC;
     signal ini_addr  : STD_LOGIC_VECTOR (31 downto 0);
     signal evt_data  : STD_LOGIC_VECTOR (63 downto 0);
+    signal evt_data_out : STD_LOGIC_VECTOR (31 downto 0);
     signal stf_write : STD_LOGIC;
-    signal stf_error : STD_LOGIC;    
+    signal stf_write_fake : STD_LOGIC := '0';
+    signal stf_error : STD_LOGIC;
+    signal stf_data  : STD_LOGIC_VECTOR (31 downto 0);
         
     -- module under test outputs
     signal evt_addr : STD_LOGIC_VECTOR (31 downto 0);
@@ -114,11 +121,13 @@ begin
         evt_addr => evt_addr,
         evt_data => evt_data,
         write    => write,
+        evt_data_out => evt_data_out,
   
         -- STF module
         stf_bus   => stf_bus,
+        stf_data  => stf_data,
         stf_play  => stf_play,
-        stf_write => stf_write,
+        stf_write => stf_write_fake,
         stf_error => stf_error
         );
 
@@ -138,6 +147,9 @@ begin
            
     evt_data <= evt_time & evt_opcode & evt_val;
 
+    stf_write_fake <= '1' after 141 ns when stf_write_fake = '0' else
+                      '0' after 10 ns;
+
     Reset_Gen : process
     begin
       -- generate reset
@@ -156,6 +168,8 @@ begin
 
     stim_proc : process
     begin
+    
+        evt_data_out <= X"0000ABCD";
 
         start     <= '0';
         stop      <= '0';
@@ -218,10 +232,11 @@ begin
                 evt_val   <= X"000000A";
             elsif (evt_addr = X"00000001") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"3"; -- 3=Jump
+                evt_opcode <= X"0"; -- 3=Jump
                 evt_val   <= X"000004F";
             elsif (evt_addr = X"00000002") then
-                evt_time  <= X"0000000" & time_nb;
+                --evt_time  <= X"0000000" & time_nb;
+                evt_time  <= X"00000006";
                 evt_opcode <= X"0";    
                 evt_val   <= X"000000C";
             elsif (evt_addr = X"00000003") then

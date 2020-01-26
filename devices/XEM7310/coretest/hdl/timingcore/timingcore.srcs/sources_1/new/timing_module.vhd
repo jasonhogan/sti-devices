@@ -48,9 +48,10 @@ entity timing_module is
            
            -- STF module
            stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
+           stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
            stf_play  : out STD_LOGIC;
            stf_write : in STD_LOGIC;
-           stf_done  : in STD_LOGIC
+           stf_error : in STD_LOGIC
          );
 end timing_module;
 
@@ -85,12 +86,14 @@ architecture timing_module_arch of timing_module is
        evt_addr : out STD_LOGIC_VECTOR (31 downto 0);
        evt_data : in STD_LOGIC_VECTOR (63 downto 0);    -- 32 bit for delay, 32 bits for data
        write    : out STD_LOGIC;                        -- High when the core is writing
+       evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
            
        -- STF module
        stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
+       stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
        stf_play  : out STD_LOGIC;
        stf_write : in STD_LOGIC;
-       done      : in STD_LOGIC
+       stf_error : in STD_LOGIC
       );
     end component;
 
@@ -100,14 +103,17 @@ architecture timing_module_arch of timing_module is
 
     signal evt_addr : STD_LOGIC_VECTOR(31 downto 0);
     signal evt_data : STD_LOGIC_VECTOR(63 downto 0);
-    signal evt_data_out : STD_LOGIC_VECTOR(63 downto 0);
+    signal evt_data_out : STD_LOGIC_VECTOR(31 downto 0);
+    signal evt_data_cat : STD_LOGIC_VECTOR(63 downto 0);
 
 begin
 
 writeA <= "1" when (write = '1') else "0";
 writeB <= "1" when (core_write = '1') else "0";
 
-evt_data_out <= X"0000000000000000";    --temp
+--evt_data_out <= X"0000000000000000";    --temp
+
+evt_data_cat <= evt_data(63 downto 32) & evt_data_out;  --keep existing time, replace value with new data
 
 evt_register : blk_mem_gen_0
   PORT MAP (
@@ -120,7 +126,7 @@ evt_register : blk_mem_gen_0
     clkb => core_clk,
     web => writeB,
     addrb => evt_addr(9 downto 0),
-    dinb => evt_data_out,
+    dinb => evt_data_cat,
     doutb => evt_data
   );
 
@@ -139,12 +145,14 @@ port map
     evt_addr => evt_addr,
     evt_data => evt_data,
     write => core_write,
+    evt_data_out => evt_data_out,
 
     -- STF module
     stf_bus   => stf_bus,
+    stf_data  => stf_data,
     stf_play  => stf_play,
     stf_write => stf_write,
-    done      => stf_done
+    stf_error => stf_error
     );
 
 end timing_module_arch;
