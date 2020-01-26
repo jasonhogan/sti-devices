@@ -218,11 +218,11 @@ begin
                 evt_val   <= X"000000A";
             elsif (evt_addr = X"00000001") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"0";
-                evt_val   <= X"000000B";
+                evt_opcode <= X"3"; -- 3=Jump
+                evt_val   <= X"000004F";
             elsif (evt_addr = X"00000002") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"3";     -- 3=Jump
+                evt_opcode <= X"0";    
                 evt_val   <= X"000000C";
             elsif (evt_addr = X"00000003") then
                 evt_time  <= X"0000000" & time_nb;
@@ -232,11 +232,11 @@ begin
                 evt_time  <= X"0000000" & time_nb;
                 evt_opcode <= X"0";
                 evt_val   <= X"000000E";
-            elsif (evt_addr = X"0000000C") then
+            elsif (evt_addr = X"0000004F") then
                 evt_time  <= X"0000000" & time_nb;
                 evt_opcode <= X"0";
                 evt_val   <= X"00000FF";
-            elsif (evt_addr = X"0000000D") then
+            elsif (evt_addr = X"00000050") then
                 evt_time  <= X"0000000" & time_nb;
                 evt_opcode <= X"0";
                 evt_val   <= X"00000AA";

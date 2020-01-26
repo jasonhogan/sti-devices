@@ -61,7 +61,8 @@ architecture timing_core_arch of timing_core is
     signal play_state : play_state_labels;
     
     -- BRAM addresses
-    signal addr            : unsigned(31 downto 0);
+    signal addr             : unsigned(31 downto 0);
+    signal jump_target_addr : unsigned(31 downto 0);
     
     -- Next data; alias for evt_data bits (just loaded)
     signal next_evt_time   : STD_LOGIC_VECTOR (31 downto 0);
@@ -84,8 +85,11 @@ architecture timing_core_arch of timing_core is
     signal next_waiting    : STD_LOGIC;
     signal waiting         : STD_LOGIC;
     signal next_data_valid : STD_LOGIC;  --is data just loaded from BRAM valid (i.e., associated with addr)
-    signal value_valid      : STD_LOGIC;
-
+    signal value_valid     : STD_LOGIC;
+    signal jump_evt        : STD_LOGIC;
+    signal jump_evt_p2     : STD_LOGIC;
+    signal perform_jump    : STD_LOGIC;
+        
     signal kill      : STD_LOGIC;
     
     type opcode_type is ( Action, WaitOp, EndOp, Jump, JumpSetReturn, SetAffine, Option, Noop);
@@ -110,6 +114,18 @@ architecture timing_core_arch of timing_core is
     signal test_next_op : opcode_type;
     signal test_op : opcode_type;
     
+    
+    function opcode_is ( opcode_in : unsigned; opcode_name : opcode_type ) return boolean is
+        variable match : boolean;
+    begin
+        if (opcode_lookup(opcode_in) = opcode_name) then
+            match := True;
+        else
+            match := False;
+        end if;
+        return match;
+    end opcode_is;
+    
 begin
 
     test_next_op <= opcode_lookup(next_opcode);
@@ -130,12 +146,13 @@ begin
             if (stop = '1') then            load_state <= Abort;
             elsif (addr = X"00000024") then load_state <= Finish;   --temp
             elsif (load_next = '0') then    load_state <= Hold;
+            elsif (opcode_lookup(next_opcode) = Jump ) then   load_state <= Jump;
             end if;
           when Hold =>
             if (stop = '1') then            load_state <= Abort;
 --            elsif (load_next = '1') then    load_state <= Load;
             elsif (load_next = '1') then
-                if ( opcode_lookup(next_opcode) = Jump ) then   load_state <= Jump;
+                if ( opcode_lookup(evt_opcode) = Jump ) then   load_state <= Jump;
                 else                                            load_state <= Load;
                 end if;
             
@@ -161,14 +178,15 @@ begin
       
         case (play_state) is
           when Idle =>
-            if (delay > 0) then             play_state <= Count;
-            elsif (value_valid = '1') then   play_state <= Play;
-            end if;
+--            if (delay > 0) then             play_state <= Count;
+--            elsif (value_valid = '1') then   play_state <= Play;
+--            end if;
             
---            if (data_valid = '1') then
---                if (delay > 0) then         play_state <= Count;
---                else                        play_state <= Play;
---                end if;
+            if (value_valid = '1') then
+                if (delay > 0) then         play_state <= Count;
+                else                        play_state <= Play;
+                end if;
+            end if;
 ----                case (evt_opcode) is
 ----                  when x"0" =>
 ----                end case;
@@ -177,6 +195,7 @@ begin
             if (stop = '1') then            play_state <= Abort;
             elsif (delay > 0) then          play_state <= Count;
             elsif (value_valid = '0') then   play_state <= Idle;
+            elsif ( opcode_lookup(evt_opcode) = Jump ) then play_state <= Jump;
             end if;
           when Count =>
             if (stop = '1') then            play_state <= Abort;
@@ -212,6 +231,9 @@ begin
           next_data_valid <= '0';
           value_valid <= '0';
           stf_play <= '0';
+          
+          --jump_evt <= '0';
+          jump_evt_p2 <= '0';
 
       elsif rising_edge(clk) then
      
@@ -221,49 +243,99 @@ begin
                 delay <= delay - 1;
             end if;
         end if;
+        
+        -- addr
+        if (load_state = Idle) then
+            addr <= unsigned(ini_addr);
+        else
+            -- Advance address
+            if (load_next = '1') then
+                if (perform_jump = '1') then
+                    addr <= jump_target_addr;
+                else
+                    addr <= addr + 1;
+                end if;
+            end if;
+        end if;
+                
+        if(load_state = Load AND next_data_valid = '1') then
+            -- Latch data
+            evt_opcode <= next_opcode;
+            evt_value  <= next_evt_value;
+            delay      <= unsigned(next_evt_time);
+            
+            -- pipeline delay
+            play_evt_value <= evt_value;
+                     
+        end if;
+
+        -- jumps
+        if (jump_evt_p2 = '1' AND delay > 1) then
+            jump_evt_p2 <= '1';
+        else
+            if(unsigned(next_evt_time) > 0) then
+                jump_evt_p2 <= jump_evt;
+            end if;
+        end if;        
+
 
         -------- Load regs    
         if ( load_state = Finish OR load_state = Abort ) then
             --addr <= X"00000000";
         elsif (load_state = Load OR load_state = Hold) then
         
-            if(load_state = Load) then
-                -- Latch data
-                evt_value  <= next_evt_value;
-                delay      <= unsigned(next_evt_time);
-                evt_opcode <= next_opcode;
+--            evt_value  <= next_evt_value;
+--            delay      <= unsigned(next_evt_time);
+--            evt_opcode <= next_opcode;
+--            -- pipeline delay
+--            play_evt_value <= evt_value;
+        
+--            if(load_state = Load) then
+--                -- Latch data
+--                evt_value  <= next_evt_value;
+--                delay      <= unsigned(next_evt_time);
+--                evt_opcode <= next_opcode;
                 
-                -- pipeline delay
-                play_evt_value <= evt_value;
-            end if;
+--                -- pipeline delay
+--                play_evt_value <= evt_value;
+--            end if;
             
             
             --value_valid <= next_data_valid;  --pipeline delay
+
+--            if (jump_evt_p2 = '1' AND delay > 1) then
+--                jump_evt_p2 <= '1';
+--            else
+--                jump_evt_p2 <= jump_evt;
+--            end if;
+            
             
             if ( opcode_lookup(evt_opcode) = Action ) then
                 next_data_valid <= '1';
                 value_valid <= next_data_valid;
             else
+--                if ( opcode_lookup(evt_opcode) = Jump ) then
+--                    jump_evt <= '1';
+--                    jump_target_addr <= addr(31 downto 28) & unsigned(next_evt_value);
+--                    --jump_target_addr <= ;
+--                end if;
+                
                 next_data_valid <= '1';
                 value_valid <= '0';
             end if;
 
-
-            -- Advance address
-            if (load_next = '1') then
-                addr <= addr + 1;
-            end if;
-
         elsif (load_state = Idle) then
-            addr <= unsigned(ini_addr);
+--            addr <= unsigned(ini_addr);
             next_data_valid <= '0';
         elsif (load_state = Jump) then
-            addr <= addr(31 downto 28) & unsigned(next_evt_value);
+        --    addr <= addr(31 downto 28) & unsigned(next_evt_value);
             delay      <= unsigned(next_evt_time);
             evt_opcode <= next_opcode;
             -- pipeline delay
             play_evt_value <= evt_value;
         end if;
+        
+
         
         -------- Play regs
         if ( play_state = Finish OR play_state = Abort ) then
@@ -275,6 +347,8 @@ begin
         elsif (play_state = Count) then
             stf_play <= '0';
           -- to do
+        elsif (play_state = Jump) then
+            stf_play <= '0';
         end if;          
         
       end if;
@@ -298,8 +372,23 @@ waiting <= '1' when (delay > 1) else    -- Stop waiting at delay=1 so play happe
 
 load_next <= (NOT (next_data_valid AND next_waiting)) when (load_state = Load) else
              (NOT waiting) when (load_state = Hold) else
+             '1' when (load_state = Jump) else
              '0';
 
+--jump_evt <= (delay = 0) AND ( opcode_lookup(next_opcode) = Jump );
+--jump_evt <= (delay = 0) AND opcode_is(next_opcode; opcode_type(Jump));
+--jump_target_addr <= addr(31 downto 28) & unsigned(evt_value);
+
+jump_target_addr <= (addr(31 downto 28) & unsigned(next_evt_value)) when (NOT next_waiting = '1') else
+                    (addr(31 downto 28) & unsigned(evt_value));
+
+
+
+jump_evt <= '1' when ((delay = 0) AND ( opcode_lookup(next_opcode) = Jump )) else
+            '0';
+
+perform_jump <= '1' when (jump_evt_p2 = '1' OR (jump_evt = '1' AND (NOT next_waiting = '1'))) else
+                '0';
 
 stf_bus <= stf_bus_reg;
 
