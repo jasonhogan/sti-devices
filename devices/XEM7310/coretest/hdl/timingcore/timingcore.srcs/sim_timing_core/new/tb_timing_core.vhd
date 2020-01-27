@@ -53,25 +53,27 @@ architecture Behavioral of tb_timing_core is
           evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
     
           -- STF module
-          stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
-          stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
-          stf_play  : out STD_LOGIC;
-          stf_write : in STD_LOGIC;                        -- The stf module asserts this when data is ready
-          stf_error : in STD_LOGIC
+          stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+          stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+          stf_play   : out STD_LOGIC;
+          stf_option : out STD_LOGIC;
+          stf_write  : in STD_LOGIC;                        -- The stf module asserts this when data is ready
+          stf_error  : in STD_LOGIC
             );
     end component;
 
     component stf_output
     Port ( 
-       clk       : in STD_LOGIC;
-       reset     : in STD_LOGIC;
+       clk        : in STD_LOGIC;
+       reset      : in STD_LOGIC;
 
-       stf_bus   : in STD_LOGIC_VECTOR (27 downto 0);
-       stf_play  : in STD_LOGIC;
-       stf_write : out STD_LOGIC;
-       stf_error : out STD_LOGIC;
+       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
+       stf_play   : in STD_LOGIC;
+       stf_option : in STD_LOGIC;
+       stf_write  : out STD_LOGIC;
+       stf_error  : out STD_LOGIC;
        
-       stf_pins : out STD_LOGIC_VECTOR (25 downto 0)
+       stf_pins   : out STD_LOGIC_VECTOR (25 downto 0)
           );
     end component;
 
@@ -100,10 +102,11 @@ architecture Behavioral of tb_timing_core is
     signal stf_data  : STD_LOGIC_VECTOR (31 downto 0);
         
     -- module under test outputs
-    signal evt_addr : STD_LOGIC_VECTOR (31 downto 0);
-    signal write    : STD_LOGIC;
-    signal stf_play : STD_LOGIC;
-    signal stf_bus  : STD_LOGIC_VECTOR (27 downto 0);
+    signal evt_addr   : STD_LOGIC_VECTOR (31 downto 0);
+    signal write      : STD_LOGIC;
+    signal stf_play   : STD_LOGIC;
+    signal stf_option : STD_LOGIC;
+    signal stf_bus    : STD_LOGIC_VECTOR (27 downto 0);
     
     signal stf_pins  : STD_LOGIC_VECTOR (25 downto 0);
 begin
@@ -124,11 +127,12 @@ begin
         evt_data_out => evt_data_out,
   
         -- STF module
-        stf_bus   => stf_bus,
-        stf_data  => stf_data,
-        stf_play  => stf_play,
-        stf_write => stf_write_fake,
-        stf_error => stf_error
+        stf_bus    => stf_bus,
+        stf_data   => stf_data,
+        stf_play   => stf_play,
+        stf_option => stf_option,
+        stf_write  => stf_write_fake,
+        stf_error  => stf_error
         );
 
     digital: stf_output
@@ -137,6 +141,7 @@ begin
        reset     => rst,
        stf_bus   => stf_bus,
        stf_play  => stf_play,
+       stf_option => stf_option,
        stf_write => stf_write,
        stf_error => stf_error,
        stf_pins  => stf_pins
@@ -235,7 +240,7 @@ begin
                 evt_val   <= X"000000A";
             elsif (evt_addr = X"00000001") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"0"; -- 3=Jump
+                evt_opcode <= X"6"; -- 3=Jump
                 evt_val   <= X"000004F";
             elsif (evt_addr = X"00000002") then
                 evt_time  <= X"0000000" & time_nb;

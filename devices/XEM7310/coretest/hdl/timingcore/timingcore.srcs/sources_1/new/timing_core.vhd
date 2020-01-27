@@ -44,11 +44,12 @@ entity timing_core is
            evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
 
            -- STF module
-           stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
-           stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
-           stf_play  : out STD_LOGIC;
-           stf_write : in STD_LOGIC;                        -- The stf module asserts this when data is ready
-           stf_error : in STD_LOGIC
+           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+           stf_play   : out STD_LOGIC;
+           stf_option : out STD_LOGIC;
+           stf_write  : in STD_LOGIC;                        -- The stf module asserts this when data is ready
+           stf_error  : in STD_LOGIC
          );
 end timing_core;
 
@@ -59,8 +60,9 @@ architecture timing_core_arch of timing_core is
     signal load_state : load_state_labels;
     
     -- Play state machine
-    type play_state_labels is ( Idle, Play, Count, Finish, Abort, Jump );
+    type play_state_labels is ( Idle, Play, Count, Finish, Abort, Jump, Option );
     signal play_state : play_state_labels;
+    signal next_play_state : play_state_labels;
     
     -- BRAM addresses
     signal addr             : unsigned(31 downto 0);
@@ -201,6 +203,7 @@ begin
             elsif (delay > 0) then                              play_state <= Count;
             elsif ( opcode_lookup(evt_opcode) = Action ) then   play_state <= Play;
             elsif ( opcode_lookup(evt_opcode) = Jump ) then     play_state <= Jump;
+            elsif ( opcode_lookup(evt_opcode) = Option ) then   play_state <= Option;
             else                                                play_state <= Idle;
             end if;
           when Count =>
@@ -209,9 +212,12 @@ begin
                 if ( opcode_lookup(evt_opcode) = Jump ) then        play_state <= Jump;
                 elsif ( opcode_lookup(evt_opcode) = Action ) then   play_state <= Play;
                 elsif ( opcode_lookup(evt_opcode) = EndOp ) then    play_state <= Idle;
+                elsif ( opcode_lookup(evt_opcode) = Option ) then   play_state <= Option;
+                elsif ( opcode_lookup(evt_opcode) = Noop ) then     play_state <= Idle;
                 end if;
             end if;
           when Jump =>                      play_state <= Idle;
+          when Option =>                    play_state <= next_play_state;
           when Finish =>                    play_state <= Idle;
           when Abort =>
             if (stop /= '1') then           play_state <= Idle;
@@ -221,7 +227,6 @@ begin
         
       end if;
     end process;
-
 
     Core_Reg_Proc: process (clk, reset)
     begin
@@ -245,25 +250,13 @@ begin
       elsif rising_edge(clk) then
      
         -------- Delay counter
---        if (next_data_valid = '1') then
---            if (delay > 0) then
---                delay <= delay - 1;
---            end if;
---        end if;
-        
---        if (delay > 0) then
---            delay <= delay - 1;
---        end if;
         if(next_data_valid = '1') then
-            if (delay > 0 and step_pipline = '0') then      -- delay > 0
+            if (delay > 0 and step_pipline = '0') then
                 delay <= delay - 1;        
             elsif (step_pipline = '1') then
                 delay <= unsigned(next_evt_time);
             end if;
         end if;
---        if (waiting = '1') then
---            delay <= delay - 1;
---        end if;
         
         -- addr
         if (load_state = Idle) then
@@ -278,14 +271,9 @@ begin
                 end if;
                 
                 addr_p1 <= addr;
---                addr_p2 <= addr_p1;
                 play_addr <= addr_p1;
             end if;
-
-
         end if;
-
-        
 
         -- event data pipeline
         --if(value_valid = '1') then
@@ -297,7 +285,7 @@ begin
                 end if;
                 
              --   if(load_state /= Finish) then 
-                    evt_opcode <= next_opcode;
+                evt_opcode <= next_opcode;
                     --delay      <= unsigned(next_evt_time);
              --   end if;
 
@@ -322,20 +310,31 @@ begin
         end if;
         value_valid <= next_data_valid;
 
-
+        -------- Running reg
         if ( load_state = Load ) then
             running <= '1';
         elsif ( load_state = Finish OR load_state = Idle ) then
             running <= '0';
         end if;
-        
+
+        -------- stf bus reg
+        if (play_state = Play OR play_state = Option) then
+            stf_bus_reg <= play_evt_value;
+        end if;
 
         -------- Play reg
         if (play_state = Play) then
             stf_play <= '1';
-            stf_bus_reg <= play_evt_value;
+            --stf_bus_reg <= play_evt_value;
         else
             stf_play <= '0';
+        end if;
+
+        -------- Option reg
+        if (play_state = Option) then
+            stf_option <= '1';
+        else
+            stf_option <= '0';
         end if;
 
         -------- Save reg
@@ -349,6 +348,14 @@ begin
     end process;
 
 --kill <= stop OR error;
+
+next_play_state <= Abort  when ( stop = '1' )                         else
+                   Idle   when ( opcode_lookup(evt_opcode) = EndOp )  else
+                   Count  when ( delay > 0 )                          else
+                   Play   when ( opcode_lookup(evt_opcode) = Action ) else
+                   Jump   when ( opcode_lookup(evt_opcode) = Jump )   else
+                   Option when ( opcode_lookup(evt_opcode) = Option ) else
+                   Idle;
 
 write <= write_reg;
 evt_addr <= STD_LOGIC_VECTOR(addr) when write_reg = '0' else

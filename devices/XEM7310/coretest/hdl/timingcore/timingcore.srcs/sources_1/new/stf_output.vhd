@@ -36,10 +36,11 @@ entity stf_output is
        clk       : in STD_LOGIC;
        reset     : in STD_LOGIC;
 
-       stf_bus   : in STD_LOGIC_VECTOR (27 downto 0);
-       stf_play  : in STD_LOGIC;
-       stf_write : out STD_LOGIC;
-       stf_error : out STD_LOGIC;
+       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
+       stf_play   : in STD_LOGIC;
+       stf_option : in STD_LOGIC;
+       stf_write  : out STD_LOGIC;
+       stf_error  : out STD_LOGIC;
        
        stf_pins : out STD_LOGIC_VECTOR (25 downto 0)
      );
