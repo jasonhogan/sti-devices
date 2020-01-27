@@ -47,11 +47,12 @@ entity timing_module is
            ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
            
            -- STF module
-           stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
-           stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
-           stf_play  : out STD_LOGIC;
-           stf_write : in STD_LOGIC;
-           stf_error : in STD_LOGIC
+           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+           stf_play   : out STD_LOGIC;
+           stf_option : out STD_LOGIC;
+           stf_write  : in STD_LOGIC;
+           stf_error  : in STD_LOGIC
          );
 end timing_module;
 
@@ -89,11 +90,12 @@ architecture timing_module_arch of timing_module is
        evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
            
        -- STF module
-       stf_bus   : out STD_LOGIC_VECTOR (27 downto 0);
-       stf_data  : in STD_LOGIC_VECTOR (31 downto 0);
-       stf_play  : out STD_LOGIC;
-       stf_write : in STD_LOGIC;
-       stf_error : in STD_LOGIC
+       stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+       stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+       stf_play   : out STD_LOGIC;
+       stf_option : out STD_LOGIC;
+       stf_write  : in STD_LOGIC;
+       stf_error  : in STD_LOGIC
       );
     end component;
 
@@ -117,12 +119,14 @@ evt_data_cat <= evt_data(63 downto 32) & evt_data_out;  --keep existing time, re
 
 evt_register : blk_mem_gen_0
   PORT MAP (
+    -- OK bus
     clka => ram_clk,
     wea => writeA,
     addra => addr_in(10 downto 0),
     dina => data_in,
     douta => data_out,
     
+    -- Timing core
     clkb => core_clk,
     web => writeB,
     addrb => evt_addr(9 downto 0),
@@ -148,11 +152,12 @@ port map
     evt_data_out => evt_data_out,
 
     -- STF module
-    stf_bus   => stf_bus,
-    stf_data  => stf_data,
-    stf_play  => stf_play,
-    stf_write => stf_write,
-    stf_error => stf_error
+    stf_bus    => stf_bus,
+    stf_data   => stf_data,
+    stf_play   => stf_play,
+    stf_option => stf_option,
+    stf_write  => stf_write,
+    stf_error  => stf_error
     );
 
 end timing_module_arch;
