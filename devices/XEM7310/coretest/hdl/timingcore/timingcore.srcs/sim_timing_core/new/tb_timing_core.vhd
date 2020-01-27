@@ -147,8 +147,7 @@ begin
            
     evt_data <= evt_time & evt_opcode & evt_val;
 
-    stf_write_fake <= '1' after 141 ns when stf_write_fake = '0' else
-                      '0' after 10 ns;
+    --stf_write_fake <= '1' after 141 ns when stf_write_fake = '0' else '0' after 10 ns;
 
     Reset_Gen : process
     begin
@@ -188,6 +187,10 @@ begin
         end loop;
         
         start <= '1';
+        
+        wait until rising_edge(CLK);
+        start <= '0';
+
 
 
 --        evt_val <= X"000d1111";
@@ -220,7 +223,7 @@ begin
 --    end process data_proc;   
 
 
-    time_nb <= X"1";
+    time_nb <= X"2";
     
     data_proc : process (clk)
     begin
@@ -235,8 +238,8 @@ begin
                 evt_opcode <= X"0"; -- 3=Jump
                 evt_val   <= X"000004F";
             elsif (evt_addr = X"00000002") then
-                --evt_time  <= X"0000000" & time_nb;
-                evt_time  <= X"00000006";
+                evt_time  <= X"0000000" & time_nb;
+                --evt_time  <= X"00000006";
                 evt_opcode <= X"0";    
                 evt_val   <= X"000000C";
             elsif (evt_addr = X"00000003") then
@@ -245,16 +248,27 @@ begin
                 evt_val   <= X"000000D";
             elsif (evt_addr = X"00000004") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"0";
+                --evt_time  <= X"00000001";
+                evt_opcode <= X"2"; --End
                 evt_val   <= X"000000E";
+            elsif (evt_addr = X"00000005") then
+                evt_time  <= X"0000000" & time_nb;
+                evt_opcode <= X"0";
+                evt_val   <= X"000000F";
             elsif (evt_addr = X"0000004F") then
                 evt_time  <= X"0000000" & time_nb;
                 evt_opcode <= X"0";
                 evt_val   <= X"00000FF";
             elsif (evt_addr = X"00000050") then
                 evt_time  <= X"0000000" & time_nb;
+                --evt_time  <= X"00000001";
                 evt_opcode <= X"0";
                 evt_val   <= X"00000AA";
+            elsif (evt_addr = X"00000051") then
+                evt_time  <= X"0000000" & time_nb;
+                
+                evt_opcode <= X"2";
+                evt_val   <= X"00000BB";
             else
                 evt_time  <= X"00000BAD";
                 evt_opcode <= X"0";
