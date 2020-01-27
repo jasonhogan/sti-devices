@@ -228,7 +228,7 @@ begin
 --    end process data_proc;   
 
 
-    time_nb <= X"2";
+    time_nb <= X"0";
     
     data_proc : process (clk)
     begin
@@ -240,7 +240,7 @@ begin
                 evt_val   <= X"000000A";
             elsif (evt_addr = X"00000001") then
                 evt_time  <= X"0000000" & time_nb;
-                evt_opcode <= X"6"; -- 3=Jump
+                evt_opcode <= X"0"; -- 3=Jump
                 evt_val   <= X"000004F";
             elsif (evt_addr = X"00000002") then
                 evt_time  <= X"0000000" & time_nb;
