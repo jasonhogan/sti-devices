@@ -1,10 +1,10 @@
 // Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-// Date        : Wed Jan  1 22:08:09 2020
+// Date        : Mon Jan 27 19:13:54 2020
 // Host        : SrLab running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.v
+//               C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.v
 // Design      : blk_mem_gen_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -95,8 +95,8 @@ module blk_mem_gen_0
   (* C_HAS_ENA = "0" *) 
   (* C_HAS_ENB = "0" *) 
   (* C_HAS_INJECTERR = "0" *) 
-  (* C_HAS_MEM_OUTPUT_REGS_A = "1" *) 
-  (* C_HAS_MEM_OUTPUT_REGS_B = "1" *) 
+  (* C_HAS_MEM_OUTPUT_REGS_A = "0" *) 
+  (* C_HAS_MEM_OUTPUT_REGS_B = "0" *) 
   (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) 
   (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
   (* C_HAS_REGCEA = "0" *) 
@@ -350,8 +350,8 @@ module blk_mem_gen_0_blk_mem_gen_prim_wrapper
 
   (* box_type = "PRIMITIVE" *) 
   RAMB36E1 #(
-    .DOA_REG(1),
-    .DOB_REG(1),
+    .DOA_REG(0),
+    .DOB_REG(0),
     .EN_ECC_READ("FALSE"),
     .EN_ECC_WRITE("FALSE"),
     .INITP_00(256'h0000000000000000000000000000000000000000000000000000000000000000),
@@ -549,8 +549,8 @@ module blk_mem_gen_0_blk_mem_gen_prim_wrapper
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(\NLW_DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED [8:0]),
-        .REGCEAREGCE(1'b1),
-        .REGCEB(1'b1),
+        .REGCEAREGCE(1'b0),
+        .REGCEB(1'b0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
@@ -616,8 +616,8 @@ endmodule
 (* C_EN_RDADDRA_CHG = "0" *) (* C_EN_RDADDRB_CHG = "0" *) (* C_EN_SAFETY_CKT = "0" *) 
 (* C_EN_SHUTDOWN_PIN = "0" *) (* C_EN_SLEEP_PIN = "0" *) (* C_EST_POWER_SUMMARY = "Estimated Power for IP     :     5.9043 mW" *) 
 (* C_FAMILY = "artix7" *) (* C_HAS_AXI_ID = "0" *) (* C_HAS_ENA = "0" *) 
-(* C_HAS_ENB = "0" *) (* C_HAS_INJECTERR = "0" *) (* C_HAS_MEM_OUTPUT_REGS_A = "1" *) 
-(* C_HAS_MEM_OUTPUT_REGS_B = "1" *) (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
+(* C_HAS_ENB = "0" *) (* C_HAS_INJECTERR = "0" *) (* C_HAS_MEM_OUTPUT_REGS_A = "0" *) 
+(* C_HAS_MEM_OUTPUT_REGS_B = "0" *) (* C_HAS_MUX_OUTPUT_REGS_A = "0" *) (* C_HAS_MUX_OUTPUT_REGS_B = "0" *) 
 (* C_HAS_REGCEA = "0" *) (* C_HAS_REGCEB = "0" *) (* C_HAS_RSTA = "0" *) 
 (* C_HAS_RSTB = "0" *) (* C_HAS_SOFTECC_INPUT_REGS_A = "0" *) (* C_HAS_SOFTECC_OUTPUT_REGS_B = "0" *) 
 (* C_INITA_VAL = "0" *) (* C_INITB_VAL = "0" *) (* C_INIT_FILE = "blk_mem_gen_0.mem" *) 

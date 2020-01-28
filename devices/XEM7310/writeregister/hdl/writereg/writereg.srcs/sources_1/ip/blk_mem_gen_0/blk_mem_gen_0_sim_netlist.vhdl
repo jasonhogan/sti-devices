@@ -1,10 +1,10 @@
 -- Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
--- Date        : Wed Jan  1 22:08:09 2020
+-- Date        : Mon Jan 27 19:13:54 2020
 -- Host        : SrLab running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               c:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl
+--               C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_sim_netlist.vhdl
 -- Design      : blk_mem_gen_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -51,8 +51,8 @@ architecture STRUCTURE of blk_mem_gen_0_blk_mem_gen_prim_wrapper is
 begin
 \DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram\: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
-      DOB_REG => 1,
+      DOA_REG => 0,
+      DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
       INITP_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
@@ -261,8 +261,8 @@ begin
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => \NLW_DEVICE_7SERIES.NO_BMM_INFO.TRUE_DP.SIMPLE_PRIM36.ram_RDADDRECC_UNCONNECTED\(8 downto 0),
-      REGCEAREGCE => '1',
-      REGCEB => '1',
+      REGCEAREGCE => '0',
+      REGCEB => '0',
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
@@ -556,9 +556,9 @@ entity blk_mem_gen_0_blk_mem_gen_v8_4_0 is
   attribute C_HAS_INJECTERR : integer;
   attribute C_HAS_INJECTERR of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_A : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_A of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_A of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_B : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_B of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_B of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_A : integer;
   attribute C_HAS_MUX_OUTPUT_REGS_A of blk_mem_gen_0_blk_mem_gen_v8_4_0 : entity is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_B : integer;
@@ -852,9 +852,9 @@ architecture STRUCTURE of blk_mem_gen_0 is
   attribute C_HAS_INJECTERR : integer;
   attribute C_HAS_INJECTERR of U0 : label is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_A : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_A of U0 : label is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_A of U0 : label is 0;
   attribute C_HAS_MEM_OUTPUT_REGS_B : integer;
-  attribute C_HAS_MEM_OUTPUT_REGS_B of U0 : label is 1;
+  attribute C_HAS_MEM_OUTPUT_REGS_B of U0 : label is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_A : integer;
   attribute C_HAS_MUX_OUTPUT_REGS_A of U0 : label is 0;
   attribute C_HAS_MUX_OUTPUT_REGS_B : integer;

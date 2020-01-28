@@ -1,0 +1,257 @@
+/*
+
+Xilinx Vivado v2017.3 (64-bit) [Major: 2017, Minor: 3]
+SW Build: 2018833 on Wed Oct  4 19:58:22 MDT 2017
+IP Build: 2016188 on Wed Oct  4 21:52:56 MDT 2017
+
+Process ID: 43688
+License: Customer
+
+Current time: 	Mon Jan 27 18:50:47 PST 2020
+Time zone: 	Pacific Standard Time (America/Los_Angeles)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1920x1080
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 21 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre
+JVM executable location: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre/bin/java.exe
+
+User name: 	SrLab
+User home directory: C:/Users/SrLab
+User working directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2017.3
+RDI_DATADIR: C:/Xilinx/Vivado/2017.3/data
+RDI_BINDIR: C:/Xilinx/Vivado/2017.3/bin
+
+User preferences location: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado
+Vivado preferences directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/vivado.xml
+Vivado layouts directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2017.3/lib/classes/planAhead.jar
+Vivado log file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/vivado.log
+Vivado journal file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/vivado.jou
+Engine tmp dir: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/.Xil/Vivado-43688-SrLab
+
+GUI allocated memory:	171 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 659 MB
+
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// [GUI Memory]: 51 MB (+51083kb) [00:00:07]
+// [Engine Memory]: 497 MB (+369424kb) [00:00:07]
+// Opening Vivado Project: C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\writeregister\hdl\writereg\writereg.xpr. Version: Vivado v2017.3 
+// bs (cl):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// Tcl Message: open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg' 
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 62 MB (+9078kb) [00:00:10]
+// [Engine Memory]: 594 MB (+76181kb) [00:00:10]
+// [GUI Memory]: 71 MB (+6154kb) [00:00:11]
+// [Engine Memory]: 645 MB (+21666kb) [00:00:11]
+// Tcl Message: open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg' 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.3/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 660 MB. GUI used memory: 51 MB. Current time: 1/27/20 6:50:47 PM PST
+// Project name: writereg; location: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg; part: xc7a200tfbg484-1
+// Tcl Message: open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:06 . Memory (MB): peak = 877.293 ; gain = 134.457 
+dismissDialog("Open Project"); // bs (cl)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Tcl Message: update_compile_order -fileset sources_1 
+// [GUI Memory]: 75 MB (+27kb) [00:03:59]
+// [GUI Memory]: 79 MB (+36kb) [00:05:24]
+// Elapsed time: 321 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd)]", 1, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), okHI : okHost(archHost) (okLibrary.vhd)]", 2, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd)]", 1); // B (D, cl)
+// [GUI Memory]: 88 MB (+5366kb) [00:05:42]
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources]", 9); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd)]", 1); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd)]", 12); // B (D, cl)
+// Elapsed time: 26 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), okHI : okHost(archHost) (okLibrary.vhd)]", 2); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), okHI : okHost(archHost) (okLibrary.vhd)]", 2); // B (D, cl)
+// [GUI Memory]: 93 MB (+919kb) [00:06:25]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), okWO : okWireOR(archWireOR) (okLibrary.vhd)]", 3, false); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), okWO : okWireOR(archWireOR) (okLibrary.vhd)]", 3, false, false, false, false, false, true); // B (D, cl) - Double Click
+// Elapsed time: 78 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "writereg_top.vhd", 1); // k (j, cl)
+selectCodeEditor("writereg_top.vhd", 101, 118); // cd (w, cl)
+selectCodeEditor("writereg_top.vhd", 100, 118, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 30 seconds
+selectCodeEditor("writereg_top.vhd", 52, 37); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "okLibrary.vhd", 2); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "writereg_top.vhd", 1); // k (j, cl)
+// [GUI Memory]: 101 MB (+3011kb) [00:08:32]
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "okLibrary.vhd", 2); // k (j, cl)
+selectCodeEditor("okLibrary.vhd", 380, 170); // cd (w, cl)
+selectCodeEditor("okLibrary.vhd", 380, 170, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("okLibrary.vhd", 383, 157); // cd (w, cl)
+selectCodeEditor("okLibrary.vhd", 383, 157, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 106 seconds
+closeView(PAResourceOtoP.PAViews_CODE, "Code"); // B
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd)]", 12, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd)]", 12, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+selectCodeEditor("timing_module.vhd", 166, 309); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 177, 302); // cd (w, cl)
+// Elapsed time: 89 seconds
+selectCodeEditor("timing_module.vhd", 121, 239); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 118, 239, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_module.vhd", 124, 247); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 124, 247, false, false, false, false, true); // cd (w, cl) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "writereg_top.vhd", 1); // k (j, cl)
+selectCodeEditor("writereg_top.vhd", 91, 244); // cd (w, cl)
+selectCodeEditor("writereg_top.vhd", 91, 244, false, false, false, false, true); // cd (w, cl) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_module.vhd", 2); // k (j, cl)
+selectCodeEditor("timing_module.vhd", 202, 132); // cd (w, cl)
+// Elapsed time: 144 seconds
+selectCodeEditor("timing_module.vhd", 157, 212); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 25, 207); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 20 seconds
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd)]", 1); // B (D, cl)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, cl)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// bs (cl):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bs (cl)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// bs (cl):  Generate Bitstream : addNotify
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 4 
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Mon Jan 27 19:05:57 2020] Launched synth_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/synth_1/runme.log [Mon Jan 27 19:05:57 2020] Launched impl_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/impl_1/runme.log 
+dismissDialog("Generate Bitstream"); // bs (cl)
+// [GUI Memory]: 110 MB (+4226kb) [00:15:38]
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking too long to process. Increasing delay to 2000 ms.
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// Elapsed time: 310 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd)]", 1); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd)]", 12); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd), evt_register : blk_mem_gen_0 (blk_mem_gen_0.xci)]", 13, false); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, writereg_top(arch) (writereg_top.vhd), module0 : timing_module(Behavioral) (timing_module.vhd), evt_register : blk_mem_gen_0 (blk_mem_gen_0.xci)]", 13, false, false, false, false, false, true); // B (D, cl) - Double Click
+// Run Command: PAResourceCommand.PACommandNames_RECUSTOMIZE_CORE
+// TclEventType: LOAD_FEATURE
+// N (cl):  Re-customize IP : addNotify
+// Tcl Message: INFO: [Device 21-403] Loading part xc7a200tfbg484-1 
+// [Engine Memory]: 721 MB (+46533kb) [00:20:44]
+// r (cl): Re-customize IP: addNotify
+dismissDialog("Re-customize IP"); // N (cl)
+// HMemoryUtils.trashcanNow. Engine heap size: 761 MB. GUI used memory: 64 MB. Current time: 1/27/20 7:11:21 PM PST
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Port A Options", 1); // bb (C, r)
+// [Engine Memory]: 763 MB (+5630kb) [00:20:48]
+selectCheckBox((HResource) null, "Primitives Output Register", false); // g (l, r): FALSE
+// Elapsed time: 28 seconds
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Port B Options", 2); // bb (C, r)
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Port A Options", 1); // bb (C, r)
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Port B Options", 2); // bb (C, r)
+selectCheckBox((HResource) null, "Primitives Output Register", false); // g (l, r): FALSE
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Port A Options", 1); // bb (C, r)
+selectTab(PAResourceEtoH.HACGCTabbedPane_TABBED_PANE, (HResource) null, "Summary", 4); // bb (C, r)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (r)
+// [Engine Memory]: 806 MB (+5586kb) [00:21:31]
+dismissDialog("Re-customize IP"); // r (cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILESET_UPDATE_IP
+// Tcl Message: set_property -dict [list CONFIG.Register_PortA_Output_of_Memory_Primitives {false} CONFIG.Register_PortB_Output_of_Memory_Primitives {false}] [get_ips blk_mem_gen_0] 
+// au (cl): Generate Output Products: addNotify
+// HMemoryUtils.trashcanNow. Engine heap size: 806 MB. GUI used memory: 60 MB. Current time: 1/27/20 7:12:06 PM PST
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectButton(PAResourceQtoS.SimpleOutputProductDialog_GENERATE_OUTPUT_PRODUCTS_IMMEDIATELY, "Generate"); // a (au)
+// bs (cl):  Managing Output Products : addNotify
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: generate_target all [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] 
+// Tcl Message: INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'blk_mem_gen_0'... INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'blk_mem_gen_0'... INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'blk_mem_gen_0'... INFO: [IP_Flow 19-1686] Generating 'Miscellaneous' target for IP 'blk_mem_gen_0'... INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'blk_mem_gen_0'... 
+// Tcl Message: catch { config_ip_cache -export [get_ips -all blk_mem_gen_0] } 
+// Tcl Message: export_ip_user_files -of_objects [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci] -no_script -sync -force -quiet 
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run blk_mem_gen_0_synth_1 
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// Tcl Message: launch_runs -jobs 4 blk_mem_gen_0_synth_1 
+// Tcl Message: [Mon Jan 27 19:12:10 2020] Launched blk_mem_gen_0_synth_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/blk_mem_gen_0_synth_1/runme.log 
+// TclEventType: PROJECT_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: PACKAGER_MESSAGE_RESET
+// TclEventType: PACKAGER_UNLOAD_CORE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectButton("PAResourceQtoS.SimpleOutputProductDialog_OUT_OF_CONTEXT_MODULE_RUNS_WERE_LAUNCHED_OK", "OK"); // JButton (A, G)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, cl)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, cl)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// bs (cl):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+dismissDialog("Resetting Runs"); // bs (cl)
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// bs (cl):  Generate Bitstream : addNotify
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 4 
+// Tcl Message: [Mon Jan 27 19:12:21 2020] Launched blk_mem_gen_0_synth_1, synth_1... Run output will be captured here: blk_mem_gen_0_synth_1: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/blk_mem_gen_0_synth_1/runme.log synth_1: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/synth_1/runme.log [Mon Jan 27 19:12:21 2020] Launched impl_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.runs/impl_1/runme.log 
+dismissDialog("Generate Bitstream"); // bs (cl)
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking too long to process. Increasing delay to 2000 ms.
+// [GUI Memory]: 132 MB (+17195kb) [00:24:05]
+// [GUI Memory]: 139 MB (+1179kb) [00:24:05]
+// HMemoryUtils.trashcanNow. Engine heap size: 844 MB. GUI used memory: 71 MB. Current time: 1/27/20 7:14:41 PM PST
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// [Engine Memory]: 855 MB (+8569kb) [00:26:09]

@@ -86,7 +86,8 @@ not_clk <= not clk;
 
 evt_register : blk_mem_gen_0
   PORT MAP (
-    clka => not_clk,
+--    clka => not_clk,
+    clka => clk,
 --    ena => read,
     wea => writeA,
     addra => addr_in(9 downto 0),
