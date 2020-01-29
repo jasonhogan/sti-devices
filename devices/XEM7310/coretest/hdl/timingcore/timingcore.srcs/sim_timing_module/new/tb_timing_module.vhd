@@ -31,6 +31,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+--library xil_defaultlib;
+use work.stf_timing.all;
+
 entity tb_timing_module is
 end tb_timing_module;
 
@@ -54,12 +57,16 @@ architecture Behavioral of tb_timing_module is
            ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
            
            -- STF module
-           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
-           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
-           stf_play   : out STD_LOGIC;
-           stf_option : out STD_LOGIC;
-           stf_write  : in STD_LOGIC;
-           stf_error  : in STD_LOGIC
+           stf_out : out to_stf_module;
+           stf_in  : in from_stf_module
+           
+--           -- STF module
+--           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+--           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+--           stf_play   : out STD_LOGIC;
+--           stf_option : out STD_LOGIC;
+--           stf_write  : in STD_LOGIC;
+--           stf_error  : in STD_LOGIC
          );
     end component;
     
@@ -68,11 +75,15 @@ architecture Behavioral of tb_timing_module is
        clk        : in STD_LOGIC;
        reset      : in STD_LOGIC;
 
-       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
-       stf_play   : in STD_LOGIC;
-       stf_option : in STD_LOGIC;
-       stf_write  : out STD_LOGIC;
-       stf_error  : out STD_LOGIC;
+       -- STF module
+       stf_in  : in to_stf_module;
+       stf_out : out from_stf_module;
+
+--       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
+--       stf_play   : in STD_LOGIC;
+--       stf_option : in STD_LOGIC;
+--       stf_write  : out STD_LOGIC;
+--       stf_error  : out STD_LOGIC;
        
        stf_pins   : out STD_LOGIC_VECTOR (25 downto 0)
           );
@@ -106,11 +117,16 @@ architecture Behavioral of tb_timing_module is
     signal start     : STD_LOGIC;
     signal stop      : STD_LOGIC;
     signal ini_addr  : STD_LOGIC_VECTOR (31 downto 0);
+
+
+    signal stf_out : to_stf_module;
+    signal stf_in  : in from_stf_module;
+
     
     -- module under test
     signal stf_play   : STD_LOGIC;
     signal stf_option : STD_LOGIC;
-    signal stf_bus    : STD_LOGIC_VECTOR (27 downto 0);
+--    signal stf_bus    : STD_LOGIC_VECTOR (27 downto 0);
     signal stf_write  : STD_LOGIC;
     signal stf_write_fake : STD_LOGIC := '0';
     signal stf_error : STD_LOGIC;
@@ -118,7 +134,11 @@ architecture Behavioral of tb_timing_module is
         
     signal stf_pins  : STD_LOGIC_VECTOR (25 downto 0);
 begin
-    
+
+--stf_in.stf_data
+--stf_in.stf_write
+--stf_in.stf_error
+
     MUT: timing_module
     port map 
         (
@@ -134,26 +154,34 @@ begin
         start    => start,
         stop     => stop,
         ini_addr => ini_addr,
-  
 
         -- STF module
-        stf_bus    => stf_bus,
-        stf_data   => stf_data,
-        stf_play   => stf_play,
-        stf_option => stf_option,
-        stf_write  => stf_write_fake,
-        stf_error  => stf_error
+        stf_out => stf_out,
+        stf_in  => stf_in
+
+--        -- STF module
+--        stf_bus    => stf_bus,
+--        stf_data   => stf_data,
+--        stf_play   => stf_play,
+--        stf_option => stf_option,
+--        stf_write  => stf_write_fake,
+--        stf_error  => stf_error
         );
 
     digital: stf_output
     Port map (
        clk       => clk,
        reset     => rst,
-       stf_bus   => stf_bus,
-       stf_play  => stf_play,
-       stf_option => stf_option,
-       stf_write => stf_write,
-       stf_error => stf_error,
+       
+       stf_in  => stf_out,
+       stf_out => stf_in,
+       
+--       stf_bus   => stf_bus,
+--       stf_play  => stf_play,
+--       stf_option => stf_option,
+--       stf_write => stf_write,
+--       stf_error => stf_error,
+       
        stf_pins  => stf_pins
         );
 

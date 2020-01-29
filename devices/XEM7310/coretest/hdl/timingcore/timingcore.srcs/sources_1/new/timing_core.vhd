@@ -27,6 +27,8 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+use work.stf_timing.all;
+
 entity timing_core is
     Port ( 
            clk      : in STD_LOGIC;
@@ -44,16 +46,22 @@ entity timing_core is
            evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
 
            -- STF module
-           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
-           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
-           stf_play   : out STD_LOGIC;
-           stf_option : out STD_LOGIC;
-           stf_write  : in STD_LOGIC;                        -- The stf module asserts this when data is ready
-           stf_error  : in STD_LOGIC
+           stf_out : out to_stf_module;
+           stf_in  : in from_stf_module
+           
+           -- STF module
+      --     stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+      --     stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+      --     stf_play   : out STD_LOGIC;
+      --     stf_option : out STD_LOGIC;
+      --     stf_write  : in STD_LOGIC;                        -- The stf module asserts this when data is ready
+      --     stf_error  : in STD_LOGIC
          );
 end timing_core;
 
 architecture timing_core_arch of timing_core is
+   
+   
    
     -- Load state machine
     type load_state_labels is ( Idle, Load, Hold, Finish, Abort, Jump, Save );
@@ -161,7 +169,7 @@ begin
             end if;
           when Hold =>
             if (stop = '1') then                                load_state <= Abort;
-            elsif (stf_write = '1') then                        load_state <= Save;
+            elsif (stf_in.stf_write = '1') then                 load_state <= Save;
             elsif (load_next = '1') then
                 if ( opcode_lookup(evt_opcode) = Jump ) then    load_state <= Jump;
                 elsif (opcode_lookup(next_opcode) = EndOp) then load_state <= Finish;
@@ -241,7 +249,7 @@ begin
           
           next_data_valid <= '0';
           value_valid <= '0';
-          stf_play <= '0';
+          stf_out.stf_play <= '0';
           
           jump_evt_p2 <= '0';
           
@@ -319,16 +327,16 @@ begin
 
         -------- Play flag
         if (play_state = Play) then
-            stf_play <= '1';
+            stf_out.stf_play <= '1';
         else
-            stf_play <= '0';
+            stf_out.stf_play <= '0';
         end if;
 
         -------- Option flag
         if (play_state = Option) then
-            stf_option <= '1';
+            stf_out.stf_option <= '1';
         else
-            stf_option <= '0';
+            stf_out.stf_option <= '0';
         end if;
 
         -------- Save reg
@@ -382,9 +390,11 @@ jump_evt <= '1' when ((waiting = '0') AND ( opcode_lookup(next_opcode) = Jump ))
 perform_jump <= '1' when (load_state /= Jump) AND (jump_evt_p2 = '1' OR (jump_evt = '1' AND (NOT next_waiting = '1'))) else
                 '0';
 
-stf_bus <= stf_bus_reg;     -- output to the module, from the register
+--stf_bus <= stf_bus_reg;     -- output to the module, from the register
+stf_out.stf_bus <= stf_bus_reg;     -- output to the module, from the register
 
-evt_data_out <= stf_data;   -- input data from the module, to the register
+
+evt_data_out <= stf_in.stf_data;   -- input data from the module, to the register
 
 
 end timing_core_arch;

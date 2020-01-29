@@ -31,16 +31,22 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+use work.stf_timing.all;
+
 entity stf_output is
     Port ( 
        clk       : in STD_LOGIC;
        reset     : in STD_LOGIC;
 
-       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
-       stf_play   : in STD_LOGIC;
-       stf_option : in STD_LOGIC;
-       stf_write  : out STD_LOGIC;
-       stf_error  : out STD_LOGIC;
+--       stf_bus    : in STD_LOGIC_VECTOR (27 downto 0);
+--       stf_play   : in STD_LOGIC;
+--       stf_option : in STD_LOGIC;
+--       stf_write  : out STD_LOGIC;
+--       stf_error  : out STD_LOGIC;
+       
+       -- STF module
+       stf_in  : in to_stf_module;
+       stf_out : out from_stf_module;
        
        stf_pins : out STD_LOGIC_VECTOR (25 downto 0)
      );
@@ -57,13 +63,14 @@ begin
         
       elsif rising_edge(clk) then
 
-        if (stf_play = '1') then    -- here is where we can check for "ready" and raise an error if needed
-            stf_pins <= stf_bus(25 downto 0);
+        if (stf_in.stf_play = '1') then    -- here is where we can check for "ready" and raise an error if needed
+            stf_pins <= stf_in.stf_bus(25 downto 0);
         end if;
       end if;
     end process;
 
-stf_write <= '0';
-stf_error <= '0';
+stf_out.stf_write <= '0';
+stf_out.stf_error <= '0';
+stf_out.stf_data <= x"00000000";
 
 end stf_output_arch;

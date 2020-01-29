@@ -29,12 +29,15 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+use work.stf_timing.all;
+
 entity timing_module is
     Port ( 
            reset    : in STD_LOGIC;
 
            -- Event register           
            ram_clk  : in STD_LOGIC;
+           
            write    : in STD_LOGIC;
            addr_in  : in STD_LOGIC_VECTOR (31 downto 0);
            data_in  : in STD_LOGIC_VECTOR (31 downto 0);
@@ -42,17 +45,26 @@ entity timing_module is
 
            -- Timing core
            core_clk : in STD_LOGIC;
+           
            start    : in STD_LOGIC;
            stop     : in STD_LOGIC;
            ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
            
+           -- Timing module bus
+           mod_bus_in  : in to_timing_mod;
+           mod_bus_out : out from_timing_mod;
+           
            -- STF module
-           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
-           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
-           stf_play   : out STD_LOGIC;
-           stf_option : out STD_LOGIC;
-           stf_write  : in STD_LOGIC;
-           stf_error  : in STD_LOGIC
+           stf_out : out to_stf_module;
+           stf_in  : in from_stf_module
+           
+--           -- STF module
+--           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+--           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+--           stf_play   : out STD_LOGIC;
+--           stf_option : out STD_LOGIC;
+--           stf_write  : in STD_LOGIC;
+--           stf_error  : in STD_LOGIC
          );
 end timing_module;
 
@@ -88,14 +100,18 @@ architecture timing_module_arch of timing_module is
        evt_data : in STD_LOGIC_VECTOR (63 downto 0);    -- 32 bit for delay, 32 bits for data
        write    : out STD_LOGIC;                        -- High when the core is writing
        evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
-           
+        
        -- STF module
-       stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
-       stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
-       stf_play   : out STD_LOGIC;
-       stf_option : out STD_LOGIC;
-       stf_write  : in STD_LOGIC;
-       stf_error  : in STD_LOGIC
+       stf_out : out to_stf_module;
+       stf_in  : in from_stf_module
+          
+--       -- STF module
+--       stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
+--       stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
+--       stf_play   : out STD_LOGIC;
+--       stf_option : out STD_LOGIC;
+--       stf_write  : in STD_LOGIC;
+--       stf_error  : in STD_LOGIC
       );
     end component;
 
@@ -152,12 +168,16 @@ port map
     evt_data_out => evt_data_out,
 
     -- STF module
-    stf_bus    => stf_bus,
-    stf_data   => stf_data,
-    stf_play   => stf_play,
-    stf_option => stf_option,
-    stf_write  => stf_write,
-    stf_error  => stf_error
+    stf_out => stf_out,
+    stf_in => stf_in
+
+--    -- STF module
+--    stf_bus    => stf_bus,
+--    stf_data   => stf_data,
+--    stf_play   => stf_play,
+--    stf_option => stf_option,
+--    stf_write  => stf_write,
+--    stf_error  => stf_error
     );
 
 end timing_module_arch;
