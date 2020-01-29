@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Tue Jan 28 22:11:11 2020
+# Process ID: 32412
+# Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent29408 C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\bufwritter\hdl\bufwriter\bufwriter.xpr
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/vivado.log
+# Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.xpr
+update_compile_order -fileset sources_1

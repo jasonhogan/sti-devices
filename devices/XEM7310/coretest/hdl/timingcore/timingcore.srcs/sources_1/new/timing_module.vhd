@@ -38,17 +38,17 @@ entity timing_module is
            -- Event register           
            ram_clk  : in STD_LOGIC;
            
-           write    : in STD_LOGIC;
-           addr_in  : in STD_LOGIC_VECTOR (31 downto 0);
-           data_in  : in STD_LOGIC_VECTOR (31 downto 0);
-           data_out : out STD_LOGIC_VECTOR (31 downto 0);
+           --write    : in STD_LOGIC;
+           --addr_in  : in STD_LOGIC_VECTOR (31 downto 0);
+           --data_in  : in STD_LOGIC_VECTOR (31 downto 0);
+           --data_out : out STD_LOGIC_VECTOR (31 downto 0);
 
            -- Timing core
            core_clk : in STD_LOGIC;
            
-           start    : in STD_LOGIC;
-           stop     : in STD_LOGIC;
-           ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
+           --start    : in STD_LOGIC;
+           --stop     : in STD_LOGIC;
+           --ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
            
            -- Timing module bus
            mod_bus_in  : in to_timing_mod;
@@ -126,7 +126,7 @@ architecture timing_module_arch of timing_module is
 
 begin
 
-writeA <= "1" when (write = '1') else "0";
+writeA <= "1" when (mod_bus_in.write = '1') else "0";
 writeB <= "1" when (core_write = '1') else "0";
 
 --evt_data_out <= X"0000000000000000";    --temp
@@ -138,9 +138,9 @@ evt_register : blk_mem_gen_0
     -- OK bus
     clka => ram_clk,
     wea => writeA,
-    addra => addr_in(10 downto 0),
-    dina => data_in,
-    douta => data_out,
+    addra => mod_bus_in.addr_in(10 downto 0),
+    dina => mod_bus_in.data_in,
+    douta => mod_bus_out.data_out,
     
     -- Timing core
     clkb => core_clk,
@@ -157,9 +157,9 @@ port map
     reset    => reset,
     
     -- Core control
-    start    => start,
-    stop     => stop,
-    ini_addr => ini_addr,
+    start    => mod_bus_in.start,
+    stop     => mod_bus_in.stop,
+    ini_addr => mod_bus_in.ini_addr,
 
     -- Event register
     evt_addr => evt_addr,

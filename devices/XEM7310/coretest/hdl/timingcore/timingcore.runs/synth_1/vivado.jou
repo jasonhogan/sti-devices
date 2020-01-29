@@ -2,11 +2,11 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Sat Jan 25 21:51:33 2020
-# Process ID: 33592
+# Start of session at: Tue Jan 28 22:27:29 2020
+# Process ID: 492
 # Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1
-# Command line: vivado.exe -log timing_module.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_module.tcl
-# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_module.vds
+# Command line: vivado.exe -log timing_mod_test_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_mod_test_top.tcl
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.vds
 # Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1\vivado.jou
 #-----------------------------------------------------------
-source timing_module.tcl -notrace
+source timing_mod_test_top.tcl -notrace
