@@ -50,3 +50,5 @@ devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.sim/sim_1/
 devices/XEM7310/BRAMtest/blk_mem_gen_0_ex/
 devices/XEM7310/BRAMtest/
 devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/impl_1/
+devices/XEM7310/coretest/project/.vs/
+devices/XEM7310/coretest/project/x64/

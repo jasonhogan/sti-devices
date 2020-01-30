@@ -4224,3 +4224,377 @@ dismissDialog("Resetting Runs"); // bs (cl)
 selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 6); // k (j, cl)
 selectCodeEditor("ok_controller.vhd", 107, 101, false, false, false, true, false); // cd (w, cl) - Popup Trigger
 selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 6); // k (j, cl)
+// Elapsed time: 226 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 7); // k (j, cl)
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 73 MB. Current time: 1/28/20 10:49:37 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/28/20 11:19:37 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/28/20 11:49:38 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 12:19:37 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 12:49:38 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 1:19:38 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 1:49:38 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 2:19:38 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 2:49:38 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 3:19:39 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 3:49:39 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 4:19:39 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 4:49:39 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 5:19:40 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 5:49:40 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 6:19:40 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 6:49:40 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 7:19:41 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 7:49:41 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 8:19:41 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 8:49:41 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 9:19:41 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 9:49:42 AM PST
+// WARNING: HSwingWorker (Update Runs Swing Worker) is taking too long to process. Increasing delay to 3000 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 10:19:42 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 10:49:42 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 11:19:42 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 11:49:43 AM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 12:19:43 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 12:49:43 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 72 MB. Current time: 1/29/20 1:19:43 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 1:49:43 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 2:19:44 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 2:49:44 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 3:19:44 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 3:49:44 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 4:19:45 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 4:49:45 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 5:19:45 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 5:49:46 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 6:19:46 PM PST
+// Elapsed time: 71136 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_core.vhd", 4); // k (j, cl)
+// Elapsed time: 257 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 6); // k (j, cl)
+// Elapsed time: 11 seconds
+selectCodeEditor("ok_controller.vhd", 884, 159); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 884, 159, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("ok_controller.vhd", 901, 161); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 901, 161, false, false, false, false, true); // cd (w, cl) - Double Click
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 6:49:46 PM PST
+// HMemoryUtils.trashcanNow. Engine heap size: 689 MB. GUI used memory: 71 MB. Current time: 1/29/20 7:19:46 PM PST
+// Elapsed time: 3363 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_timing_module, tb_timing_module(Behavioral) (tb_timing_module.vhd)]", 18); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_timing_module, tb_timing_module(Behavioral) (tb_timing_module.vhd)]", 18); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_timing_module, tb_timing_module(Behavioral) (tb_timing_module.vhd)]", 18); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_timing_module, tb_timing_module(Behavioral) (tb_timing_module.vhd)]", 18); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_timing_module, tb_timing_module(Behavioral) (tb_timing_module.vhd)]", 18); // B (D, cl)
+// Elapsed time: 17 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd)]", 3); // B (D, cl)
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), digital : stf_output(stf_output_arch) (stf_output.vhd)]", 6, false); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd)]", 3); // B (D, cl)
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd)]", 3, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), digital : stf_output(stf_output_arch) (stf_output.vhd)]", 4, false); // B (D, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_module.vhd", 5); // k (j, cl)
+selectCodeEditor("timing_module.vhd", 316, 351); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 219, 352); // cd (w, cl)
+selectCodeEditor("timing_module.vhd", 233, 333); // cd (w, cl)
+// Elapsed time: 15 seconds
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Open Synthesized Design]", 15); // u (O, cl)
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Open Synthesized Design]", 15); // u (O, cl)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Open Synthesized Design, Schematic]", 26, false); // u (O, cl)
+// bs (cl):  Open Synthesized Design : addNotify
+// Tcl Message: open_run synth_1 -name synth_1 
+// Tcl Message: Design is defaulting to impl run constrset: constrs_1 Design is defaulting to synth run part: xc7a200tfbg484-1 
+// [Engine Memory]: 763 MB (+75743kb) [25:03:45]
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: POWER_CNS_STALE
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// HMemoryUtils.trashcanNow. Engine heap size: 889 MB. GUI used memory: 72 MB. Current time: 1/29/20 7:24:26 PM PST
+// [Engine Memory]: 899 MB (+103028kb) [25:03:50]
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// [Engine Memory]: 1,330 MB (+405058kb) [25:03:59]
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 1,331 MB. GUI used memory: 72 MB. Current time: 1/29/20 7:24:37 PM PST
+// [Engine Memory]: 1,400 MB (+3591kb) [25:04:00]
+// TclEventType: DESIGN_NEW
+// [Engine Memory]: 1,471 MB (+234kb) [25:04:00]
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// Device: addNotify
+// DeviceView Instantiated
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: INFO: [Project 1-454] Reading design checkpoint 'c:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.dcp' for cell 'mod0/evt_register' INFO: [Netlist 29-17] Analyzing 164 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2017.3 INFO: [Device 21-403] Loading part xc7a200tfbg484-1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc] 
+// Tcl Message: INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:97] INFO: [Timing 38-2] Deriving generated clocks [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:97] 
+// Tcl Message: get_clocks: Time (s): cpu = 00:00:13 ; elapsed = 00:00:11 . Memory (MB): peak = 1792.785 ; gain = 534.293 
+// Tcl Message: Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc] 
+// Tcl Message: INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). INFO: [Project 1-111] Unisim Transformation Summary:   A total of 95 instances were transformed.   IOBUF => IOBUF (IBUF, OBUFT): 33 instances   LUT6_2 => LUT6_2 (LUT5, LUT6): 50 instances   RAM128X1S => RAM128X1S (MUXF7, RAMS64E, RAMS64E): 8 instances   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances  
+// Device view-level: 0.0
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// Tcl Message: open_run: Time (s): cpu = 00:00:32 ; elapsed = 00:00:26 . Memory (MB): peak = 1838.371 ; gain = 848.445 
+// Run Command: PAResourceCommand.PACommandNames_SCHEMATIC
+// Schematic: addNotify
+// Elapsed time: 27 seconds
+dismissDialog("Open Synthesized Design"); // bs (cl)
+// [GUI Memory]: 168 MB (+260kb) [25:05:01]
+// Elapsed time: 116 seconds
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aF (Q, cl)
+// [GUI Memory]: 176 MB (+141kb) [25:19:11]
+// HMemoryUtils.trashcanNow. Engine heap size: 1,530 MB. GUI used memory: 117 MB. Current time: 1/29/20 7:54:42 PM PST
