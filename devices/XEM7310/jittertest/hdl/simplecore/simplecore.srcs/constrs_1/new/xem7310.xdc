@@ -596,6 +596,6 @@ set_property IOSTANDARD LVCMOS33 [get_ports {ybusn[29]}]
 
 
 set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbusn[*]}]
-set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbusn[*]}]
+set_output_delay -clock [get_clocks sys_clk] -max -add_delay 10.000 [get_ports {xbusn[*]}]
 set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbusp[*]}]
-set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbusp[*]}]
+set_output_delay -clock [get_clocks sys_clk] -max -add_delay 10.000 [get_ports {xbusp[*]}]

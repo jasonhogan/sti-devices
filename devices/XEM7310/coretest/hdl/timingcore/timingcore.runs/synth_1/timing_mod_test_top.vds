@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Tue Jan 28 22:27:29 2020
-# Process ID: 492
+# Start of session at: Thu Jan 30 19:52:36 2020
+# Process ID: 39844
 # Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1
 # Command line: vivado.exe -log timing_mod_test_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_mod_test_top.tcl
 # Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.vds
@@ -15,9 +15,9 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 40972 
+INFO: Helper process launched with PID 12112 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 358.137 ; gain = 99.285
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 358.602 ; gain = 100.379
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:59]
 	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
@@ -25,8 +25,8 @@ INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Do
 	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
 	Parameter IBUF_LOW_PWR bound to: 1 - type: bool 
 	Parameter IOSTANDARD bound to: DEFAULT - type: string 
-INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:136]
-INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:138]
+INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:137]
+INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:139]
 INFO: [Synth 8-638] synthesizing module 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:53]
 INFO: [Synth 8-3491] module 'okHost' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:14' bound to instance 'okHI' of component 'okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:79]
 INFO: [Synth 8-638] synthesizing module 'xil_defaultlib_okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:28]
@@ -1169,7 +1169,7 @@ INFO: [Synth 8-256] done synthesizing module 'LUT4__parameterized42' (27#1) [C:/
 WARNING: [Synth 8-3848] Net ep21wire in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:63]
 INFO: [Synth 8-256] done synthesizing module 'ok_controller' (31#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:53]
 INFO: [Synth 8-638] synthesizing module 'timing_module' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:71]
-INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-492-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
+INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-39844-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
 INFO: [Synth 8-638] synthesizing module 'timing_core' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:62]
 INFO: [Synth 8-256] done synthesizing module 'timing_core' (32#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:62]
 WARNING: [Synth 8-3848] Net mod_bus_out[error] in module/entity timing_module does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:55]
@@ -1318,7 +1318,7 @@ WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[80]
 WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[79]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 419.254 ; gain = 160.402
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 419.719 ; gain = 161.496
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1429,7 +1429,7 @@ WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[226] to constant 0 [C:/Use
 WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[225] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:100]
 INFO: [Common 17-14] Message 'Synth 8-3295' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 419.254 ; gain = 160.402
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 419.719 ; gain = 161.496
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 147 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1438,8 +1438,8 @@ INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-492-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
-Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-492-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-39844-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-39844-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
 Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:72]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:73]
@@ -1459,24 +1459,24 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM128X1S => RAM128X1S (MUXF7, RAMS64E, RAMS64E): 8 instances
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 777.406 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 777.938 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'mod0/evt_register' at clock pin 'clka' is different from the actual clock period '9.920', this can lead to different synthesis results.
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Constraint Validation : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a200tfbg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property DONT_TOUCH = true for mod0/evt_register. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'load_state_reg' in module 'timing_core'
 INFO: [Synth 8-802] inferred FSM for state register 'play_state_reg' in module 'timing_core'
@@ -1517,7 +1517,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'load_state_reg' using enco
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'play_state_reg' using encoding 'sequential' in module 'timing_core'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1720,7 +1720,7 @@ WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[19]) is unused and wi
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[1]) is unused and will be removed from module okWireIn.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1732,13 +1732,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Timing Optimization : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1750,7 +1750,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Technology Mapping : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1774,7 +1774,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished IO Insertion : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1787,7 +1787,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1799,25 +1799,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1851,7 +1851,7 @@ Report Cell Usage:
 |15    |RAMB18E1             |     1|
 |16    |RAMB18E1_1           |     1|
 |17    |RAMB36E1             |     1|
-|18    |FDCE                 |   367|
+|18    |FDCE                 |   393|
 |19    |FDPE                 |    38|
 |20    |FDRE                 |   578|
 |21    |FDSE                 |     5|
@@ -1863,11 +1863,11 @@ Report Cell Usage:
 |27    |OBUFT                |    68|
 +------+---------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1188 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:29 . Memory (MB): peak = 777.406 ; gain = 160.402
-Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 777.406 ; gain = 518.555
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:30 . Memory (MB): peak = 777.938 ; gain = 161.496
+Synthesis Optimization Complete : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.938 ; gain = 519.715
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 162 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1886,8 +1886,8 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 INFO: [Common 17-83] Releasing license: Synthesis
 1047 Infos, 381 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 777.406 ; gain = 526.039
+synth_design: Time (s): cpu = 00:00:38 ; elapsed = 00:00:39 . Memory (MB): peak = 777.938 ; gain = 526.609
 INFO: [Common 17-1381] The checkpoint 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_module_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.096 . Memory (MB): peak = 777.406 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Tue Jan 28 22:28:11 2020...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.090 . Memory (MB): peak = 777.938 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Thu Jan 30 19:53:20 2020...

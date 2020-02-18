@@ -190,6 +190,7 @@
         </FileInfo>
       </File>
       <Config>
+        <Option Name="TargetConstrsFile" Val="$PPRDIR/../../../bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc"/>
         <Option Name="ConstrsType" Val="XDC"/>
       </Config>
     </FileSet>

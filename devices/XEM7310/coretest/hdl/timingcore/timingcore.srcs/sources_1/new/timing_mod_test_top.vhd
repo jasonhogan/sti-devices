@@ -127,6 +127,7 @@ architecture Behavioral of timing_mod_test_top is
     signal mod0_bus : timing_mod_bus;
 
     signal stf_pins  : STD_LOGIC_VECTOR (25 downto 0);
+    signal stf_pins_buffer : STD_LOGIC_VECTOR (25 downto 0); 
 
     signal xemJ2 : STD_LOGIC_VECTOR(40 downto 1);   -- Connector J2 on XEM breakout (40 pin)
     signal stfJP0 : STD_LOGIC_VECTOR(26 downto 1);   -- Connector JP0 on any STF daughter board (34 pin, first 26 are logic)
@@ -182,10 +183,21 @@ begin
         );
 
 
-stfJP0 <= stf_pins(25 downto 0);
+--stfJP0 <= stf_pins(25 downto 0);
+
+    Reg_Proc: process (sys_clk, global_rst)
+    begin
+      if (global_rst = '1') then
+        stf_pins_buffer <= X"000000" & '0' & '0';
+        
+      elsif rising_edge(sys_clk) then
+        stf_pins_buffer <= stf_pins;
+      end if;
+    end process;
 
 
 
+stfJP0 <= stf_pins_buffer(25 downto 0);
 
 -- New pin names
 xbusp <= (  12 => xemJ2(1),  --R3
