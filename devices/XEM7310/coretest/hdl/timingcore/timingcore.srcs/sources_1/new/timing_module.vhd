@@ -34,37 +34,18 @@ use work.stf_timing.all;
 entity timing_module is
     Port ( 
            reset    : in STD_LOGIC;
+               
+           ram_clk  : in STD_LOGIC;     -- Event register   
+           core_clk : in STD_LOGIC;     -- Timing core
 
-           -- Event register           
-           ram_clk  : in STD_LOGIC;
-           
-           --write    : in STD_LOGIC;
-           --addr_in  : in STD_LOGIC_VECTOR (31 downto 0);
-           --data_in  : in STD_LOGIC_VECTOR (31 downto 0);
-           --data_out : out STD_LOGIC_VECTOR (31 downto 0);
-
-           -- Timing core
-           core_clk : in STD_LOGIC;
-           
-           --start    : in STD_LOGIC;
-           --stop     : in STD_LOGIC;
-           --ini_addr : in STD_LOGIC_VECTOR (31 downto 0);        
-           
            -- Timing module bus
            mod_bus_in  : in to_timing_mod;
            mod_bus_out : out from_timing_mod;
            
            -- STF module
-           stf_out : out to_stf_module;
-           stf_in  : in from_stf_module
+           stf_out     : out to_stf_module;
+           stf_in      : in from_stf_module
            
---           -- STF module
---           stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
---           stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
---           stf_play   : out STD_LOGIC;
---           stf_option : out STD_LOGIC;
---           stf_write  : in STD_LOGIC;
---           stf_error  : in STD_LOGIC
          );
 end timing_module;
 
@@ -93,6 +74,8 @@ architecture timing_module_arch of timing_module is
        -- Core control
        start    : in STD_LOGIC;
        stop     : in STD_LOGIC;
+       pause    : in STD_LOGIC;
+       trigger  : in STD_LOGIC;
        ini_addr : in STD_LOGIC_VECTOR (31 downto 0);    -- initial address
 
        -- Event register
@@ -104,14 +87,6 @@ architecture timing_module_arch of timing_module is
        -- STF module
        stf_out : out to_stf_module;
        stf_in  : in from_stf_module
-          
---       -- STF module
---       stf_bus    : out STD_LOGIC_VECTOR (27 downto 0);
---       stf_data   : in STD_LOGIC_VECTOR (31 downto 0);
---       stf_play   : out STD_LOGIC;
---       stf_option : out STD_LOGIC;
---       stf_write  : in STD_LOGIC;
---       stf_error  : in STD_LOGIC
       );
     end component;
 
@@ -159,6 +134,8 @@ port map
     -- Core control
     start    => mod_bus_in.start,
     stop     => mod_bus_in.stop,
+    pause    => mod_bus_in.pause,
+    trigger  => mod_bus_in.trigger,
     ini_addr => mod_bus_in.ini_addr,
 
     -- Event register

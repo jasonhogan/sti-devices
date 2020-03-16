@@ -24,10 +24,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 package stf_timing is
 
+    -- The STF module logic controls the daughter board.
+    -- The stf_mod_bus is the standard interface between this device-specific logic and the generic timing_core.
+    
     type to_stf_module is record
         stf_bus    : STD_LOGIC_VECTOR (27 downto 0);
         stf_play   : STD_LOGIC;
         stf_option : STD_LOGIC;
+        stf_affine : STD_LOGIC;
     end record to_stf_module;
     
     type from_stf_module is record
@@ -76,7 +80,11 @@ package stf_timing is
         --timing core
         start    : STD_LOGIC;
         stop     : STD_LOGIC;
+        pause    : STD_LOGIC;
+        trigger  : STD_LOGIC;
+        
         ini_addr : STD_LOGIC_VECTOR (31 downto 0);
+        debug_code : STD_LOGIC_VECTOR (3 downto 0);
         
         --event register memory
         write    : STD_LOGIC;
@@ -87,7 +95,8 @@ package stf_timing is
     type from_timing_mod is record
         --timing core
         error    : STD_LOGIC;
-        err_code : STD_LOGIC_VECTOR (31 downto 0);
+        err_code : STD_LOGIC_VECTOR (3 downto 0);
+        debug_out : STD_LOGIC_VECTOR (31 downto 0);
         
         --event register memory
         data_out : STD_LOGIC_VECTOR (31 downto 0);
