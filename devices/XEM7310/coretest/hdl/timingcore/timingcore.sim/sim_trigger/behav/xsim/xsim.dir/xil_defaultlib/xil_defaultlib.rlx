@@ -1,0 +1,19 @@
+0.6
+2017.3
+Oct  4 2017
+20:11:37
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.sim/sim_trigger/behav/xsim/glbl.v,1507081072,verilog,,,,glbl,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_trigger/new/tb_timing_trigger.vhd,1595127971,vhdl,,,,tb_timing_trigger,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v,1584398269,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v,,blk_mem_gen_0,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd,1584398269,vhdl,,,,stf_output,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd,1584398269,vhdl,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_trigger.vhd,,,stf_timing,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd,1595120724,vhdl,,,,timing_core,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd,1584398269,vhdl,,,,timing_module,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_trigger.vhd,1595127436,vhdl,,,,timing_trigger,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v,1579414034,verilog,,,,okPipeIn,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v,,okPipeOut,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v,,okRegisterBridge,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v,,okTriggerIn,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v,,okTriggerOut,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v,,okWireIn,,,,,,,,
+C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v,1579414034,verilog,,C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v,,okWireOut,,,,,,,,

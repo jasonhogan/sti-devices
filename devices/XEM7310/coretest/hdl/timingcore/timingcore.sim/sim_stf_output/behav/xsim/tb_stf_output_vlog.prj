@@ -1,6 +1,13 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
 "../../../../timingcore.srcs/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v" \
+"../../../../../../../writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

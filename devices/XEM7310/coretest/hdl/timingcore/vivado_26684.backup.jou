@@ -1,0 +1,124 @@
+#-----------------------------------------------------------
+# Vivado v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Tue Jan 28 18:20:30 2020
+# Process ID: 26684
+# Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent21832 C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\coretest\hdl\timingcore\timingcore.xpr
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.log
+# Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.xpr
+close [ open C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd w ]
+add_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+set_property IS_GLOBAL_INCLUDE 1 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+set_property IS_GLOBAL_INCLUDE 0 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+set_property SOURCE_SET sources_1 [get_filesets sim_timing_module]
+import_files -fileset sim_timing_module -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/imports/new/stf_timing.vhd] -no_script -reset -force -quiet
+remove_files  -fileset sim_timing_module C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/imports/new/stf_timing.vhd
+file delete -force C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/imports/new/stf_timing.vhd
+set_property IS_GLOBAL_INCLUDE 1 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+set_property IS_GLOBAL_INCLUDE 1 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd]
+set_property IS_GLOBAL_INCLUDE 0 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd]
+set_property IS_GLOBAL_INCLUDE 0 [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+set_property LIBRARY work [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+set_property LIBRARY xil_defaultlib [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd]
+import_files -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+add_files -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+reorder_files -after C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/ram_test.coe C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/imports/new/stf_timing.vhd] -no_script -reset -force -quiet
+remove_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/imports/new/stf_timing.vhd
+file delete -force C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/imports/new/stf_timing.vhd
+reorder_files -before C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd
+reorder_files -after C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_timing.vhd C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd
+add_files -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/tb_timing_module.vhd
+import_files -force -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/tb_timing_module.vhd
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/tb_timing_module.vhd] -no_script -reset -force -quiet
+remove_files  -fileset sim_timing_module C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/tb_timing_module.vhd
+file delete -force C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sim_timing_module/new/tb_timing_module.vhd
+launch_simulation -simset sim_timing_module
+launch_simulation -simset sim_timing_module
+launch_simulation -simset sim_timing_module
+launch_simulation -simset sim_timing_module
+open_wave_config C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.sim/sim_timing_module/tb_timing_module_behav.wcfg
+source tb_timing_module.tcl
+add_wave {{/tb_timing_module/stf_mod.to_stf.stf_bus}} 
+relaunch_sim
+add_wave {{/tb_timing_module/stf_mod.to_stf.stf_play}} 
+save_wave_config {C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.sim/sim_timing_module/tb_timing_module_behav.wcfg}
+close_sim
+move_files -fileset sim_timing_module [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/imports/new/tb_timing_module.vhd]
+launch_simulation -simset sim_timing_module
+open_wave_config C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.sim/sim_timing_module/tb_timing_module_behav.wcfg
+source tb_timing_module.tcl
+close_sim
+close [ open C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd w ]
+add_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd
+add_files {C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v}
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd] -no_script -reset -force -quiet
+remove_files  {C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd}
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeIn.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeOut.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v] -no_script -reset -force -quiet
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v] -no_script -reset -force -quiet
+remove_files  {C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v}
+export_ip_user_files -of_objects  [get_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v] -no_script -reset -force -quiet
+remove_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v
+add_files -norecurse {C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okTriggerOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okRegisterBridge.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okWireOut.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeIn.v C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okPipeIn.v}
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+close [ open C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd w ]
+add_files C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd
+set_property used_in_simulation false [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.v]
+set_property used_in_simulation false [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd]
+set_property used_in_simulation false [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeIn.v]
+set_property used_in_simulation false [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okBTPipeOut.v]
+set_property used_in_simulation false [get_files  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v]
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top timing_mod_test_top [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+add_files -fileset constrs_1 -norecurse C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+open_run synth_1 -name synth_1
+open_run impl_1
+report_utilization -name utilization_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+set_property target_constrs_file C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc [current_fileset -constrset]
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+refresh_design
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+refresh_design
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 4
+wait_on_run impl_1
+refresh_design
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1

@@ -51,6 +51,7 @@ read_vhdl -library xil_defaultlib {
   C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd
   C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd
   C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd
+  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_trigger.vhd
 }
 read_ip -quiet C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
 set_property used_in_implementation false [get_files -all c:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
@@ -73,4 +74,4 @@ synth_design -top timing_mod_test_top -part xc7a200tfbg484-1
 # disable binary constraint mode for synth run checkpoints
 set_param constraints.enableBinaryConstraints false
 write_checkpoint -force -noxdef timing_mod_test_top.dcp
-create_report "synth_1_synth_report_utilization_0" "report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_module_utilization_synth.pb"
+create_report "synth_1_synth_report_utilization_0" "report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_mod_test_top_utilization_synth.pb"

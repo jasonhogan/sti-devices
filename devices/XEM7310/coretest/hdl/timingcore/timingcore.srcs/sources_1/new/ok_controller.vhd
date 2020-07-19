@@ -40,8 +40,15 @@ entity ok_controller is
            global_rst : out STD_LOGIC;
 
            -- Timing module bus
-           mod_bus_out : out to_timing_mod;
-           mod_bus_in  : in from_timing_mod;
+           --mod_bus_out : out to_timing_mod;
+           --mod_bus_in  : in from_timing_mod;
+           
+           -- Timing module bus
+           mod_bus_outs : out to_timing_mod_array(7 downto 0);
+           mod_bus_ins : in from_timing_mod_array(7 downto 0);
+           
+           soft_trigger  : out trigger_bus;      -- software trigger bus
+           hard_triggers : in STD_LOGIC_VECTOR(7 downto 0);     --from HDL
 
            okUH      : in     STD_LOGIC_VECTOR(4 downto 0);
            okHU      : out    STD_LOGIC_VECTOR(2 downto 0);
@@ -110,15 +117,18 @@ ep40 : okTriggerIn  port map (okHE=>okHE,                                    ep_
 --ep61 : okTriggerOut port map (okHE=>okHE, okEH=>okEHx( 5*65-1 downto 4*65 ), ep_addr=>x"61", ep_clk=>sys_clk, ep_trigger=>ep61trig);
 
 
-mod_bus_out.start <= ep40wire(0);   --timing start
-mod_bus_out.stop <= '0';
-mod_bus_out.ini_addr <= x"00000000";
+mod_bus_outs(0).start <= ep40wire(0);   --timing start
+mod_bus_outs(0).stop <= '0';
+mod_bus_outs(0).ini_addr <= x"00000000";
+mod_bus_outs(0).trigger <= hard_triggers(0);
 
-mod_bus_out.write    <= regWrite;
-mod_bus_out.addr_in  <= regAddress;
-mod_bus_out.data_in  <= regDataOut;
+--mod_bus_outs(0).start <= ep40wire(0);   --timing start
 
-regDataIn <= mod_bus_in.data_out;  -- from RAM
+mod_bus_outs(0).write    <= regWrite;
+mod_bus_outs(0).addr_in  <= regAddress;
+mod_bus_outs(0).data_in  <= regDataOut;
+
+regDataIn <= mod_bus_ins(0).data_out;  -- from RAM
 
 global_rst <= ep40wire(1);
 

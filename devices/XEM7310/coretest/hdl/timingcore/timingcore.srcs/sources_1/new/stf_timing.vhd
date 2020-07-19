@@ -46,6 +46,7 @@ package stf_timing is
         from_stf : from_stf_module;
     end record stf_mod_bus;
 
+    type stf_mod_bus_array is array (integer range <>) of stf_mod_bus;
 
 --    type to_timing_core is record
 --        start    : STD_LOGIC;
@@ -106,5 +107,19 @@ package stf_timing is
         to_mod   : to_timing_mod;
         from_mod : from_timing_mod;
     end record timing_mod_bus;
+
+--    type Array_ifx_t is array (0 to 2) of ifx_t;
+--    type t_Integer_Array is array (integer range <>) of integer;
+    type to_timing_mod_array is array (integer range <>) of to_timing_mod;
+    type from_timing_mod_array is array (integer range <>) of from_timing_mod;
+    type timing_mod_bus_array is array (integer range <>) of timing_mod_bus;
+    
+    -- Collection of software trigger signals
+    type trigger_bus is record
+        clear    : STD_LOGIC;     -- set all triggers to zero
+        mode     : STD_LOGIC;     -- 0=software, 1=hardware
+        triggers : STD_LOGIC_VECTOR (7 downto 0);      --all modules
+    end record trigger_bus;
+
 
 end stf_timing;
