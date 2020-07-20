@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Sat Jul 18 21:38:18 2020
-# Process ID: 15548
+# Start of session at: Sun Jul 19 21:02:02 2020
+# Process ID: 6960
 # Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1
 # Command line: vivado.exe -log timing_mod_test_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_mod_test_top.tcl
 # Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.vds
@@ -15,20 +15,20 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 22156 
+INFO: Helper process launched with PID 44412 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 358.629 ; gain = 99.258
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 358.129 ; gain = 98.703
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:59]
+INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:62]
 	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
 	Parameter DIFF_TERM bound to: 0 - type: bool 
 	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
 	Parameter IBUF_LOW_PWR bound to: 1 - type: bool 
 	Parameter IOSTANDARD bound to: DEFAULT - type: string 
-INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:159]
-INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:161]
+INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:164]
+INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:166]
 INFO: [Synth 8-638] synthesizing module 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:60]
-INFO: [Synth 8-3491] module 'okHost' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:14' bound to instance 'okHI' of component 'okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:86]
+INFO: [Synth 8-3491] module 'okHost' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:14' bound to instance 'okHI' of component 'okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:89]
 INFO: [Synth 8-638] synthesizing module 'xil_defaultlib_okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:28]
 	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
 	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
@@ -1231,9 +1231,6 @@ WARNING: [Synth 8-3848] Net mod_bus_outs[1][addr_in] in module/entity ok_control
 WARNING: [Synth 8-3848] Net mod_bus_outs[1][data_in] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:47]
 WARNING: [Synth 8-3848] Net mod_bus_outs[0][pause] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:47]
 WARNING: [Synth 8-3848] Net mod_bus_outs[0][debug_code] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:47]
-WARNING: [Synth 8-3848] Net soft_trigger[clear] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:50]
-WARNING: [Synth 8-3848] Net soft_trigger[mode] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:50]
-WARNING: [Synth 8-3848] Net soft_trigger[triggers] in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:50]
 WARNING: [Synth 8-3848] Net ep21wire in module/entity ok_controller does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:70]
 INFO: [Synth 8-256] done synthesizing module 'ok_controller' (31#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:60]
 	Parameter N bound to: 8 - type: integer 
@@ -1241,7 +1238,7 @@ INFO: [Synth 8-638] synthesizing module 'timing_trigger' [C:/Users/SrLab/Documen
 	Parameter N bound to: 8 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'timing_trigger' (32#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_trigger.vhd:52]
 INFO: [Synth 8-638] synthesizing module 'timing_module' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:52]
-INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-15548-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
+INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
 INFO: [Synth 8-638] synthesizing module 'timing_core' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:57]
 INFO: [Synth 8-226] default block is never used [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:154]
 INFO: [Synth 8-226] default block is never used [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:201]
@@ -1254,34 +1251,37 @@ INFO: [Synth 8-638] synthesizing module 'stf_output' [C:/Users/SrLab/Documents/c
 WARNING: [Synth 8-3848] Net stf_out[stf_err_code] in module/entity stf_output does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:49]
 INFO: [Synth 8-256] done synthesizing module 'stf_output' (35#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:55]
 WARNING: [Synth 8-3848] Net led in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:50]
-WARNING: [Synth 8-3848] Net ybusp in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:54]
-WARNING: [Synth 8-3848] Net ybusn in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:55]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:143]
+WARNING: [Synth 8-3848] Net ybusp in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:57]
+WARNING: [Synth 8-3848] Net ybusn in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:58]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[1][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[1][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net from_mod_buses[1][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
 INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-256] done synthesizing module 'timing_mod_test_top' (36#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:59]
+INFO: [Synth 8-256] done synthesizing module 'timing_mod_test_top' (36#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:62]
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[16] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[15] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[14] driven by constant 1
@@ -1298,7 +1298,6 @@ WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[4] driven by c
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[3] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[2] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[1] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[0] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[16] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[15] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[14] driven by constant 1
@@ -1418,7 +1417,7 @@ WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[88]
 WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[87]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 421.754 ; gain = 162.383
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 421.254 ; gain = 161.828
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1427,109 +1426,109 @@ Report Check Netlist:
 +------+------------------+-------+---------+-------+------------------+
 |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[324] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[323] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[322] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[321] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[320] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[319] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[318] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[317] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[316] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[315] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[314] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[313] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[312] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[311] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[310] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[309] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[308] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[307] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[306] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[305] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[304] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[303] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[302] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[301] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[300] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[299] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[298] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[297] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[296] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[295] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[294] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[293] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[292] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[291] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[290] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[289] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[288] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[287] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[286] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[285] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[284] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[283] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[282] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[281] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[280] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[279] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[278] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[277] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[276] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[275] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[274] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[273] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[272] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[271] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[270] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[269] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[268] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[267] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[266] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[265] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[264] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[263] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[262] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[261] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[260] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[259] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[258] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[257] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[256] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[255] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[254] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[253] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[252] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[251] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[250] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[249] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[248] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[247] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[246] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[245] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[244] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[243] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[242] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[241] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[240] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[239] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[238] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[237] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[236] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[235] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[234] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[233] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[232] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[231] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[230] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[229] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[228] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[227] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[226] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
-WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[225] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:107]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[324] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[323] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[322] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[321] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[320] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[319] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[318] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[317] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[316] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[315] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[314] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[313] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[312] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[311] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[310] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[309] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[308] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[307] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[306] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[305] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[304] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[303] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[302] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[301] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[300] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[299] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[298] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[297] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[296] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[295] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[294] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[293] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[292] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[291] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[290] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[289] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[288] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[287] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[286] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[285] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[284] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[283] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[282] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[281] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[280] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[279] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[278] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[277] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[276] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[275] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[274] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[273] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[272] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[271] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[270] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[269] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[268] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[267] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[266] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[265] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[264] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[263] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[262] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[261] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[260] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[259] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[258] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[257] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[256] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[255] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[254] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[253] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[252] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[251] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[250] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[249] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[248] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[247] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[246] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[245] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[244] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[243] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[242] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[241] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[240] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[239] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[238] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[237] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[236] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[235] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[234] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[233] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[232] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[231] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[230] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[229] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[228] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[227] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[226] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
+WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[225] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
 INFO: [Common 17-14] Message 'Synth 8-3295' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 421.754 ; gain = 162.383
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 421.254 ; gain = 161.828
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 147 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1538,8 +1537,8 @@ INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-15548-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
-Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-15548-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
 Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:72]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:73]
@@ -1559,24 +1558,24 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM128X1S => RAM128X1S (MUXF7, RAMS64E, RAMS64E): 8 instances
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 778.910 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 773.012 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'mod0/evt_register' at clock pin 'clka' is different from the actual clock period '9.920', this can lead to different synthesis results.
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a200tfbg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property DONT_TOUCH = true for mod0/evt_register. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'play_state_reg' in module 'timing_core'
 INFO: [Synth 8-5544] ROM "load_state" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
@@ -1600,7 +1599,7 @@ WARNING: [Synth 8-6014] Unused sequential element delay_reg was removed.  [C:/Us
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'play_state_reg' using encoding 'sequential' in module 'timing_core'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1651,7 +1650,6 @@ WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[4] driven by c
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[3] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[2] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[1] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[0] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[16] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[15] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[14] driven by constant 1
@@ -1669,7 +1667,6 @@ WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[3] driven by c
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[2] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[1] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[0] driven by constant 1
-INFO: [Synth 8-3886] merging instance 'trigger/trig_in_reg_reg[0]' (FDC) to 'trigger/trig_out_reg_reg[0]'
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[0] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[1] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[2] )
@@ -1708,7 +1705,6 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mod0/cor
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/okHI/core0 /core0/l317e0a6720f17cacca076a392154f6ab_reg)
 WARNING: [Synth 8-3332] Sequential element (l008c72ad3b3ec61be52cde84a395c4fa_reg) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (l317e0a6720f17cacca076a392154f6ab_reg) is unused and will be removed from module okCore.
-WARNING: [Synth 8-3332] Sequential element (l9e32dfd1ee51a4e7f33914a7db2b23f9_reg) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (la85eaf42c58af45585f858cdefb86492_reg) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[10]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[11]) is unused and will be removed from module okCore.
@@ -1738,7 +1734,6 @@ WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_re
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[5]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[6]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[7]) is unused and will be removed from module okCore.
-WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[8]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (lab8c81cec3709c0416d0acf79f37f087_reg[9]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (ld53bc82cafe43594f651cb14d090c4f9_reg[11]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (ld53bc82cafe43594f651cb14d090c4f9_reg[12]) is unused and will be removed from module okCore.
@@ -1762,7 +1757,6 @@ WARNING: [Synth 8-3332] Sequential element (ld53bc82cafe43594f651cb14d090c4f9_re
 WARNING: [Synth 8-3332] Sequential element (ld53bc82cafe43594f651cb14d090c4f9_reg[30]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (ld53bc82cafe43594f651cb14d090c4f9_reg[31]) is unused and will be removed from module okCore.
 WARNING: [Synth 8-3332] Sequential element (ok_control/okHI/regctrlout1) is unused and will be removed from module timing_mod_test_top.
-WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[0]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[10]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[11]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[12]) is unused and will be removed from module okWireIn.
@@ -1794,7 +1788,6 @@ WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[6]) is unused and wi
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[7]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[8]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_datahold_reg[9]) is unused and will be removed from module okWireIn.
-WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[0]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[10]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[11]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[12]) is unused and will be removed from module okWireIn.
@@ -1806,9 +1799,13 @@ WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[17]) is unused and wi
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[18]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[19]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[1]) is unused and will be removed from module okWireIn.
+WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[20]) is unused and will be removed from module okWireIn.
+WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[21]) is unused and will be removed from module okWireIn.
+WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[22]) is unused and will be removed from module okWireIn.
+WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[23]) is unused and will be removed from module okWireIn.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1820,13 +1817,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Timing Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1838,7 +1835,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Technology Mapping : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1862,7 +1859,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished IO Insertion : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1875,7 +1872,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1887,25 +1884,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1926,12 +1923,12 @@ Report Cell Usage:
 |2     |BUFG                 |     3|
 |3     |CARRY4               |    57|
 |4     |DNA_PORT             |     1|
-|5     |LUT1                 |    58|
-|6     |LUT2                 |    97|
+|5     |LUT1                 |    59|
+|6     |LUT2                 |   103|
 |7     |LUT3                 |    81|
-|8     |LUT4                 |   198|
+|8     |LUT4                 |   204|
 |9     |LUT5                 |   109|
-|10    |LUT6                 |   465|
+|10    |LUT6                 |   471|
 |11    |LUT6_2               |    50|
 |12    |MMCME2_BASE          |     1|
 |13    |RAM128X1S            |     8|
@@ -1939,25 +1936,25 @@ Report Cell Usage:
 |15    |RAMB18E1             |     1|
 |16    |RAMB18E1_1           |     1|
 |17    |RAMB36E1             |     1|
-|18    |FDCE                 |   392|
+|18    |FDCE                 |   402|
 |19    |FDPE                 |    37|
-|20    |FDRE                 |   578|
+|20    |FDRE                 |   583|
 |21    |FDSE                 |     5|
-|22    |IBUF                 |     4|
+|22    |IBUF                 |     5|
 |23    |IBUFG                |     1|
 |24    |IBUFGDS              |     1|
 |25    |IOBUF                |    33|
-|26    |OBUF                 |    63|
+|26    |OBUF                 |    62|
 |27    |OBUFT                |    68|
 +------+---------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 1207 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:27 . Memory (MB): peak = 778.910 ; gain = 162.383
-Synthesis Optimization Complete : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 778.910 ; gain = 519.539
+Synthesis finished with 0 errors, 0 critical warnings and 1204 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:28 . Memory (MB): peak = 773.012 ; gain = 161.828
+Synthesis Optimization Complete : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 162 Unisim elements for replacement
+INFO: [Netlist 29-17] Analyzing 163 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
@@ -1972,10 +1969,10 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-1049 Infos, 475 Warnings, 0 Critical Warnings and 0 Errors encountered.
+1048 Infos, 473 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 778.910 ; gain = 528.309
+synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 774.676 ; gain = 523.582
 INFO: [Common 17-1381] The checkpoint 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_mod_test_top_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.087 . Memory (MB): peak = 778.910 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sat Jul 18 21:38:57 2020...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.096 . Memory (MB): peak = 774.676 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Sun Jul 19 21:02:43 2020...

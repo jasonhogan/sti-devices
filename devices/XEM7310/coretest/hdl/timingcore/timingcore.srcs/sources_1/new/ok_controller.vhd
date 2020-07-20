@@ -69,7 +69,10 @@ architecture ok_controller_arch of ok_controller is
 	signal ep20wire   : STD_LOGIC_VECTOR(31 downto 0);
 	signal ep21wire   : STD_LOGIC_VECTOR(31 downto 0);
 	signal ep22wire   : STD_LOGIC_VECTOR(31 downto 0);
+	
 	signal ep40wire   : STD_LOGIC_VECTOR(31 downto 0);
+	signal ep41wire   : STD_LOGIC_VECTOR(31 downto 0);
+	
 	signal ep60trig   : STD_LOGIC_VECTOR(31 downto 0);
 	signal ep61trig   : STD_LOGIC_VECTOR(31 downto 0);
 
@@ -116,11 +119,17 @@ ep40 : okTriggerIn  port map (okHE=>okHE,                                    ep_
 --ep60 : okTriggerOut port map (okHE=>okHE, okEH=>okEHx( 4*65-1 downto 3*65 ), ep_addr=>x"60", ep_clk=>sys_clk, ep_trigger=>ep60trig);
 --ep61 : okTriggerOut port map (okHE=>okHE, okEH=>okEHx( 5*65-1 downto 4*65 ), ep_addr=>x"61", ep_clk=>sys_clk, ep_trigger=>ep61trig);
 
+-- Software triggering:
+ep41 : okTriggerIn  port map (okHE=>okHE, ep_addr=>x"41", ep_clk=>sys_clk, ep_trigger=>ep41wire);
 
 mod_bus_outs(0).start <= ep40wire(0);   --timing start
 mod_bus_outs(0).stop <= '0';
 mod_bus_outs(0).ini_addr <= x"00000000";
 mod_bus_outs(0).trigger <= hard_triggers(0);
+
+soft_trigger.mode <= ep01wire(0);   --temp; need general scheme for setting trig params of all modules
+soft_trigger.triggers <= ep41wire(7 downto 0);
+soft_trigger.clear <= ep41wire(8);
 
 --mod_bus_outs(0).start <= ep40wire(0);   --timing start
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a200tfbg484-1" LaunchTime="1595133496">
+<GenRun Id="synth_1" LaunchPart="xc7a200tfbg484-1" LaunchTime="1595217720">
   <File Type="PA-TCL" Name="timing_mod_test_top.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="timing_mod_test_top_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="timing_mod_test_top_reports.tcl"/>

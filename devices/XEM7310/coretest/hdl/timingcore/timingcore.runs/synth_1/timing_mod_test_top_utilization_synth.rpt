@@ -1,7 +1,7 @@
 Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2017.3 (win64) Build 2018833 Wed Oct  4 19:58:22 MDT 2017
-| Date         : Sat Jul 18 21:38:57 2020
+| Date         : Sun Jul 19 21:02:43 2020
 | Host         : SrLab running 64-bit major release  (build 9200)
 | Command      : report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_mod_test_top_utilization_synth.pb
 | Design       : timing_mod_test_top
@@ -30,13 +30,13 @@ Table of Contents
 +----------------------------+------+-------+-----------+-------+
 |          Site Type         | Used | Fixed | Available | Util% |
 +----------------------------+------+-------+-----------+-------+
-| Slice LUTs*                |  971 |     0 |    134600 |  0.72 |
-|   LUT as Logic             |  939 |     0 |    134600 |  0.70 |
+| Slice LUTs*                |  987 |     0 |    134600 |  0.73 |
+|   LUT as Logic             |  955 |     0 |    134600 |  0.71 |
 |   LUT as Memory            |   32 |     0 |     46200 |  0.07 |
 |     LUT as Distributed RAM |   32 |     0 |           |       |
 |     LUT as Shift Register  |    0 |     0 |           |       |
-| Slice Registers            | 1012 |   102 |    269200 |  0.38 |
-|   Register as Flip Flop    | 1012 |   102 |    269200 |  0.38 |
+| Slice Registers            | 1027 |   102 |    269200 |  0.38 |
+|   Register as Flip Flop    | 1027 |   102 |    269200 |  0.38 |
 |   Register as Latch        |    0 |     0 |    269200 |  0.00 |
 | F7 Muxes                   |    8 |     0 |     67300 |  0.01 |
 | F8 Muxes                   |    0 |     0 |     33650 |  0.00 |
@@ -57,9 +57,9 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 37    |          Yes |           - |          Set |
-| 392   |          Yes |           - |        Reset |
+| 402   |          Yes |           - |        Reset |
 | 5     |          Yes |         Set |            - |
-| 578   |          Yes |       Reset |            - |
+| 583   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -153,18 +153,18 @@ Table of Contents
 +------------+------+---------------------+
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
-| FDRE       |  578 |        Flop & Latch |
-| LUT6       |  515 |                 LUT |
-| FDCE       |  392 |        Flop & Latch |
-| LUT4       |  198 |                 LUT |
+| FDRE       |  583 |        Flop & Latch |
+| LUT6       |  521 |                 LUT |
+| FDCE       |  402 |        Flop & Latch |
+| LUT4       |  204 |                 LUT |
 | LUT5       |  159 |                 LUT |
+| LUT2       |  103 |                 LUT |
 | OBUFT      |  101 |                  IO |
-| LUT2       |   97 |                 LUT |
 | LUT3       |   81 |                 LUT |
-| OBUF       |   63 |                  IO |
-| LUT1       |   58 |                 LUT |
+| OBUF       |   62 |                  IO |
+| LUT1       |   59 |                 LUT |
 | CARRY4     |   57 |          CarryLogic |
-| IBUF       |   38 |                  IO |
+| IBUF       |   39 |                  IO |
 | FDPE       |   37 |        Flop & Latch |
 | RAMD32     |   24 |  Distributed Memory |
 | RAMS64E    |   16 |  Distributed Memory |
@@ -196,9 +196,10 @@ Table of Contents
 +------------------------+------+
 |        Ref Name        | Used |
 +------------------------+------+
+| okTriggerIn            |    2 |
 | xpm_cdc_async_rst      |    1 |
 | okWireOut              |    1 |
-| okTriggerIn            |    1 |
+| okWireIn               |    1 |
 | okCoreHarness          |    1 |
 | okCore                 |    1 |
 | fifo_generator_v13_2_0 |    1 |

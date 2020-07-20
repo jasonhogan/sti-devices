@@ -75,6 +75,7 @@ int main(int argc, char* argv[])
 	std::vector<okTRegisterEntry> writeRegs;
 	
 	//                     time, value, opcode
+	rawEvents.emplace_back(10, "00000000", 1);	//wait for trigger event
 	rawEvents.emplace_back(10, "00000000", 0); 
 	rawEvents.emplace_back(0, "00000001", 0);
 	rawEvents.emplace_back(0, "00000010", 0);
@@ -108,14 +109,28 @@ int main(int argc, char* argv[])
 
 //	dev->ActivateTriggerIn(0x40, 1);	//reset
 	
+	//Set trigger mode on bit 0 ( 0=Software, 1=Hardware)
+	UINT32 value = 1;		//LSB high
+	dev->SetWireInValue(0x01, value);
+	dev->UpdateWireIns();
+
 	std::cout << "play? ";
 	std::cin >> tmp;
+	dev->ActivateTriggerIn(0x40, 0);	//play
+
+	std::cout << "trigger? ";
+	std::cin >> tmp;
+	dev->ActivateTriggerIn(0x41, 0);	//trigger mod 0
+
+	std::cout << "waiting for trigger... ";
+	std::cin >> tmp;
+	return 0;
 
 	while (true) {
 
 
 
-		dev->ActivateTriggerIn(0x40, 0);	//trigger the sequence
+		dev->ActivateTriggerIn(0x40, 0);	//trigger the sequence. NOTE: the second argument ('bit') refers to which bit (of 32) is to be triggered on this call.
 
 	}
 

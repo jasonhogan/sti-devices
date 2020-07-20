@@ -114,9 +114,14 @@ set_property IOSTANDARD LVCMOS15 [get_ports {led[*]}]
 
 #### Expansion ports
 
-# MC1-15
-set_property PACKAGE_PIN W9 [get_ports {xbusp[0]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[0]}]
+## MC1-15
+#set_property PACKAGE_PIN W9 [get_ports {xbusp[0]}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[0]}]
+
+# MC1-15 ***********************************************
+set_property PACKAGE_PIN W9 [get_ports {ext_trig}]
+set_property IOSTANDARD LVCMOS33 [get_ports {ext_trig}]
+
 
 # MC1-16
 set_property PACKAGE_PIN V9 [get_ports {xbusp[1]}]
@@ -165,6 +170,13 @@ set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[5]}]
 # MC1-27
 set_property PACKAGE_PIN T5 [get_ports {xbusp[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[6]}]
+
+
+## MC1-27 *********************************************
+#set_property PACKAGE_PIN T5 [get_ports {ext_clk}]
+#set_property IOSTANDARD LVCMOS33 [get_ports {ext_clk}]
+
+
 
 # MC1-28
 set_property PACKAGE_PIN W6 [get_ports {xbusp[7]}]

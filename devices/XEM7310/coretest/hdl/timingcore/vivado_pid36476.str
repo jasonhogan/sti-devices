@@ -1,0 +1,853 @@
+/*
+
+Xilinx Vivado v2017.3 (64-bit) [Major: 2017, Minor: 3]
+SW Build: 2018833 on Wed Oct  4 19:58:22 MDT 2017
+IP Build: 2016188 on Wed Oct  4 21:52:56 MDT 2017
+
+Process ID: 36476
+License: Customer
+
+Current time: 	Sun Jul 19 20:18:06 PDT 2020
+Time zone: 	Pacific Standard Time (America/Los_Angeles)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1920x1080
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 11 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre
+JVM executable location: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre/bin/java.exe
+
+User name: 	SrLab
+User home directory: C:/Users/SrLab
+User working directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2017.3
+RDI_DATADIR: C:/Xilinx/Vivado/2017.3/data
+RDI_BINDIR: C:/Xilinx/Vivado/2017.3/bin
+
+User preferences location: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado
+Vivado preferences directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/vivado.xml
+Vivado layouts directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2017.3/lib/classes/planAhead.jar
+Vivado log file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.log
+Vivado journal file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.jou
+Engine tmp dir: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-36476-SrLab
+
+GUI allocated memory:	174 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 631 MB
+
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// Opening Vivado Project: C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\coretest\hdl\timingcore\timingcore.xpr. Version: Vivado v2017.3 
+// bs (cl):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// [GUI Memory]: 62 MB (+62103kb) [00:00:07]
+// [Engine Memory]: 524 MB (+398416kb) [00:00:07]
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_CURRENT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 619 MB (+71561kb) [00:00:08]
+// [GUI Memory]: 79 MB (+15346kb) [00:00:09]
+// [GUI Memory]: 89 MB (+5628kb) [00:00:09]
+// [GUI Memory]: 99 MB (+6125kb) [00:00:10]
+// Tcl Message: open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore' 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.3/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 644 MB. GUI used memory: 47 MB. Current time: 7/19/20 8:18:07 PM PDT
+// Project name: timingcore; location: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore; part: xc7a200tfbg484-1
+dismissDialog("Open Project"); // bs (cl)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 36 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1); // B (D, cl)
+// PAPropertyPanels.initPanels (timing_mod_test_top.vhd) elapsed time: 0.2s
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, okHost (okLibrary.v)]", 2, true); // B (D, cl) - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd)]", 2, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd)]", 2, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+selectCodeEditor("ok_controller.vhd", 16, 195); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 864, 194); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 864, 193, false, false, false, false, true); // cd (w, cl) - Double Click
+// [Engine Memory]: 651 MB (+1652kb) [00:01:20]
+// HMemoryUtils.trashcanNow. Engine heap size: 662 MB. GUI used memory: 48 MB. Current time: 7/19/20 8:19:42 PM PDT
+// Elapsed time: 217 seconds
+selectCodeEditor("ok_controller.vhd", 949, 151); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 951, 149); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 24, 206); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 290, 213); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 374, 209); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 382, 206); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 18, 205); // cd (w, cl)
+// Elapsed time: 10 seconds
+selectCodeEditor("ok_controller.vhd", 632, 211); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 625, 218); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 625, 218, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+// Elapsed time: 18 seconds
+selectCodeEditor("ok_controller.vhd", 890, 62); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 401, 299); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 405, 299); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 167, 311); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+// Elapsed time: 699 seconds
+selectCodeEditor("ok_controller.vhd", 652, 174); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 652, 174, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 170, 257); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 183, 262); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 179, 259); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 176, 261); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+// Elapsed time: 12 seconds
+selectCodeEditor("ok_controller.vhd", 347, 265); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 204, 265); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 415, 280); // cd (w, cl)
+// Elapsed time: 27 seconds
+selectCodeEditor("ok_controller.vhd", 762, 105); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 761, 105, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 20 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "ep01wire"); // l (aP, cl)
+// Elapsed time: 113 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "ep01wire"); // l (aP, cl)
+// Elapsed time: 15 seconds
+selectCodeEditor("ok_controller.vhd", 109, 364); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 109, 364, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 149, 225); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 265, 226); // cd (w, cl)
+// Elapsed time: 208 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Coefficient Files]", 19); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Coefficient Files]", 19); // B (D, cl)
+// Elapsed time: 13 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints]", 20); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, xem7310.xdc]", 22, false); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Constraints, constrs_1, xem7310.xdc]", 22, false, false, false, false, false, true); // B (D, cl) - Double Click
+selectCodeEditor("xem7310.xdc", 296, 110); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 307, 110); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 307, 110, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("xem7310.xdc", 307, 110); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 307, 110); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 307, 110, false, false, false, false, true); // cd (w, cl) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+// [GUI Memory]: 104 MB (+167kb) [00:25:33]
+// Elapsed time: 12 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 383, 259); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 371, 250); // cd (w, cl)
+// Elapsed time: 13 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 203, 139); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 203, 139, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 184, 263); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 243, 262); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 222, 283); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 247, 277); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 251, 269); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 84, 280); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 109, 281, true, false, false, false, false); // cd (w, cl) - Shift Key
+// Elapsed time: 12 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 27, 366); // cd (w, cl)
+// Elapsed time: 12 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 87, 370); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 87, 370, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 119, 387); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 101, 364); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 101, 364, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+selectCodeEditor("xem7310.xdc", 433, 139); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 421, 127); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'c'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 9, 155); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 46, 235); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 46, 235, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("xem7310.xdc", 280, 178); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 314, 194); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 2, 105); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 24, 143); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 24, 143); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 16, 127); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 3, 139); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 3, 138); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 34, 102, false, false, false, true, false); // cd (w, cl) - Popup Trigger
+selectMenuItem(RDIResource.HInputHandler_TOGGLE_LINE_COMMENTS, "Toggle Line Comments"); // ac (ai, cl)
+selectCodeEditor("xem7310.xdc", 40, 223); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 99, 207); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 99, 207, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 48, 149); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 174, 210); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 174, 210, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 129, 169); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 87, 220); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 210, 184); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 61, 164); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 164, 184); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 19 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 69, 158); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("timing_mod_test_top.vhd", 72, 141); // cd (w, cl)
+// Elapsed time: 24 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 204, 240); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 191, 251); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 191, 251, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+// Elapsed time: 11 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 200, 363); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 200, 363, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 19 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 73, 275); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("timing_mod_test_top.vhd", 173, 261); // cd (w, cl)
+// Elapsed time: 11 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 71, 277); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectCodeEditor("ok_controller.vhd", 89, 225); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 89, 225, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 10 seconds
+selectCodeEditor("ok_controller.vhd", 48, 416); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 48, 416, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("ok_controller.vhd", 98, 199); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 114, 198); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 114, 198, false, false, false, false, true); // cd (w, cl) - Double Click
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 2, 279); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 52, 283); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 52, 282, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 207, 286); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 162, 289); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 162, 289, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 150, 280); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 149, 280, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 3, 261); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 12, 273); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 26, 280); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 26, 280, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 120, 265); // cd (w, cl)
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 145, 280); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 96, 264); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 145, 289); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 239, 248); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 205, 266); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 12 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("xem7310.xdc", 411, 251); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 162, 345); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 162, 345, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "timing_mod_test_top.vhd", 'c'); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 292, 317); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+selectCodeEditor("xem7310.xdc", 13, 345); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+selectCodeEditor("xem7310.xdc", 414, 337); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'c'); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 64, 314, false, false, false, true, false); // cd (w, cl) - Popup Trigger
+selectMenuItem(RDIResource.HInputHandler_TOGGLE_LINE_COMMENTS, "Toggle Line Comments"); // ac (ai, Popup.HeavyWeightWindow)
+// HMemoryUtils.trashcanNow. Engine heap size: 678 MB. GUI used memory: 52 MB. Current time: 7/19/20 8:49:42 PM PDT
+selectCodeEditor("xem7310.xdc", 21, 439); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 21, 439, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("xem7310.xdc", 273, 382); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 67, 322); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 66, 346); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 87, 163); // cd (w, cl)
+// TclEventType: FILE_SET_CHANGE
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+// Elapsed time: 12 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 102, 339); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 102, 339, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 123, 357); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 123, 357, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 126, 345); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 126, 345, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_mod_test_top.vhd", 125, 218); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 117, 229); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 72, 308); // cd (w, cl)
+selectButton(RDIResource.HCodeEditor_CLOSE, (String) null); // k (aH, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// Elapsed time: 15 seconds
+selectCodeEditor("ok_controller.vhd", 211, 149); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 211, 149, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 21 seconds
+selectCodeEditor("ok_controller.vhd", 43, 244); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 43, 244, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("ok_controller.vhd", 63, 249); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 62, 249, false, false, false, false, true); // cd (w, cl) - Double Click
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 764, 233); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 175, 265); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'c'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 191, 241); // cd (w, cl)
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 212, 245); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 231, 252); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 146, 245); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 244, 243); // cd (w, cl)
+selectCodeEditor("ok_controller.vhd", 53, 260); // cd (w, cl)
+// [GUI Memory]: 109 MB (+74kb) [00:34:00]
+typeControlKey((HResource) null, "ok_controller.vhd", 'v'); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 19 seconds
+selectCodeEditor("ok_controller.vhd", 298, 146); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 60 seconds
+typeControlKey(null, null, 'z');
+selectCodeEditor("ok_controller.vhd", 502, 234); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 3); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 1); // k (j, cl)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 20, false); // u (O, cl)
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis]", 3); // u (O, cl)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// bs (cl):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: reset_run synth_1 
+dismissDialog("Resetting Runs"); // bs (cl)
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_LAUNCH
+// bs (cl):  Generate Bitstream : addNotify
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 4 
+// TclEventType: RUN_MODIFY
+// Tcl Message: [Sun Jul 19 20:53:27 2020] Launched synth_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/runme.log [Sun Jul 19 20:53:27 2020] Launched impl_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/impl_1/runme.log 
+dismissDialog("Generate Bitstream"); // bs (cl)
+// Elapsed time: 42 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking too long to process. Increasing delay to 2000 ms.
+// Elapsed time: 10 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd)]", 2); // B (D, cl)
+collapseTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd)]", 2); // B (D, cl)
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd)]", 4); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd), core : timing_core(timing_core_arch) (timing_core.vhd)]", 6, false); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), mod0 : timing_module(timing_module_arch) (timing_module.vhd), core : timing_core(timing_core_arch) (timing_core.vhd)]", 6, false, false, false, false, false, true); // B (D, cl) - Double Click
+selectCodeEditor("timing_core.vhd", 93, 228); // cd (w, cl)
+selectCodeEditor("timing_core.vhd", 93, 228, false, false, false, false, true); // cd (w, cl) - Double Click
+// TclEventType: RUN_STEP_COMPLETED
+// Elapsed time: 33 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "trigger"); // l (aP, cl)
+// Elapsed time: 23 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "trigger"); // l (aP, cl)
+// TclEventType: RUN_FAILED
+// Elapsed time: 54 seconds
+selectTab((HResource) null, (HResource) null, "Tcl Console", 0); // aF (Q, cl)
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aF (Q, cl)
+selectTab((HResource) null, (HResource) null, "Log", 2); // aF (Q, cl)
+selectTab((HResource) null, (HResource) null, "Reports", 3); // aF (Q, cl)
+selectTab((HResource) null, (HResource) null, "Design Runs", 4); // aF (Q, cl)
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "impl_1 ; constrs_1 ; write_bitstream ERROR ; -7.311215400695801 ; -278.9612731933594 ; 0.06013678386807442 ; 0.0 ; 0.0 ; 0.3828873634338379 ; 0 ; 943 ; 926 ; 4.0 ; 0 ; 0 ; Sun Jul 19 20:54:20 PDT 2020 ; 00:01:51 ; Vivado Implementation Defaults (Vivado Implementation 2017) ; Vivado Implementation Default Reports (Vivado Implementation 2017) ; xc7a200tfbg484-1 ; Default settings for Implementation.", 1, "impl_1", 0, false); // ax (O, cl)
+// PAPropertyPanels.initPanels (impl_1) elapsed time: 0.3s
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "impl_1 ; constrs_1 ; write_bitstream ERROR ; -7.311215400695801 ; -278.9612731933594 ; 0.06013678386807442 ; 0.0 ; 0.0 ; 0.3828873634338379 ; 0 ; 943 ; 926 ; 4.0 ; 0 ; 0 ; Sun Jul 19 20:54:20 PDT 2020 ; 00:01:51 ; Vivado Implementation Defaults (Vivado Implementation 2017) ; Vivado Implementation Default Reports (Vivado Implementation 2017) ; xc7a200tfbg484-1 ; Default settings for Implementation.", 1, "impl_1", 0, false); // ax (O, cl)
+expandTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "impl_1 ; constrs_1 ; write_bitstream ERROR ; -7.311215400695801 ; -278.9612731933594 ; 0.06013678386807442 ; 0.0 ; 0.0 ; 0.3828873634338379 ; 0 ; 943 ; 926 ; 4.0 ; 0 ; 0 ; Sun Jul 19 20:54:20 PDT 2020 ; 00:01:51 ; Vivado Implementation Defaults (Vivado Implementation 2017) ; Vivado Implementation Default Reports (Vivado Implementation 2017) ; xc7a200tfbg484-1 ; Default settings for Implementation.", 1); // ax (O, cl)
+selectTreeTable(PAResourceEtoH.ExpRunTreePanel_EXP_RUN_TREE_TABLE, "impl_1 ; constrs_1 ; write_bitstream ERROR ; -7.311215400695801 ; -278.9612731933594 ; 0.06013678386807442 ; 0.0 ; 0.0 ; 0.3828873634338379 ; 0 ; 943 ; 926 ; 4.0 ; 0 ; 0 ; Sun Jul 19 20:54:20 PDT 2020 ; 00:01:51 ; Vivado Implementation Defaults (Vivado Implementation 2017) ; Vivado Implementation Default Reports (Vivado Implementation 2017) ; xc7a200tfbg484-1 ; Default settings for Implementation.", 1, "impl_1", 0, false, false, false, false, false, true); // ax (O, cl) - Double Click
+// bs (cl):  Open Implemented Design : addNotify
+// Tcl Message: open_run impl_1 
+// [Engine Memory]: 752 MB (+71495kb) [00:38:44]
+// TclEventType: READ_XDC_FILE_START
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// HMemoryUtils.trashcanNow. Engine heap size: 853 MB. GUI used memory: 64 MB. Current time: 7/19/20 8:56:42 PM PDT
+// TclEventType: POWER_CNS_STALE
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_REMOVE
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: POWER_REPORT_STALE
+// TclEventType: SDC_CONSTRAINT_ADD
+// [Engine Memory]: 881 MB (+95751kb) [00:38:49]
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: LOC_CONSTRAINT_ADD
+// TclEventType: SIGNAL_MODIFY
+// TclEventType: SDC_CONSTRAINT_ADD
+// TclEventType: READ_XDC_FILE_END
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 1,306 MB. GUI used memory: 60 MB. Current time: 7/19/20 8:56:53 PM PDT
+// [Engine Memory]: 1,306 MB (+398804kb) [00:38:58]
+// TclEventType: DESIGN_NEW
+// [Engine Memory]: 1,440 MB (+72183kb) [00:38:59]
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// Device: addNotify
+// DeviceView Instantiated
+// PAPropertyPanels.initPanels (impl_1) elapsed time: 0.2s
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: INFO: [Netlist 29-17] Analyzing 153 Unisim elements for replacement INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds INFO: [Project 1-479] Netlist was created with Vivado 2017.3 INFO: [Device 21-403] Loading part xc7a200tfbg484-1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message: Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-36476-SrLab/dcp3/timing_mod_test_top_early.xdc] Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-36476-SrLab/dcp3/timing_mod_test_top_early.xdc] Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-36476-SrLab/dcp3/timing_mod_test_top.xdc] 
+// Tcl Message: INFO: [Timing 38-35] Done setting XDC timing constraints. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:97] INFO: [Timing 38-2] Deriving generated clocks [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:97] 
+// Tcl Message: get_clocks: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1687.977 ; gain = 534.137 
+// Tcl Message: Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-36476-SrLab/dcp3/timing_mod_test_top.xdc] Reading XDEF placement. Reading placer database... Reading XDEF routing. 
+// Tcl Message: Read XDEF File: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.244 . Memory (MB): peak = 1693.234 ; gain = 3.004 
+// Tcl Message: Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB | 
+// Tcl Message: Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.245 . Memory (MB): peak = 1693.234 ; gain = 3.004 
+// Tcl Message: INFO: [Project 1-111] Unisim Transformation Summary:   A total of 83 instances were transformed.   IOBUF => IOBUF (IBUF, OBUFT): 33 instances   LUT6_2 => LUT6_2 (LUT5, LUT6): 38 instances   RAM128X1S => RAM128X1S (MUXF7, RAMS64E, RAMS64E): 8 instances   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances  
+// RouteApi: Init Delay Mediator Swing Worker Finished
+// Device view-level: 0.0
+// TclEventType: DRC_ADDED
+// [GUI Memory]: 118 MB (+2821kb) [00:39:03]
+// Tcl Message: open_run: Time (s): cpu = 00:00:29 ; elapsed = 00:00:22 . Memory (MB): peak = 1841.188 ; gain = 956.738 
+// TclEventType: DRC_ADDED
+// [GUI Memory]: 125 MB (+1658kb) [00:39:03]
+// TclEventType: METHODOLOGY_ADDED
+// TclEventType: POWER_UPDATED
+// [Engine Memory]: 1,523 MB (+12012kb) [00:39:04]
+// [GUI Memory]: 131 MB (+18kb) [00:39:04]
+// [GUI Memory]: 138 MB (+420kb) [00:39:04]
+// [GUI Memory]: 146 MB (+298kb) [00:39:05]
+// TclEventType: TIMING_SUMMARY_UPDATED
+// [GUI Memory]: 159 MB (+5999kb) [00:39:06]
+// M (cl): Critical Messages: addNotify
+// Elapsed time: 27 seconds
+dismissDialog("Open Implemented Design"); // bs (cl)
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (M)
+dismissDialog("Critical Messages"); // M (cl)
+selectTab((HResource) null, (HResource) null, "Messages", 1); // aF (Q, cl)
+// Elapsed time: 12 seconds
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, [Vivado 12-1345] Error(s) found during DRC. Bitgen not run.. ]", 157, false); // ah (O, cl)
+selectTree(PAResourceItoN.MsgTreePanel_MESSAGE_VIEW_TREE, "[, Implementation, Write Bitstream, [Vivado 12-1345] Error(s) found during DRC. Bitgen not run.. ]", 157, false, false, false, false, false, true); // ah (O, cl) - Double Click
+// Elapsed time: 34 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 4); // k (j, cl)
+// Elapsed time: 29 seconds
+selectCodeEditor("xem7310.xdc", 391, 196); // cd (w, cl)
+// [GUI Memory]: 168 MB (+1365kb) [00:40:33]
+typeControlKey((HResource) null, "xem7310.xdc", 'c'); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 17, 425); // cd (w, cl)
+typeControlKey((HResource) null, "xem7310.xdc", 'v'); // cd (w, cl)
+// Elapsed time: 14 seconds
+selectCodeEditor("xem7310.xdc", 407, 444); // cd (w, cl)
+// [GUI Memory]: 177 MB (+281kb) [00:41:33]
+// Elapsed time: 68 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 2); // k (j, cl)
+// Elapsed time: 24 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 70, 316); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 70, 316, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 13 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "xbusp"); // l (aP, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 102, 117); // cd (w, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_core.vhd", 5); // k (j, cl)
+// Run Command: RDIResourceCommand.RDICommands_FIND
+// g (cl): Find: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (g)
+dismissDialog("Find"); // g (cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 4); // k (j, cl)
+// Elapsed time: 20 seconds
+setText(RDIResource.HCodeEditor_SEARCH_TEXT_COMBO_BOX, "xbusp"); // l (aP, cl)
+selectCodeEditor("xem7310.xdc", 414, 218); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 339, 226); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 413, 216); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 36, 183, false, false, false, true, false); // cd (w, cl) - Popup Trigger
+selectMenuItem(RDIResource.HInputHandler_TOGGLE_LINE_COMMENTS, "Toggle Line Comments"); // ac (ai, Popup.HeavyWeightWindow)
+selectCodeEditor("xem7310.xdc", 412, 286); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 410, 302); // cd (w, cl)
+selectCodeEditor("xem7310.xdc", 27, 271, false, false, false, true, false); // cd (w, cl) - Popup Trigger
+selectMenuItem(RDIResource.HInputHandler_TOGGLE_LINE_COMMENTS, "Toggle Line Comments"); // ac (ai, Popup.HeavyWeightWindow)
+selectCodeEditor("xem7310.xdc", 60, 324); // cd (w, cl)
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 10 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 2); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 385, 131); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 3); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_mod_test_top.vhd", 2); // k (j, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 51, 90); // cd (w, cl)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// Elapsed time: 13 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "xem7310.xdc", 4); // k (j, cl)
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_core.vhd", 5); // k (j, cl)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Program and Debug, Generate Bitstream]", 31, false); // u (O, cl)
+// Run Command: PAResourceCommand.PACommandNames_RUN_BITGEN
+// bs (cl):  Resetting Runs : addNotify
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+dismissDialog("Resetting Runs"); // bs (cl)
+// TclEventType: RUN_LAUNCH
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// Tcl Message: launch_runs impl_1 -to_step write_bitstream -jobs 4 
+// TclEventType: DESIGN_STALE
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// bs (cl):  Generate Bitstream : addNotify
+// Tcl Message: [Sun Jul 19 21:02:00 2020] Launched synth_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/runme.log [Sun Jul 19 21:02:00 2020] Launched impl_1... Run output will be captured here: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/impl_1/runme.log 
+dismissDialog("Generate Bitstream"); // bs (cl)
+selectButton(PAResourceOtoP.ProjectTab_CLOSE_DESIGN, "Close Design"); // h (cZ, cl)
+// TclEventType: DESIGN_CLOSE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,545 MB. GUI used memory: 102 MB. Current time: 7/19/20 9:02:09 PM PDT
+// TclEventType: TIMING_RESULTS_UNLOAD
+// Engine heap size: 1,545 MB. GUI used memory: 103 MB. Current time: 7/19/20 9:02:09 PM PDT
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: close_design 
+// bs (cl):  Closing : addNotify
+// TclEventType: DESIGN_CLOSE
+dismissDialog("Closing"); // bs (cl)
+// TclEventType: RUN_COMPLETED
+// WARNING: HTimer (ActiveMsgMonitor Process Messages Timer) is taking too long to process. Increasing delay to 2000 ms.
+// TclEventType: RUN_STEP_COMPLETED
+// TclEventType: RUN_COMPLETED
+// Elapsed time: 376 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// Elapsed time: 618 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_core.vhd", 4); // k (j, cl)
+selectCodeEditor("timing_core.vhd", 231, 260); // cd (w, cl)
+selectCodeEditor("timing_core.vhd", 231, 260, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_core.vhd", 248, 262); // cd (w, cl)
+selectCodeEditor("timing_core.vhd", 248, 262, false, false, false, false, true); // cd (w, cl) - Double Click
+selectCodeEditor("timing_core.vhd", 571, 302); // cd (w, cl)
+selectCodeEditor("timing_core.vhd", 571, 302, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 24 seconds
+selectCodeEditor("timing_core.vhd", 153, 351); // cd (w, cl)
+selectCodeEditor("timing_core.vhd", 153, 351, false, false, false, false, true); // cd (w, cl) - Double Click
