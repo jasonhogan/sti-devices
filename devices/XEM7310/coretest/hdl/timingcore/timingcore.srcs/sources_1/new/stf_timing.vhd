@@ -32,6 +32,7 @@ package stf_timing is
         stf_play   : STD_LOGIC;
         stf_option : STD_LOGIC;
         stf_affine : STD_LOGIC;
+        stf_reset  : STD_LOGIC;     --clear all errors, return to intitial state, etc.
     end record to_stf_module;
     
     type from_stf_module is record
@@ -95,12 +96,13 @@ package stf_timing is
 
     type from_timing_mod is record
         --timing core
-        error    : STD_LOGIC;
-        err_code : STD_LOGIC_VECTOR (3 downto 0);
+        err_flag  : STD_LOGIC;
+        err_code  : STD_LOGIC_VECTOR (3 downto 0);
         debug_out : STD_LOGIC_VECTOR (31 downto 0);
         
         --event register memory
         data_out : STD_LOGIC_VECTOR (31 downto 0);
+        evt_addr : STD_LOGIC_VECTOR (31 downto 0);  --current memory address of timing core (for monitoring state)
     end record from_timing_mod;
 
     type timing_mod_bus is record

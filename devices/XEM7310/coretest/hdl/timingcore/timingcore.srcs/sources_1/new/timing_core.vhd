@@ -47,6 +47,11 @@ entity timing_core is
            write    : out STD_LOGIC;                        -- High when the core is writing
            evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
 
+           -- Error handling
+           err_flag  : out STD_LOGIC;
+           err_code  : out STD_LOGIC_VECTOR (3 downto 0);
+           debug_out : out STD_LOGIC_VECTOR (31 downto 0);
+
            -- STF module
            stf_out : out to_stf_module;
            stf_in  : in from_stf_module
@@ -55,14 +60,14 @@ entity timing_core is
 end timing_core;
 
 architecture timing_core_arch of timing_core is
-   
+
     -- Load state machine
-    type load_state_labels is ( Idle, Load, Hold, Finish, Abort, Jump, Save, Paused );  --Pause/Wait
+    type load_state_labels is ( Idle, Load, Hold, Finish, Abort, Jump, Save, Paused, Error, ClearError );  --Pause/Wait
     signal load_state   : load_state_labels;
     signal resume_state : load_state_labels;
     
     -- Play state machine
-    type play_state_labels is ( Idle, Play, Count, Finish, Abort, Jump, Option, SetAffine );
+    type play_state_labels is ( Idle, Play, Count, Finish, Abort, Jump, Option, SetAffine, Error, ClearError );
     signal play_state      : play_state_labels;
     signal next_play_state : play_state_labels;
     
@@ -93,7 +98,7 @@ architecture timing_core_arch of timing_core is
     signal stf_bus_reg  : STD_LOGIC_VECTOR (27 downto 0);
 
     signal write_reg       : STD_LOGIC;
-    signal error_reg       : STD_LOGIC;
+    signal error_flag      : STD_LOGIC;
 
 
     -- combo logic intermediates
@@ -157,33 +162,39 @@ begin
             end if;
           when Load =>
             resume_state <= Load;
-            if (kill = '1') then                                load_state <= Abort;
-            elsif (paused_reg = '1') then                       load_state <= Paused;
-            elsif (opcode_lookup(next_opcode) = EndOp) then     load_state <= Finish;
-            elsif (load_next = '0') then                        load_state <= Hold;
-            elsif (opcode_lookup(next_opcode) = Jump ) then     load_state <= Jump;
-            elsif (opcode_lookup(next_opcode) = WaitOp ) then   load_state <= Paused;
+            if    ( kill = '1' ) then                            load_state <= Abort;
+            elsif ( error_flag = '1' ) then                      load_state <= Error;
+            elsif ( paused_reg = '1' ) then                      load_state <= Paused;
+            elsif ( opcode_lookup(next_opcode) = EndOp ) then    load_state <= Finish;
+            elsif ( load_next = '0' ) then                       load_state <= Hold;
+            elsif ( opcode_lookup(next_opcode) = Jump ) then     load_state <= Jump;
+            elsif ( opcode_lookup(next_opcode) = WaitOp ) then   load_state <= Paused;
             end if;
           when Hold =>
             resume_state <= Hold;
             if (kill = '1') then                                load_state <= Abort;
-            elsif (paused_reg = '1') then                       load_state <= Paused;
-            elsif (stf_in.stf_write = '1') then                 load_state <= Save;
-            elsif (load_next = '1') then
-              if (opcode_lookup(evt_opcode) = Jump) then        load_state <= Jump;
-              elsif (opcode_lookup(next_opcode) = EndOp) then   load_state <= Finish;
-              elsif (opcode_lookup(next_opcode) = WaitOp) then  load_state <= Paused;
-              else                                              load_state <= Load;
+            elsif ( error_flag = '1' ) then                     load_state <= Error;
+            elsif ( paused_reg = '1' ) then                     load_state <= Paused;
+            elsif ( stf_in.stf_write = '1' ) then               load_state <= Save;
+            elsif ( load_next = '1' ) then
+              if    ( opcode_lookup(evt_opcode) = Jump ) then     load_state <= Jump;
+              elsif ( opcode_lookup(next_opcode) = EndOp ) then   load_state <= Finish;
+              elsif ( opcode_lookup(next_opcode) = WaitOp ) then  load_state <= Paused;
+              else                                                load_state <= Load;
               end if;
             end if;
           when Save =>                      load_state <= Hold;     -- if write = '1' then
           when Jump =>                      load_state <= Load;
           when Finish =>                    load_state <= Idle;
+          when Error =>
+            if ( stop = '1' ) then          load_state <= ClearError;
+            end if;
+          when ClearError =>                load_state <= Abort;
           when Abort =>
-            if (kill /= '1') then           load_state <= Idle;
+            if ( kill /= '1' ) then         load_state <= Idle;
             end if;
            when Paused =>
-              if (trigger = '1') then       load_state <= resume_state;
+              if ( trigger = '1' ) then     load_state <= resume_state;
               end if;
           when others =>                    load_state <= Idle;
         end case;
@@ -208,7 +219,8 @@ begin
             end if;
           when Play =>
             -- play_state <= next_play_state;
-            if ( kill = '1' ) then                               play_state <= Abort;
+            if    ( kill = '1' ) then                            play_state <= Abort;
+            elsif ( error_flag = '1' ) then                      play_state <= Error;
             elsif ( opcode_lookup(evt_opcode) = EndOp ) then     play_state <= Idle;
             elsif ( waiting = '1' ) then                         play_state <= Count;
             elsif ( opcode_lookup(evt_opcode) = Action ) then    play_state <= Play;
@@ -218,23 +230,28 @@ begin
             else                                                 play_state <= Idle;
             end if;
           when Count =>
-            if (kill = '1') then                                    play_state <= Abort;
+            if    ( kill = '1' ) then                            play_state <= Abort;
+            elsif ( error_flag = '1' ) then                      play_state <= Error;
             elsif ( waiting = '0' ) then
-                -- play_state <= next_play_state;
-                if ( opcode_lookup(evt_opcode) = Jump ) then         play_state <= Jump;
-                elsif ( opcode_lookup(evt_opcode) = Action ) then    play_state <= Play;
-                elsif ( opcode_lookup(evt_opcode) = EndOp ) then     play_state <= Idle;
-                elsif ( opcode_lookup(evt_opcode) = Option ) then    play_state <= Option;
-                elsif ( opcode_lookup(evt_opcode) = SetAffine ) then play_state <= SetAffine;
-                elsif ( opcode_lookup(evt_opcode) = Noop ) then      play_state <= Idle;
-                end if;
+              -- play_state <= next_play_state;
+              if    ( opcode_lookup(evt_opcode) = Jump ) then      play_state <= Jump;
+              elsif ( opcode_lookup(evt_opcode) = Action ) then    play_state <= Play;
+              elsif ( opcode_lookup(evt_opcode) = EndOp ) then     play_state <= Idle;
+              elsif ( opcode_lookup(evt_opcode) = Option ) then    play_state <= Option;
+              elsif ( opcode_lookup(evt_opcode) = SetAffine ) then play_state <= SetAffine;
+              elsif ( opcode_lookup(evt_opcode) = Noop ) then      play_state <= Idle;
+              end if;
             end if;
           when Jump =>                      play_state <= Idle;
           when Option =>                    play_state <= next_play_state;
           when SetAffine =>                 play_state <= next_play_state;
           when Finish =>                    play_state <= Idle;
+          when Error =>
+            if ( stop = '1' ) then          load_state <= ClearError;
+            end if;
+          when ClearError =>                load_state <= Abort;
           when Abort =>
-            if (kill /= '1') then           play_state <= Idle;
+            if ( kill /= '1' ) then         play_state <= Idle;
             end if;
           when others =>                    play_state <= Idle;
         end case;
@@ -262,7 +279,7 @@ begin
           jump_evt_p2 <= '0';
           
           write_reg <= '0';
-          error_reg <= '0';
+--          error_reg <= '0';
           running <= '0';
           paused_reg <= '0';
 
@@ -356,6 +373,13 @@ begin
             stf_out.stf_affine <= '0';
         end if;
         
+        -------- Clear errors on STF module
+        if (play_state = ClearError) then
+            stf_out.stf_reset <= '1';
+        else
+            stf_out.stf_reset <= '0';
+        end if;
+        
         -------- Save reg
         if (load_state = Save) then
             write_reg <= '1';
@@ -363,12 +387,13 @@ begin
             write_reg <= '0';
         end if;
 
-        -------- Error reg
-        if (running = '1' and error_reg = '0') then
-            error_reg <= stf_in.stf_error;      -- raises error flag for one cycle
-        else
-            error_reg <= '0';
-        end if;
+--        -------- Error reg
+--        if (running = '1' and error_reg = '0') then
+--            error_reg <= stf_in.stf_error;      -- raises error flag for one cycle
+--        else
+--            error_reg <= '0';
+--        end if;
+
 
         -------- Paused reg
         if (running = '1' and load_state /= Paused) then    --and paused_reg = '0'
@@ -386,9 +411,16 @@ begin
       end if;
     end process;
 
-kill <= stop OR error_reg;
+-- Errors
+error_flag <= stf_in.stf_error;
+err_flag   <= error_flag;   --sets output of timing_core
+err_code   <= stf_in.stf_err_code; --sets output of timing_core
+
+
+kill <= stop; -- OR error_reg;
 
 next_play_state <= Abort     when ( kill = '1' )                            else
+                   Error     when ( error_flag = '1' )                      else
                    Idle      when ( opcode_lookup(evt_opcode) = EndOp )     else
                    Count     when ( waiting = '1' )                         else
                    Play      when ( opcode_lookup(evt_opcode) = Action )    else

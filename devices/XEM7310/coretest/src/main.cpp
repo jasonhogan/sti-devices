@@ -84,6 +84,10 @@ int main(int argc, char* argv[])
 	rawEvents.emplace_back(0, "00000000", 0);
 	rawEvents.emplace_back(0, "00000010", 0);
 	rawEvents.emplace_back(0, "00000000", 0);
+
+	rawEvents.emplace_back(1000, "00000001", 0);
+	rawEvents.emplace_back(0, "00000000", 0);
+
 	rawEvents.emplace_back(0, "00000000", 2);	//Stop
 
 	unsigned initaddr = 0;
@@ -110,7 +114,7 @@ int main(int argc, char* argv[])
 //	dev->ActivateTriggerIn(0x40, 1);	//reset
 	
 	//Set trigger mode on bit 0 ( 0=Software, 1=Hardware)
-	UINT32 value = 1;		//LSB high
+	UINT32 value = 0;		//set LSB
 	dev->SetWireInValue(0x01, value);
 	dev->UpdateWireIns();
 
@@ -124,12 +128,12 @@ int main(int argc, char* argv[])
 
 	std::cout << "waiting for trigger... ";
 	std::cin >> tmp;
-	return 0;
+	//return 0;
 
 	while (true) {
 
 
-
+		//dev->ActivateTriggerIn(0x41, 0);	//trigger mod 0
 		dev->ActivateTriggerIn(0x40, 0);	//trigger the sequence. NOTE: the second argument ('bit') refers to which bit (of 32) is to be triggered on this call.
 
 	}

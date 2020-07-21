@@ -124,8 +124,8 @@ set_property IOSTANDARD LVCMOS33 [get_ports {ext_trig}]
 
 
 # MC1-16
-set_property PACKAGE_PIN V9 [get_ports {xbusp[1]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[1]}]
+set_property PACKAGE_PIN V9 [get_ports {xbuspA[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspA[1]}]
 
 # MC1-17
 set_property PACKAGE_PIN Y9 [get_ports {xbusn[0]}]
@@ -136,12 +136,12 @@ set_property PACKAGE_PIN V8 [get_ports {xbusn[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[1]}]
 
 # MC1-19
-set_property PACKAGE_PIN R6 [get_ports {xbusp[2]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[2]}]
+set_property PACKAGE_PIN R6 [get_ports {xbuspA[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspA[2]}]
 
 # MC1-20
-set_property PACKAGE_PIN V7 [get_ports {xbusp[3]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[3]}]
+set_property PACKAGE_PIN V7 [get_ports {xbuspA[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspA[3]}]
 
 # MC1-21
 set_property PACKAGE_PIN T6 [get_ports {xbusn[2]}]
@@ -152,12 +152,12 @@ set_property PACKAGE_PIN W7 [get_ports {xbusn[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[3]}]
 
 # MC1-23
-set_property PACKAGE_PIN U6 [get_ports {xbusp[4]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[4]}]
+set_property PACKAGE_PIN U6 [get_ports {xbuspA[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspA[4]}]
 
 # MC1-24
-set_property PACKAGE_PIN Y8 [get_ports {xbusp[5]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[5]}]
+set_property PACKAGE_PIN Y8 [get_ports {xbuspA[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspA[5]}]
 
 # MC1-25
 set_property PACKAGE_PIN V5 [get_ports {xbusn[4]}]
@@ -167,20 +167,20 @@ set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[4]}]
 set_property PACKAGE_PIN Y7 [get_ports {xbusn[5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[5]}]
 
-# MC1-27
-set_property PACKAGE_PIN T5 [get_ports {xbusp[6]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[6]}]
 
-
-## MC1-27 *********************************************
-#set_property PACKAGE_PIN T5 [get_ports {ext_clk}]
-#set_property IOSTANDARD LVCMOS33 [get_ports {ext_clk}]
-
+################################################################
+## MC1-27
+#set_property PACKAGE_PIN T5 [get_ports {xbusp[6]}]  ##was T5
+#set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[6]}]
+# MC1-27 *********************************************
+set_property PACKAGE_PIN T5 [get_ports {ext_clk}]
+set_property IOSTANDARD LVCMOS33 [get_ports {ext_clk}]
+#####################################################################
 
 
 # MC1-28
-set_property PACKAGE_PIN W6 [get_ports {xbusp[7]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[7]}]
+set_property PACKAGE_PIN W6 [get_ports {xbuspB[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[7]}]
 
 # MC1-29
 set_property PACKAGE_PIN U5 [get_ports {xbusn[6]}]
@@ -191,12 +191,12 @@ set_property PACKAGE_PIN W5 [get_ports {xbusn[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[7]}]
 
 # MC1-31
-set_property PACKAGE_PIN AA5 [get_ports {xbusp[8]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[8]}]
+set_property PACKAGE_PIN AA5 [get_ports {xbuspB[8]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[8]}]
 
 # MC1-32
-set_property PACKAGE_PIN R4 [get_ports {xbusp[9]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[9]}]
+set_property PACKAGE_PIN R4 [get_ports {xbuspB[9]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[9]}]
 
 # MC1-33
 set_property PACKAGE_PIN AB5 [get_ports {xbusn[8]}]
@@ -207,12 +207,12 @@ set_property PACKAGE_PIN T4 [get_ports {xbusn[9]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[9]}]
 
 # MC1-37
-set_property PACKAGE_PIN AB7 [get_ports {xbusp[10]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[10]}]
+set_property PACKAGE_PIN AB7 [get_ports {xbuspB[10]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[10]}]
 
 # MC1-38
-set_property PACKAGE_PIN Y4 [get_ports {xbusp[11]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[11]}]
+set_property PACKAGE_PIN Y4 [get_ports {xbuspB[11]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[11]}]
 
 # MC1-39
 set_property PACKAGE_PIN AB6 [get_ports {xbusn[10]}]
@@ -223,12 +223,12 @@ set_property PACKAGE_PIN AA4 [get_ports {xbusn[11]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[11]}]
 
 # MC1-41
-set_property PACKAGE_PIN R3 [get_ports {xbusp[12]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[12]}]
+set_property PACKAGE_PIN R3 [get_ports {xbuspB[12]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[12]}]
 
 # MC1-42
-set_property PACKAGE_PIN Y6 [get_ports {xbusp[13]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[13]}]
+set_property PACKAGE_PIN Y6 [get_ports {xbuspB[13]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[13]}]
 
 # MC1-43
 set_property PACKAGE_PIN R2 [get_ports {xbusn[12]}]
@@ -239,12 +239,12 @@ set_property PACKAGE_PIN AA6 [get_ports {xbusn[13]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[13]}]
 
 # MC1-45
-set_property PACKAGE_PIN Y3 [get_ports {xbusp[14]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[14]}]
+set_property PACKAGE_PIN Y3 [get_ports {xbuspB[14]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[14]}]
 
 # MC1-46
-set_property PACKAGE_PIN AA8 [get_ports {xbusp[15]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[15]}]
+set_property PACKAGE_PIN AA8 [get_ports {xbuspB[15]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[15]}]
 
 # MC1-47
 set_property PACKAGE_PIN AA3 [get_ports {xbusn[14]}]
@@ -255,12 +255,12 @@ set_property PACKAGE_PIN AB8 [get_ports {xbusn[15]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[15]}]
 
 # MC1-49
-set_property PACKAGE_PIN U2 [get_ports {xbusp[16]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[16]}]
+set_property PACKAGE_PIN U2 [get_ports {xbuspB[16]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[16]}]
 
 # MC1-50
-set_property PACKAGE_PIN U3 [get_ports {xbusp[17]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[17]}]
+set_property PACKAGE_PIN U3 [get_ports {xbuspB[17]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[17]}]
 
 # MC1-51
 set_property PACKAGE_PIN V2 [get_ports {xbusn[16]}]
@@ -271,12 +271,12 @@ set_property PACKAGE_PIN V3 [get_ports {xbusn[17]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[17]}]
 
 # MC1-53
-set_property PACKAGE_PIN W2 [get_ports {xbusp[18]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[18]}]
+set_property PACKAGE_PIN W2 [get_ports {xbuspB[18]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[18]}]
 
 # MC1-54
-set_property PACKAGE_PIN W1 [get_ports {xbusp[19]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[19]}]
+set_property PACKAGE_PIN W1 [get_ports {xbuspB[19]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[19]}]
 
 # MC1-57
 set_property PACKAGE_PIN Y2 [get_ports {xbusn[18]}]
@@ -287,12 +287,12 @@ set_property PACKAGE_PIN Y1 [get_ports {xbusn[19]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[19]}]
 
 # MC1-59
-set_property PACKAGE_PIN T1 [get_ports {xbusp[20]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[20]}]
+set_property PACKAGE_PIN T1 [get_ports {xbuspB[20]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[20]}]
 
 # MC1-60
-set_property PACKAGE_PIN AB3 [get_ports {xbusp[21]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[21]}]
+set_property PACKAGE_PIN AB3 [get_ports {xbuspB[21]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[21]}]
 
 # MC1-61
 set_property PACKAGE_PIN U1 [get_ports {xbusn[20]}]
@@ -303,12 +303,12 @@ set_property PACKAGE_PIN AB2 [get_ports {xbusn[21]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[21]}]
 
 # MC1-63
-set_property PACKAGE_PIN AA1 [get_ports {xbusp[22]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[22]}]
+set_property PACKAGE_PIN AA1 [get_ports {xbuspB[22]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[22]}]
 
 # MC1-64
-set_property PACKAGE_PIN Y13 [get_ports {xbusp[23]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[23]}]
+set_property PACKAGE_PIN Y13 [get_ports {xbuspB[23]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[23]}]
 
 # MC1-65
 set_property PACKAGE_PIN AB1 [get_ports {xbusn[22]}]
@@ -319,12 +319,12 @@ set_property PACKAGE_PIN AA14 [get_ports {xbusn[23]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[23]}]
 
 # MC1-67
-set_property PACKAGE_PIN AB16 [get_ports {xbusp[24]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[24]}]
+set_property PACKAGE_PIN AB16 [get_ports {xbuspB[24]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[24]}]
 
 # MC1-68
-set_property PACKAGE_PIN AA13 [get_ports {xbusp[25]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[25]}]
+set_property PACKAGE_PIN AA13 [get_ports {xbuspB[25]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[25]}]
 
 # MC1-69
 set_property PACKAGE_PIN AB17 [get_ports {xbusn[24]}]
@@ -335,12 +335,12 @@ set_property PACKAGE_PIN AB13 [get_ports {xbusn[25]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[25]}]
 
 # MC1-71
-set_property PACKAGE_PIN AA15 [get_ports {xbusp[26]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[26]}]
+set_property PACKAGE_PIN AA15 [get_ports {xbuspB[26]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[26]}]
 
 # MC1-72
-set_property PACKAGE_PIN W15 [get_ports {xbusp[27]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[27]}]
+set_property PACKAGE_PIN W15 [get_ports {xbuspB[27]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[27]}]
 
 # MC1-73
 set_property PACKAGE_PIN AB15 [get_ports {xbusn[26]}]
@@ -351,16 +351,16 @@ set_property PACKAGE_PIN W16 [get_ports {xbusn[27]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[27]}]
 
 # MC1-75
-set_property PACKAGE_PIN Y16 [get_ports {xbusp[28]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[28]}]
+set_property PACKAGE_PIN Y16 [get_ports {xbuspB[28]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[28]}]
 
 # MC1-76
 set_property PACKAGE_PIN AA16 [get_ports {xbusn[28]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {xbusn[28]}]
 
 # MC1-77
-set_property PACKAGE_PIN V4 [get_ports {xbusp[29]}]
-set_property IOSTANDARD LVCMOS33 [get_ports {xbusp[29]}]
+set_property PACKAGE_PIN V4 [get_ports {xbuspB[29]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {xbuspB[29]}]
 
 # MC1-79
 set_property PACKAGE_PIN W4 [get_ports {xbusn[29]}]
@@ -609,5 +609,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {ybusn[29]}]
 
 set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbusn[*]}]
 set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbusn[*]}]
-set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbusp[*]}]
-set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbusp[*]}]
+set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbuspA[*]}]
+set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbuspA[*]}]
+set_output_delay -clock [get_clocks sys_clk] -min -add_delay -0.100 [get_ports {xbuspB[*]}]
+set_output_delay -clock [get_clocks sys_clk] -max -add_delay 1.000 [get_ports {xbuspB[*]}]

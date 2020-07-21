@@ -50,9 +50,13 @@ entity timing_mod_test_top is
         led       : out    STD_LOGIC_VECTOR(7 downto 0);
         
         ext_trig  : in std_ulogic;
-        --ext_clk   : in STD_LOGIC;
+        ext_clk   : in STD_LOGIC;
     
-        xbusp     :    out  STD_LOGIC_VECTOR(29 downto 1);
+        --split range so old pin 6 can be used for ext_clk
+        xbuspA     :    out  STD_LOGIC_VECTOR(5 downto 1);    
+        xbuspB     :    out  STD_LOGIC_VECTOR(29 downto 7);
+        
+--        xbusp     :    out  STD_LOGIC_VECTOR(29 downto 1);
         xbusn     :    out  STD_LOGIC_VECTOR(29 downto 0);
         ybusp     :    out  STD_LOGIC_VECTOR(29 downto 0);
         ybusn     :    out  STD_LOGIC_VECTOR(29 downto 0)
@@ -132,6 +136,23 @@ architecture Behavioral of timing_mod_test_top is
           );
     end component;
 
+    component clk_wiz_0
+    port
+     (-- Clock in ports
+      -- Clock out ports
+      clk_out1          : out    std_logic;
+      -- Status and control signals
+      reset             : in     std_logic;
+      locked            : out    std_logic;
+      clk_in1           : in     std_logic
+     );
+    end component;
+
+    signal xbusp : STD_LOGIC_VECTOR(29 downto 0);       --temp
+
+    signal int_clk : std_ulogic;
+    signal clk_out1 : std_ulogic;
+
     signal sys_clk  : std_ulogic;
     signal okClk  : std_ulogic;
     signal global_rst : std_ulogic;
@@ -159,9 +180,27 @@ architecture Behavioral of timing_mod_test_top is
     signal xemJ2 : STD_LOGIC_VECTOR(40 downto 1);   -- Connector J2 on XEM breakout (40 pin)
     signal stfJP0 : STD_LOGIC_VECTOR(26 downto 1);   -- Connector JP0 on any STF daughter board (34 pin, first 26 are logic)
 
+    signal locked : std_ulogic;
+
 begin
 
-    osc_clk : IBUFGDS port map (O=>sys_clk, I=>sys_clkp, IB=>sys_clkn);
+    osc_clk : IBUFGDS port map (O=>int_clk, I=>sys_clkp, IB=>sys_clkn);
+
+    external_clock : clk_wiz_0
+       port map ( 
+      -- Clock out ports  
+       clk_out1 => clk_out1,
+      -- Status and control signals                
+       reset => global_rst,
+       locked => locked,
+       -- Clock in ports
+       clk_in1 => ext_clk
+     );
+
+--BUFGMUX could be used to toggle between clocks
+    --sys_clk <= int_clk;
+    sys_clk <= clk_out1;
+
 
     ok_control : ok_controller
     port map
@@ -251,6 +290,8 @@ stfJP0 <= stf_pins_buffer(25 downto 0);
 
 ext_trigger <= ext_trig;
 
+xbuspA <= xbusp(5 downto 1);
+xbuspB <= xbusp(29 downto 7);
 
 -- New pin names
 xbusp <= (  --0  => ext_trigger, --W9

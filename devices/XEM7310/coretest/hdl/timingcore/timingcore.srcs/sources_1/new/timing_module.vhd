@@ -83,7 +83,12 @@ architecture timing_module_arch of timing_module is
        evt_data : in STD_LOGIC_VECTOR (63 downto 0);    -- 32 bit for delay, 32 bits for data
        write    : out STD_LOGIC;                        -- High when the core is writing
        evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
-        
+
+       -- Error handling
+       err_flag  : out STD_LOGIC;
+       err_code  : out STD_LOGIC_VECTOR (3 downto 0);
+       debug_out : out STD_LOGIC_VECTOR (31 downto 0);
+
        -- STF module
        stf_out : out to_stf_module;
        stf_in  : in from_stf_module
@@ -139,22 +144,23 @@ port map
     ini_addr => mod_bus_in.ini_addr,
 
     -- Event register
-    evt_addr => evt_addr,
-    evt_data => evt_data,
-    write => core_write,
+    evt_addr     => evt_addr,
+    evt_data     => evt_data,
+    write        => core_write,
     evt_data_out => evt_data_out,
+
+    -- Error handling
+    err_flag  => mod_bus_out.err_flag,
+    err_code  => mod_bus_out.err_code,
+    debug_out => mod_bus_out.debug_out,
 
     -- STF module
     stf_out => stf_out,
-    stf_in => stf_in
-
---    -- STF module
---    stf_bus    => stf_bus,
---    stf_data   => stf_data,
---    stf_play   => stf_play,
---    stf_option => stf_option,
---    stf_write  => stf_write,
---    stf_error  => stf_error
+    stf_in  => stf_in
+    
     );
+
+
+mod_bus_out.evt_addr <= evt_addr;   --this is for external monitoring of the internal state of the timing core
 
 end timing_module_arch;

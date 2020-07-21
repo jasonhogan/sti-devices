@@ -2,8 +2,8 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Sun Jul 19 21:02:02 2020
-# Process ID: 6960
+# Start of session at: Mon Jul 20 19:24:14 2020
+# Process ID: 5372
 # Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1
 # Command line: vivado.exe -log timing_mod_test_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source timing_mod_test_top.tcl
 # Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.vds
@@ -15,18 +15,21 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 44412 
+INFO: Helper process launched with PID 11316 
+CRITICAL WARNING: [Synth 8-2490] overwriting previous definition of module xpm_cdc_async_rst [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okCoreHarness.v:15361]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 358.129 ; gain = 98.703
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 368.176 ; gain = 109.719
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:62]
+INFO: [Synth 8-638] synthesizing module 'timing_mod_test_top' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:66]
 	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
 	Parameter DIFF_TERM bound to: 0 - type: bool 
 	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
 	Parameter IBUF_LOW_PWR bound to: 1 - type: bool 
 	Parameter IOSTANDARD bound to: DEFAULT - type: string 
-INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:164]
-INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:166]
+INFO: [Synth 8-113] binding component instance 'osc_clk' to cell 'IBUFGDS' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:187]
+INFO: [Synth 8-3491] module 'clk_wiz_0' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/realtime/clk_wiz_0_stub.vhdl:5' bound to instance 'external_clock' of component 'clk_wiz_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:189]
+INFO: [Synth 8-638] synthesizing module 'clk_wiz_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/realtime/clk_wiz_0_stub.vhdl:15]
+INFO: [Synth 8-3491] module 'ok_controller' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:35' bound to instance 'ok_control' of component 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:205]
 INFO: [Synth 8-638] synthesizing module 'ok_controller' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:60]
 INFO: [Synth 8-3491] module 'okHost' declared at 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:14' bound to instance 'okHI' of component 'okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:89]
 INFO: [Synth 8-638] synthesizing module 'xil_defaultlib_okHost' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:28]
@@ -335,7 +338,6 @@ INFO: [Synth 8-3491] module 'FDRE' declared at 'C:/Xilinx/Vivado/2017.3/scripts/
 	Parameter SLEW bound to: SLOW - type: string 
 INFO: [Synth 8-113] binding component instance 'tbuf' to cell 'IOBUF' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:119]
 INFO: [Synth 8-3491] module 'FDRE' declared at 'C:/Xilinx/Vivado/2017.3/scripts/rt/data/unisim_comp.v:3964' bound to instance 'regctrlout0' of component 'FDRE' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:124]
-INFO: [Synth 8-3491] module 'FDRE' declared at 'C:/Xilinx/Vivado/2017.3/scripts/rt/data/unisim_comp.v:3964' bound to instance 'regctrlout1' of component 'FDRE' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/writeregister/hdl/writereg/writereg.srcs/sources_1/imports/XEM7310-A200/okLibrary.vhd:125]
 INFO: [Common 17-14] Message 'Synth 8-3491' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 INFO: [Synth 8-638] synthesizing module 'GND' [C:/Xilinx/Vivado/2017.3/scripts/rt/data/unisim_comp.v:4942]
 INFO: [Synth 8-256] done synthesizing module 'GND' (2#1) [C:/Xilinx/Vivado/2017.3/scripts/rt/data/unisim_comp.v:4942]
@@ -1238,66 +1240,63 @@ INFO: [Synth 8-638] synthesizing module 'timing_trigger' [C:/Users/SrLab/Documen
 	Parameter N bound to: 8 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'timing_trigger' (32#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_trigger.vhd:52]
 INFO: [Synth 8-638] synthesizing module 'timing_module' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:52]
-INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
-INFO: [Synth 8-638] synthesizing module 'timing_core' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:57]
-INFO: [Synth 8-226] default block is never used [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:154]
-INFO: [Synth 8-226] default block is never used [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:201]
-INFO: [Synth 8-256] done synthesizing module 'timing_core' (33#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:57]
-WARNING: [Synth 8-3848] Net mod_bus_out[error] in module/entity timing_module does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:43]
-WARNING: [Synth 8-3848] Net mod_bus_out[err_code] in module/entity timing_module does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:43]
-WARNING: [Synth 8-3848] Net mod_bus_out[debug_out] in module/entity timing_module does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:43]
+INFO: [Synth 8-638] synthesizing module 'blk_mem_gen_0' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/realtime/blk_mem_gen_0_stub.vhdl:21]
+INFO: [Synth 8-638] synthesizing module 'timing_core' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:62]
+WARNING: [Synth 8-3848] Net debug_out in module/entity timing_core does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:53]
+INFO: [Synth 8-256] done synthesizing module 'timing_core' (33#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:62]
 INFO: [Synth 8-256] done synthesizing module 'timing_module' (34#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_module.vhd:52]
-INFO: [Synth 8-638] synthesizing module 'stf_output' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:55]
-WARNING: [Synth 8-3848] Net stf_out[stf_err_code] in module/entity stf_output does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:49]
-INFO: [Synth 8-256] done synthesizing module 'stf_output' (35#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:55]
+INFO: [Synth 8-638] synthesizing module 'stf_output' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:49]
+WARNING: [Synth 8-3848] Net stf_out[stf_err_code] in module/entity stf_output does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:43]
+INFO: [Synth 8-256] done synthesizing module 'stf_output' (35#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/stf_output.vhd:49]
 WARNING: [Synth 8-3848] Net led in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:50]
-WARNING: [Synth 8-3848] Net ybusp in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:57]
-WARNING: [Synth 8-3848] Net ybusn in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:58]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[7][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[6][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[5][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[4][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[3][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[2][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[1][error] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[1][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
-WARNING: [Synth 8-3848] Net from_mod_buses[1][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:146]
+WARNING: [Synth 8-3848] Net ybusp in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:61]
+WARNING: [Synth 8-3848] Net ybusn in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:62]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[7][evt_addr] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[6][evt_addr] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[5][evt_addr] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[4][evt_addr] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[3][evt_addr] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][err_flag] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][err_code] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][debug_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
+WARNING: [Synth 8-3848] Net from_mod_buses[2][data_out] in module/entity timing_mod_test_top does not have driver. [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:167]
 INFO: [Common 17-14] Message 'Synth 8-3848' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-256] done synthesizing module 'timing_mod_test_top' (36#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:62]
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[16] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[15] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[14] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[13] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[12] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[11] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[10] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[9] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[8] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[7] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[6] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[5] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[4] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[3] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[2] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[1] driven by constant 1
+INFO: [Synth 8-256] done synthesizing module 'timing_mod_test_top' (36#1) [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_mod_test_top.vhd:66]
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[5] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[4] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[3] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[2] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[1] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[16] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[15] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[14] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[13] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[12] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[11] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[10] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[9] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[8] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[7] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[16] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[15] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[14] driven by constant 1
@@ -1323,47 +1322,39 @@ WARNING: [Synth 8-3331] design stf_output has unconnected port stf_in[stf_bus][2
 WARNING: [Synth 8-3331] design stf_output has unconnected port stf_in[stf_bus][26]
 WARNING: [Synth 8-3331] design stf_output has unconnected port stf_in[stf_option]
 WARNING: [Synth 8-3331] design stf_output has unconnected port stf_in[stf_affine]
-WARNING: [Synth 8-3331] design timing_core has unconnected port stf_in[stf_err_code][3]
-WARNING: [Synth 8-3331] design timing_core has unconnected port stf_in[stf_err_code][2]
-WARNING: [Synth 8-3331] design timing_core has unconnected port stf_in[stf_err_code][1]
-WARNING: [Synth 8-3331] design timing_core has unconnected port stf_in[stf_err_code][0]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[error]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[err_code][3]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[err_code][2]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[err_code][1]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[err_code][0]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][31]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][30]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][29]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][28]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][27]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][26]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][25]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][24]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][23]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][22]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][21]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][20]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][19]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][18]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][17]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][16]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][15]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][14]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][13]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][12]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][11]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][10]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][9]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][8]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][7]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][6]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][5]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][4]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][3]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][2]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][1]
-WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_out[debug_out][0]
+WARNING: [Synth 8-3331] design stf_output has unconnected port stf_in[stf_reset]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[31]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[30]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[29]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[28]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[27]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[26]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[25]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[24]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[23]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[22]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[21]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[20]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[19]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[18]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[17]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[16]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[15]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[14]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[13]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[12]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[11]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[10]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[9]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[8]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[7]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[6]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[5]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[4]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[3]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[2]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[1]
+WARNING: [Synth 8-3331] design timing_core has unconnected port debug_out[0]
 WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_in[debug_code][3]
 WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_in[debug_code][2]
 WARNING: [Synth 8-3331] design timing_module has unconnected port mod_bus_in[debug_code][1]
@@ -1415,9 +1406,17 @@ WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[90]
 WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[89]
 WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[88]
 WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[87]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[86]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[85]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[84]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[83]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[82]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[81]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[80]
+WARNING: [Synth 8-3331] design okTriggerIn has unconnected port okHE[79]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 421.254 ; gain = 161.828
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 423.910 ; gain = 165.453
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1528,23 +1527,29 @@ WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[226] to constant 0 [C:/Use
 WARNING: [Synth 8-3295] tying undriven pin okWO:okEHx[225] to constant 0 [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/ok_controller.vhd:110]
 INFO: [Common 17-14] Message 'Synth 8-3295' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 421.254 ; gain = 161.828
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 423.910 ; gain = 165.453
 ---------------------------------------------------------------------------------
 INFO: [Netlist 29-17] Analyzing 147 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
 INFO: [Device 21-403] Loading part xc7a200tfbg484-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
-Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-6960-SrLab/dcp3/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp5/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp5/blk_mem_gen_0_in_context.xdc] for cell 'mod0/evt_register'
+Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp7/clk_wiz_0_in_context.xdc] for cell 'external_clock'
+Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp7/clk_wiz_0_in_context.xdc] for cell 'external_clock'
 Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:72]
 WARNING: [Constraints 18-96] Setting input delay on a clock pin 'okUH[0]' is not supported, ignoring it [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:73]
 INFO: [Timing 38-2] Deriving generated clocks [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc:97]
 Finished Parsing XDC File [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/bufwritter/hdl/bufwriter/bufwriter.srcs/constrs_1/imports/XEM7310-VHDL/xem7310.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/timing_mod_test_top_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/timing_mod_test_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Sourcing Tcl File [C:/Xilinx/Vivado/2017.3/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl] for cell 'ok_control/okHI/core0/core0/a0/cb0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.gnsckt_wrst.rst_wr_reg2_inst'
+Finished Sourcing Tcl File [C:/Xilinx/Vivado/2017.3/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl] for cell 'ok_control/okHI/core0/core0/a0/cb0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.gnsckt_wrst.rst_wr_reg2_inst'
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Xilinx/Vivado/2017.3/data/ip/xpm/xpm_cdc/tcl/xpm_cdc_async_rst.tcl]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/timing_mod_test_top_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/timing_mod_test_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
@@ -1558,48 +1563,54 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM128X1S => RAM128X1S (MUXF7, RAMS64E, RAMS64E): 8 instances
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 773.012 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 775.664 ; gain = 0.000
 WARNING: [Timing 38-316] Clock period '20.000' specified during out-of-context synthesis of instance 'mod0/evt_register' at clock pin 'clka' is different from the actual clock period '9.920', this can lead to different synthesis results.
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a200tfbg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
+Applied set_property IO_BUFFER_TYPE = NONE for ext_clk. (constraint file  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp7/clk_wiz_0_in_context.xdc, line 3).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for ext_clk. (constraint file  C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/.Xil/Vivado-5372-SrLab/dcp7/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property DONT_TOUCH = true for external_clock. (constraint file  auto generated constraint, line ).
 Applied set_property DONT_TOUCH = true for mod0/evt_register. (constraint file  auto generated constraint, line ).
+Applied set_property DONT_TOUCH = true for ok_control/okHI/core0/core0/\a0/cb0 /U0/\inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.gnsckt_wrst.rst_wr_reg2_inst . (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'play_state_reg' in module 'timing_core'
 INFO: [Synth 8-5544] ROM "load_state" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "evt_value" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "write_reg" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "stf_out[stf_play]" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "stf_out[stf_option]" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "stf_out[stf_affine]" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "evt_value" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "write_reg" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stf_out[stf_play]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stf_out[stf_option]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stf_out[stf_affine]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stf_out[stf_reset]" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "play_state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
-WARNING: [Synth 8-6014] Unused sequential element delay_reg was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:251]
+WARNING: [Synth 8-6014] Unused sequential element delay_reg was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:268]
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
-                    idle |                              000 |                              000
-                    play |                              001 |                              001
-               setaffine |                              010 |                              111
-                  option |                              011 |                              110
-                   count |                              100 |                              010
-                   abort |                              101 |                              100
-                    jump |                              110 |                              101
+                    idle |                         00000001 |                             0000
+                    play |                         00000010 |                             0001
+               setaffine |                         00000100 |                             0111
+                  option |                         00001000 |                             0110
+                   count |                         00010000 |                             0010
+                   abort |                         00100000 |                             0100
+                   error |                         01000000 |                             1000
+                    jump |                         10000000 |                             0101
 ---------------------------------------------------------------------------------------------------
-INFO: [Synth 8-3354] encoded FSM with state register 'play_state_reg' using encoding 'sequential' in module 'timing_core'
+INFO: [Synth 8-3354] encoded FSM with state register 'play_state_reg' using encoding 'one-hot' in module 'timing_core'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:22 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1631,25 +1642,25 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
-WARNING: [Synth 8-6014] Unused sequential element mod0/core/stf_out_reg[stf_option] was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:260]
-WARNING: [Synth 8-6014] Unused sequential element mod0/core/stf_out_reg[stf_affine] was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:260]
-WARNING: [Synth 8-6014] Unused sequential element mod0/core/delay_reg was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:251]
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[16] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[15] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[14] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[13] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[12] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[11] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[10] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[9] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[8] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[7] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[6] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[5] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[4] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[3] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[2] driven by constant 1
-WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusp[1] driven by constant 1
+WARNING: [Synth 8-6014] Unused sequential element mod0/core/stf_out_reg[stf_option] was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:277]
+WARNING: [Synth 8-6014] Unused sequential element mod0/core/stf_out_reg[stf_affine] was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:277]
+WARNING: [Synth 8-6014] Unused sequential element mod0/core/stf_out_reg[stf_reset] was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:277]
+WARNING: [Synth 8-6014] Unused sequential element mod0/core/delay_reg was removed.  [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:268]
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[5] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[4] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[3] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[2] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspA[1] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[16] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[15] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[14] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[13] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[12] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[11] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[10] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[9] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[8] driven by constant 1
+WARNING: [Synth 8-3917] design timing_mod_test_top has port xbuspB[7] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[16] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[15] driven by constant 1
 WARNING: [Synth 8-3917] design timing_mod_test_top has port xbusn[14] driven by constant 1
@@ -1699,8 +1710,8 @@ INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_contr
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[29] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[30] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/ep21 /\wirehold_reg[31] )
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mod0/core/resume_state_reg[2] )
-INFO: [Synth 8-3886] merging instance 'mod0/core/error_reg_reg' (FDC) to 'mod0/core/paused_reg_reg'
+INFO: [Synth 8-3886] merging instance 'mod0/core/resume_state_reg[2]' (FDCE) to 'mod0/core/resume_state_reg[3]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mod0/core/resume_state_reg[3] )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\mod0/core/paused_reg_reg )
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\ok_control/okHI/core0 /core0/l317e0a6720f17cacca076a392154f6ab_reg)
 WARNING: [Synth 8-3332] Sequential element (l008c72ad3b3ec61be52cde84a395c4fa_reg) is unused and will be removed from module okCore.
@@ -1804,8 +1815,11 @@ WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[21]) is unused and wi
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[22]) is unused and will be removed from module okWireIn.
 WARNING: [Synth 8-3332] Sequential element (ep_dataout_reg[23]) is unused and will be removed from module okWireIn.
 INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+CRITICAL WARNING: [Synth 8-3352] multi-driven net Q with 1st driver pin 'mod0/core/load_state_reg[3]__0/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net Q with 2nd driver pin 'GND' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
+CRITICAL WARNING: [Synth 8-5559] multi-driven net Q is connected to constant driver, other driver is ignored [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:23 ; elapsed = 00:00:24 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1816,14 +1830,17 @@ Report RTL Partitions:
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
+INFO: [Synth 8-5578] Moved timing constraint from pin 'external_clock/clk_out1' to pin 'external_clock/bbstub_clk_out1/O'
+INFO: [Synth 8-5578] Moved timing constraint from pin 'ok_control/okHI/core0/core0/a0/cb0/U0/inst_fifo_gen/gconvfifo.rf/grf.rf/rstblk/ngwrdrst.grst.g7serrst.gnsckt_wrst.rst_wr_reg2_inst/src_arst' to pin 'ok_control/okHI/core0/core0/a0/l62a5479e7989ce7f4d5507c695cc69cf_reg/Q'
+INFO: [Synth 8-5819] Moved 2 constraints on hierarchical pins to their respective driving/loading pins
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:32 ; elapsed = 00:00:34 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Timing Optimization : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1835,7 +1852,7 @@ Report RTL Partitions:
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1859,20 +1876,26 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished IO Insertion : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[2] with 1st driver pin 'mod0/core/load_state_reg[2]__0/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[2] with 2nd driver pin 'mod0/core/load_state_reg[2]/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:250]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[1] with 1st driver pin 'mod0/core/load_state_reg[1]__0/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[1] with 2nd driver pin 'mod0/core/load_state_reg[1]/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:250]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[0] with 1st driver pin 'mod0/core/load_state_reg[0]__0/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:155]
+CRITICAL WARNING: [Synth 8-3352] multi-driven net mod0/core/load_state[0] with 2nd driver pin 'mod0/core/load_state_reg[0]/Q' [C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.srcs/sources_1/new/timing_core.vhd:250]
 
 Report Check Netlist: 
 +------+------------------+-------+---------+-------+------------------+
 |      |Item              |Errors |Warnings |Status |Description       |
 +------+------------------+-------+---------+-------+------------------+
-|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
+|1     |multi_driven_nets |      0|        3|Failed |Multi driven nets |
 +------+------------------+-------+---------+-------+------------------+
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1884,25 +1907,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1912,47 +1935,49 @@ Report BlackBoxes:
 +------+--------------+----------+
 |      |BlackBox name |Instances |
 +------+--------------+----------+
-|1     |blk_mem_gen_0 |         1|
+|1     |clk_wiz_0     |         1|
+|2     |blk_mem_gen_0 |         1|
 +------+--------------+----------+
 
 Report Cell Usage: 
 +------+---------------------+------+
 |      |Cell                 |Count |
 +------+---------------------+------+
-|1     |blk_mem_gen_0_bbox_0 |     1|
-|2     |BUFG                 |     3|
-|3     |CARRY4               |    57|
-|4     |DNA_PORT             |     1|
-|5     |LUT1                 |    59|
-|6     |LUT2                 |   103|
-|7     |LUT3                 |    81|
-|8     |LUT4                 |   204|
-|9     |LUT5                 |   109|
-|10    |LUT6                 |   471|
-|11    |LUT6_2               |    50|
-|12    |MMCME2_BASE          |     1|
-|13    |RAM128X1S            |     8|
-|14    |RAM32M               |     4|
-|15    |RAMB18E1             |     1|
-|16    |RAMB18E1_1           |     1|
-|17    |RAMB36E1             |     1|
-|18    |FDCE                 |   402|
-|19    |FDPE                 |    37|
-|20    |FDRE                 |   583|
-|21    |FDSE                 |     5|
-|22    |IBUF                 |     5|
-|23    |IBUFG                |     1|
-|24    |IBUFGDS              |     1|
-|25    |IOBUF                |    33|
-|26    |OBUF                 |    62|
-|27    |OBUFT                |    68|
+|1     |blk_mem_gen_0_bbox_1 |     1|
+|2     |clk_wiz_0_bbox_0     |     1|
+|3     |BUFG                 |     2|
+|4     |CARRY4               |    57|
+|5     |DNA_PORT             |     1|
+|6     |LUT1                 |    59|
+|7     |LUT2                 |    99|
+|8     |LUT3                 |    80|
+|9     |LUT4                 |   204|
+|10    |LUT5                 |   110|
+|11    |LUT6                 |   471|
+|12    |LUT6_2               |    50|
+|13    |MMCME2_BASE          |     1|
+|14    |RAM128X1S            |     8|
+|15    |RAM32M               |     4|
+|16    |RAMB18E1             |     1|
+|17    |RAMB18E1_1           |     1|
+|18    |RAMB36E1             |     1|
+|19    |FDCE                 |   406|
+|20    |FDPE                 |    38|
+|21    |FDRE                 |   586|
+|22    |FDSE                 |     5|
+|23    |IBUF                 |     5|
+|24    |IBUFG                |     1|
+|25    |IBUFGDS              |     1|
+|26    |IOBUF                |    33|
+|27    |OBUF                 |    61|
+|28    |OBUFT                |    68|
 +------+---------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 1204 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:28 . Memory (MB): peak = 773.012 ; gain = 161.828
-Synthesis Optimization Complete : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 773.012 ; gain = 513.586
+Synthesis finished with 0 errors, 9 critical warnings and 1206 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:29 . Memory (MB): peak = 775.664 ; gain = 165.453
+Synthesis Optimization Complete : Time (s): cpu = 00:00:34 ; elapsed = 00:00:35 . Memory (MB): peak = 775.664 ; gain = 517.207
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 163 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
@@ -1969,10 +1994,10 @@ INFO: [Project 1-111] Unisim Transformation Summary:
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 4 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-1048 Infos, 473 Warnings, 0 Critical Warnings and 0 Errors encountered.
+1052 Infos, 472 Warnings, 10 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 774.676 ; gain = 523.582
+synth_design: Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 775.664 ; gain = 524.418
 INFO: [Common 17-1381] The checkpoint 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.runs/synth_1/timing_mod_test_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file timing_mod_test_top_utilization_synth.rpt -pb timing_mod_test_top_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.096 . Memory (MB): peak = 774.676 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Sun Jul 19 21:02:43 2020...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.100 . Memory (MB): peak = 775.664 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Mon Jul 20 19:24:56 2020...
