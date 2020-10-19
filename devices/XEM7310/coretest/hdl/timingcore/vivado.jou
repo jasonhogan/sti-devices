@@ -2,20 +2,12 @@
 # Vivado v2017.3 (64-bit)
 # SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
 # IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
-# Start of session at: Sun Jul 19 20:17:50 2020
-# Process ID: 36476
+# Start of session at: Sun Oct 18 17:41:53 2020
+# Process ID: 57780
 # Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent30076 C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\coretest\hdl\timingcore\timingcore.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent65332 C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\coretest\hdl\timingcore\timingcore.xpr
 # Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.log
 # Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore\vivado.jou
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.xpr
-reset_run synth_1
-launch_runs impl_1 -to_step write_bitstream -jobs 4
-wait_on_run impl_1
-open_run impl_1
-reset_run synth_1
-launch_runs impl_1 -to_step write_bitstream -jobs 4
-wait_on_run impl_1
-close_design

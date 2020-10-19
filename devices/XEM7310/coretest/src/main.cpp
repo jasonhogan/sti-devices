@@ -65,7 +65,7 @@ void printRegData(const std::vector<okTRegisterEntry>& regs)
 int main(int argc, char* argv[])
 {
 	// Initialize the FPGA with our configuration bitfile.
-	OpalKelly::FrontPanelPtr dev = initializeFPGA("timing_mod_test_top.bit");
+	OpalKelly::FrontPanelPtr dev = initializeFPGA("timing_mod_test_top.bit");	//use timing_mod_test_top_int.bit for internal CLK
 	if (!dev.get()) {
 		printf("FPGA could not be initialized.\n");
 		return -1;
@@ -77,16 +77,16 @@ int main(int argc, char* argv[])
 	//                     time, value, opcode
 	rawEvents.emplace_back(10, "00000000", 1);	//wait for trigger event
 	rawEvents.emplace_back(10, "00000000", 0); 
-	rawEvents.emplace_back(0, "00000001", 0);
-	rawEvents.emplace_back(0, "00000010", 0);
+	rawEvents.emplace_back(0, "00000010", 0);	//moved to ch 1 so I can trigger on the delayed ch 0
+	rawEvents.emplace_back(200, "00000010", 0);
 	rawEvents.emplace_back(0, "00000100", 0);
 	rawEvents.emplace_back(0, "00000010", 0);
 	rawEvents.emplace_back(0, "00000000", 0);
 	rawEvents.emplace_back(0, "00000010", 0);
 	rawEvents.emplace_back(0, "00000000", 0);
 
-	rawEvents.emplace_back(1000, "00000001", 0);
-	rawEvents.emplace_back(0, "00000000", 0);
+	rawEvents.emplace_back(40000000, "00000001", 0);
+	rawEvents.emplace_back(200, "00000000", 0);
 
 	rawEvents.emplace_back(0, "00000000", 2);	//Stop
 
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
 //	dev->ActivateTriggerIn(0x40, 1);	//reset
 	
 	//Set trigger mode on bit 0 ( 0=Software, 1=Hardware)
-	UINT32 value = 0;		//set LSB
+	UINT32 value = 1;		//set LSB
 	dev->SetWireInValue(0x01, value);
 	dev->UpdateWireIns();
 
@@ -130,11 +130,14 @@ int main(int argc, char* argv[])
 	std::cin >> tmp;
 	//return 0;
 
-	while (true) {
+	while (tmp == 1) {
 
 
-		//dev->ActivateTriggerIn(0x41, 0);	//trigger mod 0
+		dev->ActivateTriggerIn(0x41, 0);	//trigger mod 0
 		dev->ActivateTriggerIn(0x40, 0);	//trigger the sequence. NOTE: the second argument ('bit') refers to which bit (of 32) is to be triggered on this call.
+		dev->ActivateTriggerIn(0x41, 0);	//trigger mod 0
+		
+		std::cin >> tmp;
 
 	}
 

@@ -1,0 +1,123 @@
+/*
+
+Xilinx Vivado v2017.3 (64-bit) [Major: 2017, Minor: 3]
+SW Build: 2018833 on Wed Oct  4 19:58:22 MDT 2017
+IP Build: 2016188 on Wed Oct  4 21:52:56 MDT 2017
+
+Process ID: 57780
+License: Customer
+
+Current time: 	Sun Oct 18 17:42:06 PDT 2020
+Time zone: 	Pacific Standard Time (America/Los_Angeles)
+
+OS: Windows 10
+OS Version: 10.0
+OS Architecture: amd64
+Available processors (cores): 8
+
+Screen size: 1920x1080
+Screen resolution (DPI): 96
+Available screens: 1
+Available disk space: 4 GB
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+
+Java version: 	1.8.0_112 64-bit
+Java home: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre
+JVM executable location: 	C:/Xilinx/Vivado/2017.3/tps/win64/jre/bin/java.exe
+
+User name: 	SrLab
+User home directory: C:/Users/SrLab
+User working directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: C:/Xilinx/Vivado
+HDI_APPROOT: C:/Xilinx/Vivado/2017.3
+RDI_DATADIR: C:/Xilinx/Vivado/2017.3/data
+RDI_BINDIR: C:/Xilinx/Vivado/2017.3/bin
+
+User preferences location: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado
+Vivado preferences directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/vivado.xml
+Vivado layouts directory: C:/Users/SrLab/AppData/Roaming/Xilinx/Vivado/2017.3/layouts
+PlanAhead jar file location: 	C:/Xilinx/Vivado/2017.3/lib/classes/planAhead.jar
+Vivado log file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.log
+Vivado journal file location: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/vivado.jou
+Engine tmp dir: 	C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/.Xil/Vivado-57780-SrLab
+
+GUI allocated memory:	192 MB
+GUI max memory:		3,052 MB
+Engine allocated memory: 652 MB
+
+Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+// TclEventType: PROJECT_OPEN_DIALOG
+// Opening Vivado Project: C:\Users\SrLab\Documents\code\dev\sti-devices\devices\XEM7310\coretest\hdl\timingcore\timingcore.xpr. Version: Vivado v2017.3 
+// bs (cl):  Open Project : addNotify
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// [GUI Memory]: 62 MB (+62970kb) [00:00:05]
+// [Engine Memory]: 512 MB (+385636kb) [00:00:05]
+// TclEventType: FILESET_TARGET_UCF_CHANGE
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_CURRENT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_NEW
+// [Engine Memory]: 586 MB (+50852kb) [00:00:06]
+// [GUI Memory]: 78 MB (+13088kb) [00:00:07]
+// [Engine Memory]: 623 MB (+8024kb) [00:00:07]
+// Tcl Message: open_project C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore/timingcore.xpr 
+// Tcl Message: INFO: [ProjectBase 1-489] The host OS only allows 260 characters in a normal path. The project is stored in a path with more than 80 characters. If you experience issues with IP, Block Designs, or files not being found, please consider moving the project to a location with a shorter path. Alternately consider using the OS subst command to map part of the path to a drive letter. Current project path is 'C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore' 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2017.3/data/ip'. 
+// HMemoryUtils.trashcanNow. Engine heap size: 652 MB. GUI used memory: 47 MB. Current time: 10/18/20 5:42:07 PM PDT
+// Project name: timingcore; location: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/timingcore; part: xc7a200tfbg484-1
+dismissDialog("Open Project"); // bs (cl)
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// PAPropertyPanels.initPanels (timing_mod_test_top.vhd) elapsed time: 0.2s
+// Elapsed time: 31 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1, true); // B (D, cl) - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), trigger : timing_trigger(timing_trigger_arch) (timing_trigger.vhd)]", 4, false); // B (D, cl)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), trigger : timing_trigger(timing_trigger_arch) (timing_trigger.vhd)]", 4, false, false, false, false, false, true); // B (D, cl) - Double Click
+// [Engine Memory]: 664 MB (+9927kb) [00:00:47]
+// Elapsed time: 28 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd)]", 3, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd), ok_control : ok_controller(ok_controller_arch) (ok_controller.vhd), okHI : okHost(archHost) (okLibrary.vhd)]", 4, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+// [GUI Memory]: 85 MB (+2782kb) [00:01:15]
+// [GUI Memory]: 89 MB (+132kb) [00:02:04]
+// Elapsed time: 77 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1, true); // B (D, cl) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, timing_mod_test_top(Behavioral) (timing_mod_test_top.vhd)]", 1, true, false, false, false, false, true); // B (D, cl) - Double Click - Node
+// Elapsed time: 17 seconds
+selectCodeEditor("timing_mod_test_top.vhd", 138, 186); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 129, 196); // cd (w, cl)
+selectCodeEditor("timing_mod_test_top.vhd", 129, 196, false, false, false, false, true); // cd (w, cl) - Double Click
+// Elapsed time: 66 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_trigger.vhd", 1); // k (j, cl)
+// Elapsed time: 10 seconds
+selectCodeEditor("timing_trigger.vhd", 119, 200); // cd (w, cl)
+selectCodeEditor("timing_trigger.vhd", 119, 200, false, false, false, false, true); // cd (w, cl) - Double Click
+// [GUI Memory]: 94 MB (+648kb) [00:05:42]
+// Elapsed time: 103 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "ok_controller.vhd", 2); // k (j, cl)
+// [GUI Memory]: 99 MB (+180kb) [00:11:10]
+// Elapsed time: 360 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "timing_trigger.vhd", 1); // k (j, cl)
+// Elapsed time: 34 seconds
+selectCodeEditor("timing_trigger.vhd", 283, 417); // cd (w, cl)
+// WARNING: HTimer (ExpRunMonitor Open Timer) is taking too long to process. Increasing delay to 6000 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking too long to process. Increasing delay to 2000 ms.
+// WARNING: HSwingWorker (Monitor File Timestamp Swing Worker) is taking too long to process. Increasing delay to 2000 ms.
+// WARNING: HSwingWorker (Refresh Filesets Swing Worker) is taking too long to process. Increasing delay to 3000 ms.
+// HMemoryUtils.trashcanNow. Engine heap size: 665 MB. GUI used memory: 49 MB. Current time: 10/18/20 6:12:12 PM PDT
+// [GUI Memory]: 104 MB (+464kb) [00:51:58]
+// HMemoryUtils.trashcanNow. Engine heap size: 665 MB. GUI used memory: 47 MB. Current time: 10/18/20 6:42:12 PM PDT
