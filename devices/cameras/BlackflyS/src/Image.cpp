@@ -90,6 +90,7 @@ void Image::resizeImage()
 {
 //	imageData.resize(imageHeight*imageWidth);
 //	imageData.reserve(imageHeight*imageWidth);
+	
 }
 
 

@@ -84,6 +84,8 @@ private:
 	std::vector<std::shared_ptr<BlackflyNodeValue>> nodeValues;
 
 	std::shared_ptr<BlackflyNodeValue> exposureTimeNodeValue;
+	std::shared_ptr<BlackflyNodeValue> gainAutoNodeValue;
+	std::shared_ptr<BlackflyNodeValue> gainConversionNodeValue;
 	std::shared_ptr<BlackflyNodeValue> gainNodeValue;
 	std::shared_ptr<BlackflyNodeValue> triggerSourceNode;
 
@@ -146,6 +148,7 @@ private:
 
 	friend class BlackflyEvent;
 	friend class BlackflyInitializeEvent;
+	friend class BlackflyFinalizeEvent;
 
 	class ImageWriterEvent : public SynchronousEventAdapter
 	{
