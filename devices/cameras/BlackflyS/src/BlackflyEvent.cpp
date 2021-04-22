@@ -13,7 +13,7 @@ void BlackflyInitializeEvent::loadEvent()
 {
 //	cameraDevice->camera->ClearImageBuffer();
 //	cameraDevice->camera->get
-
+	
 }
 
 
@@ -46,6 +46,16 @@ void BlackflyInitializeEvent::playEvent()
 
 }
 
+
+BlackflyFinalizeEvent::BlackflyFinalizeEvent(double time, BlackflyDevice* cameraDevice)
+	: STI_Device::SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice)
+{
+}
+
+void BlackflyFinalizeEvent::collectMeasurementData()	//called after the last image collects data (and releases image buffer)
+{
+	cameraDevice->camera->EndAcquisition();
+}
 
 BlackflyEvent::BlackflyEvent(double time, BlackflyDevice* cameraDevice_, const shared_ptr<Image>& image, const shared_ptr<Image>& imageBuffer, BlackflyEventMode mode)
 	: SynchronousEventAdapter(time, cameraDevice_), cameraDevice(cameraDevice_), image(image), imageBuffer(imageBuffer), mode(mode)
@@ -96,6 +106,9 @@ void BlackflyEvent::playEvent()
 	//status = cameraDevice->camera->SetIntegerNodeValue("TLParamsLocked", 1);
 	//status = cameraDevice->camera->CommandNodeExecute("AcquisitionStart");
 	//cameraDevice->camera->AcquisitionStart();
+
+	//cameraDevice->camera->EndAcquisition();
+
 	cameraDevice->camera->BeginAcquisition();
 	setAcquisitionRunning(true);
 
@@ -108,12 +121,16 @@ void BlackflyEvent::playEvent()
 	if (cameraDevice->isHardwareTriggered()) {
 		//wait for hardware trigger
 //		status = cameraDevice->camera->CommandNodeExecute("Line1");		//hardware trigger
+//		cameraDevice->camera
 	}
 	else {
 		//send software trigger NOW
 		//status = cameraDevice->camera->CommandNodeExecute("TriggerSoftware");	//software trigger
 		cameraDevice->camera->TriggerSoftware.Execute();
 	}
+
+//	setAcquisitionRunning(false);
+//	cameraDevice->camera->EndAcquisition();
 }
 
 
@@ -160,6 +177,7 @@ void BlackflyEvent::collectMeasurementData()
 	convertedImage = pResultImage->Convert(Spinnaker::PixelFormat_Mono16, Spinnaker::NO_COLOR_PROCESSING);
 	pResultImage->Release();	//removes image from camera buffer
 
+	//convertedImage->GetTimeStamp()
 	size_t bits = convertedImage->GetBitsPerPixel();
 
 //	convertedImage->Save("C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\BlackflyS\\test.tif");
@@ -167,9 +185,9 @@ void BlackflyEvent::collectMeasurementData()
 
 	image->spinImage = convertedImage;	//shared_ptr reference
 
-	short* data = (short*) (image->getImageData());
+//	short* data = (short*) (image->getImageData());
 
-	short t = data[2];
+//	short t = data[2];
 
 //	smcs::IImageInfo imageInfo = nullptr;
 	//cameraDevice->camera->GetImageInfo(&imageInfo);
@@ -180,6 +198,11 @@ void BlackflyEvent::collectMeasurementData()
 	//	return;
 	//}
 
+
+	//convertedImage->GetFrameID();
+	//convertedImage->GetID();
+	//convertedImage->GetTimeStamp();
+	
 	//imageInfo is not null
 
 	image->clearMetaData();	//reset;  needed in this Image was used on previous shot
@@ -187,6 +210,10 @@ void BlackflyEvent::collectMeasurementData()
 	image->addMetaData("Downsample", STI::Utils::valueToString(image->downsample));
 	image->addMetaData("ExposureTime", STI::Utils::valueToString(image->exposureTime));
 	image->addMetaData("Gain", STI::Utils::valueToString(image->gain));
+
+	image->addMetaData("Frame ID", STI::Utils::valueToString(convertedImage->GetFrameID()));
+	image->addMetaData("Image ID", STI::Utils::valueToString(convertedImage->GetID()));
+	image->addMetaData("Time Stamp", STI::Utils::valueToString(convertedImage->GetTimeStamp()));
 //	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
 
 //	UINT32 sizeX, sizeY;

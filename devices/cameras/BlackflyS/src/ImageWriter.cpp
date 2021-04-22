@@ -54,7 +54,7 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 			break;
 		}
 
-		image->spinImage->Save("C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\BlackflyS\\test2.tif");
+//		image->spinImage->Save("C:\\Users\\Jason\\Code\\dev\\sti-devices\\devices\\cameras\\BlackflyS\\test2.tif");
 
 
 		//works, but only in release build
