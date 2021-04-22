@@ -67,6 +67,12 @@ void BlackflyDevice::initializedNodeValues()
 //	value = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
 //	nodeValues.push_back(value);
 
+	gainAutoNodeValue = makeNodeValue("GainAuto", "Off", "Off, Once, Continuous");
+	nodeValues.push_back(gainAutoNodeValue);
+
+	gainConversionNodeValue = makeNodeValue("GainConversion", "HCG", "LCG, HCG");
+	nodeValues.push_back(gainConversionNodeValue);
+
 	gainNodeValue = makeNodeValue("Gain", 0);
 //	gainNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
 	nodeValues.push_back(gainNodeValue);
@@ -190,8 +196,8 @@ void BlackflyDevice::defineChannels()
 
 void BlackflyDevice::definePartnerDevices()
 {
-//	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
-//	partnerDevice("External Trigger").enablePartnerEvents();
+	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
+	partnerDevice("External Trigger").enablePartnerEvents();
 }
 
 std::string BlackflyDevice::getDeviceHelp()
@@ -468,8 +474,8 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 
 		if (value.channel == 0) {	//Individual image
 
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
-			eventsOut.push_back(smartekEvent.release());
+			auto blackflyEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
+			eventsOut.push_back(blackflyEvent.release());
 
 			filename = value.fileTag + filenameext;
 
@@ -496,9 +502,9 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 
 			lastAbsorptionEvent = &(events->second.at(0));	//store for error checking at end of for loop
 
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
+			auto blackflyEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
 
-			eventsOut.push_back(smartekEvent.release());
+			eventsOut.push_back(blackflyEvent.release());
 
 			absorptionImagePaneCount++;		//expecting signal, reference, and possibly a background pane.
 			absorptionWriterEvent->addImage(image);
@@ -529,9 +535,9 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 				groupWriterEvent = std::make_unique<ImageWriterEvent>(thisWriterEventTime, this, filename);	//overwrites each time	//was lastEventTime + 10
 			}
 
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
+			auto blackflyEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image);	//schedule event to play immediately after last event
 
-			eventsOut.push_back(smartekEvent.release());
+			eventsOut.push_back(blackflyEvent.release());
 
 			groupWriterEvent->addImage(image);
 			groupWriterEvent->addMeasurement(events->second.at(0));		//register the measurement with the source RawEvent
@@ -552,23 +558,23 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 				groupWriterEvent2->addImage(image_mean_result);	//only one image; construct the mean by adding each new image to this as they are captured.
 			}
 
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image_mean, image_mean_result, BlackflyEvent::Mean);
+			auto blackflyEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image_mean, image_mean_result, BlackflyEvent::Mean);
 
 			mean_image_count++;
-			smartekEvent->imageCount = mean_image_count;
+			blackflyEvent->imageCount = mean_image_count;
 
-			eventsOut.push_back(smartekEvent.release());
+			eventsOut.push_back(blackflyEvent.release());
 
 			groupWriterEvent2->addMeasurement(events->second.at(0));	//register the measurement with the source RawEvent
 		}
 
 		if (value.channel == 4) {	// Photodetector mode: integrate all pixels
 			image = std::make_shared<Image>(sizeY, sizeX);
-			auto smartekEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image, BlackflyEvent::Photodetector);	//schedule event to plau immediately after last event
+			auto blackflyEvent = std::make_unique<BlackflyEvent>(thisEventTime, this, image, BlackflyEvent::Photodetector);	//schedule event to plau immediately after last event
 
-			smartekEvent->addMeasurement(events->second.at(0));
+			blackflyEvent->addMeasurement(events->second.at(0));
 
-			eventsOut.push_back(smartekEvent.release());
+			eventsOut.push_back(blackflyEvent.release());
 		}
 
 		lastEventTime = eventTime;
@@ -595,6 +601,9 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 	//Initialization event.  Happens before any image events
 	auto smartekIniEvent = std::make_unique<BlackflyInitializeEvent>(0, this, totalImages);
 	eventsOut.push_back(smartekIniEvent.release());
+
+	auto smartekFinalEvent = std::make_unique<BlackflyFinalizeEvent>(eventTime + 100, this);
+	eventsOut.push_back(smartekFinalEvent.release());
 
 }
 

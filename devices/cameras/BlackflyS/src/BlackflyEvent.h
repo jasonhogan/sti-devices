@@ -24,6 +24,18 @@ private:
 	BlackflyDevice* cameraDevice;
 };
 
+class BlackflyFinalizeEvent : public STI_Device::SynchronousEventAdapter
+{
+public:
+	BlackflyFinalizeEvent(double time, BlackflyDevice* cameraDevice);
+
+	void collectMeasurementData();
+
+private:
+	BlackflyDevice* cameraDevice;
+};
+
+
 class BlackflyEvent : public STI_Device::SynchronousEventAdapter
 {
 public:
