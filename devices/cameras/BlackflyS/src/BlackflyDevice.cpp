@@ -430,8 +430,9 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 	std::string filenameext = ".tif";
 	std::string filename;
 
-	UINT32 sizeX = 1936;
-	UINT32 sizeY = 1216;
+	//NOTE: these are not used: the event gets the actual image dimension during collectMeasurementData
+	UINT32 sizeX = 3208;		// Smartek: 1936
+	UINT32 sizeY = 2200;		// Smartek: 1216
 
 
 	for (auto events = eventsIn.begin(); events != eventsIn.end(); events++)
@@ -471,6 +472,10 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 		std::string gain = "";
 		gainNodeValue->getValue(gain);
 		image->gain = gain;
+
+		std::string gainConversion = "";
+		gainConversionNodeValue->getValue(gainConversion);
+		image->gainConversion= gainConversion;
 
 		if (value.channel == 0) {	//Individual image
 

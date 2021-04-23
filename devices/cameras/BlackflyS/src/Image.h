@@ -57,6 +57,7 @@ public:
 	std::string paneTag;
 	double exposureTime;
 	std::string gain;
+	std::string gainConversion;
 
 	std::vector<int> cropVector;
 

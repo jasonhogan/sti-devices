@@ -210,10 +210,13 @@ void BlackflyEvent::collectMeasurementData()
 	image->addMetaData("Downsample", STI::Utils::valueToString(image->downsample));
 	image->addMetaData("ExposureTime", STI::Utils::valueToString(image->exposureTime));
 	image->addMetaData("Gain", STI::Utils::valueToString(image->gain));
+	image->addMetaData("GainConversion", STI::Utils::valueToString(image->gainConversion));
 
 	image->addMetaData("Frame ID", STI::Utils::valueToString(convertedImage->GetFrameID()));
 	image->addMetaData("Image ID", STI::Utils::valueToString(convertedImage->GetID()));
 	image->addMetaData("Time Stamp", STI::Utils::valueToString(convertedImage->GetTimeStamp()));
+
+
 //	image->addMetaData("CameraTimestamp", STI::Utils::valueToString(imageInfo->GetCameraTimestamp()));
 
 //	UINT32 sizeX, sizeY;
