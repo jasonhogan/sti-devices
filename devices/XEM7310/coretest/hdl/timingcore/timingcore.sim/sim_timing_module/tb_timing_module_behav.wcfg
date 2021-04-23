@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_timing_module_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="stf_timing" />
+            <top_module name="tb_timing_module" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="77311500fs"></ZoomStartTime>
+      <ZoomEndTime time="148611501fs"></ZoomEndTime>
+      <Cursor1Time time="93890000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="155"></NameColumnWidth>
+      <ValueColumnWidth column_width="92"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/tb_timing_module/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/start" type="logic">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/load_state" type="other">
+      <obj_property name="ElementShortName">load_state</obj_property>
+      <obj_property name="ObjectShortName">load_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/addr" type="array">
+      <obj_property name="ElementShortName">addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/evt_data" type="array">
+      <obj_property name="ElementShortName">evt_data[63:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_data[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/next_evt_time" type="array">
+      <obj_property name="ElementShortName">next_evt_time[31:0]</obj_property>
+      <obj_property name="ObjectShortName">next_evt_time[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/next_opcode" type="array">
+      <obj_property name="ElementShortName">next_opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/next_evt_value" type="array">
+      <obj_property name="ElementShortName">next_evt_value[27:0]</obj_property>
+      <obj_property name="ObjectShortName">next_evt_value[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/evt_opcode" type="array">
+      <obj_property name="ElementShortName">evt_opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/evt_value" type="array">
+      <obj_property name="ElementShortName">evt_value[27:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_value[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/delay" type="array">
+      <obj_property name="ElementShortName">delay[31:0]</obj_property>
+      <obj_property name="ObjectShortName">delay[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/stf_mod.to_stf.stf_bus" type="array">
+      <obj_property name="ElementShortName">.stf_bus[27:0]</obj_property>
+      <obj_property name="ObjectShortName">.stf_bus[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/stf_mod.to_stf.stf_play" type="logic">
+      <obj_property name="ElementShortName">.stf_play</obj_property>
+      <obj_property name="ObjectShortName">.stf_play</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/MUT/core/play_state" type="other">
+      <obj_property name="ElementShortName">play_state</obj_property>
+      <obj_property name="ObjectShortName">play_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/ram_clk" type="logic">
+      <obj_property name="ElementShortName">ram_clk</obj_property>
+      <obj_property name="ObjectShortName">ram_clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/data_out" type="array">
+      <obj_property name="ElementShortName">data_out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">data_out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/stop" type="logic">
+      <obj_property name="ElementShortName">stop</obj_property>
+      <obj_property name="ObjectShortName">stop</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/ini_addr" type="array">
+      <obj_property name="ElementShortName">ini_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ini_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_module/stf_write_fake" type="logic">
+      <obj_property name="ElementShortName">stf_write_fake</obj_property>
+      <obj_property name="ObjectShortName">stf_write_fake</obj_property>
+   </wvobject>
+</wave_config>

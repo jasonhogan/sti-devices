@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2017.3 (64-bit)
+# SW Build 2018833 on Wed Oct  4 19:58:22 MDT 2017
+# IP Build 2016188 on Wed Oct  4 21:52:56 MDT 2017
+# Start of session at: Fri Jan 17 19:58:21 2020
+# Process ID: 18988
+# Current directory: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/coretest/coretest.sim/sim_2/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/coretest/coretest.sim/sim_2/behav/xsim/xsim.dir/timing_core_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/coretest/coretest.sim/sim_2/behav/xsim/webtalk.log
+# Journal file: C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/coretest/coretest.sim/sim_2/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/SrLab/Documents/code/dev/sti-devices/devices/XEM7310/coretest/hdl/coretest/coretest.sim/sim_2/behav/xsim/xsim.dir/timing_core_tb_behav/webtalk/xsim_webtalk.tcl -notrace

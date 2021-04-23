@@ -1,0 +1,166 @@
+----------------------------------------------------------------------------------
+-- Company: Stanford University
+-- Engineer: Jason Hogan
+-- 
+-- Create Date: 01/18/2020 05:23:37 PM
+-- Design Name: STF bus timing module
+-- Module Name: timing_module - Behavioral
+-- Project Name: STI
+-- Target Devices: XEM7310-A200 (xc7a200tfbg484-1)
+-- Tool Versions: 
+-- Description: Timing module for driving and STF daughter board.
+--              Events from an event register are loaded by the timing core
+--              and set to the STF bus.
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+use work.stf_timing.all;
+
+entity timing_module is
+    Port ( 
+           reset    : in STD_LOGIC;
+               
+           ram_clk  : in STD_LOGIC;     -- Event register   
+           core_clk : in STD_LOGIC;     -- Timing core
+
+           -- Timing module bus
+           mod_bus_in  : in to_timing_mod;
+           mod_bus_out : out from_timing_mod;
+           
+           -- STF module
+           stf_out     : out to_stf_module;
+           stf_in      : in from_stf_module
+           
+         );
+end timing_module;
+
+architecture timing_module_arch of timing_module is
+
+    component blk_mem_gen_0
+     port (
+       clka     : IN STD_LOGIC;
+       wea      : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+       addra    : IN STD_LOGIC_VECTOR(10 DOWNTO 0);
+       dina     : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+       douta    : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+       clkb     : IN STD_LOGIC;
+       web      : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+       addrb    : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+       dinb     : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+       doutb    : OUT STD_LOGIC_VECTOR(63 DOWNTO 0)
+     );
+    end component;
+
+    component timing_core
+      Port ( 
+       clk      : in STD_LOGIC;
+       reset    : in STD_LOGIC;
+       
+       -- Core control
+       start    : in STD_LOGIC;
+       stop     : in STD_LOGIC;
+       pause    : in STD_LOGIC;
+       trigger  : in STD_LOGIC;
+       ini_addr : in STD_LOGIC_VECTOR (31 downto 0);    -- initial address
+
+       -- Event register
+       evt_addr : out STD_LOGIC_VECTOR (31 downto 0);
+       evt_data : in STD_LOGIC_VECTOR (63 downto 0);    -- 32 bit for delay, 32 bits for data
+       write    : out STD_LOGIC;                        -- High when the core is writing
+       evt_data_out : out STD_LOGIC_VECTOR (31 downto 0);
+
+       -- Error handling
+       err_flag  : out STD_LOGIC;
+       err_code  : out STD_LOGIC_VECTOR (3 downto 0);
+       debug_out : out STD_LOGIC_VECTOR (31 downto 0);
+
+       -- STF module
+       stf_out : out to_stf_module;
+       stf_in  : in from_stf_module
+      );
+    end component;
+
+    signal writeA     : STD_LOGIC_VECTOR(0 DOWNTO 0);
+    signal writeB     : STD_LOGIC_VECTOR(0 DOWNTO 0);
+    signal core_write : STD_LOGIC;
+
+    signal evt_addr : STD_LOGIC_VECTOR(31 downto 0);
+    signal evt_data : STD_LOGIC_VECTOR(63 downto 0);
+    signal evt_data_out : STD_LOGIC_VECTOR(31 downto 0);
+    signal evt_data_cat : STD_LOGIC_VECTOR(63 downto 0);
+
+begin
+
+writeA <= "1" when (mod_bus_in.write = '1') else "0";
+writeB <= "1" when (core_write = '1') else "0";
+
+--evt_data_out <= X"0000000000000000";    --temp
+
+evt_data_cat <= evt_data(63 downto 32) & evt_data_out;  --keep existing time, replace value with new data
+
+evt_register : blk_mem_gen_0
+  PORT MAP (
+    -- OK bus
+    clka => ram_clk,
+    wea => writeA,
+    addra => mod_bus_in.addr_in(10 downto 0),
+    dina => mod_bus_in.data_in,
+    douta => mod_bus_out.data_out,
+    
+    -- Timing core
+    clkb => core_clk,
+    web => writeB,
+    addrb => evt_addr(9 downto 0),
+    dinb => evt_data_cat,
+    doutb => evt_data
+  );
+
+core : timing_core
+port map 
+    (
+    clk      => core_clk,
+    reset    => reset,
+    
+    -- Core control
+    start    => mod_bus_in.start,
+    stop     => mod_bus_in.stop,
+    pause    => mod_bus_in.pause,
+    trigger  => mod_bus_in.trigger,
+    ini_addr => mod_bus_in.ini_addr,
+
+    -- Event register
+    evt_addr     => evt_addr,
+    evt_data     => evt_data,
+    write        => core_write,
+    evt_data_out => evt_data_out,
+
+    -- Error handling
+    err_flag  => mod_bus_out.err_flag,
+    err_code  => mod_bus_out.err_code,
+    debug_out => mod_bus_out.debug_out,
+
+    -- STF module
+    stf_out => stf_out,
+    stf_in  => stf_in
+    
+    );
+
+
+mod_bus_out.evt_addr <= evt_addr;   --this is for external monitoring of the internal state of the timing core
+
+end timing_module_arch;

@@ -1,0 +1,13 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../timingcore.srcs/sources_1/new/stf_timing.vhd" \
+"../../../../timingcore.srcs/sources_1/new/timing_module.vhd" \
+"../../../../timingcore.srcs/sources_1/new/timing_core.vhd" \
+"../../../../timingcore.srcs/sources_1/new/stf_output.vhd" \
+"../../../../timingcore.srcs/sources_1/new/ok_controller.vhd" \
+"../../../../timingcore.srcs/sources_1/new/timing_mod_test_top.vhd" \
+"../../../../timingcore.srcs/sources_1/new/timing_trigger.vhd" \
+"../../../../timingcore.srcs/sim_stf_output/new/tb_stf_output.vhd" \
+
+# Do not sort compile order
+nosort

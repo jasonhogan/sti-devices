@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_timing_core_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_timing_core" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="65159500fs"></ZoomStartTime>
+      <ZoomEndTime time="162559501fs"></ZoomEndTime>
+      <Cursor1Time time="130860000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="155"></NameColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="33" />
+   <wvobject fp_name="/tb_timing_core/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/start" type="logic">
+      <obj_property name="ElementShortName">start</obj_property>
+      <obj_property name="ObjectShortName">start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/load_state" type="other">
+      <obj_property name="ElementShortName">load_state</obj_property>
+      <obj_property name="ObjectShortName">load_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/running" type="logic">
+      <obj_property name="ElementShortName">running</obj_property>
+      <obj_property name="ObjectShortName">running</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/addr" type="array">
+      <obj_property name="ElementShortName">addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/addr_p1" type="array">
+      <obj_property name="ElementShortName">addr_p1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_p1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/play_addr" type="array">
+      <obj_property name="ElementShortName">play_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">play_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/evt_addr" type="array">
+      <obj_property name="ElementShortName">evt_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/stf_write_fake" type="logic">
+      <obj_property name="ElementShortName">stf_write_fake</obj_property>
+      <obj_property name="ObjectShortName">stf_write_fake</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/write" type="logic">
+      <obj_property name="ElementShortName">write</obj_property>
+      <obj_property name="ObjectShortName">write</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/next_evt_time" type="array">
+      <obj_property name="ElementShortName">next_evt_time[31:0]</obj_property>
+      <obj_property name="ObjectShortName">next_evt_time[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/next_evt_value" type="array">
+      <obj_property name="ElementShortName">next_evt_value[27:0]</obj_property>
+      <obj_property name="ObjectShortName">next_evt_value[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/next_opcode" type="array">
+      <obj_property name="ElementShortName">next_opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/evt_value" type="array">
+      <obj_property name="ElementShortName">evt_value[27:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_value[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/evt_opcode" type="array">
+      <obj_property name="ElementShortName">evt_opcode[3:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_opcode[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/jump_evt" type="logic">
+      <obj_property name="ElementShortName">jump_evt</obj_property>
+      <obj_property name="ObjectShortName">jump_evt</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/jump_evt_p2" type="logic">
+      <obj_property name="ElementShortName">jump_evt_p2</obj_property>
+      <obj_property name="ObjectShortName">jump_evt_p2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/waiting" type="logic">
+      <obj_property name="ElementShortName">waiting</obj_property>
+      <obj_property name="ObjectShortName">waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/step_pipline" type="logic">
+      <obj_property name="ElementShortName">step_pipline</obj_property>
+      <obj_property name="ObjectShortName">step_pipline</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/delay" type="array">
+      <obj_property name="ElementShortName">delay[31:0]</obj_property>
+      <obj_property name="ObjectShortName">delay[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/play_state" type="other">
+      <obj_property name="ElementShortName">play_state</obj_property>
+      <obj_property name="ObjectShortName">play_state</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/stf_play" type="logic">
+      <obj_property name="ElementShortName">stf_play</obj_property>
+      <obj_property name="ObjectShortName">stf_play</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/stf_option" type="logic">
+      <obj_property name="ElementShortName">stf_option</obj_property>
+      <obj_property name="ObjectShortName">stf_option</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/stf_bus" type="array">
+      <obj_property name="ElementShortName">stf_bus[27:0]</obj_property>
+      <obj_property name="ObjectShortName">stf_bus[27:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/load_next" type="logic">
+      <obj_property name="ElementShortName">load_next</obj_property>
+      <obj_property name="ObjectShortName">load_next</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/next_waiting" type="logic">
+      <obj_property name="ElementShortName">next_waiting</obj_property>
+      <obj_property name="ObjectShortName">next_waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/waiting" type="logic">
+      <obj_property name="ElementShortName">waiting</obj_property>
+      <obj_property name="ObjectShortName">waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/next_data_valid" type="logic">
+      <obj_property name="ElementShortName">next_data_valid</obj_property>
+      <obj_property name="ObjectShortName">next_data_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/value_valid" type="logic">
+      <obj_property name="ElementShortName">value_valid</obj_property>
+      <obj_property name="ObjectShortName">value_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/evt_data" type="array">
+      <obj_property name="ElementShortName">evt_data[63:0]</obj_property>
+      <obj_property name="ObjectShortName">evt_data[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/test_next_op" type="other">
+      <obj_property name="ElementShortName">test_next_op</obj_property>
+      <obj_property name="ObjectShortName">test_next_op</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_timing_core/MUT/test_op" type="other">
+      <obj_property name="ElementShortName">test_op</obj_property>
+      <obj_property name="ObjectShortName">test_op</obj_property>
+   </wvobject>
+</wave_config>

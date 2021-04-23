@@ -1,0 +1,11 @@
+* Direct output of sys_clk to JP0 does not work.  Only one trigger pulse and then the outputs are at DC.  Is the output too fast?  Does the clock need to be buffered?
+
+* Added a count register process.  Set JP0 outputs to the 4th bit of the counter (80 ns period).  Now it triggers and I can see both outputs.  There is still 1 ns jitter between pins 1 and 2!  So the jitter is intrinsic to the way I am building bit files, and is not from the timing_core logic.  With existing timing constraints, WNS is 7.4 ns (about the same as it was for the full timing core tests).
+
+* Tried to output bit 1 of clock buffer (should be a 10 ns clock period). Works, with 1 ns of jitter once again.
+
+* Tried bit 0 (5 ns clock).  Same 1 ns jitter.
+-- I looked at the actual analog signal with a scope probe.  The output looks like a distorted sine wave.  It's very clearly low-passed and reduced in amplitude.  This is true after my protoboard wiring, but also (to some extent) directly out of the XEM breakout board. The breakout board may not be rated to 200 MHz.  Based on the jitter on the sine wave amplitude, it's not at all surprising that the digitized signal has 1 ns jitter.  The rising edge of the sine wave is very slow and not square.  This may be as far as I can go without a custom PCB.
+
+Slack
+- Increasing -max -add_delay from 1 ns to 10 ns made the WNS worse, increasing it from -7.4 to -16.5.  So I don't understand set_output_delay.
