@@ -55,3 +55,7 @@ devices/XEM7310/coretest/project/x64/
 devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/synth_1/
 devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/impl_1/
 devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/.jobs/
+devices/cameras/Pixis_Add-In/project/Pixis_Add-In.VC.db
+devices/misc/testDevice/test/Release/
+devices/misc/testDevice/test/Debug/
+devices/lasers/aosense ilc/ECDL ILC API.eml

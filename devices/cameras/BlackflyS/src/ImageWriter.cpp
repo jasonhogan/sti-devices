@@ -73,6 +73,12 @@ void ImageWriter::saveToMultiPageGrey(const std::string& filename)
 		setMetadata(magickImage, image);
 
 		magickImages.push_back(magickImage);
+
+		////Testing 'zoom' downsample method
+		//Magick::Image magickImageTest;
+		//magickImageTest.read(image->getImageWidth(), image->getImageHeight(),
+		//	"I", MagickCore::ShortPixel, image->getImageData());	//is this a deep copy of the image data?  Could be slow.  JMH
+		//magickImages.push_back(magickImageTest);
 	}
 
 	//Check that the target directory for the image exists; if not create it.

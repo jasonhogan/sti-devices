@@ -44,6 +44,7 @@ etraxMemoryAddress(EtraxMemoryAddress)
 	play  = (1 << 0);
 	stop  = (1 << 1);
 	pause = (1 << 2);
+	reset = (1 << 3);
 	waitForExternal = 0;
 	armBits = 0;
 
@@ -218,7 +219,11 @@ void Trigger_Device::parseDeviceEvents(const RawEventMap& eventsIn,
 				}
 
 				if(i == 0 && newEvent == NULL) {
-					newEvent = new TriggerEvent(events->second.at(i).time(), value, this);
+					double bufferTime = 0;
+					if (value == play) {
+						bufferTime = 3;	//this allows room for optional Reset/Stop before Play (this is a hack)
+					}
+					newEvent = new TriggerEvent(events->second.at(i).time() + bufferTime, value, this);
 				}
 
 				//set the arm bits for the new event
@@ -296,6 +301,9 @@ uInt32 Trigger_Device::getTriggerEventValue(TriggerEventType type)
 		case PAUSE:
 			value = pause;
 			break;
+		case RESET:
+			value = reset;
+			break;
 		case WAIT:
 		case WAITALL:
 			value = waitForExternal;
@@ -329,6 +337,12 @@ Trigger_Device::TriggerEventType Trigger_Device::triggerEventTypeDecode(const st
 		eventValue.compare("PAUSE") == 0)
 	{
 		type = PAUSE;
+	}
+	if (eventValue.compare("reset") == 0 ||
+		eventValue.compare("Reset") == 0 ||
+		eventValue.compare("RESET") == 0)
+	{
+		type = RESET;
 	}
 	if(
 		eventValue.compare("wait for external trigger") == 0 ||
