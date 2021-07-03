@@ -196,8 +196,8 @@ void BlackflyDevice::defineChannels()
 
 void BlackflyDevice::definePartnerDevices()
 {
-//	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
-//	partnerDevice("External Trigger").enablePartnerEvents();
+	addPartnerDevice("External Trigger", trigger.ip, trigger.module, trigger.name);
+	partnerDevice("External Trigger").enablePartnerEvents();
 }
 
 std::string BlackflyDevice::getDeviceHelp()
