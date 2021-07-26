@@ -10,7 +10,7 @@ samplingRate = 500
 
 deltaT_ns = 1000.0/samplingRate
 
-num_points=1*2*500
+num_points=0*2*500+168
 fc=40
 
 freq=50  #in MHz
@@ -26,7 +26,15 @@ for x in range(0,num_points) :
 
     zeros.append(0)
 
+#event(ch(afgdev, 1), 10*ms, (delta, W1, W2, W3, W4) )
+#event(ch(afgdev, 1), 10*ms+10*ns, ((d1, W1), (d2, W2, phi2)) )
+#event(ch(afgdev, 1), 10*ms+10*ns+200*ns, ((d1, 0) ) )
+#event(ch(afgdev, 1), 10*ms+10*ns, (dt, ((d1, W1), (d2, W2)) ) )
 
+
+#for t in range(20):
+#    for e in evt.value:
+#        data[t] += e[1]*sin((e[0]+50)*t)
 
 ##file1 = open("MyFile.txt","a")
 ##for e in data1:
@@ -41,25 +49,19 @@ for x in range(0,num_points) :
 
 
 afg.write_visa("SEQControl:STOP")
-afg.write_visa("SEQControl:STAT OFF")
+afg.write_visa("SEQControl:STAT OFF") # Exit sequence mode
 afg.enableChannel(1, False)
 afg.enableChannel(2, False)
 afg.setAmplitude(1, 0.25)
-time.sleep(0.1)
+
 
 afg.clearSequence()
 afg.setSequenceLength(1)
-#afg.write_visa("SEQControl:SRATE " + '%.5E' % Decimal(samplingRate*1e6))
 afg.setSamplingRate(samplingRate)
-#afg.write_visa("SOUR1:VOLT 0.25VPP")
 
-
-
-#time.sleep(0.1)
 
 afg.addToSequence(1, 1, data1)
 afg.addToSequence(1, 2, data1)
-
 
 #afg.enableExtTrigger(1, False)
 
@@ -67,48 +69,35 @@ afg.addToSequence(1, 2, data1)
 #print(afg.write_visa("SEQ:ELEM1:JTAR:TYPE NEXT"))
 #print(afg.query_visa("SEQ:ELEM1:JTAR:TYPE?"))
 
-print(afg.write_visa("SEQ:ELEM1:LOOP:INF 1"))
-print(afg.query_visa("SEQ:ELEM1:LOOP:INF?"))
+# Loop infinite
+afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
+afg.query_visa("SEQ:ELEM1:LOOP:INF?")
 
+# Set goto
 afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
 afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
-print(afg.query_visa("SEQ:ELEM1:GOTO:STAT?"))
+#print(afg.query_visa("SEQ:ELEM1:GOTO:STAT?"))
 
-print(afg.write_visa("SEQ:ELEM1:TWA:STAT 1"))
-print(afg.query_visa("SEQ:ELEM1:TWA:STAT?"))
-print(afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN"))
-print(afg.query_visa("SEQ:ELEM1:TWA:EVEN?"))
+
+# Enable Wait and set trigger (manual)
+afg.write_visa("SEQ:ELEM1:TWA:STAT 1")
+#print(afg.query_visa("SEQ:ELEM1:TWA:STAT?"))
+afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN")
+#print(afg.query_visa("SEQ:ELEM1:TWA:EVEN?"))
 
 
 
 #afg.enableExtTrigger(1,True)
 
 
-
-# Exit sequence mode
-#afg.write_visa("SEQControl:STAT OFF")
-
 # Enter sequence mode
 afg.write_visa("SEQControl:STAT ON")
-
-
-
-#time.sleep(3)
-# Exit sequence mode
-#print(afg.write_visa("SEQControl:STAT OFF"))
-#afg.write_visa("SEQControl:STAT OFF")
-#time.sleep(0.1)
-#print(afg.query_visa("SEQControl:STAT?"))
-#print("Now!")
-# Enter sequence mode
-#afg.write_visa("SEQControl:STAT ON")
-
-
 
 
 afg.write_visa("SEQControl:RUN")
 afg.enableChannel(1, True)
 afg.enableChannel(2, True)
+
 #afg.write_visa("SEQControl:RUN")
 
 #afg.write_visa("*TRG")
