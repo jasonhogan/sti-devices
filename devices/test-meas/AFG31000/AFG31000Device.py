@@ -98,13 +98,14 @@ class AFG31000Device(STIPy.STI_Device):
             lastPulseOffTimes = [ len(self.pulseData[0]), len(self.pulseData[1])]
             
 
-        maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 168)    # min waveform length is 168
+        maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 0*168)    # min waveform length is 168
 
         # makes list lengths equal by padding with zeros at the end
         self.pulseDataCh1 += [0] * (maxPoints - len(self.pulseDataCh1) )
         self.pulseDataCh2 += [0] * (maxPoints - len(self.pulseDataCh2) )
 
-        afgEvt = AFG3100Event(0, self)  #initialization event
+        #afgEvt = AFG3100Event(0, self)  #initialization event
+        afgEvt = AFG3100BurstEvent(0, self, dt*maxPoints)  #initialization event
         eventsOut.append(afgEvt)
 
         #self.setupAFG()
@@ -221,6 +222,32 @@ class AFG31000Device(STIPy.STI_Device):
         afg.enableChannel(1, True)
         afg.enableChannel(2, True)
 
+    def setupAFGBasic(self, duration):
+        afg = self.afg
+
+        afg.write(1, self.pulseData[0])
+        afg.write(2, self.pulseData[1])
+
+        #afg.enableExtTrigger(1, True)
+
+        burstFreq = 1000.0/duration # in MHz to give to 
+        print(str(burstFreq) + "MHz")    
+    
+        afg.write_visa("SOUR1:FUNC:SHAP EMEM1")
+        afg.write_visa("SOUR1:FREQ:FIX " + str(burstFreq) + "MHz")
+        afg.write_visa("SOUR1:BURS:STAT ON")
+        afg.write_visa("SOUR1:BURS:NCYC 1")
+
+        afg.write_visa("SOUR2:FUNC:SHAP EMEM2")
+        afg.write_visa("SOUR2:FREQ:FIX " + str(burstFreq) + "MHz")
+        afg.write_visa("SOUR2:BURS:STAT ON")
+        afg.write_visa("SOUR2:BURS:NCYC 1")
+
+        afg.write_visa("TRIG:SOUR EXT")
+
+        #afg.write_visa("SEQControl:RUN")
+        afg.enableChannel(1, True)
+        afg.enableChannel(2, True)
 
 
 class AFG3100Event(STIPy.SynchronousEvent):
@@ -237,6 +264,20 @@ class AFG3100Event(STIPy.SynchronousEvent):
         self.device.afg.write_visa("SEQControl:RUN")
         return
 
+class AFG3100BurstEvent(STIPy.SynchronousEvent):
+    def __init__(self, time, device, burstDuration):
+        STIPy.SynchronousEvent.__init__(self, time, device)
+        self.device=device
+        self.duration=burstDuration
+
+    def loadEvent(self):
+        self.device.setupAFGBasic(self.duration)
+        return
+
+    def playEvent(self):
+        #self.device.afg.write_visa("SEQControl:RUN")
+        #self.device.afg.write_visa("SEQControl:RUN")
+        return
 
         
 
