@@ -176,6 +176,16 @@ class AFG31000Device(STIPy.STI_Device):
             self.afg.setAmplitude(channel, self.amplitude[channel-1])
             return True
         return False
+
+    def setBasicChannel(self, channel, value):
+
+        burstFreq = value
+        afg.write_visa("SOUR" + str(channel) + ":FUNC:SHAP EMEM" + str(channel))
+        afg.write_visa("SOUR" + str(channel) + ":FREQ:FIX " + str(burstFreq) + "MHz")
+        afg.write_visa("SOUR" + str(channel) + ":BURS:STAT ON")
+        afg.write_visa("SOUR" + str(channel) + ":BURS:NCYC 1")
+
+        return True
     
     def setupAFG(self):
         afg = self.afg
@@ -228,24 +238,15 @@ class AFG31000Device(STIPy.STI_Device):
         afg.write(1, self.pulseData[0])
         afg.write(2, self.pulseData[1])
 
-        #afg.enableExtTrigger(1, True)
 
         burstFreq = 1000.0/duration # in MHz to give to 
         print(str(burstFreq) + "MHz")    
-    
-        afg.write_visa("SOUR1:FUNC:SHAP EMEM1")
-        afg.write_visa("SOUR1:FREQ:FIX " + str(burstFreq) + "MHz")
-        afg.write_visa("SOUR1:BURS:STAT ON")
-        afg.write_visa("SOUR1:BURS:NCYC 1")
 
-        afg.write_visa("SOUR2:FUNC:SHAP EMEM2")
-        afg.write_visa("SOUR2:FREQ:FIX " + str(burstFreq) + "MHz")
-        afg.write_visa("SOUR2:BURS:STAT ON")
-        afg.write_visa("SOUR2:BURS:NCYC 1")
+        setBasicChannel(1, burstFreq)
+        setBasicChannel(2, burstFreq)
 
         afg.write_visa("TRIG:SOUR EXT")
 
-        #afg.write_visa("SEQControl:RUN")
         afg.enableChannel(1, True)
         afg.enableChannel(2, True)
 
@@ -260,7 +261,6 @@ class AFG3100Event(STIPy.SynchronousEvent):
         return
 
     def playEvent(self):
-        #self.device.afg.write_visa("SEQControl:RUN")
         self.device.afg.write_visa("SEQControl:RUN")
         return
 
@@ -275,8 +275,6 @@ class AFG3100BurstEvent(STIPy.SynchronousEvent):
         return
 
     def playEvent(self):
-        #self.device.afg.write_visa("SEQControl:RUN")
-        #self.device.afg.write_visa("SEQControl:RUN")
         return
 
         
