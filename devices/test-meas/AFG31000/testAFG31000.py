@@ -10,9 +10,10 @@ samplingRate = 500
 
 deltaT_ns = 1000.0/samplingRate
 
-num_points=0*2*500+168
+num_points=50*2*500+0*168
 fc=40
 
+print(deltaT_ns*num_points)
 freq=50  #in MHz
 delta=2
 data1=[]
@@ -48,11 +49,11 @@ for x in range(0,num_points) :
 #afg.write(2, data)
 
 
-afg.write_visa("SEQControl:STOP")
+#afg.write_visa("SEQControl:STOP")
 afg.write_visa("SEQControl:STAT OFF") # Exit sequence mode
-afg.enableChannel(1, False)
-afg.enableChannel(2, False)
-afg.setAmplitude(1, 0.25)
+#afg.enableChannel(1, False)
+#afg.enableChannel(2, False)
+afg.setAmplitude(1, 1.0)
 
 
 afg.clearSequence()
@@ -60,8 +61,8 @@ afg.setSequenceLength(1)
 afg.setSamplingRate(samplingRate)
 
 
-afg.addToSequence(1, 1, data1)
-afg.addToSequence(1, 2, data1)
+afg.write(1, data1)
+afg.write(2, data1)
 
 #afg.enableExtTrigger(1, False)
 
@@ -70,31 +71,41 @@ afg.addToSequence(1, 2, data1)
 #print(afg.query_visa("SEQ:ELEM1:JTAR:TYPE?"))
 
 # Loop infinite
-afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
-afg.query_visa("SEQ:ELEM1:LOOP:INF?")
+#afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
+#afg.query_visa("SEQ:ELEM1:LOOP:INF?")
 
 # Set goto
-afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
-afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
+#afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
+#afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
 #print(afg.query_visa("SEQ:ELEM1:GOTO:STAT?"))
 
 
 # Enable Wait and set trigger (manual)
-afg.write_visa("SEQ:ELEM1:TWA:STAT 1")
+#afg.write_visa("SEQ:ELEM1:TWA:STAT 1")
 #print(afg.query_visa("SEQ:ELEM1:TWA:STAT?"))
-afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN")
+#afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN")
 #print(afg.query_visa("SEQ:ELEM1:TWA:EVEN?"))
 
+afg.write_visa("SOUR1:FUNC:SHAP EMEM1")
+afg.write_visa("SOUR1:FREQ:FIX 10kHz")
+afg.write_visa("SOUR1:BURS:STAT ON")
+afg.write_visa("SOUR1:BURS:NCYC 1")
 
+afg.write_visa("SOUR2:FUNC:SHAP EMEM2")
+afg.write_visa("SOUR2:FREQ:FIX 10kHz")
+afg.write_visa("SOUR2:BURS:STAT ON")
+afg.write_visa("SOUR2:BURS:NCYC 1")
+
+afg.write_visa("TRIG:SOUR EXT")
 
 #afg.enableExtTrigger(1,True)
 
 
 # Enter sequence mode
-afg.write_visa("SEQControl:STAT ON")
+#afg.write_visa("SEQControl:STAT ON")
 
 
-afg.write_visa("SEQControl:RUN")
+#afg.write_visa("SEQControl:RUN")
 afg.enableChannel(1, True)
 afg.enableChannel(2, True)
 

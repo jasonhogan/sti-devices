@@ -8,11 +8,11 @@ class AFG31000Device(STIPy.STI_Device):
         STIPy.STI_Device.__init__(self, orb, name, ip, module)
         self.afg = AFG31000.AFG31000('TCPIP0::192.168.1.3::inst0::INSTR')
 
-        self.sampleRate = 1000   # MS/s
+        self.sampleRate = self.afg.getSamplingRate()   # MS/s
         self.fc = 50             # MHz
         self.units = 1e-3        # MHz * ns
 
-        self.amplitude = [1, 1]       #Vpp [ch1, ch2]
+        self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
 
         return
     
@@ -40,8 +40,16 @@ class AFG31000Device(STIPy.STI_Device):
         return False
     
     def refreshAttributes(self):
+        self.setSampleRate( self.afg.getSamplingRate() )    #query AFG for current value
         self.setAttribute("Sample Rate (MS/s)", self.sampleRate)
+        
         self.setAttribute("Carrier Frequency (MHz)", self.fc)
+
+        self.setAmplitude(1, self.afg.getAmplitude(1))
+        self.setAttribute("Amplitude 1 (Vpp)", self.amplitude[0])
+
+        self.setAmplitude(2, self.afg.getAmplitude(2))
+        self.setAttribute("Amplitude 2 (Vpp)", self.amplitude[1])
 
     def parseDeviceEvents(self, eventsIn, eventsOut):
         # This function is called during parsing of a timing file.
@@ -63,7 +71,6 @@ class AFG31000Device(STIPy.STI_Device):
         firstEvent = True
         lastPulseDuration = 0
 
-
         for nextEventsTuple in eventsIn:
             # nextEventsTuple is formated as (eventTime, {event list})
 
@@ -84,63 +91,23 @@ class AFG31000Device(STIPy.STI_Device):
                 if nextPulseDelay < 0:
                     raise ValueError('Pulse spacing too small.')
 
-                
-                #pulseDataCh1 += padding
                 self.pulseData[evt.channel() - 1] += self.makeZeroPadding(nextPulseDelay)
                 self.pulseData[evt.channel() - 1] += self.makePulse(pulseDuration, pulseSpectrum)
 
 
             lastPulseOffTimes = [ len(self.pulseData[0]), len(self.pulseData[1])]
-
-
-
-
-##            # Determine amount of zero padding needed before pulse (since last pulse)
-##            if firstEvent:
-##                tFrontPad = 0
-##            else:
-##                pulseTime = key[0]
-##                tFrontPad = (pulseTime - lastEventTime) - lastPulseDuration
-##
-##            if tFrontPad >= 0 :
-##                padding = self.makeZeroPadding(tFrontPad)
-##            elif tFrontPad < 0:
-##                raise ValueError('Pulse spacing too small.')
-
             
-            #rawEvent=key[1][0]  #for multiple events at the same time, iterate over events with key[1][j]
 
-            #self.checkValueFormat(rawEvent.value())
-
-            #print(rawEvent.value())
-
-            #raise STIPy.EventParsingException(rawEvent, "test exception")
-            #raise ValueError('Represents a hidden bug, do not catch this')
-
-            #evt = AFG3100Event(key[0], rawEvent.channel(), rawEvent.value(), self)   # Using device-specific custom event class, defined below
-            #eventsOut.append(evt)
-
-            #lastEventTime=key[0]
-
-        #maxPoints = max([len(self.pulseDataCh1), len(self.pulseDataCh2)])  
         maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 168)    # min waveform length is 168
-        print("maxPoints = " + str(maxPoints))
 
-        print("len(pulseDataCh1) = " + str(len(self.pulseDataCh1)))
-        print("len(pulseDataCh2) = " + str(len(self.pulseDataCh2)))
-
-        # makes list lengths equal
+        # makes list lengths equal by padding with zeros at the end
         self.pulseDataCh1 += [0] * (maxPoints - len(self.pulseDataCh1) )
         self.pulseDataCh2 += [0] * (maxPoints - len(self.pulseDataCh2) )
-
-        print("*len(pulseDataCh1) = " + str(len(self.pulseDataCh1)))
-        print("*len(pulseDataCh2) = " + str(len(self.pulseDataCh2)))
 
         afgEvt = AFG3100Event(0, self)  #initialization event
         eventsOut.append(afgEvt)
 
-        #print(pulseDataCh1)
-        #print(pulseDataCh2)
+        #self.setupAFG()
 
         return
 
@@ -168,7 +135,7 @@ class AFG31000Device(STIPy.STI_Device):
         data=[]
 
         def makeSinPoint(t, freq, amplitude, phi=0):
-            return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + phi )
+            return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) )
         
         for t in range(0, nPoints):
             sample = 0
@@ -225,7 +192,7 @@ class AFG31000Device(STIPy.STI_Device):
         #afg.setSamplingRate(self.sampleRate)
 
         #print(self.pulseData[0])
-        print(len(self.pulseData[0]))
+        #print(len(self.pulseData[0]))
 
         
 
@@ -234,23 +201,25 @@ class AFG31000Device(STIPy.STI_Device):
 
         # Loop infinite
         #afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
-        #afg.query_visa("SEQ:ELEM1:LOOP:INF?")
+        ##afg.query_visa("SEQ:ELEM1:LOOP:INF?")
 
         # Set goto
-        afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
-        afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
+        ##afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
+        ##afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
 
         # Enable Wait and set trigger (manual)
         afg.write_visa("SEQ:ELEM1:TWA:STAT 1")
         afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN")
-        #afg.enableExtTrigger(1, True)
+        ##afg.enableExtTrigger(1, True)
 
         # Enter sequence mode
-        #afg.write_visa("SEQControl:STAT ON")
+        afg.write_visa("SEQControl:STAT OFF") # Exit sequence mode
+        afg.write_visa("SEQControl:STAT ON")
 
-        afg.write_visa("SEQControl:RUN")
-        #afg.enableChannel(1, True)
-        #afg.enableChannel(2, True)
+
+        #afg.write_visa("SEQControl:RUN")
+        afg.enableChannel(1, True)
+        afg.enableChannel(2, True)
 
 
 
@@ -264,6 +233,8 @@ class AFG3100Event(STIPy.SynchronousEvent):
         return
 
     def playEvent(self):
+        #self.device.afg.write_visa("SEQControl:RUN")
+        self.device.afg.write_visa("SEQControl:RUN")
         return
 
 

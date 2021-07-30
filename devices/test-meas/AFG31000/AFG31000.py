@@ -38,16 +38,23 @@ class AFG31000:
         
         #time.sleep(1)
         #self.AFG_instrument.query('*IDN?')
+        #self.write_visa("*OPC?")
 
         #Save data to file
         store_cmd = "MMEM:STOR:TRAC EMEM" + str(channel) + ", "
         self.AFG_instrument.write(store_cmd + filename)
 
+        #self.write_visa("*OPC?")
+
         #Import file to waveform list (left panel of Advanced)
         self.AFG_instrument.write("WLIST:WAV:IMP " + filename)
 
+        #self.write_visa("*OPC?")
+
         addToSeq_cmd = "SEQ:ELEM" + str(index) + ":WAV" + str(channel) + " "
         self.AFG_instrument.write(addToSeq_cmd + filename)  #e.g., SEQ:ELEM6:WAV1 ...
+
+        #self.write_visa("*OPC?")
 
     def enableExtTrigger(self, index, enabled=True):
         self.AFG_instrument.write("SEQ:ELEM1:TWA:STAT 1")
@@ -70,9 +77,18 @@ class AFG31000:
     def setSamplingRate(self, samplingRate):
         self.write_visa("SEQControl:SRATE " + '%.5E' % Decimal(samplingRate*1e6))
 
+    #Get rate in MS/s
+    def getSamplingRate(self):
+        rate = self.query_visa("SEQControl:SRATE?")
+        return (float(rate) / 1e6)
+
     def setAmplitude(self, channel, amplitude, units="VPP"):
         self.write_visa("SOUR" + str(channel) + ":VOLT:IMM " + str(amplitude) + units)
         time.sleep(0.1)
+
+    def getAmplitude(self, channel):
+        amp = self.query_visa("SOUR" + str(channel) + ":VOLT:LEV?")
+        return float(amp)
 
     #Generate a two byte word as string for a 14 bit input value
     @staticmethod
