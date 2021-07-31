@@ -131,7 +131,7 @@ class AFG31000Device(STIPy.STI_Device):
         dt = (1000/self.sampleRate)    #ns
 
         nPoints = int(self.sampleRate * duration * self.units)
-        print("nPoints = " + str(nPoints))
+        #print("nPoints = " + str(nPoints))
         
         data=[]
 
@@ -177,9 +177,11 @@ class AFG31000Device(STIPy.STI_Device):
             return True
         return False
 
-    def setBasicChannel(self, channel, value):
+    def setBasicChannel(self, channel, burstFreq):
 
-        burstFreq = value
+        afg = self.afg
+
+        #burstFreq = value
         afg.write_visa("SOUR" + str(channel) + ":FUNC:SHAP EMEM" + str(channel))
         afg.write_visa("SOUR" + str(channel) + ":FREQ:FIX " + str(burstFreq) + "MHz")
         afg.write_visa("SOUR" + str(channel) + ":BURS:STAT ON")
@@ -242,8 +244,8 @@ class AFG31000Device(STIPy.STI_Device):
         burstFreq = 1000.0/duration # in MHz to give to 
         print(str(burstFreq) + "MHz")    
 
-        setBasicChannel(1, burstFreq)
-        setBasicChannel(2, burstFreq)
+        self.setBasicChannel(1, burstFreq)
+        self.setBasicChannel(2, burstFreq)
 
         afg.write_visa("TRIG:SOUR EXT")
 
