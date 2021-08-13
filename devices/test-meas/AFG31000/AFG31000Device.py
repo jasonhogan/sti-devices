@@ -9,7 +9,7 @@ class AFG31000Device(STIPy.STI_Device):
         self.afg = AFG31000.AFG31000('TCPIP0::192.168.1.3::inst0::INSTR')
 
         self.sampleRate = self.afg.getSamplingRate()   # MS/s
-        self.fc = 50             # MHz
+        self.fc = 200             # MHz
         self.units = 1e-3        # MHz * ns
 
         self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
@@ -83,6 +83,22 @@ class AFG31000Device(STIPy.STI_Device):
                 self.checkValueFormat(evt.value())
                 [pulseDuration, pulseSpectrum] = evt.value()
 
+                if (pulseDuration == "Continuous"):
+                    self.runContinuous = True
+                    freq = (self.fc + pulseSpectrum[0][0]) * self.units
+
+                    pulseDuration = (1 / freq)
+                    print("pulseDuration = " + str(pulseDuration))
+
+                    # Make sure pulse has at least 168 points
+                    while ((pulseDuration / dt) < 168.0):
+                        pulseDuration += (1 / freq)
+
+                    print("pulseDuration = " + str(pulseDuration))
+                    
+                else:
+                    self.runContinuous = False
+
                 rawPulseTime = nextEventsTuple[0]
                 absPulseTime = int( (rawPulseTime - triggerTime) / dt )   #desired dt steps since trigger for this pulse
                 
@@ -98,14 +114,15 @@ class AFG31000Device(STIPy.STI_Device):
             lastPulseOffTimes = [ len(self.pulseData[0]), len(self.pulseData[1])]
             
 
-        maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 0*168)    # min waveform length is 168
+        maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 168)    # min waveform length is 168
 
+        print(maxPoints)
         # makes list lengths equal by padding with zeros at the end
         self.pulseDataCh1 += [0] * (maxPoints - len(self.pulseDataCh1) )
         self.pulseDataCh2 += [0] * (maxPoints - len(self.pulseDataCh2) )
 
-        #afgEvt = AFG3100Event(0, self)  #initialization event
-        afgEvt = AFG3100BurstEvent(0, self, dt*maxPoints)  #initialization event
+        afgEvt = AFG3100Event(0, self)  #initialization event for Advanced Mode
+        #afgEvt = AFG3100BurstEvent(0, self, dt*maxPoints)  #initialization event for Basic Mode
         eventsOut.append(afgEvt)
 
         #self.setupAFG()
@@ -131,7 +148,7 @@ class AFG31000Device(STIPy.STI_Device):
         dt = (1000/self.sampleRate)    #ns
 
         nPoints = int(self.sampleRate * duration * self.units)
-        #print("nPoints = " + str(nPoints))
+        print("nPoints = " + str(nPoints))
         
         data=[]
 
@@ -163,7 +180,7 @@ class AFG31000Device(STIPy.STI_Device):
     def setCarrierFrequency(self, value):
         fc = float(value)
 
-        if (fc > 0):
+        if (fc >= 0):
             self.fc = fc
             return True
         return False
@@ -183,7 +200,7 @@ class AFG31000Device(STIPy.STI_Device):
 
         #burstFreq = value
         afg.write_visa("SOUR" + str(channel) + ":FUNC:SHAP EMEM" + str(channel))
-        afg.write_visa("SOUR" + str(channel) + ":FREQ:FIX " + str(burstFreq) + "MHz")
+        afg.write_visa("SOUR" + str(channel) + ":FREQ:CW " + str(burstFreq) + "MHz")
         afg.write_visa("SOUR" + str(channel) + ":BURS:STAT ON")
         afg.write_visa("SOUR" + str(channel) + ":BURS:NCYC 1")
 
@@ -193,7 +210,7 @@ class AFG31000Device(STIPy.STI_Device):
         afg = self.afg
 
         #reset
-        afg.write_visa("SEQControl:STOP")
+        #afg.write_visa("SEQControl:STOP")
         #afg.write_visa("SEQControl:STAT OFF") # Exit sequence mode
         #afg.enableChannel(1, False)
         #afg.enableChannel(2, False)
@@ -207,28 +224,32 @@ class AFG31000Device(STIPy.STI_Device):
         #print(self.pulseData[0])
         #print(len(self.pulseData[0]))
 
-        
+        #afg.addToSequence(1, 1, self.pulseData[0])        
+        #afg.addToSequence(1, 2, self.pulseData[1])
 
-        afg.addToSequence(1, 1, self.pulseData[0])
-        afg.addToSequence(1, 2, self.pulseData[1])
+        afg.addBothToSequence(1, self.pulseData[0], self.pulseData[1])
 
         # Loop infinite
-        #afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
-        ##afg.query_visa("SEQ:ELEM1:LOOP:INF?")
+        if self.runContinuous:
+            afg.write_visa("SEQ:ELEM1:LOOP:INF 1")
+            afg.query_visa("SEQ:ELEM1:LOOP:INF?")
 
         # Set goto
         ##afg.write_visa("SEQ:ELEM1:GOTO:STAT ON")
         ##afg.write_visa("SEQ:ELEM1:MARK:STAT 1")
 
-        # Enable Wait and set trigger (manual)
+        # Enable Wait and set trigger (external)
         afg.write_visa("SEQ:ELEM1:TWA:STAT 1")
-        afg.write_visa("SEQ:ELEM1:TWA:EVEN MAN")
+        afg.write_visa("SEQ:ELEM1:TWA:EVEN EXT")
         ##afg.enableExtTrigger(1, True)
 
         # Enter sequence mode
         afg.write_visa("SEQControl:STAT OFF") # Exit sequence mode
         afg.write_visa("SEQControl:STAT ON")
 
+        #afg.write_visa("SEQControl:RMOD TRIG")
+
+        #afg.write_visa("SEQControl:RMOD SEQ")
 
         #afg.write_visa("SEQControl:RUN")
         afg.enableChannel(1, True)

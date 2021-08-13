@@ -56,6 +56,42 @@ class AFG31000:
 
         #self.write_visa("*OPC?")
 
+    def addBothToSequence(self, index, data1, data2):
+
+        #Write binary data to Edit Memory
+        self.write(1, data1)
+        self.write(2, data2)
+
+        filename1 = "\"M:/remote/pulse_" + str(index) + "1.tfwx\""
+        filename2 = "\"M:/remote/pulse_" + str(index) + "2.tfwx\""
+        
+        #Delete file if it exists
+        self.AFG_instrument.write("MMEM:DEL " + filename1)
+        self.AFG_instrument.write("MMEM:DEL " + filename2)
+        
+        #time.sleep(1)
+        #self.AFG_instrument.query('*IDN?')
+        #self.write_visa("*OPC?")
+
+        #Save data to file
+        self.AFG_instrument.write("MMEM:STOR:TRAC EMEM1, " + filename1)
+        self.AFG_instrument.write("MMEM:STOR:TRAC EMEM2, " + filename2)
+
+        #self.write_visa("*OPC?")
+
+        #Import file to waveform list (left panel of Advanced)
+        self.AFG_instrument.write("WLIST:WAV:IMP " + filename1)
+        self.AFG_instrument.write("WLIST:WAV:IMP " + filename2)
+
+        #self.write_visa("*OPC?")
+
+        addToSeq_cmd1 = "SEQ:ELEM" + str(index) + ":WAV1 "
+        addToSeq_cmd2 = "SEQ:ELEM" + str(index) + ":WAV2 "
+        self.AFG_instrument.write(addToSeq_cmd1 + filename1)  #e.g., SEQ:ELEM6:WAV1 ...
+        self.AFG_instrument.write(addToSeq_cmd2 + filename2)  #e.g., SEQ:ELEM6:WAV1 ...
+
+        #self.write_visa("*OPC?")
+
     def enableExtTrigger(self, index, enabled=True):
         self.AFG_instrument.write("SEQ:ELEM1:TWA:STAT 1")
         self.AFG_instrument.write("SEQ:ELEM" + str(index)
