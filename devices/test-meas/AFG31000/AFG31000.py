@@ -119,6 +119,8 @@ class AFG31000:
         return (float(rate) / 1e6)
 
     def setAmplitude(self, channel, amplitude, units="VPP"):
+        self.write_visa("SEQControl:STAT OFF") # Enter basic mode (?!?)
+        time.sleep(0.1)
         self.write_visa("SOUR" + str(channel) + ":VOLT:IMM " + str(amplitude) + units)
         time.sleep(0.1)
 

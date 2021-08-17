@@ -12,7 +12,7 @@ class AFG31000Device(STIPy.STI_Device):
         self.fc = 200             # MHz
         self.units = 1e-3        # MHz * ns
 
-        self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
+        #self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
 
         return
     
@@ -23,8 +23,8 @@ class AFG31000Device(STIPy.STI_Device):
     def defineAttributes(self):
         self.addAttribute("Sample Rate (MS/s)", self.sampleRate)
         self.addAttribute("Carrier Frequency (MHz)", self.fc)
-        self.addAttribute("Amplitude 1 (Vpp)", self.amplitude[0])
-        self.addAttribute("Amplitude 2 (Vpp)", self.amplitude[1])
+        self.addAttribute("Amplitude 1 (Vpp)", self.afg.getAmplitude(1))
+        self.addAttribute("Amplitude 2 (Vpp)", self.afg.getAmplitude(2))
         return
     
     def updateAttribute(self, key, value):
@@ -46,10 +46,10 @@ class AFG31000Device(STIPy.STI_Device):
         self.setAttribute("Carrier Frequency (MHz)", self.fc)
 
         self.setAmplitude(1, self.afg.getAmplitude(1))
-        self.setAttribute("Amplitude 1 (Vpp)", self.amplitude[0])
+        self.setAttribute("Amplitude 1 (Vpp)", self.afg.getAmplitude(1))
 
         self.setAmplitude(2, self.afg.getAmplitude(2))
-        self.setAttribute("Amplitude 2 (Vpp)", self.amplitude[1])
+        self.setAttribute("Amplitude 2 (Vpp)", self.afg.getAmplitude(2))
 
     def parseDeviceEvents(self, eventsIn, eventsOut):
         # This function is called during parsing of a timing file.
@@ -116,7 +116,7 @@ class AFG31000Device(STIPy.STI_Device):
 
         maxPoints = max(len(self.pulseDataCh1), len(self.pulseDataCh2), 168)    # min waveform length is 168
 
-        print(maxPoints)
+        #print(maxPoints)
         # makes list lengths equal by padding with zeros at the end
         self.pulseDataCh1 += [0] * (maxPoints - len(self.pulseDataCh1) )
         self.pulseDataCh2 += [0] * (maxPoints - len(self.pulseDataCh2) )
@@ -148,7 +148,7 @@ class AFG31000Device(STIPy.STI_Device):
         dt = (1000/self.sampleRate)    #ns
 
         nPoints = int(self.sampleRate * duration * self.units)
-        print("nPoints = " + str(nPoints))
+        #print("nPoints = " + str(nPoints))
         
         data=[]
 
@@ -189,8 +189,8 @@ class AFG31000Device(STIPy.STI_Device):
         amp = float(value)
 
         if (amp > 0):
-            self.amplitude[channel-1] = amp
-            self.afg.setAmplitude(channel, self.amplitude[channel-1])
+            #self.amplitude[channel-1] = amp
+            self.afg.setAmplitude(channel, amp)
             return True
         return False
 
@@ -224,10 +224,10 @@ class AFG31000Device(STIPy.STI_Device):
         #print(self.pulseData[0])
         #print(len(self.pulseData[0]))
 
-        #afg.addToSequence(1, 1, self.pulseData[0])        
-        #afg.addToSequence(1, 2, self.pulseData[1])
+        afg.addToSequence(1, 1, self.pulseData[0])        
+        afg.addToSequence(1, 2, self.pulseData[1])
 
-        afg.addBothToSequence(1, self.pulseData[0], self.pulseData[1])
+        #afg.addBothToSequence(1, self.pulseData[0], self.pulseData[1])
 
         # Loop infinite
         if self.runContinuous:
