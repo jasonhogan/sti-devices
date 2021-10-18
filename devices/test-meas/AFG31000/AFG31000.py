@@ -101,7 +101,7 @@ class AFG31000:
     def clearSequence(self):
         #self.AFG_instrument.write("SEQ:NEW")
         self.write_visa("WLIST:WAV:DEL ALL")
-        #self.setSequenceLength(0)
+        self.setSequenceLength(0)
         
     def setSequenceLength(self, length):
         self.AFG_instrument.write("SEQ:LENG " + str(length))

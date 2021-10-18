@@ -9,7 +9,7 @@ class AFG31000Device(STIPy.STI_Device):
         self.afg = AFG31000.AFG31000('TCPIP0::192.168.1.3::inst0::INSTR')
 
         self.sampleRate = self.afg.getSamplingRate()   # MS/s
-        self.fc = 200             # MHz
+        self.fc = 190             # MHz
         self.units = 1e-3        # MHz * ns
 
         #self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
@@ -162,7 +162,6 @@ class AFG31000Device(STIPy.STI_Device):
                 sample += makeSinPoint(t, *s)   #unpack spectral component tuple s
             
             data.append(sample)
-        
         return data
         
     def makeZeroPadding(self, padSteps):
@@ -216,16 +215,38 @@ class AFG31000Device(STIPy.STI_Device):
         #afg.enableChannel(2, False)
         #afg.setAmplitude(1, 0.25)
 
+
+        sequenceLength = len(self.pulseData[0])
+        rowLength = 100000
+        minLength = 168
+        numRows = int(math.ceil(sequenceLength/float(rowLength)))
+
         # New sequence
         afg.clearSequence()
-        afg.setSequenceLength(1)
+        afg.setSequenceLength(numRows)
         #afg.setSamplingRate(self.sampleRate)
 
         #print(self.pulseData[0])
         #print(len(self.pulseData[0]))
 
-        afg.addToSequence(1, 1, self.pulseData[0])        
-        afg.addToSequence(1, 2, self.pulseData[1])
+        pos = 0
+        index = 1
+
+        while (pos <= sequenceLength):
+            remainder = sequenceLength - pos
+            
+            if (remainder < minLength):
+                extraZero = self.makeZeroPadding(minLength - remainder)
+                self.pulseData[0] += extraZero
+                self.pulseData[1] += extraZero
+                sequenceLength += minLength - remainder
+
+            afg.addToSequence(index, 1, self.pulseData[0][pos : min(pos + rowLength, sequenceLength)])        
+            afg.addToSequence(index, 2, self.pulseData[1][pos : min(pos + rowLength, sequenceLength)])
+            pos += rowLength
+            index += 1
+            #time.sleep(1)
+
 
         #afg.addBothToSequence(1, self.pulseData[0], self.pulseData[1])
 
