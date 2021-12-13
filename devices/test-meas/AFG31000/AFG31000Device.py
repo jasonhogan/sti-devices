@@ -11,7 +11,8 @@ class AFG31000Device(STIPy.STI_Device):
         self.sampleRate = self.afg.getSamplingRate()   # MS/s
         self.fc = 190             # MHz
         self.units = 1e-3        # MHz * ns
-
+        self.nonlinearCorrection = False
+        self.nonlinearCoefficient = 0
         #self.amplitude = [self.afg.getAmplitude(1), self.afg.getAmplitude(2)]       #Vpp [ch1, ch2]
 
         return
@@ -25,6 +26,8 @@ class AFG31000Device(STIPy.STI_Device):
         self.addAttribute("Carrier Frequency (MHz)", self.fc)
         self.addAttribute("Amplitude 1 (Vpp)", self.afg.getAmplitude(1))
         self.addAttribute("Amplitude 2 (Vpp)", self.afg.getAmplitude(2))
+        self.addAttribute("Enable nonlinear correction", "False", "True, False")
+        self.addAttribute("Nonlinear coefficient", 0)
         return
     
     def updateAttribute(self, key, value):
@@ -37,6 +40,12 @@ class AFG31000Device(STIPy.STI_Device):
             return self.setAmplitude(1, value)
         elif(key == "Amplitude 2 (Vpp)"):
             return self.setAmplitude(2, value)
+        elif(key == "Enable nonlinear correction"):
+            self.nonlinearCorrection = True if (value == "True") else False
+            return True
+        elif(key == "Nonlinear coefficient"):
+            self.nonlinearCoefficient = float(value)
+            return True
         return False
     
     def refreshAttributes(self):
@@ -154,12 +163,41 @@ class AFG31000Device(STIPy.STI_Device):
 
         def makeSinPoint(t, freq, amplitude, phi=0):
             return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) )
-        
+
+        # Correct for nonlinear phase shift (intensity dependent phase)
+        def makeSinPointNLCorrection(t, delta, phiA, phiB, freq, amplitude, phi=0):
+            # Cos[delta*t + 0.5*(phiA - phiB)]
+            phiNL = self.nonlinearCoefficient * math.cos( 2*math.pi*(delta)*t*dt*self.units + ((phiA * math.pi/180) - (phiB * math.pi/180))/2 )
+            print("phiNL = " + str(phiNL))
+            return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) + (phiNL * math.pi/180) )
+
+        applyNLcorrection = False
+        if (self.nonlinearCorrection and len(spectrum) == 2):
+            print("Nonlinear enabled")
+            applyNLcorrection = True
+            delta = spectrum[0][0]
+            if (len(spectrum[0]) == 3):
+                phiA = spectrum[0][2]
+            else:
+                phiA=0
+            if (len(spectrum[1]) == 3):
+                phiB = spectrum[1][2]
+            else:
+                phiB=0
+        else:
+            delta = 0
+            phiA = 0
+            phiB = 0
+
         for t in range(0, nPoints):
             sample = 0
             
             for s in spectrum:  #sum over each spectal componet s of the form (freq, amp, [phase])
-                sample += makeSinPoint(t, *s)   #unpack spectral component tuple s
+                if applyNLcorrection:
+                    print("applying nonlinear")
+                    sample += makeSinPointNLCorrection(t, delta, phiA, phiB, *s)    #Use the beat between two spectral components to determine the amplitude
+                else:
+                    sample += makeSinPoint(t, *s)   #unpack spectral component tuple s
             
             data.append(sample)
         return data
