@@ -163,6 +163,9 @@ class AFG31000Device(STIPy.STI_Device):
 
         def makeSinPoint(t, freq, amplitude, phi=0):
             return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) )
+        
+        def makeCosPoint(t, freq, amplitude, phi=0):
+            return amplitude * math.cos( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) )
 
         # Correct for nonlinear phase shift (intensity dependent phase)
         def makeSinPointNLCorrection(t, delta, phiA, phiB, freq, amplitude, phi=0):
@@ -171,31 +174,50 @@ class AFG31000Device(STIPy.STI_Device):
             print("phiNL = " + str(phiNL))
             return amplitude * math.sin( 2*math.pi*(self.fc + freq)*t*dt*self.units + (phi * math.pi/180) + (phiNL * math.pi/180) )
 
-        applyNLcorrection = False
-        if (self.nonlinearCorrection and len(spectrum) == 2):
-            print("Nonlinear enabled")
-            applyNLcorrection = True
-            delta = spectrum[0][0]
-            if (len(spectrum[0]) == 3):
-                phiA = spectrum[0][2]
-            else:
-                phiA=0
-            if (len(spectrum[1]) == 3):
-                phiB = spectrum[1][2]
-            else:
-                phiB=0
-        else:
-            delta = 0
-            phiA = 0
-            phiB = 0
+        def makeSinPointNLCorrection2(t, iAve, freq, amplitude, phi=0):
+            phiNL = self.nonlinearCoefficient * iAve    #Kerr nonlinear phase (by convention, in degrees)
+            return makeSinPoint(t, freq, amplitude, phi + phiNL)
 
+        # Compute the time average intensity (averaged over optical carrier freq) for a general spectrum.
+        # Used to predict the instantaneous Kerr nonlinear phase shift.
+        def makeAverageIntensityPoint(t, spect):
+            sumSin = 0
+            sumCos = 0
+            for s in spect:     #sum over spectral components
+                sumSin += makeSinPoint(t, *s)
+                sumCos += makeCosPoint(t, *s)
+            return ( (math.pow(sumSin, 2) + math.pow(sumCos, 2))/2 )
+
+        applyNLcorrection = False
+        if (self.nonlinearCorrection):  # and len(spectrum) == 2
+            #print("Nonlinear enabled")
+            applyNLcorrection = True
+##            delta = spectrum[0][0]
+##            if (len(spectrum[0]) == 3):
+##                phiA = spectrum[0][2]
+##            else:
+##                phiA=0
+##            if (len(spectrum[1]) == 3):
+##                phiB = spectrum[1][2]
+##            else:
+##                phiB=0
+##        else:
+##            delta = 0
+##            phiA = 0
+##            phiB = 0
+
+        iAve = 0;
         for t in range(0, nPoints):
             sample = 0
             
-            for s in spectrum:  #sum over each spectal componet s of the form (freq, amp, [phase])
+            if applyNLcorrection:
+                # Need to precompute the average intensity at t by summing over spectrum
+                iAve = makeAverageIntensityPoint(t, spectrum)
+           
+            for s in spectrum:  #sum over each spectral component s of the form (freq, amp, [phase])
                 if applyNLcorrection:
-                    print("applying nonlinear")
-                    sample += makeSinPointNLCorrection(t, delta, phiA, phiB, *s)    #Use the beat between two spectral components to determine the amplitude
+                    sample += makeSinPointNLCorrection2(t, iAve, *s)
+                    #sample += makeSinPointNLCorrection(t, delta, phiA, phiB, *s)    #Use the beat between two spectral components to determine the amplitude
                 else:
                     sample += makeSinPoint(t, *s)   #unpack spectral component tuple s
             
