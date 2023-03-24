@@ -2,7 +2,7 @@
 #include "BlackflyEvent.h"
 #include "BlackflyDevice.h"
 
-
+#include <iostream>
 
 BlackflyInitializeEvent::BlackflyInitializeEvent(double time, BlackflyDevice* cameraDevice, int totalImages)
 : STI_Device::SynchronousEventAdapter(time, cameraDevice), cameraDevice(cameraDevice), totalImages(totalImages) 
@@ -93,7 +93,9 @@ void BlackflyEvent::loadEvent()
 void BlackflyEvent::playEvent()
 {
 	//set exposure time for this image
-	cameraDevice->exposureTimeNodeValue->setValue(STI::Utils::valueToString(image->exposureTime));
+	bool success = cameraDevice->exposureTimeNodeValue->setValue(STI::Utils::valueToString(image->exposureTime));
+
+	//std::cout << "playEvent() set exposure time: " << (success ? "success" : "failed") << std::endl;
 
 	bool status;
 
@@ -108,6 +110,8 @@ void BlackflyEvent::playEvent()
 	//cameraDevice->camera->AcquisitionStart();
 
 	//cameraDevice->camera->EndAcquisition();
+	
+	//auto tmp = cameraDevice->camera->GetUserBufferSize();
 
 	cameraDevice->camera->BeginAcquisition();
 	setAcquisitionRunning(true);

@@ -1,0 +1,647 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     34874,        639]
+NotebookOptionsPosition[     32122,        585]
+NotebookOutlinePosition[     32465,        600]
+CellTagsIndexPosition[     32422,        597]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"FileNames", "[", 
+  RowBox[{"\"\<*.xlsx\>\"", ",", 
+   RowBox[{"NotebookDirectory", "[", "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8302986537572813`*^9, 3.830298689687817*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"a708039e-3631-4745-85d5-d7e0ee6cd652"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"C:\\\\Users\\\\Jason\\\\Code\\\\dev\\\\sti-devices\\\\devices\\\
+\\XEM7310MT\\\\XEM socket pinout.xlsx\"\>", 
+   ",", "\<\"C:\\\\Users\\\\Jason\\\\Code\\\\dev\\\\sti-devices\\\\devices\\\\\
+XEM7310MT\\\\~$XEM socket pinout.xlsx\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.8302986675698047`*^9, 3.8302986898966413`*^9}},
+ CellLabel->"Out[10]=",ExpressionUUID->"801c2a95-abe1-49d3-acdf-9e648a5b83b5"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"rawPinouts", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<XEM socket pinout.xlsx\>\""}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.830298697289868*^9, 3.8302987159505167`*^9}},
+ CellLabel->"In[92]:=",ExpressionUUID->"55158418-d673-4177-b085-8353ac3670b0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"First", "[", 
+  RowBox[{
+  "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.8302987200569367`*^9, 3.830298762170823*^9}},
+ CellLabel->"In[73]:=",ExpressionUUID->"fd510ef4-ed37-4a97-94b5-20ec33aaa28f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Connector\"\>", ",", "\<\"Pin\"\>", ",", "\<\"FPGA Pin\"\>", 
+   ",", "\<\"Bus\"\>", ",", "\<\"QTE socket\"\>", ",", "\<\"Base\"\>", 
+   ",", "\<\"Pin\"\>", ",", "\<\"Harness Pin\"\>", ",", "\<\"Harness\"\>", 
+   ",", "\<\"vhdl bus\"\>", ",", "\<\"bus index\"\>", 
+   ",", "\<\"Alt vhdl nam\"\>", ",", "\<\"\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.8302987226578903`*^9, 3.830298762535471*^9}, 
+   3.8303014869235325`*^9},
+ CellLabel->"Out[73]=",ExpressionUUID->"9026e1a8-e398-4bc2-97cd-fe9cfc3895ce"]
+}, Open  ]],
+
+Cell["\<\
+\"# MC1-1 
+set_property PACKAGE_PIN W4 [get_ports {}]
+set_property IOSTANDARD LVCMOS33 [get_ports {}]\"\
+\>", "Text",
+ CellChangeTimes->{3.8302991343021507`*^9, 
+  3.8303021273966427`*^9},ExpressionUUID->"f4f756ef-bd46-4871-b753-\
+4639127db12d"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "generatePinCommand", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"generatePinCommand", "[", 
+   RowBox[{
+   "connector_String", ",", "connectorPin_", ",", "fpgaPin_String", ",", 
+    "busPin_", ",", 
+    RowBox[{"comments_:", "\"\<\>\""}]}], "]"}], ":=", 
+  RowBox[{"(", "\[IndentingNewLine]", 
+   RowBox[{"\"\<# \>\"", "<>", "connector", "<>", "\"\<-\>\"", "<>", 
+    RowBox[{"ToString", "[", "connectorPin", "]"}], "<>", "\"\< \>\"", "<>", 
+    "comments", "<>", "\"\<\\n\>\"", "<>", "\[IndentingNewLine]", 
+    "\"\<set_property PACKAGE_PIN \>\"", "<>", "fpgaPin", "<>", 
+    "\"\< [get_ports {\>\"", "<>", 
+    RowBox[{"ToString", "[", "busPin", "]"}], "<>", "\"\<}]\\n\>\"", "<>", 
+    "\[IndentingNewLine]", 
+    "\"\<set_property IOSTANDARD LVCMOS33 [get_ports {\>\"", "<>", 
+    RowBox[{"ToString", "[", "busPin", "]"}], "<>", "\"\<}]\\n\>\""}], 
+   "\[IndentingNewLine]", ")"}]}]}], "Input",
+ CellChangeTimes->{{3.830298790097046*^9, 3.830299042321497*^9}, {
+   3.8302990742640305`*^9, 3.830299099977713*^9}, {3.830299220602579*^9, 
+   3.8302992451965823`*^9}, 3.8302998775507*^9},
+ CellLabel->"In[68]:=",ExpressionUUID->"cbb5cbd3-1f5f-4c6c-8320-3a5c81fa706b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"generatePinCommand", "[", 
+  RowBox[{
+  "\"\<MC1\>\"", ",", "1", ",", "\"\<W4\>\"", ",", "\"\<xbusp[0]\>\"", ",", 
+   "\"\<=> DigitalOut X0\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.830298980670637*^9, 3.8302989813658743`*^9}, {
+  3.8302990144922037`*^9, 3.8302990297417517`*^9}, {3.8302991041747737`*^9, 
+  3.8302991180704927`*^9}, {3.8302992489980993`*^9, 3.830299268575719*^9}},
+ CellLabel->"In[70]:=",ExpressionUUID->"dafb3260-368b-4067-b3bb-70f7cd8019c8"],
+
+Cell[BoxData["\<\"# MC1-1 => DigitalOut X0\\nset_property PACKAGE_PIN W4 \
+[get_ports {xbusp[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{xbusp[0]}]\\n\"\>"], "Output",
+ CellChangeTimes->{{3.830298885510183*^9, 3.83029894770898*^9}, 
+   3.8302989842805176`*^9, {3.830299014955367*^9, 3.830299043783829*^9}, {
+   3.8302991051943717`*^9, 3.830299118427496*^9}, {3.830299246457965*^9, 
+   3.830299268938591*^9}, 3.8302998816307335`*^9},
+ CellLabel->"Out[70]=",ExpressionUUID->"7786a63d-f1b9-4c7b-91a8-5e6c738f6c13"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Rest", "[", 
+   RowBox[{
+   "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+   "]"}], "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}]], "Input",
+ CellChangeTimes->{{3.8302987481892786`*^9, 3.8302987551883373`*^9}, {
+  3.8302991523693857`*^9, 3.830299157573948*^9}},
+ CellLabel->"In[79]:=",ExpressionUUID->"6bf66236-c11a-48db-9ccf-8bd68ea10b77"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"MC1\"\>", ",", "1.`", ",", "\<\"W4\"\>", ",", "\<\"A\"\>", ",",
+    "1.`", ",", "\<\"X\"\>", ",", "0.`", ",", "\<\"X0\"\>", 
+   ",", "\<\"DigitalOut\"\>", ",", "\<\"do\"\>", ",", "0.`", ",", "\<\"\"\>", 
+   ",", "\<\"\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{{3.83029875111154*^9, 3.830298755614131*^9}, 
+   3.8302991579486933`*^9, 3.83030149144665*^9, 3.830301680233296*^9},
+ CellLabel->"Out[79]=",ExpressionUUID->"e43c419a-979f-4d78-8c08-c7d9674ccdee"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"makePinComment", "[", 
+   RowBox[{"harness_String", ",", "pinName_String"}], "]"}], ":=", 
+  RowBox[{"(", 
+   RowBox[{
+   "\"\< => \>\"", "<>", "harness", "<>", "\"\< \>\"", "<>", "pinName"}], 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.830299516950111*^9, 3.830299548925735*^9}},
+ CellLabel->"In[66]:=",ExpressionUUID->"ad22367e-bac7-4568-ab0c-2bd741fdd9c7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"makePinComment", "[", 
+    RowBox[{"#9", ",", "#8"}], "]"}], "&"}], "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"Rest", "[", 
+     RowBox[{
+     "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+     "]"}], "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.830301647029046*^9, 3.83030165367626*^9}},
+ CellLabel->"In[78]:=",ExpressionUUID->"2b8700a7-9f15-4430-b9c9-2be26e21d0e1"],
+
+Cell[BoxData["\<\" => DigitalOut X0\"\>"], "Output",
+ CellChangeTimes->{3.8303016540064344`*^9},
+ CellLabel->"Out[78]=",ExpressionUUID->"696539c5-53de-4e36-935d-5e5e17289654"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"makeVHDLname", "[", 
+   RowBox[{"vhdlBus_String", ",", "index_", ",", "alt_String"}], "]"}], ":=", 
+  RowBox[{"If", "[", 
+   RowBox[{
+    RowBox[{"vhdlBus", "===", "\"\<\>\""}], ",", "alt", ",", 
+    RowBox[{"vhdlBus", "<>", "\"\<[\>\"", "<>", 
+     RowBox[{"ToString", "[", 
+      RowBox[{"index", "//", "Floor"}], "]"}], "<>", "\"\<]\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.830301517952245*^9, 3.8303016332944446`*^9}, {
+  3.830301711618084*^9, 3.8303017253229465`*^9}},
+ CellLabel->"In[83]:=",ExpressionUUID->"06ca2232-707d-4242-834d-20605e2656d0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"makeVHDLname", "[", 
+    RowBox[{"#10", ",", "#11", ",", "#12"}], "]"}], "&"}], "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"Rest", "[", 
+     RowBox[{
+     "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+     "]"}], "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.8303016422963953`*^9, 3.8303016564555807`*^9}, {
+  3.830301691038372*^9, 3.8303016946477594`*^9}},
+ CellLabel->"In[85]:=",ExpressionUUID->"533a497f-cabd-4f51-88ad-fe38cc47aa38"],
+
+Cell[BoxData["\<\"do[0]\"\>"], "Output",
+ CellChangeTimes->{{3.830301695337326*^9, 3.830301742174527*^9}},
+ CellLabel->"Out[85]=",ExpressionUUID->"328fbcb1-523f-4d76-9a1d-c3b78c70997d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"generatePinCommand", "[", 
+    RowBox[{"#1", ",", "#2", ",", "#3", ",", 
+     RowBox[{"makeVHDLname", "[", 
+      RowBox[{"#10", ",", "#11", ",", "#12"}], "]"}], ",", 
+     RowBox[{"makePinComment", "[", 
+      RowBox[{"#9", ",", "#8"}], "]"}]}], "]"}], "&"}], "@@", 
+  RowBox[{"(", 
+   RowBox[{
+    RowBox[{"Rest", "[", 
+     RowBox[{
+     "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+     "]"}], "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+   ")"}]}]], "Input",
+ CellChangeTimes->{{3.830299558811138*^9, 3.830299616794628*^9}, 
+   3.8303017493347425`*^9},
+ CellLabel->"In[86]:=",ExpressionUUID->"6f65eebe-8475-4413-a62f-5f77fd11a8c1"],
+
+Cell[BoxData["\<\"# MC1-1.  => DigitalOut X0\\nset_property PACKAGE_PIN W4 \
+[get_ports {do[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[0]}]\\n\
+\"\>"], "Output",
+ CellChangeTimes->{{3.83029960822915*^9, 3.830299617546926*^9}, 
+   3.830299884532297*^9, 3.8303015099378557`*^9, 3.8303017514641995`*^9},
+ CellLabel->"Out[86]=",ExpressionUUID->"a3a4cecb-f99e-415e-947e-5c2a8f891eb7"]
+}, Open  ]],
+
+Cell["Select only FPGA pins that are connected to a harness", "Text",
+ CellChangeTimes->{{3.8303021019479175`*^9, 
+  3.830302115823778*^9}},ExpressionUUID->"6994002a-8d90-4a9b-a442-\
+cf6f256515a2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"connectedPins", "=", 
+   RowBox[{"Select", "[", 
+    RowBox[{
+     RowBox[{"Rest", "[", 
+      RowBox[{
+      "rawPinouts", "\[LeftDoubleBracket]", "1", "\[RightDoubleBracket]"}], 
+      "]"}], ",", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "\[LeftDoubleBracket]", "9", "\[RightDoubleBracket]"}], 
+       "\[NotEqual]", "\"\<\>\""}], "&"}]}], "]"}]}], ";"}]], "Input",
+ CellChangeTimes->{{3.8303019151456733`*^9, 3.830301960977544*^9}},
+ CellLabel->"In[94]:=",ExpressionUUID->"0a2a9f57-97b6-45d0-9270-35bb393261b4"],
+
+Cell[CellGroupData[{
+
+Cell["Results", "Subsection",
+ CellChangeTimes->{{3.830301756103387*^9, 
+  3.8303017579958725`*^9}},ExpressionUUID->"d6b8cc82-199b-4dd6-a5b1-\
+f3e8713d5a35"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StringJoin", "[", 
+  RowBox[{"Riffle", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"generatePinCommand", "[", 
+       RowBox[{"#1", ",", "#2", ",", "#3", ",", 
+        RowBox[{"makeVHDLname", "[", 
+         RowBox[{"#10", ",", "#11", ",", "#12"}], "]"}], ",", 
+        RowBox[{"makePinComment", "[", 
+         RowBox[{"#9", ",", "#8"}], "]"}]}], "]"}], "&"}], "@@@", 
+     "connectedPins"}], ",", "\[IndentingNewLine]", "\"\<\\n\>\""}], "]"}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.8303017675925903`*^9, 3.8303018137582245`*^9}, 
+   3.830301965969803*^9},
+ CellLabel->"In[95]:=",ExpressionUUID->"38306d3c-b954-4761-8315-d7b466220272"],
+
+Cell[BoxData["\<\"# MC1-1.  => DigitalOut X0\\nset_property PACKAGE_PIN W4 \
+[get_ports {do[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[0]}]\\n\
+\\n# MC1-2.  => DigitalOut X1\\nset_property PACKAGE_PIN R2 [get_ports \
+{do[1]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[1]}]\\n\\n# MC1-3. \
+ => DigitalOut X2\\nset_property PACKAGE_PIN V4 [get_ports \
+{do[2]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[2]}]\\n\\n# MC1-4. \
+ => DigitalOut X3\\nset_property PACKAGE_PIN R3 [get_ports \
+{do[3]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[3]}]\\n\\n# MC1-5. \
+ => DigitalOut X4\\nset_property PACKAGE_PIN V2 [get_ports \
+{do[4]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[4]}]\\n\\n# MC1-6. \
+ => DigitalOut X5\\nset_property PACKAGE_PIN Y1 [get_ports \
+{do[5]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[5]}]\\n\\n# MC1-7. \
+ => DigitalOut X6\\nset_property PACKAGE_PIN U2 [get_ports \
+{do[6]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[6]}]\\n\\n# MC1-8. \
+ => DigitalOut X7\\nset_property PACKAGE_PIN W1 [get_ports \
+{do[7]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[7]}]\\n\\n# MC1-9. \
+ => DigitalOut X8\\nset_property PACKAGE_PIN U1 [get_ports \
+{do[8]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[8]}]\\n\\n# \
+MC1-10.  => DigitalOut X9\\nset_property PACKAGE_PIN AB1 [get_ports \
+{do[9]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[9]}]\\n\\n# \
+MC1-11.  => DigitalOut X10\\nset_property PACKAGE_PIN T1 [get_ports {do[10]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[10]}]\\n\\n# MC1-12.  => \
+DigitalOut X11\\nset_property PACKAGE_PIN AA1 [get_ports \
+{do[11]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[11]}]\\n\\n# \
+MC1-13.  => DigitalOut X12\\nset_property PACKAGE_PIN Y2 [get_ports {do[12]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[12]}]\\n\\n# MC1-14.  => \
+DigitalOut X13\\nset_property PACKAGE_PIN AA3 [get_ports \
+{do[13]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[13]}]\\n\\n# \
+MC1-15.  => DigitalOut X14\\nset_property PACKAGE_PIN W2 [get_ports {do[14]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[14]}]\\n\\n# MC1-16.  => \
+DigitalOut X15\\nset_property PACKAGE_PIN Y3 [get_ports \
+{do[15]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[15]}]\\n\\n# \
+MC1-17.  => DigitalOut X16\\nset_property PACKAGE_PIN V3 [get_ports {do[16]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[16]}]\\n\\n# MC1-18.  => \
+DigitalOut X17\\nset_property PACKAGE_PIN AB5 [get_ports \
+{do[17]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[17]}]\\n\\n# \
+MC1-19.  => DigitalOut X18\\nset_property PACKAGE_PIN U3 [get_ports {do[18]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[18]}]\\n\\n# MC1-20.  => \
+DigitalOut X19\\nset_property PACKAGE_PIN AA5 [get_ports \
+{do[19]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[19]}]\\n\\n# \
+MC1-21.  => DigitalOut X20\\nset_property PACKAGE_PIN V5 [get_ports {do[20]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[20]}]\\n\\n# MC1-22.  => \
+DigitalOut X21\\nset_property PACKAGE_PIN AB2 [get_ports \
+{do[21]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[21]}]\\n\\n# \
+MC1-23.  => DigitalOut X22\\nset_property PACKAGE_PIN U6 [get_ports {do[22]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[22]}]\\n\\n# MC1-24.  => \
+DigitalOut X23\\nset_property PACKAGE_PIN AB3 [get_ports \
+{do[23]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[23]}]\\n\\n# \
+MC1-25.  => DigitalOut X24\\nset_property PACKAGE_PIN AA6 [get_ports \
+{do[24]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {do[24]}]\\n\\n# \
+MC1-26.  => HF_DDS_Common SDO\\nset_property PACKAGE_PIN AA4 [get_ports \
+{HFddsCom[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{HFddsCom[0]}]\\n\\n# MC1-27.  => HF_DDS_Common SDIO\\nset_property \
+PACKAGE_PIN Y6 [get_ports {HFddsCom[1]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {HFddsCom[1]}]\\n\\n# MC1-28.  => HF_DDS_Common \
+SCLK\\nset_property PACKAGE_PIN Y4 [get_ports {HFddsCom[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsCom[2]}]\\n\\n# MC1-29.  => \
+HF_DDS_Common SYNCIO\\nset_property PACKAGE_PIN W7 [get_ports \
+{HFddsCom[3]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{HFddsCom[3]}]\\n\\n# MC1-30.  => HF_DDS_Common REF_CLK\\nset_property \
+PACKAGE_PIN T4 [get_ports {HFddsCom[4]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {HFddsCom[4]}]\\n\\n# MC1-31.  => HF_DDS_CTRL_0 #CS\\nset_property \
+PACKAGE_PIN V7 [get_ports {HFddsA[0]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {HFddsA[0]}]\\n\\n# MC1-32.  => HF_DDS_CTRL_0 \
+IOUPDATE\\nset_property PACKAGE_PIN R4 [get_ports {HFddsA[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsA[1]}]\\n\\n# MC1-33.  => HF_DDS_CTRL_0 \
+RESET\\nset_property PACKAGE_PIN W5 [get_ports {HFddsA[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsA[2]}]\\n\\n# MC1-34.  => HF_DDS_CTRL_0 \
+DRHOLD\\nset_property PACKAGE_PIN AB8 [get_ports {HFddsA[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsA[3]}]\\n\\n# MC1-35.  => HF_DDS_CTRL_0 \
+DRCTL\\nset_property PACKAGE_PIN W6 [get_ports {HFddsA[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsA[4]}]\\n\\n# MC1-36.  => HF_DDS_CTRL_1 \
+#CS\\nset_property PACKAGE_PIN AA8 [get_ports {HFddsB[0]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsB[0]}]\\n\\n# MC1-37.  => HF_DDS_CTRL_1 \
+IOUPDATE\\nset_property PACKAGE_PIN V8 [get_ports {HFddsB[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsB[1]}]\\n\\n# MC1-38.  => HF_DDS_CTRL_1 \
+RESET\\nset_property PACKAGE_PIN U5 [get_ports {HFddsB[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsB[2]}]\\n\\n# MC1-39.  => HF_DDS_CTRL_1 \
+DRHOLD\\nset_property PACKAGE_PIN V9 [get_ports {HFddsB[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsB[3]}]\\n\\n# MC1-40.  => HF_DDS_CTRL_1 \
+DRCTL\\nset_property PACKAGE_PIN T5 [get_ports {HFddsB[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {HFddsB[4]}]\\n\\n# MC1-41.  => \
+FastAnalogCommon D0\\nset_property PACKAGE_PIN Y9 [get_ports \
+{faCom[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[0]}]\\n\\n# \
+MC1-42.  => FastAnalogCommon D1\\nset_property PACKAGE_PIN AB6 [get_ports \
+{faCom[1]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[1]}]\\n\\n# \
+MC1-43.  => FastAnalogCommon D2\\nset_property PACKAGE_PIN W9 [get_ports \
+{faCom[2]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[2]}]\\n\\n# \
+MC1-44.  => FastAnalogCommon D3\\nset_property PACKAGE_PIN AB7 [get_ports \
+{faCom[3]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[3]}]\\n\\n# \
+MC1-45.  => FastAnalogCommon D4\\nset_property PACKAGE_PIN T6 [get_ports \
+{faCom[4]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[4]}]\\n\\n# \
+MC1-46.  => FastAnalogCommon D5\\nset_property PACKAGE_PIN AB13 [get_ports \
+{faCom[5]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[5]}]\\n\\n# \
+MC1-47.  => FastAnalogCommon D6\\nset_property PACKAGE_PIN R6 [get_ports \
+{faCom[6]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[6]}]\\n\\n# \
+MC1-48.  => FastAnalogCommon D7\\nset_property PACKAGE_PIN AA13 [get_ports \
+{faCom[7]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[7]}]\\n\\n# \
+MC1-49.  => FastAnalogCommon D8\\nset_property PACKAGE_PIN Y7 [get_ports \
+{faCom[8]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[8]}]\\n\\n# \
+MC1-50.  => FastAnalogCommon D9\\nset_property PACKAGE_PIN AA14 [get_ports \
+{faCom[9]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faCom[9]}]\\n\\n# \
+MC1-51.  => FastAnalogCommon D10\\nset_property PACKAGE_PIN Y8 [get_ports \
+{faCom[10]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{faCom[10]}]\\n\\n# MC1-52.  => FastAnalogCommon D11\\nset_property \
+PACKAGE_PIN Y13 [get_ports {faCom[11]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {faCom[11]}]\\n\\n# MC1-53.  => FastAnalogCommon \
+D12\\nset_property PACKAGE_PIN T3 [get_ports {faCom[12]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {faCom[12]}]\\n\\n# MC1-54.  => \
+FastAnalogCommon D13\\nset_property PACKAGE_PIN W16 [get_ports \
+{faCom[13]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{faCom[13]}]\\n\\n# MC1-55.  => FastAnalogCommon D14\\nset_property \
+PACKAGE_PIN U7 [get_ports {faCom[14]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {faCom[14]}]\\n\\n# MC1-56.  => FastAnalogCommon \
+D15\\nset_property PACKAGE_PIN W15 [get_ports {faCom[15]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {faCom[15]}]\\n\\n# MC1-57.  => \
+FastAnalogControl_0 #WR0\\nset_property PACKAGE_PIN AB17 [get_ports {faA[0]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {faA[0]}]\\n\\n# MC1-58.  => \
+FastAnalogControl_0 LDAC0\\nset_property PACKAGE_PIN AB15 [get_ports \
+{faA[1]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faA[1]}]\\n\\n# \
+MC1-59.  => FastAnalogControl_0 #WR1\\nset_property PACKAGE_PIN AB16 \
+[get_ports {faA[2]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{faA[2]}]\\n\\n# MC1-60.  => FastAnalogControl_0 LDAC1\\nset_property \
+PACKAGE_PIN AA15 [get_ports {faA[3]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {faA[3]}]\\n\\n# MC1-61.  => FastAnalogControl_0 \
+RESET\\nset_property PACKAGE_PIN AA16 [get_ports {faA[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {faA[4]}]\\n\\n# MC1-62.  => \
+FastAnalogControl_1 #WR0\\nset_property PACKAGE_PIN F14 [get_ports \
+{faB[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports {faB[0]}]\\n\\n# \
+MC1-63.  => FastAnalogControl_1 LDAC0\\nset_property PACKAGE_PIN Y16 \
+[get_ports {faB[1]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{faB[1]}]\\n\\n# MC1-64.  => FastAnalogControl_1 #WR1\\nset_property \
+PACKAGE_PIN F13 [get_ports {faB[2]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {faB[2]}]\\n\\n# MC1-65.  => FastAnalogControl_1 \
+LDAC1\\nset_property PACKAGE_PIN Y17 [get_ports {faB[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {faB[3]}]\\n\\n# MC1-66.  => \
+FastAnalogControl_1 RESET\\nset_property PACKAGE_PIN F15 [get_ports {faB[4]}]\
+\\nset_property IOSTANDARD LVCMOS33 [get_ports {faB[4]}]\\n\\n# MC1-70.  => \
+XADC XADC_P\\nset_property PACKAGE_PIN L10 [get_ports {xadcP}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadcP}]\\n\\n# MC1-72.  => XADC \
+XADC_N\\nset_property PACKAGE_PIN M9 [get_ports {xadcN}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadcN}]\\n\\n# MC2-11.  => DDS_Common \
+P0\\nset_property PACKAGE_PIN E13 [get_ports {ddsCom[0]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[0]}]\\n\\n# MC2-12.  => DDS_Common \
+P1\\nset_property PACKAGE_PIN C14 [get_ports {ddsCom[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[1]}]\\n\\n# MC2-13.  => DDS_Common \
+P2\\nset_property PACKAGE_PIN E14 [get_ports {ddsCom[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[2]}]\\n\\n# MC2-14.  => DDS_Common \
+P3\\nset_property PACKAGE_PIN C15 [get_ports {ddsCom[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[3]}]\\n\\n# MC2-15.  => DDS_Common \
+SDIO0\\nset_property PACKAGE_PIN F16 [get_ports {ddsCom[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[4]}]\\n\\n# MC2-16.  => DDS_Common \
+SDIO1\\nset_property PACKAGE_PIN T14 [get_ports {ddsCom[5]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[5]}]\\n\\n# MC2-17.  => DDS_Common \
+SDIO2\\nset_property PACKAGE_PIN E17 [get_ports {ddsCom[6]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[6]}]\\n\\n# MC2-18.  => DDS_Common \
+SDIO3\\nset_property PACKAGE_PIN T15 [get_ports {ddsCom[7]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[7]}]\\n\\n# MC2-19.  => DDS_Common \
+OE\\nset_property PACKAGE_PIN T16 [get_ports {ddsCom[8]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[8]}]\\n\\n# MC2-20.  => DDS_Common CLK\
+\\nset_property PACKAGE_PIN V13 [get_ports {ddsCom[9]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsCom[9]}]\\n\\n# MC2-21.  => DDS_Common \
+SYNCINEN\\nset_property PACKAGE_PIN U16 [get_ports \
+{ddsCom[10]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{ddsCom[10]}]\\n\\n# MC2-22.  => CLK_Trig SYS_CLK\\nset_property PACKAGE_PIN \
+V14 [get_ports {ext_clk}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{ext_clk}]\\n\\n# MC2-23.  => DDS_Common SCLK\\nset_property PACKAGE_PIN U15 \
+[get_ports {ddsCom[0]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{ddsCom[0]}]\\n\\n# MC2-24.  => DDS_Common PWRDWN\\nset_property PACKAGE_PIN \
+W14 [get_ports {ddsCom[1]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{ddsCom[1]}]\\n\\n# MC2-25.  => DDS_Common RESET\\nset_property PACKAGE_PIN \
+V15 [get_ports {ddsCom[2]}]\\nset_property IOSTANDARD LVCMOS33 [get_ports \
+{ddsCom[2]}]\\n\\n# MC2-26.  => DDS_CLK_CTRL_0 CLKEN\\nset_property \
+PACKAGE_PIN Y14 [get_ports {ddsA[0]}]\\nset_property IOSTANDARD LVCMOS33 \
+[get_ports {ddsA[0]}]\\n\\n# MC2-27.  => DDS_CLK_CTRL_0 \
+EXTCLKEN\\nset_property PACKAGE_PIN P6 [get_ports {ddsA[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[1]}]\\n\\n# MC2-28.  => DDS_CLK_CTRL_0 \
+XTALEN\\nset_property PACKAGE_PIN Y11 [get_ports {ddsA[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[2]}]\\n\\n# MC2-29.  => DDS_CLK_CTRL_0 \
+CMODEN\\nset_property PACKAGE_PIN N5 [get_ports {ddsA[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[3]}]\\n\\n# MC2-30.  => DDS_CTRL_0 \
+#CS\\nset_property PACKAGE_PIN Y12 [get_ports {ddsA[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[4]}]\\n\\n# MC2-31.  => DDS_CTRL_0 \
+IOUpdate\\nset_property PACKAGE_PIN P5 [get_ports {ddsA[5]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[5]}]\\n\\n# MC2-32.  => DDS_CTRL_0 \
+SYNC_CLK\\nset_property PACKAGE_PIN N4 [get_ports {ddsA[6]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsA[6]}]\\n\\n# MC2-33.  => DDS_CLK_CTRL_1 \
+CLKEN\\nset_property PACKAGE_PIN P4 [get_ports {ddsB[0]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[0]}]\\n\\n# MC2-34.  => DDS_CLK_CTRL_1 \
+EXTCLKEN\\nset_property PACKAGE_PIN N3 [get_ports {ddsB[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[1]}]\\n\\n# MC2-35.  => DDS_CLK_CTRL_1 \
+XTALEN\\nset_property PACKAGE_PIN P2 [get_ports {ddsB[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[2]}]\\n\\n# MC2-36.  => DDS_CLK_CTRL_1 \
+CMODEN\\nset_property PACKAGE_PIN R1 [get_ports {ddsB[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[3]}]\\n\\n# MC2-37.  => DDS_CTRL_1 \
+#CS\\nset_property PACKAGE_PIN N2 [get_ports {ddsB[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[4]}]\\n\\n# MC2-38.  => DDS_CTRL_1 \
+IOUpdate\\nset_property PACKAGE_PIN P1 [get_ports {ddsB[5]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[5]}]\\n\\n# MC2-39.  => DDS_CTRL_1 \
+SYNC_CLK\\nset_property PACKAGE_PIN L6 [get_ports {ddsB[6]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ddsB[6]}]\\n\\n# MC2-40.  => CLK_Trig TRIGGER\
+\\nset_property PACKAGE_PIN F4 [get_ports {ext_trig}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {ext_trig}]\\n\\n# MC2-41.  => SlowAnalogOut \
+D0\\nset_property PACKAGE_PIN L5 [get_ports {sa[0]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[0]}]\\n\\n# MC2-42.  => SlowAnalogOut \
+D1\\nset_property PACKAGE_PIN M6 [get_ports {sa[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[1]}]\\n\\n# MC2-43.  => SlowAnalogOut \
+D2\\nset_property PACKAGE_PIN L4 [get_ports {sa[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[2]}]\\n\\n# MC2-44.  => SlowAnalogOut \
+D3\\nset_property PACKAGE_PIN M5 [get_ports {sa[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[3]}]\\n\\n# MC2-45.  => SlowAnalogOut \
+D4\\nset_property PACKAGE_PIN K6 [get_ports {sa[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[4]}]\\n\\n# MC2-46.  => SlowAnalogOut \
+D5\\nset_property PACKAGE_PIN J5 [get_ports {sa[5]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[5]}]\\n\\n# MC2-47.  => SlowAnalogOut \
+D6\\nset_property PACKAGE_PIN J6 [get_ports {sa[6]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[6]}]\\n\\n# MC2-48.  => SlowAnalogOut \
+D7\\nset_property PACKAGE_PIN H5 [get_ports {sa[7]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[7]}]\\n\\n# MC2-49.  => SlowAnalogOut \
+D8\\nset_property PACKAGE_PIN M3 [get_ports {sa[8]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[8]}]\\n\\n# MC2-50.  => SlowAnalogOut \
+D9\\nset_property PACKAGE_PIN K4 [get_ports {sa[9]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[9]}]\\n\\n# MC2-51.  => SlowAnalogOut \
+D10\\nset_property PACKAGE_PIN M2 [get_ports {sa[10]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[10]}]\\n\\n# MC2-52.  => SlowAnalogOut D11\
+\\nset_property PACKAGE_PIN J4 [get_ports {sa[11]}]\\nset_property IOSTANDARD \
+LVCMOS33 [get_ports {sa[11]}]\\n\\n# MC2-53.  => SlowAnalogOut \
+D12\\nset_property PACKAGE_PIN F3 [get_ports {sa[12]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[12]}]\\n\\n# MC2-54.  => SlowAnalogOut D13\
+\\nset_property PACKAGE_PIN E2 [get_ports {sa[13]}]\\nset_property IOSTANDARD \
+LVCMOS33 [get_ports {sa[13]}]\\n\\n# MC2-55.  => SlowAnalogOut \
+A0\\nset_property PACKAGE_PIN E3 [get_ports {sa[14]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[14]}]\\n\\n# MC2-56.  => SlowAnalogOut \
+A1\\nset_property PACKAGE_PIN D2 [get_ports {sa[15]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[15]}]\\n\\n# MC2-57.  => SlowAnalogOut \
+A2\\nset_property PACKAGE_PIN H4 [get_ports {sa[16]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[16]}]\\n\\n# MC2-58.  => SlowAnalogOut \
+A3\\nset_property PACKAGE_PIN L3 [get_ports {sa[17]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[17]}]\\n\\n# MC2-59.  => SlowAnalogOut \
+A4\\nset_property PACKAGE_PIN G4 [get_ports {sa[18]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[18]}]\\n\\n# MC2-60.  => SlowAnalogOut \
+A5\\nset_property PACKAGE_PIN K3 [get_ports {sa[19]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[19]}]\\n\\n# MC2-61.  => SlowAnalogOut \
+AB\\nset_property PACKAGE_PIN C2 [get_ports {sa[20]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[20]}]\\n\\n# MC2-62.  => SlowAnalogOut #CS\
+\\nset_property PACKAGE_PIN H3 [get_ports {sa[21]}]\\nset_property IOSTANDARD \
+LVCMOS33 [get_ports {sa[21]}]\\n\\n# MC2-63.  => SlowAnalogOut \
+#WR\\nset_property PACKAGE_PIN B2 [get_ports {sa[22]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[22]}]\\n\\n# MC2-64.  => SlowAnalogOut \
+FIFO_EN\\nset_property PACKAGE_PIN G3 [get_ports {sa[23]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[23]}]\\n\\n# MC2-65.  => SlowAnalogOut \
+REG0\\nset_property PACKAGE_PIN H2 [get_ports {sa[24]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[24]}]\\n\\n# MC2-66.  => SlowAnalogOut \
+REG1\\nset_property PACKAGE_PIN B1 [get_ports {sa[25]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[25]}]\\n\\n# MC2-67.  => SlowAnalogOut \
+#LDAC\\nset_property PACKAGE_PIN G2 [get_ports {sa[26]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[26]}]\\n\\n# MC2-68.  => SlowAnalogOut \
+#BUSY\\nset_property PACKAGE_PIN A1 [get_ports {sa[27]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[27]}]\\n\\n# MC2-69.  => SlowAnalogOut \
+#CLR\\nset_property PACKAGE_PIN K1 [get_ports {sa[28]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[28]}]\\n\\n# MC2-70.  => SlowAnalogOut \
+#RESET\\nset_property PACKAGE_PIN E1 [get_ports {sa[29]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[29]}]\\n\\n# MC2-71.  => SlowAnalogOut \
+PD\\nset_property PACKAGE_PIN J1 [get_ports {sa[30]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[30]}]\\n\\n# MC2-72.  => SlowAnalogOut \
+V15EN\\nset_property PACKAGE_PIN D1 [get_ports {sa[31]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {sa[31]}]\\n\\n# MC2-73.  => XADC \
+MUX0\\nset_property PACKAGE_PIN G1 [get_ports {xadc[0]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadc[0]}]\\n\\n# MC2-74.  => XADC \
+MUX1\\nset_property PACKAGE_PIN M1 [get_ports {xadc[1]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadc[1]}]\\n\\n# MC2-75.  => XADC \
+MUX2\\nset_property PACKAGE_PIN F1 [get_ports {xadc[2]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadc[2]}]\\n\\n# MC2-76.  => XADC \
+MUX3\\nset_property PACKAGE_PIN L1 [get_ports {xadc[3]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadc[3]}]\\n\\n# MC2-78.  => XADC \
+MUX4\\nset_property PACKAGE_PIN K2 [get_ports {xadc[4]}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {xadc[4]}]\\n\\n# MC2-80.  => ID \
+ID_Common\\nset_property PACKAGE_PIN J2 [get_ports {idcom}]\\nset_property \
+IOSTANDARD LVCMOS33 [get_ports {idcom}]\\n\"\>"], "Output",
+ CellChangeTimes->{{3.830301768283375*^9, 3.830301814713468*^9}, 
+   3.8303019670984097`*^9},
+ CellLabel->"Out[95]=",ExpressionUUID->"a88da4ec-c364-493a-b598-f577e463ee99"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1026, 553},
+WindowMargins->{{30, Automatic}, {15, Automatic}},
+FrontEndVersion->"12.0 for Microsoft Windows (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 285, 5, 28, "Input",ExpressionUUID->"a708039e-3631-4745-85d5-d7e0ee6cd652"],
+Cell[868, 29, 446, 7, 52, "Output",ExpressionUUID->"801c2a95-abe1-49d3-acdf-9e648a5b83b5"]
+}, Open  ]],
+Cell[1329, 39, 360, 8, 28, "Input",ExpressionUUID->"55158418-d673-4177-b085-8353ac3670b0"],
+Cell[CellGroupData[{
+Cell[1714, 51, 287, 6, 28, "Input",ExpressionUUID->"fd510ef4-ed37-4a97-94b5-20ec33aaa28f"],
+Cell[2004, 59, 552, 9, 32, "Output",ExpressionUUID->"9026e1a8-e398-4bc2-97cd-fe9cfc3895ce"]
+}, Open  ]],
+Cell[2571, 71, 255, 7, 78, "Text",ExpressionUUID->"f4f756ef-bd46-4871-b753-4639127db12d"],
+Cell[2829, 80, 1236, 24, 124, "Input",ExpressionUUID->"cbb5cbd3-1f5f-4c6c-8320-3a5c81fa706b"],
+Cell[CellGroupData[{
+Cell[4090, 108, 489, 8, 28, "Input",ExpressionUUID->"dafb3260-368b-4067-b3bb-70f7cd8019c8"],
+Cell[4582, 118, 521, 7, 90, "Output",ExpressionUUID->"7786a63d-f1b9-4c7b-91a8-5e6c738f6c13"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5140, 130, 409, 8, 28, "Input",ExpressionUUID->"6bf66236-c11a-48db-9ccf-8bd68ea10b77"],
+Cell[5552, 140, 502, 8, 32, "Output",ExpressionUUID->"e43c419a-979f-4d78-8c08-c7d9674ccdee"]
+}, Open  ]],
+Cell[6069, 151, 395, 9, 28, "Input",ExpressionUUID->"ad22367e-bac7-4568-ab0c-2bd741fdd9c7"],
+Cell[CellGroupData[{
+Cell[6489, 164, 500, 13, 28, "Input",ExpressionUUID->"2b8700a7-9f15-4430-b9c9-2be26e21d0e1"],
+Cell[6992, 179, 175, 2, 32, "Output",ExpressionUUID->"696539c5-53de-4e36-935d-5e5e17289654"]
+}, Open  ]],
+Cell[7182, 184, 601, 13, 28, "Input",ExpressionUUID->"06ca2232-707d-4242-834d-20605e2656d0"],
+Cell[CellGroupData[{
+Cell[7808, 201, 568, 14, 28, "Input",ExpressionUUID->"533a497f-cabd-4f51-88ad-fe38cc47aa38"],
+Cell[8379, 217, 185, 2, 32, "Output",ExpressionUUID->"328fbcb1-523f-4d76-9a1d-c3b78c70997d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8601, 224, 722, 18, 28, "Input",ExpressionUUID->"6f65eebe-8475-4413-a62f-5f77fd11a8c1"],
+Cell[9326, 244, 391, 5, 90, "Output",ExpressionUUID->"a3a4cecb-f99e-415e-947e-5c2a8f891eb7"]
+}, Open  ]],
+Cell[9732, 252, 197, 3, 34, "Text",ExpressionUUID->"6994002a-8d90-4a9b-a442-cf6f256515a2"],
+Cell[9932, 257, 558, 14, 28, "Input",ExpressionUUID->"0a2a9f57-97b6-45d0-9270-35bb393261b4"],
+Cell[CellGroupData[{
+Cell[10515, 275, 157, 3, 53, "Subsection",ExpressionUUID->"d6b8cc82-199b-4dd6-a5b1-f3e8713d5a35"],
+Cell[CellGroupData[{
+Cell[10697, 282, 723, 16, 86, "Input",ExpressionUUID->"38306d3c-b954-4761-8315-d7b466220272"],
+Cell[11423, 300, 20671, 281, 10350, "Output",ExpressionUUID->"a88da4ec-c364-493a-b598-f577e463ee99"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

@@ -37,8 +37,27 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	// initialize Camera API
-	SystemPtr system = System::GetInstance();	// Retrieve singleton reference to system object
+	SystemPtr system;	//Spinnaker system object
+	
+	try {
+		// initialize camera API (Spinnaker)
+		system = System::GetInstance();	// Retrieve singleton reference to system object
+	}
+	catch (Exception& e) {
+		std::cout << "Failed to retrieve Spinnaker system object." << std::endl;
+		std::cout << "Spinnaker exception: " << e.GetErrorMessage() << std::endl;
+		return -1;
+	}
+	catch (...) {
+		std::cout << "Failed to retrieve Spinnaker system object." << std::endl;
+		std::cout << "Unknown spinnaker exception!" << std::endl;
+		return -1;
+	}
+
+	if (system == 0) {
+		std::cout << "Error: Spinnaker system object is null." << std::endl;
+		return -1;
+	}
 
 	CameraList camList = system->GetCameras();	// Retrieve list of cameras from the system
 	const unsigned int numCameras = camList.GetSize();
@@ -53,39 +72,36 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 
-//	CameraPtr pCam = nullptr;	// Shared pointer; must be released manually *in this context* 
-//	pCam = camList.GetByIndex(0);
+
+//	TransportLayerDevice tdev();
+//	tdev.DeviceSerialNumber;
 
 	std::vector<CameraPtr> pCams;
 	for (unsigned i = 0; i < numCameras; ++i) {
 		pCams.push_back(nullptr);	// Shared pointer; must be released manually *in this context* 
 		pCams.at(i) = camList.GetByIndex(i);
 		//pCams.at(i) = camList.GetBySerial("19075973");
-		std::string serialNum = pCams.at(i)->GetUniqueID();
-		std::cout << "*** Found camera serial # " << serialNum << std::endl;
+
+//		std::string serialNum = pCams.at(i)->GetUniqueID();
+//		std::cout << "*** Found camera serial # " << serialNum << std::endl;
 	}
 	
-	//pCam->Init();
 	for (unsigned i = 0; i < numCameras; ++i) {
 		if (pCams.at(i) != 0) {
 			pCams.at(i)->Init();
+
+//			auto ser = pCams.at(i)->DeviceSerialNumber.ToString();
+//			std::cout << "DeviceSerialNumber: " << ser << std::endl;
+			std::cout << "*** Found camera serial # " << pCams.at(i)->DeviceSerialNumber.ToString() << std::endl;
 		}
 	}
 
-//	CIntegerPtr ptrWidth = pCam->GetNodeMap().GetNode("Width");
-	//Set width of 640 pixels
-//	ptrWidth->SetValue(640);
-
-	//Spinnaker::GenApi::NodeList_t nodelist;
-	//INodeMap& appLayerNodeMap = pCam->GetNodeMap(); // .GetNodes(nodelist);
-
-//	BlackflyDevice blackflyCamera(orbManager, blackflyConfigFile.getConfigFile("Blackfly 1"), pCam);
-//	blackflyCamera.setSaveAttributesToFile(true);
-
+	// Create an STI device for each camera found
 	std::vector<std::unique_ptr<BlackflyDevice>> blackflyCameras;
 	for (unsigned i = 0; i < numCameras; ++i) {
 		
-		std::string serialNum = pCams.at(i)->GetUniqueID();
+		//std::string serialNum = pCams.at(i)->GetUniqueID();
+		std::string serialNum = pCams.at(i)->DeviceSerialNumber.ToString();
 		auto it = cameraSerialMap.find(serialNum);
 		
 		if (it != cameraSerialMap.end()) {
@@ -98,19 +114,11 @@ int main(int argc, char* argv[])
 
 			blackflyCameras.push_back(std::move(bfdevice));
 		}
-
-		//cameraSerialMap
-//		std::stringstream configSectionName;
-//		configSectionName << "Blackfly " << i;
-
 	}
 
-	orbManager->run();	//Blocks while device is alive
+	//blackflyCameras.at(0)->printAllCameraNodes();
 
-
-	// Clean up
-//	pCam->DeInit();
-//	pCam = nullptr;		// Needed to avoid exception from system->ReleaseInstance();
+	orbManager->run();	//Blocks while devices are alive
 
 	// Clean up
 	for (unsigned i = 0; i < numCameras; ++i) {
