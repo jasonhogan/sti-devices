@@ -74,6 +74,8 @@ public:
 	void runBlockComplete(bool success);	//used by callback -- needs to be public so global callback can access
 
 private:
+	
+	void _runBlockComplete(bool success);
 
 	bool _getChannelEnableStatus(unsigned channel);
 	bool _enableChannel(unsigned channel, bool enable);

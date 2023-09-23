@@ -412,6 +412,7 @@ void PicoScope5000Device::PicoScope5000DeviceEvent::playEvent()
 void PicoScope5000Device::PicoScope5000DeviceEvent::collectMeasurementData()
 {
 	//std::string baseDir = scopeDevice->generateDataDestinationDirectory();
+	int tmp = 22;
 
 	//filename is specific to this shot, at the time of data collection
 	std::string filename =

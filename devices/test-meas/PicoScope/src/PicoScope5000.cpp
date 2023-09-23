@@ -660,7 +660,7 @@ bool PicoScope5000::calculateMinimumTimebase(uint32_t& timebase, double& timeInt
 		}
 	}
 
-	enPS5000ADeviceResolution resolution;
+	enPS5000ADeviceResolution resolution = PS5000A_DR_14BIT;	//default
 	std::string res;
 	if (getResolution(res)) {
 		auto it = resolutionLookup.find(res);
@@ -724,6 +724,8 @@ void PicoScope5000::setTimeInterval(double time_ns)
 	getResolution(resolution);
 	auto res = resolutionLookup.find(resolution);
 	
+	if (res == resolutionLookup.end()) return;	//error
+
 	uint32_t maxTimebase;
 
 	switch (res->second) {
@@ -786,15 +788,34 @@ void PicoScope5000::runBlock()
 
 	status = ps5000aGetTimebase2(handle, timebase, totalSamples, &timeInterval, &maxSamples, 0);
 
-	running = true;
+	//Hack here.  Try to correct common fail condition by changing timebase.
+	//Need to fix timebase code to avoid this work around in the future.
+	if (status != PICO_OK && timebase == 0) {
+		timebase = 10;	//arbitrary, nonzero value
 
-	status = ps5000aRunBlock(handle, preTriggerSamples, postTriggerSamples, timebase, &timeIndisposed, 0, callBackBlock, this);
+		//try again...
+		status = ps5000aGetTimebase2(handle, timebase, totalSamples, &timeInterval, &maxSamples, 0);
+	}
+
+	running = (status == PICO_OK);
+
+	if (running) {
+		status = ps5000aRunBlock(handle, preTriggerSamples, postTriggerSamples, timebase, &timeIndisposed, 0, callBackBlock, this);
+	}
+	else {
+		//error
+		_runBlockComplete(false);	//thread has picoMutex lock already
+	}
 }
 
 void PicoScope5000::runBlockComplete(bool success)
 {
 	std::unique_lock<std::mutex> picoLock(picoMutex);
+	_runBlockComplete(success);
+}
 
+void PicoScope5000::_runBlockComplete(bool success)
+{
 	running = false;
 	dataAvailable = success;
 
