@@ -62,7 +62,7 @@ private:
 	void pauseEventPlayback();
 	void resumeEventPlayback();
 
-	enum TriggerEventType {PLAY, STOP, PAUSE, WAIT, WAITALL};
+	enum TriggerEventType {PLAY, STOP, PAUSE, WAIT, WAITALL, RESET};
 
 	class TriggerEvent : public BitLineEvent<32>
 	{
@@ -113,6 +113,7 @@ private:
 	uInt32 play;
 	uInt32 stop;
 	uInt32 pause;
+	uInt32 reset;
 	uInt32 waitForExternal;
 	uInt32 armBits;
 

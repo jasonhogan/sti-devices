@@ -75,7 +75,7 @@ bool BlackflyFloatNodeValue::setValue(const std::string& value)
 		ptrFloatNode->SetValue(val);
 
 	}
-	catch (Spinnaker::Exception&)
+	catch (Spinnaker::Exception& ex)
 	{
 		return false;
 	}
@@ -188,4 +188,58 @@ bool BlackflyEnumNodeValue::getValue(std::string& value)
 	return true;
 }
 
+
+bool BlackflyEnumNodeValue::getEnumValues(std::vector<std::string>& values)
+{
+	values.clear();
+
+//	if (!checkNode())
+//		return false;
+
+	try {
+		CEnumerationPtr ptrEnumNode = static_cast<CEnumerationPtr>(node);
+		
+		StringList_t symbolicNames;
+		//ptrEnumNode->GetSymbolics(symbolicNames);
+
+		NodeList_t nodeEntries;
+		ptrEnumNode->GetEntries(nodeEntries);
+
+		for (auto& node : nodeEntries) {
+			std::string rawName = node->GetName().c_str();
+
+			//Raw node names are of the format: EnumEntry_<key>_<node name>
+			//Here we strip the first two parts and keep only <node name>
+			auto pos = rawName.find(key);
+			auto nodeName = rawName.substr(pos + key.size() + 1);
+			values.push_back(nodeName);
+		}
+	}
+	catch (Spinnaker::Exception&)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void BlackflyEnumNodeValue::setupEnumValues()
+{
+	getEnumValues(allowedEnumValues);
+
+	std::stringstream allowedVals;
+
+	bool isFirst = true;
+	for (auto& v : allowedEnumValues) {
+		if (!isFirst) {
+			allowedVals << ", ";
+		}
+		allowedVals << v;
+		isFirst = false;
+	}
+
+	if (allowedEnumValues.size() > 0) {
+		allowedValues = allowedVals.str();
+	}
+}
 

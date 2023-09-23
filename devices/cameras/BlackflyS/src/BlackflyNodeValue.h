@@ -5,6 +5,8 @@
 #include "SpinGenApi/SpinnakerGenApi.h"
 #include <utils.h>
 
+#include <vector>
+#include <string>
 #include <memory>
 
 class BlackflyNodeValue	//abstract
@@ -123,11 +125,21 @@ public:
 
 	BlackflyEnumNodeValue(const Node_ptr& device, const std::string& key,
 		const std::string& defaultValue, const std::string& allowedValues)
-		: BlackflyNodeValue(device, key, defaultValue, allowedValues) { setValue(defaultValue); }
+		: BlackflyNodeValue(device, key, defaultValue, allowedValues) 
+	{
+		//setupEnumValues();	//get all supported enum values from camera and set allowedValues
+		getEnumValues(allowedEnumValues);
+		setValue(defaultValue);
+
+		//setupEnumValues();
+	}
 
 	bool setValue(const std::string& value);
 	bool getValue(std::string& value);
-
+	bool getEnumValues(std::vector<std::string>& values);
+	void setupEnumValues();
+	
+	std::vector<std::string> allowedEnumValues;
 };
 
 
@@ -141,6 +153,9 @@ std::shared_ptr<BlackflyNodeValue> BlackflyNodeValue::makeNodeValue(const Node_p
 
 	//	if (!checkNode(node))
 	//		return nodePtr;	//null
+	if (node == 0) {
+		return nodePtr;	//failed to find node; return null
+	}
 
 	std::string defaultValueStr = STI::Utils::valueToString(defaultValue);
 

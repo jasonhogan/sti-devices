@@ -119,6 +119,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\BlackflyConfigFile.h" />
     <ClInclude Include="..\src\BlackflyDevice.h" />
     <ClInclude Include="..\src\BlackflyEvent.h" />
     <ClInclude Include="..\src\BlackflyNodeValue.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\src\ImageWriter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\BlackflyConfigFile.cpp" />
     <ClCompile Include="..\src\BlackflyDevice.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

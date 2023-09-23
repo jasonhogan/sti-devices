@@ -71,6 +71,8 @@ private:
 	short wordsPerEvent() const {return 3;}; //DDS is special in that it requires 3 words per event
 
 	DDS_Event* generateDDScommand(double time, uInt32 addr);
+	DDS_Event* generateDDScommand(double time, uInt32 addr, uInt32 selectedChannel);
+
 	uInt32 generateDDSphase(double doublePhase);
 	uInt32 generateDDSamplitude(double doubleAmplitude);
 	

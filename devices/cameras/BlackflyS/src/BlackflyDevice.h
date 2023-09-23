@@ -55,6 +55,8 @@ public:
 
 	std::string getDeviceHelp();
 
+	void printAllCameraNodes();
+
 private:
 
 	template<typename T>
@@ -111,6 +113,9 @@ private:
 
 	template<typename T>
 	bool setNodeValue(const Spinnaker::GenApi::INodeMap& nodeMap, const std::string& key, const T& value);
+
+
+	bool addNodeValue(const std::shared_ptr<BlackflyNodeValue>& node);
 
 	//template<typename T>
 	//static std::shared_ptr<BlackflyNodeValue> makeNodeValue(const Node_ptr& node, const std::string& key,

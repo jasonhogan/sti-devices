@@ -56,3 +56,16 @@ devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/synth_1/
 devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/impl_1/
 devices/XEM7310/jittertest/hdl/simplecore/simplecore.runs/.jobs/
 devices/test-meas/AFG31000/AFG31000.pyc
+devices/cameras/Pixis_Add-In/project/Pixis_Add-In.VC.db
+devices/misc/testDevice/test/Release/
+devices/misc/testDevice/test/Debug/
+devices/lasers/aosense ilc/ECDL ILC API.eml
+devices/test-meas/PicoScope/project/Release/
+*.idb
+devices/test-meas/PicoScope/project/Debug/
+devices/test-meas/PicoScope/project/x64/Debug/
+*.db
+devices/cameras/BlackflyS/project/.vs/
+devices/test-meas/PicoScope/project/.vs/
+*.opendb
+

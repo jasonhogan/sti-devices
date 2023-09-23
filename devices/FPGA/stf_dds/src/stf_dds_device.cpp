@@ -200,7 +200,7 @@ throw(std::exception)
 				IOUpdate = false;
 
 			lastEventTime = lastEventTime + eventSpacing;
-			eventsOut.push_back( generateDDScommand( lastEventTime, j) );
+			eventsOut.push_back( generateDDScommand( lastEventTime, j, activeChannel) );
 		}
 
 		dds_parameters.at(k).ClearPhase = false; // IOUpdate automatically resets this to false, so we want to keep internal code state to be the same as external device state
@@ -214,24 +214,69 @@ throw(std::exception)
 	{
 		commandList.clear();
 		
-		if(events->second.size() > 1) // only one event at a time
-			throw EventConflictException(events->second.at(0), events->second.at(1),
-						"The DDS currently only supports one event at each time.");
-		
-		if(events->second.at(0).channel() != activeChannel) // check the channel and change it if necessary
-		{
-			activeChannel = events->second.at(0).channel();
-			commandList.push_back(0x00);
-		}
+		//New ****************
+		if (events->second.size() > 1) {
+			bool success = true;
+			for (auto& evt : events->second) {
+				success &= (evt.getValueType() == MixedValue::Vector) && (evt.getVector().size() == 3);
+			}
+			if (!success) {
+				throw EventConflictException(events->second.at(0), events->second.at(1),
+					"Only tuples (freq, amp, phase) allowed for simultaneous events");
+			}
 
-		// check what type of event it is
-		if(events->second.at(0).getValueType() == MixedValue::Vector)	//three values given
-			parseVectorType( events->second.at(0), &commandList);  //need time for arbitrary waveform events SMD
-		else if(events->second.at(0).getValueType() == MixedValue::String)
-			parseStringType( events->second.at(0), &commandList);
-		else
-			throw EventParsingException(events->second.at(0),
-						"The DDS does not support that data type.");
+			for (auto& evt : events->second) {
+
+				if (evt.channel() != activeChannel) {
+					activeChannel = evt.channel();
+					commandList.push_back(0x00);
+				}
+				parseVectorType(evt, &commandList);
+			}
+		}
+		else {
+
+			if (events->second.at(0).channel() != activeChannel) // check the channel and change it if necessary
+			{
+				activeChannel = events->second.at(0).channel();
+				commandList.push_back(0x00);
+			}
+
+			// check what type of event it is
+			if (events->second.at(0).getValueType() == MixedValue::Vector)	//three values given
+				parseVectorType(events->second.at(0), &commandList);  //need time for arbitrary waveform events SMD
+			else if (events->second.at(0).getValueType() == MixedValue::String)
+				parseStringType(events->second.at(0), &commandList);
+			else
+				throw EventParsingException(events->second.at(0),
+					"The DDS does not support that data type.");
+
+		}
+		//************
+
+		//if(events->second.size() > 1) // only one event at a time
+		//	throw EventConflictException(events->second.at(0), events->second.at(1),
+		//				"The DDS currently only supports one event at each time.");
+		//
+		//if(events->second.at(0).channel() != activeChannel) // check the channel and change it if necessary
+		//{
+		//	activeChannel = events->second.at(0).channel();
+		//	commandList.push_back(0x00);
+		//}
+
+		//// check what type of event it is
+		//if(events->second.at(0).getValueType() == MixedValue::Vector)	//three values given
+		//	parseVectorType( events->second.at(0), &commandList);  //need time for arbitrary waveform events SMD
+		//else if(events->second.at(0).getValueType() == MixedValue::String)
+		//	parseStringType( events->second.at(0), &commandList);
+		//else
+		//	throw EventParsingException(events->second.at(0),
+		//				"The DDS does not support that data type.");
+
+
+
+		//****************
+
 
 		if( (events->first - eventSpacing * commandList.size() ) < lastEventTime) // trying to make events happen before the last event has finished
 		{
@@ -799,10 +844,16 @@ uInt32 STF_DDS_Device::generateRampRate(double rampRateInPercent)
 {
 	return static_cast<uInt32>(floor(((100.0 - rampRateInPercent) / 100.0) * 255.0));
 }
+
 STF_DDS_Device::DDS_Event* STF_DDS_Device::generateDDScommand(double time, uInt32 addr)
 {
+	return generateDDScommand(time, addr, activeChannel);
+}
+
+STF_DDS_Device::DDS_Event* STF_DDS_Device::generateDDScommand(double time, uInt32 addr, uInt32 selectedChannel)
+{
 	
-	//DDSParameters& ddsCh = dds_parameters.at(activeChannel); //a shorthand way to use a reference
+	//DDSParameters& ddsCh = dds_parameters.at(selectedChannel); //a shorthand way to use a reference
 
 	DDS_Event* ddsCommand = new DDS_Event(time - triggerOffset, 0, 0, this);
 	ddsCommand->setBits(0);
@@ -818,7 +869,7 @@ STF_DDS_Device::DDS_Event* STF_DDS_Device::generateDDScommand(double time, uInt3
 	if (addr == 0x00)	//set active channel
 	{
 		ddsCommand->setBits(1, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(true, 28 + activeChannel, 28 + activeChannel);
+		ddsCommand->setBits(true, 28 + selectedChannel, 28 + selectedChannel);
 	}
 	else if (addr == 0x01)
 	{
@@ -834,56 +885,56 @@ STF_DDS_Device::DDS_Event* STF_DDS_Device::generateDDScommand(double time, uInt3
 	else if (addr == 0x03)	//parameters...
 	{
 		ddsCommand->setBits(3, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).AFPSelect, 30, 31);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).LSnoDwell, 23, 23);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).LinearSweepEnable, 22, 22);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).LoadSRR, 21, 21);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).AFPSelect, 30, 31);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).LSnoDwell, 23, 23);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).LinearSweepEnable, 22, 22);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).LoadSRR, 21, 21);
 		ddsCommand->setBits(0, 18, 18); //Must be 0
-		ddsCommand->setBits(dds_parameters.at(activeChannel).DACCurrentControl, 16, 17); //DAC full scale current control - set to default value of 0x03
-		ddsCommand->setBits(dds_parameters.at(activeChannel).AutoclearSweep, 12, 12);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).ClearSweep, 11, 11);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).AutoclearPhase, 10, 10);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).ClearPhase, 9, 9);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).SinCos, 8, 8);		
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).DACCurrentControl, 16, 17); //DAC full scale current control - set to default value of 0x03
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).AutoclearSweep, 12, 12);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).ClearSweep, 11, 11);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).AutoclearPhase, 10, 10);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).ClearPhase, 9, 9);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).SinCos, 8, 8);		
 	}
 	else if (addr == 0x04)	//Set frequency
 	{
 		ddsCommand->setBits(4, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).Frequency, 0, 31);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).Frequency, 0, 31);
 	}
 	else if (addr == 0x05)	//Set phase
 	{
 		ddsCommand->setBits(2, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).Phase, 16, 31);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).Phase, 16, 31);
 	}
 	else if (addr == 0x06)	//Set amplitude
 	{
 		ddsCommand->setBits(3, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).AmplitudeEnable, 20, 20);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).Amplitude, 8, 17);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).LoadARR, 18, 18);
-		ddsCommand->setBits(dds_parameters.at(activeChannel).RuRd, 19, 19);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).AmplitudeEnable, 20, 20);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).Amplitude, 8, 17);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).LoadARR, 18, 18);
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).RuRd, 19, 19);
 	}
 	else if (addr == 0x07)
 	{
 		ddsCommand->setBits(2, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).fallingSweepRampRate, 24, 31); //RSRR has 8 bit resolution
-		ddsCommand->setBits(dds_parameters.at(activeChannel).risingSweepRampRate, 16, 23); //FSRR has 8 bit resolution
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).fallingSweepRampRate, 24, 31); //RSRR has 8 bit resolution
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).risingSweepRampRate, 16, 23); //FSRR has 8 bit resolution
 	}
 	else if (addr == 0x08)
 	{
 		ddsCommand->setBits(4, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).risingDeltaWord, 0, 31); //Frequency has 32 bit resolution
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).risingDeltaWord, 0, 31); //Frequency has 32 bit resolution
 	}
 	else if (addr == 0x09)
 	{
 		ddsCommand->setBits(4, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).fallingDeltaWord, 0, 31); //Frequency has 32 bit resolution
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).fallingDeltaWord, 0, 31); //Frequency has 32 bit resolution
 	}
 	else if (addr == 0x0a)
 	{
 		ddsCommand->setBits(4, 45, 47);		//3 bit length (number of bytes in command)
-		ddsCommand->setBits(dds_parameters.at(activeChannel).sweepEndPoint, 0, 31); //Frequency has 32 bit resolution
+		ddsCommand->setBits(dds_parameters.at(selectedChannel).sweepEndPoint, 0, 31); //Frequency has 32 bit resolution
 	}
 	else if (addr == 0x0f)
 	{

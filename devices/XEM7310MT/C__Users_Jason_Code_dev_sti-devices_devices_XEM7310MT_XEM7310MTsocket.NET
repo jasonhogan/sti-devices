@@ -1,0 +1,1192 @@
+Wire List
+
+<<< Component List >>>
+C0805C104KMRECAUTO              C1             CAPC2012X110N
+CDSOD323-T05C                   D1             SOD2513X114N
+CDSOD323-T05C                   D2             SOD2513X114N
+MF-MSMF010                      F1             FUSER_MF-MSMF010
+MF-MSMF010                      F2             FUSER_MF-MSMF010
+Header 6X2                      IDJ            HDR2X6
+QTE-040-01-XXX-D-A              J1             QTE-040-01-XXX-D-A
+QTE-040-01-XXX-D-A              J2             QTE-040-01-XXX-D-A
+CONSMA008-G                     J3_U_HF_D      LINX_CONSMA008-G
+CONSMA008-G                     J3_U_HF_D      LINX_CONSMA008-G
+CONSMA008-G                     J4             LINX_CONSMA008-G
+CONSMA008-G                     J5             LINX_CONSMA008-G
+Header 17X2                     JP0_U_SFT      HDR2X17
+Header 17X2                     JP0_U_STF      HDR2X17
+Header 17X2                     JP0_U_STF      HDR2X17
+Header 17X2                     JP0_U_STF      HDR2X17
+Header 17X2                     JP0_U_STF      HDR2X17
+Header 17X2                     JP0_U_STF      HDR2X17
+Header 17X2                     JPS1           HDR2X17
+Header 17X2                     JPS2           HDR2X17
+Header 4X2                      JW0_U_SFT      HDR2X4
+Header 4X2                      JW0_U_STF      HDR2X4
+Header 4X2                      JW0_U_STF      HDR2X4
+Header 4X2                      JW0_U_STF      HDR2X4
+Header 4X2                      JW0_U_STF      HDR2X4
+Header 4X2                      JW0_U_STF      HDR2X4
+Header 4X2                      JW1_U_SFT      HDR2X4
+Header 4X2                      JW1_U_STF      HDR2X4
+Header 4X2                      JW1_U_STF      HDR2X4
+Header 4X2                      JW1_U_STF      HDR2X4
+Header 4X2                      JW1_U_STF      HDR2X4
+Header 4X2                      JW1_U_STF      HDR2X4
+Header 4X2                      JWS2           HDR2X4
+1757242                         P1             PHOENIX_1757242
+1755532                         P2             PHOENIX_1755532
+Header 9X2                      P3_U_HF_D      HDR2X9
+Header 9X2                      P3_U_HF_D      HDR2X9
+Header 4                        P4_U_HF_D      HDR1X4
+Header 4                        P4_U_HF_D      HDR1X4
+Header 2                        P7             HDR1X2
+Header 3X2                      P8             HDR2X3
+Header 3                        P9             HDR1X3
+MOSFET-N                        Q1             E3
+Resistor 10K                    R1             J1-0603
+Resistor 1K                     R2             J1-0603
+Resistor 1K                     R3             J1-0603
+Resistor 33R                    R4             J1-0603
+Resistor 33R                    R5             J1-0603
+Resistor 10K                    R6             J1-0603
+Resistor 10K                    R7             J1-0603
+G6K-2F-Y-TR DC5                 RLA1           G6K-2F-Y DC3
+SN74CBTD3384CDW                 U1             SOIC127P1030X265-24N
+
+<<< Wire List >>>
+
+  NODE  REFERENCE  PIN #   PIN NAME       PIN TYPE    PART VALUE
+
+[00239] Y23
+        JPS2       24      24             PASSIVE     Header 17X2
+
+[00238] Y22
+        JPS2       23      23             PASSIVE     Header 17X2
+
+[00237] Y21
+        JPS2       22      22             PASSIVE     Header 17X2
+
+[00236] Y20
+        JPS2       21      21             PASSIVE     Header 17X2
+
+[00235] Y19
+        JPS2       20      20             PASSIVE     Header 17X2
+
+[00234] Y18
+        JPS2       19      19             PASSIVE     Header 17X2
+
+[00233] Y17
+        JPS2       18      18             PASSIVE     Header 17X2
+
+[00232] Y16
+        JPS2       17      17             PASSIVE     Header 17X2
+
+[00231] Y15
+        JPS2       16      16             PASSIVE     Header 17X2
+
+[00230] Y14
+        JPS2       15      15             PASSIVE     Header 17X2
+
+[00229] Y13
+        JPS2       14      14             PASSIVE     Header 17X2
+
+[00228] Y12
+        JPS2       13      13             PASSIVE     Header 17X2
+
+[00227] Y11
+        JPS2       12      12             PASSIVE     Header 17X2
+
+[00226] Y10
+        JPS2       11      11             PASSIVE     Header 17X2
+
+[00225] Y9
+        JPS2       10      10             PASSIVE     Header 17X2
+
+[00224] Y8
+        JPS2       9       9              PASSIVE     Header 17X2
+
+[00214] X24_U_STF_Module1
+        IDJ        1       1              PASSIVE     Header 6X2
+        JP0_U_STF  25      25             PASSIVE     Header 17X2
+
+[00213] X24_U_SFT_Module4
+        JP0_U_SFT  25      25             PASSIVE     Header 17X2
+
+[00212] X24
+        JPS1       25      25             PASSIVE     Header 17X2
+
+[00211] X23_U_STF_Module3
+        JP0_U_STF  24      24             PASSIVE     Header 17X2
+
+[00210] X23_U_STF_Module2
+        JP0_U_STF  24      24             PASSIVE     Header 17X2
+
+[00209] X23_U_SFT_Module4
+        JP0_U_SFT  24      24             PASSIVE     Header 17X2
+
+[00208] X23_U_dds1
+        JP0_U_STF  24      24             PASSIVE     Header 17X2
+
+[00207] X23_U_dds0
+        JP0_U_STF  24      24             PASSIVE     Header 17X2
+
+[00206] X22_U_STF_Module3
+        JP0_U_STF  23      23             PASSIVE     Header 17X2
+
+[00205] X22_U_STF_Module2
+        JP0_U_STF  23      23             PASSIVE     Header 17X2
+
+[00204] X22_U_SFT_Module4
+        JP0_U_SFT  23      23             PASSIVE     Header 17X2
+
+[00203] X22_U_dds1
+        JP0_U_STF  23      23             PASSIVE     Header 17X2
+
+[00202] X22_U_dds0
+        JP0_U_STF  23      23             PASSIVE     Header 17X2
+
+[00201] X21_U_STF_Module3
+        JP0_U_STF  22      22             PASSIVE     Header 17X2
+
+[00200] X21_U_STF_Module2
+        JP0_U_STF  22      22             PASSIVE     Header 17X2
+
+[00199] X21_U_SFT_Module4
+        JP0_U_SFT  22      22             PASSIVE     Header 17X2
+
+[00198] X20_U_STF_Module3
+        JP0_U_STF  21      21             PASSIVE     Header 17X2
+
+[00197] X20_U_STF_Module2
+        JP0_U_STF  21      21             PASSIVE     Header 17X2
+
+[00196] X20_U_SFT_Module4
+        JP0_U_SFT  21      21             PASSIVE     Header 17X2
+
+[00195] X11
+        JPS1       12      12             PASSIVE     Header 17X2
+
+[00194] X9
+        JPS1       10      10             PASSIVE     Header 17X2
+
+[00193] X7_U_SFT_Module4
+        JP0_U_SFT  8       8              PASSIVE     Header 17X2
+
+[00192] X7_U_dds1
+        JP0_U_STF  8       8              PASSIVE     Header 17X2
+
+[00191] X7_U_dds0
+        JP0_U_STF  8       8              PASSIVE     Header 17X2
+
+[00190] X6_U_dds1
+        JP0_U_STF  7       7              PASSIVE     Header 17X2
+
+[00189] X6_U_dds0
+        JP0_U_STF  7       7              PASSIVE     Header 17X2
+
+[00188] X1_U_SFT_Module4
+        JP0_U_SFT  2       2              PASSIVE     Header 17X2
+
+[00187] X0_U_SFT_Module4
+        JP0_U_SFT  1       1              PASSIVE     Header 17X2
+
+[00178] NetR7_1
+        R7         1       1              PASSIVE     Resistor 10K
+        RLA1       7       7              PASSIVE     G6K-2F-Y-TR DC5
+
+[00177] NetR6_2
+        R6         2       2              PASSIVE     Resistor 10K
+        RLA1       2       2              PASSIVE     G6K-2F-Y-TR DC5
+
+[00176] NetR3_1
+        R3         1       1              PASSIVE     Resistor 1K
+        R4         1       1              PASSIVE     Resistor 33R
+        U1         3       1A1            I/O         SN74CBTD3384CDW
+
+[00175] NetR2_1
+        R2         1       1              PASSIVE     Resistor 1K
+        R5         1       1              PASSIVE     Resistor 33R
+        U1         4       1A2            I/O         SN74CBTD3384CDW
+
+[00174] NetQ1_1
+        Q1         1       D              PASSIVE     MOSFET-N
+        RLA1       8       8              PASSIVE     G6K-2F-Y-TR DC5
+
+[00173] NetP9_3
+        P9         3       3              PASSIVE     Header 3
+        Q1         2       G              PASSIVE     MOSFET-N
+        R1         2       2              PASSIVE     Resistor 10K
+
+[00172] NetP8_6
+        P8         6       6              PASSIVE     Header 3X2
+        RLA1       3       3              PASSIVE     G6K-2F-Y-TR DC5
+
+[00171] NetP8_5
+        P8         5       5              PASSIVE     Header 3X2
+        RLA1       6       6              PASSIVE     G6K-2F-Y-TR DC5
+
+[00170] NetP7_1
+        P7         1       1              PASSIVE     Header 2
+        P9         1       1              PASSIVE     Header 3
+
+[00169] NetF2_1
+        F2         1       1              PASSIVE     MF-MSMF010
+        J5         1       1              PASSIVE     CONSMA008-G
+
+[00168] NetF1_1
+        F1         1       1              PASSIVE     MF-MSMF010
+        J4         1       1              PASSIVE     CONSMA008-G
+
+[00167] NetD2_1
+        D2         1       1              PASSIVE     CDSOD323-T05C
+        F2         2       2              PASSIVE     MF-MSMF010
+        U1         5       1B2            I/O         SN74CBTD3384CDW
+
+[00166] NetD1_1
+        D1         1       1              PASSIVE     CDSOD323-T05C
+        F1         2       2              PASSIVE     MF-MSMF010
+        U1         2       1B1            I/O         SN74CBTD3384CDW
+
+[00165] JPs-15V
+        JPS1       32      32             PASSIVE     Header 17X2
+        JPS2       32      32             PASSIVE     Header 17X2
+        JWS2       1       1              PASSIVE     Header 4X2
+        P8         4       4              PASSIVE     Header 3X2
+
+[00164] JPs+15V
+        JPS1       30      30             PASSIVE     Header 17X2
+        JPS2       30      30             PASSIVE     Header 17X2
+        JWS2       3       3              PASSIVE     Header 4X2
+        P8         3       3              PASSIVE     Header 3X2
+
+[00163] IDENTY
+        JPS2       26      26             PASSIVE     Header 17X2
+
+[00162] IDENT_U_SFT_Module4
+        JP0_U_SFT  26      26             PASSIVE     Header 17X2
+
+[00161] ID5
+        IDJ        9       9              PASSIVE     Header 6X2
+        JP0_U_STF  26      26             PASSIVE     Header 17X2
+
+[00160] ID4
+        IDJ        5       5              PASSIVE     Header 6X2
+        JP0_U_STF  26      26             PASSIVE     Header 17X2
+
+[00159] ID3
+        IDJ        11      11             PASSIVE     Header 6X2
+        JPS1       26      26             PASSIVE     Header 17X2
+
+[00158] ID2
+        IDJ        7       7              PASSIVE     Header 6X2
+        JP0_U_STF  26      26             PASSIVE     Header 17X2
+
+[00157] ID1
+        IDJ        3       3              PASSIVE     Header 6X2
+        JP0_U_STF  26      26             PASSIVE     Header 17X2
+
+[00155] D80
+        IDJ        2       2              PASSIVE     Header 6X2
+        IDJ        4       4              PASSIVE     Header 6X2
+        IDJ        6       6              PASSIVE     Header 6X2
+        IDJ        8       8              PASSIVE     Header 6X2
+        IDJ        10      10             PASSIVE     Header 6X2
+        IDJ        12      12             PASSIVE     Header 6X2
+        J1         80      80             PASSIVE     QTE-040-01-XXX-D-A
+
+[00154] D78
+        J1         78      78             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  7       7              PASSIVE     Header 17X2
+
+[00153] D77
+        J1         77      77             PASSIVE     QTE-040-01-XXX-D-A
+        J1         79      79             PASSIVE     QTE-040-01-XXX-D-A
+
+[00152] D76
+        J1         76      76             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  6       6              PASSIVE     Header 17X2
+
+[00151] D75
+        J1         75      75             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  5       5              PASSIVE     Header 17X2
+
+[00150] D74
+        J1         74      74             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  4       4              PASSIVE     Header 17X2
+
+[00149] D73
+        J1         73      73             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  3       3              PASSIVE     Header 17X2
+
+[00148] D72
+        J1         72      72             PASSIVE     QTE-040-01-XXX-D-A
+        P9         2       2              PASSIVE     Header 3
+
+[00147] D71
+        J1         71      71             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       25      25             PASSIVE     Header 17X2
+
+[00146] D70
+        J1         70      70             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       21      21             PASSIVE     Header 17X2
+
+[00145] D69
+        J1         69      69             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       1       1              PASSIVE     Header 17X2
+
+[00144] D68
+        J1         68      68             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       22      22             PASSIVE     Header 17X2
+
+[00143] D67
+        J1         67      67             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       19      19             PASSIVE     Header 17X2
+
+[00142] D66
+        J1         66      66             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       7       7              PASSIVE     Header 17X2
+
+[00141] D65
+        J1         65      65             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       8       8              PASSIVE     Header 17X2
+
+[00140] D64
+        J1         64      64             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       2       2              PASSIVE     Header 17X2
+
+[00139] D63
+        J1         63      63             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       20      20             PASSIVE     Header 17X2
+
+[00138] D62
+        J1         62      62             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       5       5              PASSIVE     Header 17X2
+
+[00137] D61
+        J1         61      61             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       11      11             PASSIVE     Header 17X2
+
+[00136] D60
+        J1         60      60             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       13      13             PASSIVE     Header 17X2
+
+[00135] D59
+        J1         59      59             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       14      14             PASSIVE     Header 17X2
+
+[00134] D58
+        J1         58      58             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       15      15             PASSIVE     Header 17X2
+
+[00133] D57
+        J1         57      57             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       16      16             PASSIVE     Header 17X2
+
+[00132] D56
+        J1         56      56             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       18      18             PASSIVE     Header 17X2
+
+[00131] D55
+        J1         55      55             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       17      17             PASSIVE     Header 17X2
+
+[00130] D54
+        J1         54      54             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       4       4              PASSIVE     Header 17X2
+
+[00129] D53
+        J1         53      53             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       3       3              PASSIVE     Header 17X2
+
+[00128] D52
+        J1         52      52             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       6       6              PASSIVE     Header 17X2
+
+[00127] D51
+        J1         51      51             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       7       7              PASSIVE     Header 17X2
+
+[00126] D50
+        J1         50      50             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       8       8              PASSIVE     Header 17X2
+
+[00125] D49
+        J1         49      49             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       9       9              PASSIVE     Header 17X2
+
+[00124] D48
+        J1         48      48             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       24      24             PASSIVE     Header 17X2
+
+[00123] D47
+        J1         47      47             PASSIVE     QTE-040-01-XXX-D-A
+        JPS1       23      23             PASSIVE     Header 17X2
+
+[00122] D46
+        J1         46      46             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       2       2              PASSIVE     Header 17X2
+
+[00121] D45
+        J1         45      45             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       1       1              PASSIVE     Header 17X2
+
+[00120] D44
+        J1         44      44             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       4       4              PASSIVE     Header 17X2
+
+[00119] D43
+        J1         43      43             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       3       3              PASSIVE     Header 17X2
+
+[00118] D42
+        J1         42      42             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       6       6              PASSIVE     Header 17X2
+
+[00117] D41
+        J1         41      41             PASSIVE     QTE-040-01-XXX-D-A
+        JPS2       5       5              PASSIVE     Header 17X2
+
+[00115] C40
+        J2         40      40             PASSIVE     QTE-040-01-XXX-D-A
+        R5         2       2              PASSIVE     Resistor 33R
+
+[00114] C39
+        J2         39      39             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  9       9              PASSIVE     Header 17X2
+
+[00113] C38
+        J2         38      38             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  18      18             PASSIVE     Header 17X2
+
+[00112] C37
+        J2         37      37             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  15      15             PASSIVE     Header 17X2
+
+[00111] C36
+        J2         36      36             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  3       3              PASSIVE     Header 17X2
+
+[00110] C35
+        J2         35      35             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  4       4              PASSIVE     Header 17X2
+
+[00109] C34
+        J2         34      34             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  5       5              PASSIVE     Header 17X2
+
+[00108] C33
+        J2         33      33             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  16      16             PASSIVE     Header 17X2
+
+[00107] C32
+        J2         32      32             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  9       9              PASSIVE     Header 17X2
+
+[00106] C31
+        J2         31      31             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  18      18             PASSIVE     Header 17X2
+
+[00105] C30
+        J2         30      30             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  15      15             PASSIVE     Header 17X2
+
+[00104] C29
+        J2         29      29             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  3       3              PASSIVE     Header 17X2
+
+[00103] C28
+        J2         28      28             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  4       4              PASSIVE     Header 17X2
+
+[00102] C27
+        J2         27      27             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  5       5              PASSIVE     Header 17X2
+
+[00101] C26
+        J2         26      26             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  16      16             PASSIVE     Header 17X2
+
+[00100] C25
+        J2         25      25             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  2       2              PASSIVE     Header 17X2
+        JP0_U_STF  2       2              PASSIVE     Header 17X2
+
+[00099] C24
+        J2         24      24             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  6       6              PASSIVE     Header 17X2
+        JP0_U_STF  6       6              PASSIVE     Header 17X2
+
+[00098] C23
+        J2         23      23             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  14      14             PASSIVE     Header 17X2
+        JP0_U_STF  14      14             PASSIVE     Header 17X2
+
+[00097] C22
+        J2         22      22             PASSIVE     QTE-040-01-XXX-D-A
+        R4         2       2              PASSIVE     Resistor 33R
+
+[00096] C21
+        J2         21      21             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  17      17             PASSIVE     Header 17X2
+        JP0_U_STF  17      17             PASSIVE     Header 17X2
+
+[00095] C20
+        J2         20      20             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  1       1              PASSIVE     Header 17X2
+        JP0_U_STF  1       1              PASSIVE     Header 17X2
+
+[00094] C19
+        J2         19      19             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  25      25             PASSIVE     Header 17X2
+        JP0_U_STF  25      25             PASSIVE     Header 17X2
+
+[00093] C18
+        J2         18      18             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  10      10             PASSIVE     Header 17X2
+        JP0_U_STF  10      10             PASSIVE     Header 17X2
+
+[00092] C17
+        J2         17      17             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  11      11             PASSIVE     Header 17X2
+        JP0_U_STF  11      11             PASSIVE     Header 17X2
+
+[00091] C16
+        J2         16      16             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  12      12             PASSIVE     Header 17X2
+        JP0_U_STF  12      12             PASSIVE     Header 17X2
+
+[00090] C15
+        J2         15      15             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  13      13             PASSIVE     Header 17X2
+        JP0_U_STF  13      13             PASSIVE     Header 17X2
+
+[00089] C14
+        J2         14      14             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  19      19             PASSIVE     Header 17X2
+        JP0_U_STF  19      19             PASSIVE     Header 17X2
+
+[00088] C13
+        J2         13      13             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  20      20             PASSIVE     Header 17X2
+        JP0_U_STF  20      20             PASSIVE     Header 17X2
+
+[00087] C12
+        J2         12      12             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  21      21             PASSIVE     Header 17X2
+        JP0_U_STF  21      21             PASSIVE     Header 17X2
+
+[00086] C11
+        J2         11      11             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  22      22             PASSIVE     Header 17X2
+        JP0_U_STF  22      22             PASSIVE     Header 17X2
+
+[00085] C10
+        J2         10      10             PASSIVE     QTE-040-01-XXX-D-A
+
+[00084] C9
+        J2         9       9              PASSIVE     QTE-040-01-XXX-D-A
+
+[00083] C8
+        J2         8       8              PASSIVE     QTE-040-01-XXX-D-A
+
+[00082] C7
+        J2         7       7              PASSIVE     QTE-040-01-XXX-D-A
+
+[00081] C5
+        J2         5       5              PASSIVE     QTE-040-01-XXX-D-A
+
+[00080] C3
+        J2         3       3              PASSIVE     QTE-040-01-XXX-D-A
+
+[00079] C1
+        C1         2       2              PASSIVE     C0805C104KMRECAUTO
+        D1         2       2              PASSIVE     CDSOD323-T05C
+        D2         2       2              PASSIVE     CDSOD323-T05C
+        J1         G1      G1             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G2      G2             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G3      G3             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G4      G4             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G5      G5             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G6      G6             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G7      G7             PASSIVE     QTE-040-01-XXX-D-A
+        J1         G8      G8             PASSIVE     QTE-040-01-XXX-D-A
+        J2         1       1              PASSIVE     QTE-040-01-XXX-D-A
+        J2         G1      G1             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G2      G2             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G3      G3             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G4      G4             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G5      G5             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G6      G6             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G7      G7             PASSIVE     QTE-040-01-XXX-D-A
+        J2         G8      G8             PASSIVE     QTE-040-01-XXX-D-A
+        J3_U_HF_D  S1      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S2      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S3      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S4      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S1      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S2      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S3      2              PASSIVE     CONSMA008-G
+        J3_U_HF_D  S4      2              PASSIVE     CONSMA008-G
+        J4         S1      2              PASSIVE     CONSMA008-G
+        J4         S2      2              PASSIVE     CONSMA008-G
+        J4         S3      2              PASSIVE     CONSMA008-G
+        J4         S4      2              PASSIVE     CONSMA008-G
+        J5         S1      2              PASSIVE     CONSMA008-G
+        J5         S2      2              PASSIVE     CONSMA008-G
+        J5         S3      2              PASSIVE     CONSMA008-G
+        J5         S4      2              PASSIVE     CONSMA008-G
+        JP0_U_SFT  9       9              PASSIVE     Header 17X2
+        JP0_U_SFT  10      10             PASSIVE     Header 17X2
+        JP0_U_SFT  11      11             PASSIVE     Header 17X2
+        JP0_U_SFT  12      12             PASSIVE     Header 17X2
+        JP0_U_SFT  13      13             PASSIVE     Header 17X2
+        JP0_U_SFT  15      15             PASSIVE     Header 17X2
+        JP0_U_SFT  17      17             PASSIVE     Header 17X2
+        JP0_U_SFT  18      18             PASSIVE     Header 17X2
+        JP0_U_SFT  19      19             PASSIVE     Header 17X2
+        JP0_U_SFT  20      20             PASSIVE     Header 17X2
+        JP0_U_SFT  27      27             PASSIVE     Header 17X2
+        JP0_U_SFT  28      28             PASSIVE     Header 17X2
+        JP0_U_SFT  33      33             PASSIVE     Header 17X2
+        JP0_U_SFT  34      34             PASSIVE     Header 17X2
+        JP0_U_STF  27      27             PASSIVE     Header 17X2
+        JP0_U_STF  28      28             PASSIVE     Header 17X2
+        JP0_U_STF  33      33             PASSIVE     Header 17X2
+        JP0_U_STF  34      34             PASSIVE     Header 17X2
+        JP0_U_STF  27      27             PASSIVE     Header 17X2
+        JP0_U_STF  28      28             PASSIVE     Header 17X2
+        JP0_U_STF  33      33             PASSIVE     Header 17X2
+        JP0_U_STF  34      34             PASSIVE     Header 17X2
+        JP0_U_STF  27      27             PASSIVE     Header 17X2
+        JP0_U_STF  28      28             PASSIVE     Header 17X2
+        JP0_U_STF  33      33             PASSIVE     Header 17X2
+        JP0_U_STF  34      34             PASSIVE     Header 17X2
+        JP0_U_STF  27      27             PASSIVE     Header 17X2
+        JP0_U_STF  28      28             PASSIVE     Header 17X2
+        JP0_U_STF  33      33             PASSIVE     Header 17X2
+        JP0_U_STF  34      34             PASSIVE     Header 17X2
+        JP0_U_STF  27      27             PASSIVE     Header 17X2
+        JP0_U_STF  28      28             PASSIVE     Header 17X2
+        JP0_U_STF  33      33             PASSIVE     Header 17X2
+        JP0_U_STF  34      34             PASSIVE     Header 17X2
+        JPS1       27      27             PASSIVE     Header 17X2
+        JPS1       28      28             PASSIVE     Header 17X2
+        JPS1       33      33             PASSIVE     Header 17X2
+        JPS1       34      34             PASSIVE     Header 17X2
+        JPS2       27      27             PASSIVE     Header 17X2
+        JPS2       28      28             PASSIVE     Header 17X2
+        JPS2       33      33             PASSIVE     Header 17X2
+        JPS2       34      34             PASSIVE     Header 17X2
+        JW0_U_SFT  2       2              PASSIVE     Header 4X2
+        JW0_U_SFT  4       4              PASSIVE     Header 4X2
+        JW0_U_SFT  6       6              PASSIVE     Header 4X2
+        JW0_U_SFT  8       8              PASSIVE     Header 4X2
+        JW0_U_STF  2       2              PASSIVE     Header 4X2
+        JW0_U_STF  4       4              PASSIVE     Header 4X2
+        JW0_U_STF  6       6              PASSIVE     Header 4X2
+        JW0_U_STF  8       8              PASSIVE     Header 4X2
+        JW0_U_STF  2       2              PASSIVE     Header 4X2
+        JW0_U_STF  4       4              PASSIVE     Header 4X2
+        JW0_U_STF  6       6              PASSIVE     Header 4X2
+        JW0_U_STF  8       8              PASSIVE     Header 4X2
+        JW0_U_STF  2       2              PASSIVE     Header 4X2
+        JW0_U_STF  4       4              PASSIVE     Header 4X2
+        JW0_U_STF  6       6              PASSIVE     Header 4X2
+        JW0_U_STF  8       8              PASSIVE     Header 4X2
+        JW0_U_STF  2       2              PASSIVE     Header 4X2
+        JW0_U_STF  4       4              PASSIVE     Header 4X2
+        JW0_U_STF  6       6              PASSIVE     Header 4X2
+        JW0_U_STF  8       8              PASSIVE     Header 4X2
+        JW0_U_STF  2       2              PASSIVE     Header 4X2
+        JW0_U_STF  4       4              PASSIVE     Header 4X2
+        JW0_U_STF  6       6              PASSIVE     Header 4X2
+        JW0_U_STF  8       8              PASSIVE     Header 4X2
+        JW1_U_SFT  2       2              PASSIVE     Header 4X2
+        JW1_U_SFT  4       4              PASSIVE     Header 4X2
+        JW1_U_SFT  6       6              PASSIVE     Header 4X2
+        JW1_U_SFT  8       8              PASSIVE     Header 4X2
+        JW1_U_STF  2       2              PASSIVE     Header 4X2
+        JW1_U_STF  4       4              PASSIVE     Header 4X2
+        JW1_U_STF  6       6              PASSIVE     Header 4X2
+        JW1_U_STF  8       8              PASSIVE     Header 4X2
+        JW1_U_STF  2       2              PASSIVE     Header 4X2
+        JW1_U_STF  4       4              PASSIVE     Header 4X2
+        JW1_U_STF  6       6              PASSIVE     Header 4X2
+        JW1_U_STF  8       8              PASSIVE     Header 4X2
+        JW1_U_STF  2       2              PASSIVE     Header 4X2
+        JW1_U_STF  4       4              PASSIVE     Header 4X2
+        JW1_U_STF  6       6              PASSIVE     Header 4X2
+        JW1_U_STF  8       8              PASSIVE     Header 4X2
+        JW1_U_STF  2       2              PASSIVE     Header 4X2
+        JW1_U_STF  4       4              PASSIVE     Header 4X2
+        JW1_U_STF  6       6              PASSIVE     Header 4X2
+        JW1_U_STF  8       8              PASSIVE     Header 4X2
+        JW1_U_STF  2       2              PASSIVE     Header 4X2
+        JW1_U_STF  4       4              PASSIVE     Header 4X2
+        JW1_U_STF  6       6              PASSIVE     Header 4X2
+        JW1_U_STF  8       8              PASSIVE     Header 4X2
+        JWS2       2       2              PASSIVE     Header 4X2
+        JWS2       4       4              PASSIVE     Header 4X2
+        JWS2       6       6              PASSIVE     Header 4X2
+        JWS2       8       8              PASSIVE     Header 4X2
+        P1         2       2              PASSIVE     1757242
+        P2         2       2              PASSIVE     1755532
+        P2         3       3              PASSIVE     1755532
+        P3_U_HF_D  1       1              PASSIVE     Header 9X2
+        P3_U_HF_D  3       3              PASSIVE     Header 9X2
+        P3_U_HF_D  5       5              PASSIVE     Header 9X2
+        P3_U_HF_D  7       7              PASSIVE     Header 9X2
+        P3_U_HF_D  9       9              PASSIVE     Header 9X2
+        P3_U_HF_D  11      11             PASSIVE     Header 9X2
+        P3_U_HF_D  13      13             PASSIVE     Header 9X2
+        P3_U_HF_D  15      15             PASSIVE     Header 9X2
+        P3_U_HF_D  17      17             PASSIVE     Header 9X2
+        P3_U_HF_D  1       1              PASSIVE     Header 9X2
+        P3_U_HF_D  3       3              PASSIVE     Header 9X2
+        P3_U_HF_D  5       5              PASSIVE     Header 9X2
+        P3_U_HF_D  7       7              PASSIVE     Header 9X2
+        P3_U_HF_D  9       9              PASSIVE     Header 9X2
+        P3_U_HF_D  11      11             PASSIVE     Header 9X2
+        P3_U_HF_D  13      13             PASSIVE     Header 9X2
+        P3_U_HF_D  15      15             PASSIVE     Header 9X2
+        P3_U_HF_D  17      17             PASSIVE     Header 9X2
+        P4_U_HF_D  1       1              PASSIVE     Header 4
+        P4_U_HF_D  3       3              PASSIVE     Header 4
+        P4_U_HF_D  1       1              PASSIVE     Header 4
+        P4_U_HF_D  3       3              PASSIVE     Header 4
+        P7         2       2              PASSIVE     Header 2
+        Q1         3       S              PASSIVE     MOSFET-N
+        R1         1       1              PASSIVE     Resistor 10K
+        R6         1       1              PASSIVE     Resistor 10K
+        R7         2       2              PASSIVE     Resistor 10K
+        U1         1       1\O\E\\        INPUT       SN74CBTD3384CDW
+        U1         6       1B3            I/O         SN74CBTD3384CDW
+        U1         9       1B4            I/O         SN74CBTD3384CDW
+        U1         10      1B5            I/O         SN74CBTD3384CDW
+        U1         12      GND            POWER       SN74CBTD3384CDW
+        U1         13      2\O\E\\        INPUT       SN74CBTD3384CDW
+        U1         15      2B1            I/O         SN74CBTD3384CDW
+        U1         16      2B2            I/O         SN74CBTD3384CDW
+        U1         19      2B3            I/O         SN74CBTD3384CDW
+        U1         20      2B4            I/O         SN74CBTD3384CDW
+        U1         23      2B5            I/O         SN74CBTD3384CDW
+
+[00077] B78
+        J2         78      78             PASSIVE     QTE-040-01-XXX-D-A
+        J2         80      80             PASSIVE     QTE-040-01-XXX-D-A
+
+[00076] B75
+        C1         1       1              PASSIVE     C0805C104KMRECAUTO
+        J2         75      75             PASSIVE     QTE-040-01-XXX-D-A
+        J2         77      77             PASSIVE     QTE-040-01-XXX-D-A
+        J2         79      79             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  31      31             PASSIVE     Header 17X2
+        JP0_U_STF  31      31             PASSIVE     Header 17X2
+        JP0_U_STF  31      31             PASSIVE     Header 17X2
+        JP0_U_STF  31      31             PASSIVE     Header 17X2
+        JP0_U_STF  31      31             PASSIVE     Header 17X2
+        JP0_U_STF  31      31             PASSIVE     Header 17X2
+        JPS1       31      31             PASSIVE     Header 17X2
+        JPS2       31      31             PASSIVE     Header 17X2
+        JW0_U_SFT  5       5              PASSIVE     Header 4X2
+        JW0_U_STF  5       5              PASSIVE     Header 4X2
+        JW0_U_STF  5       5              PASSIVE     Header 4X2
+        JW0_U_STF  5       5              PASSIVE     Header 4X2
+        JW0_U_STF  5       5              PASSIVE     Header 4X2
+        JW0_U_STF  5       5              PASSIVE     Header 4X2
+        JW1_U_SFT  5       5              PASSIVE     Header 4X2
+        JW1_U_STF  5       5              PASSIVE     Header 4X2
+        JW1_U_STF  5       5              PASSIVE     Header 4X2
+        JW1_U_STF  5       5              PASSIVE     Header 4X2
+        JW1_U_STF  5       5              PASSIVE     Header 4X2
+        JW1_U_STF  5       5              PASSIVE     Header 4X2
+        JWS2       5       5              PASSIVE     Header 4X2
+        P1         1       1              PASSIVE     1757242
+        RLA1       1       1              PASSIVE     G6K-2F-Y-TR DC5
+        U1         24      VCC            POWER       SN74CBTD3384CDW
+
+[00075] B74
+        J2         74      74             PASSIVE     QTE-040-01-XXX-D-A
+        J2         76      76             PASSIVE     QTE-040-01-XXX-D-A
+
+[00074] B73
+        J2         73      73             PASSIVE     QTE-040-01-XXX-D-A
+        P4_U_HF_D  4       4              PASSIVE     Header 4
+        P4_U_HF_D  4       4              PASSIVE     Header 4
+
+[00073] B72
+        J2         72      72             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  16      16             PASSIVE     Header 17X2
+
+[00072] B70
+        J2         70      70             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  14      14             PASSIVE     Header 17X2
+
+[00071] B68
+        J2         68      68             PASSIVE     QTE-040-01-XXX-D-A
+
+[00070] B67
+        J2         2       2              PASSIVE     QTE-040-01-XXX-D-A
+        J2         4       4              PASSIVE     QTE-040-01-XXX-D-A
+        J2         6       6              PASSIVE     QTE-040-01-XXX-D-A
+        J2         67      67             PASSIVE     QTE-040-01-XXX-D-A
+        J2         69      69             PASSIVE     QTE-040-01-XXX-D-A
+        J2         71      71             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_SFT  29      29             PASSIVE     Header 17X2
+        JP0_U_STF  29      29             PASSIVE     Header 17X2
+        JP0_U_STF  29      29             PASSIVE     Header 17X2
+        JP0_U_STF  29      29             PASSIVE     Header 17X2
+        JP0_U_STF  29      29             PASSIVE     Header 17X2
+        JP0_U_STF  29      29             PASSIVE     Header 17X2
+        JPS1       29      29             PASSIVE     Header 17X2
+        JPS2       29      29             PASSIVE     Header 17X2
+        JW0_U_SFT  7       7              PASSIVE     Header 4X2
+        JW0_U_STF  7       7              PASSIVE     Header 4X2
+        JW0_U_STF  7       7              PASSIVE     Header 4X2
+        JW0_U_STF  7       7              PASSIVE     Header 4X2
+        JW0_U_STF  7       7              PASSIVE     Header 4X2
+        JW0_U_STF  7       7              PASSIVE     Header 4X2
+        JW1_U_SFT  7       7              PASSIVE     Header 4X2
+        JW1_U_STF  7       7              PASSIVE     Header 4X2
+        JW1_U_STF  7       7              PASSIVE     Header 4X2
+        JW1_U_STF  7       7              PASSIVE     Header 4X2
+        JW1_U_STF  7       7              PASSIVE     Header 4X2
+        JW1_U_STF  7       7              PASSIVE     Header 4X2
+        JWS2       7       7              PASSIVE     Header 4X2
+        P4_U_HF_D  2       2              PASSIVE     Header 4
+        P4_U_HF_D  2       2              PASSIVE     Header 4
+        R2         2       2              PASSIVE     Resistor 1K
+        R3         2       2              PASSIVE     Resistor 1K
+
+[00069] B66
+        J2         66      66             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  25      25             PASSIVE     Header 17X2
+
+[00068] B65
+        J2         65      65             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  20      20             PASSIVE     Header 17X2
+
+[00067] B64
+        J2         64      64             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  19      19             PASSIVE     Header 17X2
+
+[00066] B63
+        J2         63      63             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  18      18             PASSIVE     Header 17X2
+
+[00065] B62
+        J2         62      62             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  17      17             PASSIVE     Header 17X2
+
+[00064] B61
+        J2         61      61             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  25      25             PASSIVE     Header 17X2
+
+[00063] B60
+        J2         60      60             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  20      20             PASSIVE     Header 17X2
+
+[00062] B59
+        J2         59      59             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  19      19             PASSIVE     Header 17X2
+
+[00061] B58
+        J2         58      58             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  18      18             PASSIVE     Header 17X2
+
+[00060] B57
+        J2         57      57             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  17      17             PASSIVE     Header 17X2
+
+[00059] B56
+        J2         56      56             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  16      16             PASSIVE     Header 17X2
+        JP0_U_STF  16      16             PASSIVE     Header 17X2
+
+[00058] B55
+        J2         55      55             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  15      15             PASSIVE     Header 17X2
+        JP0_U_STF  15      15             PASSIVE     Header 17X2
+
+[00057] B54
+        J2         54      54             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  14      14             PASSIVE     Header 17X2
+        JP0_U_STF  14      14             PASSIVE     Header 17X2
+
+[00056] B53
+        J2         53      53             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  13      13             PASSIVE     Header 17X2
+        JP0_U_STF  13      13             PASSIVE     Header 17X2
+
+[00055] B52
+        J2         52      52             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  12      12             PASSIVE     Header 17X2
+        JP0_U_STF  12      12             PASSIVE     Header 17X2
+
+[00054] B51
+        J2         51      51             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  11      11             PASSIVE     Header 17X2
+        JP0_U_STF  11      11             PASSIVE     Header 17X2
+
+[00053] B50
+        J2         50      50             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  10      10             PASSIVE     Header 17X2
+        JP0_U_STF  10      10             PASSIVE     Header 17X2
+
+[00052] B49
+        J2         49      49             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  9       9              PASSIVE     Header 17X2
+        JP0_U_STF  9       9              PASSIVE     Header 17X2
+
+[00051] B48
+        J2         48      48             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  8       8              PASSIVE     Header 17X2
+        JP0_U_STF  8       8              PASSIVE     Header 17X2
+
+[00050] B47
+        J2         47      47             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  7       7              PASSIVE     Header 17X2
+        JP0_U_STF  7       7              PASSIVE     Header 17X2
+
+[00049] B46
+        J2         46      46             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  6       6              PASSIVE     Header 17X2
+        JP0_U_STF  6       6              PASSIVE     Header 17X2
+
+[00048] B45
+        J2         45      45             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  5       5              PASSIVE     Header 17X2
+        JP0_U_STF  5       5              PASSIVE     Header 17X2
+
+[00047] B44
+        J2         44      44             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  4       4              PASSIVE     Header 17X2
+        JP0_U_STF  4       4              PASSIVE     Header 17X2
+
+[00046] B43
+        J2         43      43             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  3       3              PASSIVE     Header 17X2
+        JP0_U_STF  3       3              PASSIVE     Header 17X2
+
+[00045] B42
+        J2         42      42             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  2       2              PASSIVE     Header 17X2
+        JP0_U_STF  2       2              PASSIVE     Header 17X2
+
+[00044] B41
+        J2         41      41             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  1       1              PASSIVE     Header 17X2
+        JP0_U_STF  1       1              PASSIVE     Header 17X2
+
+[00042] A40
+        J1         40      40             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  18      18             PASSIVE     Header 9X2
+
+[00041] A39
+        J1         39      39             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  16      16             PASSIVE     Header 9X2
+
+[00040] A38
+        J1         38      38             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  10      10             PASSIVE     Header 9X2
+
+[00039] A37
+        J1         37      37             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  12      12             PASSIVE     Header 9X2
+
+[00038] A36
+        J1         36      36             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  8       8              PASSIVE     Header 9X2
+
+[00037] A35
+        J1         35      35             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  18      18             PASSIVE     Header 9X2
+
+[00036] A34
+        J1         34      34             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  16      16             PASSIVE     Header 9X2
+
+[00035] A33
+        J1         33      33             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  10      10             PASSIVE     Header 9X2
+
+[00034] A32
+        J1         32      32             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  12      12             PASSIVE     Header 9X2
+
+[00033] A31
+        J1         31      31             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  8       8              PASSIVE     Header 9X2
+
+[00032] A30
+        J1         30      30             PASSIVE     QTE-040-01-XXX-D-A
+        J3_U_HF_D  1       1              PASSIVE     CONSMA008-G
+        J3_U_HF_D  1       1              PASSIVE     CONSMA008-G
+
+[00031] A29
+        J1         29      29             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  14      14             PASSIVE     Header 9X2
+        P3_U_HF_D  14      14             PASSIVE     Header 9X2
+
+[00030] A28
+        J1         28      28             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  6       6              PASSIVE     Header 9X2
+        P3_U_HF_D  6       6              PASSIVE     Header 9X2
+
+[00029] A27
+        J1         27      27             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  4       4              PASSIVE     Header 9X2
+        P3_U_HF_D  4       4              PASSIVE     Header 9X2
+
+[00028] A26
+        J1         26      26             PASSIVE     QTE-040-01-XXX-D-A
+        P3_U_HF_D  2       2              PASSIVE     Header 9X2
+        P3_U_HF_D  2       2              PASSIVE     Header 9X2
+
+[00027] A25
+        J1         25      25             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  26      26             PASSIVE     Header 17X2
+
+[00026] A24
+        J1         24      24             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  23      23             PASSIVE     Header 17X2
+
+[00025] A23
+        J1         23      23             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  24      24             PASSIVE     Header 17X2
+
+[00024] A22
+        J1         22      22             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  21      21             PASSIVE     Header 17X2
+
+[00023] A21
+        J1         21      21             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  22      22             PASSIVE     Header 17X2
+
+[00022] A20
+        J1         20      20             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  19      19             PASSIVE     Header 17X2
+
+[00021] A19
+        J1         19      19             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  20      20             PASSIVE     Header 17X2
+
+[00020] A18
+        J1         18      18             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  17      17             PASSIVE     Header 17X2
+
+[00019] A17
+        J1         17      17             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  18      18             PASSIVE     Header 17X2
+
+[00018] A16
+        J1         16      16             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  15      15             PASSIVE     Header 17X2
+
+[00017] A15
+        J1         15      15             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  16      16             PASSIVE     Header 17X2
+
+[00016] A14
+        J1         14      14             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  13      13             PASSIVE     Header 17X2
+
+[00015] A13
+        J1         13      13             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  14      14             PASSIVE     Header 17X2
+
+[00014] A12
+        J1         12      12             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  11      11             PASSIVE     Header 17X2
+
+[00013] A11
+        J1         11      11             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  12      12             PASSIVE     Header 17X2
+
+[00012] A10
+        J1         10      10             PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  9       9              PASSIVE     Header 17X2
+
+[00011] A9
+        J1         9       9              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  10      10             PASSIVE     Header 17X2
+
+[00010] A8
+        J1         8       8              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  7       7              PASSIVE     Header 17X2
+
+[00009] A7
+        J1         7       7              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  8       8              PASSIVE     Header 17X2
+
+[00008] A6
+        J1         6       6              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  5       5              PASSIVE     Header 17X2
+
+[00007] A5
+        J1         5       5              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  6       6              PASSIVE     Header 17X2
+
+[00006] A4
+        J1         4       4              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  3       3              PASSIVE     Header 17X2
+
+[00005] A3
+        J1         3       3              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  4       4              PASSIVE     Header 17X2
+
+[00004] A2
+        J1         2       2              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  1       1              PASSIVE     Header 17X2
+
+[00003] A1
+        J1         1       1              PASSIVE     QTE-040-01-XXX-D-A
+        JP0_U_STF  2       2              PASSIVE     Header 17X2
+
+[00002] -15V
+        JP0_U_SFT  32      32             PASSIVE     Header 17X2
+        JP0_U_STF  32      32             PASSIVE     Header 17X2
+        JP0_U_STF  32      32             PASSIVE     Header 17X2
+        JP0_U_STF  32      32             PASSIVE     Header 17X2
+        JP0_U_STF  32      32             PASSIVE     Header 17X2
+        JP0_U_STF  32      32             PASSIVE     Header 17X2
+        JW0_U_SFT  1       1              PASSIVE     Header 4X2
+        JW0_U_STF  1       1              PASSIVE     Header 4X2
+        JW0_U_STF  1       1              PASSIVE     Header 4X2
+        JW0_U_STF  1       1              PASSIVE     Header 4X2
+        JW0_U_STF  1       1              PASSIVE     Header 4X2
+        JW0_U_STF  1       1              PASSIVE     Header 4X2
+        JW1_U_SFT  1       1              PASSIVE     Header 4X2
+        JW1_U_STF  1       1              PASSIVE     Header 4X2
+        JW1_U_STF  1       1              PASSIVE     Header 4X2
+        JW1_U_STF  1       1              PASSIVE     Header 4X2
+        JW1_U_STF  1       1              PASSIVE     Header 4X2
+        JW1_U_STF  1       1              PASSIVE     Header 4X2
+        P2         4       4              PASSIVE     1755532
+        P8         2       2              PASSIVE     Header 3X2
+        RLA1       4       4              PASSIVE     G6K-2F-Y-TR DC5
+
+[00001] +15V
+        JP0_U_SFT  30      30             PASSIVE     Header 17X2
+        JP0_U_STF  30      30             PASSIVE     Header 17X2
+        JP0_U_STF  30      30             PASSIVE     Header 17X2
+        JP0_U_STF  30      30             PASSIVE     Header 17X2
+        JP0_U_STF  30      30             PASSIVE     Header 17X2
+        JP0_U_STF  30      30             PASSIVE     Header 17X2
+        JW0_U_SFT  3       3              PASSIVE     Header 4X2
+        JW0_U_STF  3       3              PASSIVE     Header 4X2
+        JW0_U_STF  3       3              PASSIVE     Header 4X2
+        JW0_U_STF  3       3              PASSIVE     Header 4X2
+        JW0_U_STF  3       3              PASSIVE     Header 4X2
+        JW0_U_STF  3       3              PASSIVE     Header 4X2
+        JW1_U_SFT  3       3              PASSIVE     Header 4X2
+        JW1_U_STF  3       3              PASSIVE     Header 4X2
+        JW1_U_STF  3       3              PASSIVE     Header 4X2
+        JW1_U_STF  3       3              PASSIVE     Header 4X2
+        JW1_U_STF  3       3              PASSIVE     Header 4X2
+        JW1_U_STF  3       3              PASSIVE     Header 4X2
+        P2         1       1              PASSIVE     1755532
+        P8         1       1              PASSIVE     Header 3X2
+        RLA1       5       5              PASSIVE     G6K-2F-Y-TR DC5
+

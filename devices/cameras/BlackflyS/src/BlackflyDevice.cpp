@@ -53,6 +53,18 @@ void BlackflyDevice::init()
 	}
 }
 
+void BlackflyDevice::printAllCameraNodes()
+{
+	auto& nodeMap = camera->GetNodeMap();
+	Spinnaker::GenApi::NodeList_t nodes;
+	nodeMap.GetNodes(nodes);
+
+	for (auto& n : nodes) {
+		std::string name = n->GetName();
+		std::cout << name << std::endl;
+	}
+}
+
 void BlackflyDevice::initializedNodeValues()
 {
 	std::shared_ptr<BlackflyNodeValue> value;
@@ -61,44 +73,47 @@ void BlackflyDevice::initializedNodeValues()
 
 //	value = std::make_shared<BlackflyStringNodeValue>(camera, 
 //		"AcquisitionMode", "SingleFrame", "Continuous, SingleFrame, MultiFrame");
-	nodeValues.push_back(value);
+	addNodeValue(value);
+
+	value = makeNodeValue("SensorShutterMode", "GlobalReset", "Global, Rolling, GlobalReset");
+	addNodeValue(value);
 
 	//Not an attribute anymore, now a command argument
 //	value = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
-//	nodeValues.push_back(value);
+//	addNodeValue(value);
 
 	gainAutoNodeValue = makeNodeValue("GainAuto", "Off", "Off, Once, Continuous");
-	nodeValues.push_back(gainAutoNodeValue);
+	addNodeValue(gainAutoNodeValue);
 
 	gainConversionNodeValue = makeNodeValue("GainConversion", "HCG", "LCG, HCG");
-	nodeValues.push_back(gainConversionNodeValue);
+	addNodeValue(gainConversionNodeValue);
 
 	gainNodeValue = makeNodeValue("Gain", 0);
 //	gainNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "Gain", 0);	//Range 0 to 24 in dB
-	nodeValues.push_back(gainNodeValue);
+	addNodeValue(gainNodeValue);
 
 	value = makeNodeValue("Width", 1000);
-	nodeValues.push_back(value);
+	addNodeValue(value);
 	value = makeNodeValue("Height", 1000);
-	nodeValues.push_back(value);
+	addNodeValue(value);
 
 
 	//value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerMode", "On", "On, Off");
 	value = makeNodeValue("TriggerMode", "On", "On, Off");
-	nodeValues.push_back(value);
+	addNodeValue(value);
 	
 	triggerSourceNode = makeNodeValue("TriggerSource", "Software", "Line0, Software");
 //	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSource", 
 //		"Line1", "Line1, Software");
-	nodeValues.push_back(triggerSourceNode);
+	addNodeValue(triggerSourceNode);
 	
 	value = makeNodeValue("TriggerActivation", "RisingEdge", "RisingEdge, FallingEdge, AnyEdge, LevelLow, LevelHigh");
 //	value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerActivation",
 //		"RisingEdge", "RisingEdge, FallingEdge");
-	nodeValues.push_back(value);
+	addNodeValue(value);
 
 	value = makeNodeValue("ExposureMode", "Timed", "Timed, TriggerWidth");
-	nodeValues.push_back(value);
+	addNodeValue(value);
 
 	//Not supported; only accepts TriggerSelector = AcquisitionStart
 	//value = std::make_shared<BlackflyStringNodeValue>(camera, "TriggerSelector",
@@ -112,6 +127,15 @@ void BlackflyDevice::initializedNodeValues()
 	
 
 //	exposureTimeNodeValue = std::make_shared<BlackflyFloatNodeValue>(camera, "ExposureTime", 20000);
+}
+
+bool BlackflyDevice::addNodeValue(const std::shared_ptr<BlackflyNodeValue>& node)
+{
+	if (node != 0) {
+		nodeValues.push_back(node);
+		return true;
+	}
+	return false;
 }
 
 void BlackflyDevice::defineAttributes()
@@ -324,7 +348,24 @@ bool BlackflyDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Bla
 	exposure = (exposure >= 9) ? exposure : 9;
 	exposure = (exposure <= 30e6) ? exposure : 30e6;
 
+	if (!exposureInitialRangeCheck) {
+		message = "Invalid exposure time.  Value entered: " + STI::Utils::valueToString(exposure) 
+				+ " us.  Allowed range is 9 us to 30 s.";
+		return false;
+	}
+
+	if (exposureTimeNodeValue == 0) {
+		message = "Exposure time node value is null. Cannot access the exposure time of the camera.";
+		return false;
+	}
+
+	//issue with BFS-PGE-200S6M
+	//http://softwareservices.flir.com/BFS-PGE-200S6/latest/Model/spec.html
 	exposureTimeNodeValue->getValue(oldExposure);
+	STI::Utils::stringToValue(oldExposure, exposureCheck);	//default in case setValue/getValue fails
+
+	//if (false) {
+
 	if (exposureInitialRangeCheck &&
 		!exposureTimeNodeValue->setValue(STI::Utils::valueToString(exposure))
 		|| !exposureTimeNodeValue->getValue(newExposure)
@@ -337,6 +378,7 @@ bool BlackflyDevice::parseEventValue(const std::vector<RawEvent>& rawEvents, Bla
 		//exposure time is valid; reset to old exposure time for now (exposure time is set during playEvent)
 		exposureTimeNodeValue->setValue(oldExposure);
 	}
+	//}
 
 	value.exposureTime = exposure;	//Time is specifed in nanosec but the camera expect microsec
 	value.paneTag = "";	//default
@@ -430,8 +472,9 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 	std::string filenameext = ".tif";
 	std::string filename;
 
-	UINT32 sizeX = 1936;
-	UINT32 sizeY = 1216;
+	//NOTE: these are not used: the event gets the actual image dimension during collectMeasurementData
+	UINT32 sizeX = 3208;		// Smartek: 1936
+	UINT32 sizeY = 2200;		// Smartek: 1216
 
 
 	for (auto events = eventsIn.begin(); events != eventsIn.end(); events++)
@@ -469,8 +512,16 @@ void BlackflyDevice::parseDeviceEvents(const RawEventMap& eventsIn, SynchronousE
 		image->downsample = downsample;
 		
 		std::string gain = "";
-		gainNodeValue->getValue(gain);
+		if (gainNodeValue != 0) {
+			gainNodeValue->getValue(gain);
+		}
 		image->gain = gain;
+
+		std::string gainConversion = "";
+		if (gainConversionNodeValue != 0) {
+			gainConversionNodeValue->getValue(gainConversion);
+		}
+		image->gainConversion = gainConversion;
 
 		if (value.channel == 0) {	//Individual image
 
@@ -638,8 +689,10 @@ bool BlackflyDevice::isHardwareTriggered()
 	//Trigger setup
 	std::string trigSource;
 //	camera->GetStringNodeValue("TriggerSource", trigSource);
-	triggerSourceNode->getValue(trigSource);
-
+	if (triggerSourceNode != 0) {
+		triggerSourceNode->getValue(trigSource);
+	}
+	
 	return (trigSource.compare("Software") != 0);
 }
 
